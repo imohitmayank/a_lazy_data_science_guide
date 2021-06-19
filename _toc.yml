@@ -1,0 +1,47 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+- file: first_page
+
+- part: Deep Learning
+  chapters:
+    - file: deep_learning/neural_network_design
+      sections:
+      - file: deep_learning/recurrent_layer
+      - file: deep_learning/pooling
+    - file: deep_learning/handling_data
+    - file: deep_learning/training
+      sections:
+      - file: deep_learning/callback
+      - file: deep_learning/freeze_layers
+
+- part: Machine Learning
+  chapters:
+    - file: machine_learning/cross_validation
+    - file: machine_learning/hyperparameter_tuning
+#
+- part: Python
+  chapters:
+    - file: python/python_snippets
+    # - file: python/code_optimization
+    # - file: python/multi_processing
+#
+- part: Natural Language Processing
+  chapters:
+    - file: natural_language_processing/algorithms
+      sections:
+      - file: natural_language_processing/BERT
+      - file: natural_language_processing/RoBERTa
+    - file: natural_language_processing/applications
+#
+- part: Data Science Tools
+  chapters:
+    - file: data_science_tools/git
+    - file: data_science_tools/google_colab
+
+
+#
+# - file: content
+#   sections:
+#     - file: markdown
+#     - file: notebooks
