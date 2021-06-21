@@ -6,14 +6,6 @@
 - part: Deep Learning
   chapters:
     - file: deep_learning/neural_network_design
-      sections:
-      - file: deep_learning/recurrent_layer
-      - file: deep_learning/pooling
-    - file: deep_learning/handling_data
-    - file: deep_learning/training
-      sections:
-      - file: deep_learning/callback
-      - file: deep_learning/freeze_layers
 
 - part: Machine Learning
   chapters:

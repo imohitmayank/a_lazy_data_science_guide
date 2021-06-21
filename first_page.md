@@ -1,15 +1,13 @@
-Introduction
+A Lazy Data Science Guide
 ============================
 ----------
 
-**What is this?** This is a curated list of python snippets for busy and equally lazy Data Scientists 😄
+**What is this?** A guide book on data science for busy and equally lazy Data Scientists 😄
 
-**What does this include?** Starting with a basic introduction we move on to ways to create and query a KG. Then we discuss KG embeddings techniques. Finally, we look at the AI practices in KG by discussing the latest applications and generic research tracks.
+**What does this include?** While the book started as a collection of snippets, overtime the plan is to include details about the algorithms and applications to make this the ultimate guide for a budding or experienced Data Scientists.
 
-**Why this?** Recently, there has been a lot of hype around this subject which has brought interest from academics and industry equally. I found that irrespective of the field there is a need of an introductory notes which while covering the basics doesn't shy away from the details and complexity. This book is an attempt to consolidate wide range of ideas related to KG under one shed.
+**Why this?** While there are lots of good quality articles on data science topic, the major issue is that they are scattered across the web. This guide tries to consolidate the most relevant topics into one place.
 
-**How to read?** I have divided the complete article into multiple sections. Being a transcription of a lecture, it is intended to be read in order. That said, each section is sufficiently independent, so feel free to skip through the topics you are already familiar with.
+**How to read?** As the name suggests, this is a lazy book for lazy people 😄. On a serious note, there is no specific order. Feel free to search for the topic you are interested in and start reading.
 
-**Alternatives?** If you are more of a video person, I will suggest having a look at the two-part lecture videos - [part 1](https://panopto.ut.ee/Panopto/Pages/Viewer.aspx?id=edd60709-c357-45e6-b22d-ad0701355d11) and [part 2](https://panopto.ut.ee/Panopto/Pages/Viewer.aspx?id=71f2092a-f035-4940-a33f-ad0e013d0ef2). Otherwise, if you prefer written forms, tag along 😃
-
--- [Mohit Mayank](https://mohitmayank.com), June-2021
+-- [Mohit Mayank](https://mohitmayank.com)
