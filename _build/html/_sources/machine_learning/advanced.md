@@ -1,6 +1,5 @@
 Advanced ML topics
 ========================
---------------
 
 - We will discuss some advanced topic in Machine Learning.
 

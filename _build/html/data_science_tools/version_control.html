@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NLP Applications &#8212; A Lazy Data Science Guide</title>
+    <title>Version Control &#8212; A Lazy Data Science Guide</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Online Platforms" href="online_platforms.html" />
+    <link rel="prev" title="LSTM, GRU and RNN" href="../natural_language_processing/lstm_gru_rnn.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -128,7 +130,7 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="algorithms.html">
+  <a class="reference internal" href="../natural_language_processing/algorithms.html">
    NLP Algorithms
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -138,12 +140,12 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="BERT.html">
+    <a class="reference internal" href="../natural_language_processing/BERT.html">
      BERT
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="lstm_gru_rnn.html">
+    <a class="reference internal" href="../natural_language_processing/lstm_gru_rnn.html">
      LSTM, GRU and RNN
     </a>
    </li>
@@ -155,14 +157,14 @@
   Data Science Tools
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../data_science_tools/version_control.html">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Version Control
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../data_science_tools/online_platforms.html">
+  <a class="reference internal" href="online_platforms.html">
    Online Platforms
   </a>
  </li>
@@ -207,7 +209,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/natural_language_processing/applications.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/data_science_tools/version_control.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -227,7 +229,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/imohitmayank/data_science_guide/issues/new?title=Issue%20on%20page%20%2Fnatural_language_processing/applications.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/imohitmayank/data_science_guide/issues/new?title=Issue%20on%20page%20%2Fdata_science_tools/version_control.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -248,6 +250,26 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#git">
+   GIT
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modify-config-to-add-email-and-name">
+     Modify config to add email and name
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -256,8 +278,33 @@
         
               <div>
                 
-  <div class="section" id="nlp-applications">
-<h1>NLP Applications<a class="headerlink" href="#nlp-applications" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="version-control">
+<h1>Version Control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="git">
+<h2>GIT<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>GIT is the defacto version control for code base, with popular free and services like GitHub, Gitlab and BitBucket.</p></li>
+</ul>
+<div class="section" id="modify-config-to-add-email-and-name">
+<h3>Modify config to add email and name<a class="headerlink" href="#modify-config-to-add-email-and-name" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Add username</span>
+git config --global user.name <span class="s2">&quot;FIRST_NAME LAST_NAME&quot;</span>
+<span class="c1"># Add email</span>
+git config --global user.email <span class="s2">&quot;MY_NAME@example.com&quot;</span>
+
+<span class="c1"># For local modification (for a git within a directory), use --local instead of --global</span>
+<span class="c1"># mode details: https://support.atlassian.com/bitbucket-cloud/docs/configure-your-dvcs-username-for-commits/</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -273,7 +320,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./natural_language_processing"
+            path: "./data_science_tools"
         },
         predefinedOutput: true
     }
@@ -285,6 +332,8 @@
         
         <div class='prev-next-bottom'>
             
+    <a class='left-prev' id="prev-link" href="../natural_language_processing/lstm_gru_rnn.html" title="previous page">LSTM, GRU and RNN</a>
+    <a class='right-next' id="next-link" href="online_platforms.html" title="next page">Online Platforms</a>
 
         </div>
         

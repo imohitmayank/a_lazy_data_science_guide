@@ -22,15 +22,15 @@
   chapters:
     - file: natural_language_processing/algorithms
       sections:
-      - file: natural_language_processing/BERT
       - file: natural_language_processing/lstm_gru_rnn
+      - file: natural_language_processing/BERT
       # - file: natural_language_processing/RoBERTa
     # - file: natural_language_processing/applications
 #
 - part: Data Science Tools
   chapters:
-    - file: data_science_tools/git
-    - file: data_science_tools/google_colab
+    - file: data_science_tools/version_control
+    - file: data_science_tools/online_platforms
 
 
 #
