@@ -3,7 +3,7 @@
 
 title: A Lazy Data Science Guide
 author: Mohit Mayank
-logo: logo.png
+logo: imgs/logo.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
