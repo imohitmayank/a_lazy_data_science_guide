@@ -23,8 +23,9 @@
     - file: natural_language_processing/algorithms
       sections:
       - file: natural_language_processing/BERT
-      - file: natural_language_processing/RoBERTa
-    - file: natural_language_processing/applications
+      - file: natural_language_processing/lstm_gru_rnn
+      # - file: natural_language_processing/RoBERTa
+    # - file: natural_language_processing/applications
 #
 - part: Data Science Tools
   chapters:

@@ -2,9 +2,9 @@ Google Colab
 ================
 ----------
 
-### Run tensorboard to visualize embeddings.
+## Run tensorboard to visualize embeddings
 
-- Taken from:https://stackoverflow.com/questions/40849116/how-to-use-tensorboard-embedding-projector
+- Taken from: [how-to-use-tensorboard-embedding-projector](https://stackoverflow.com/questions/40849116/how-to-use-tensorboard-embedding-projector)
 
 ```{code-block} python
 ---

@@ -51,7 +51,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="RoBERTa" href="RoBERTa.html" />
+    <link rel="next" title="LSTM, GRU and RNN" href="lstm_gru_rnn.html" />
     <link rel="prev" title="NLP Algorithms" href="algorithms.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -150,16 +150,11 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="RoBERTa.html">
-     RoBERTa
+    <a class="reference internal" href="lstm_gru_rnn.html">
+     LSTM, GRU and RNN
     </a>
    </li>
   </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="applications.html">
-   NLP Applications
-  </a>
  </li>
 </ul>
 <p class="caption">
@@ -168,6 +163,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data_science_tools/git.html">
+   GIT
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../data_science_tools/google_colab.html">
    Google Colab
@@ -312,28 +312,32 @@
 <li><p><strong>BERT</strong> stands for <strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentations from <strong>T</strong>ransformers. <span id="id1">[<a class="reference internal" href="#id8"><span>DCLT19</span></a>]</span></p></li>
 <li><p>Basically, it is a modification of Transformers <span id="id2">[<a class="reference internal" href="#id9"><span>VSP+17</span></a>]</span>, where we just keep the encoder part and discard the decoder part.</p></li>
 </ul>
-<div class="figure align-default" id="id11">
+<div class="figure align-default" id="id13">
 <a class="reference internal image-reference" href="../_images/nlp_transformers.png"><img alt="../_images/nlp_transformers.png" src="../_images/nlp_transformers.png" style="height: 400px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Transformer architecture. BERT is the left part i.e. encoder part. <span id="id3">[<a class="reference internal" href="#id9"><span>VSP+17</span></a>]</span></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Transformer architecture. BERT is the left part i.e. encoder part. <span id="id3">[<a class="reference internal" href="#id9"><span>VSP+17</span></a>]</span></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p>At the time of release, it obtained state-of-the-art results on eleven natural language processing tasks. To quote the paper, “<em>[paper pushed] the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).</em>”</p></li>
 <li><p>The major motivation behind BERT is to handle the limitation of the existing language models which are unidirectional in nature. This means that they only consider text left to right for sentence level inference. BERT on the other hand, allows tokens to attend to both sides in self-attention layer. This is one of the major reason for it high performance.</p></li>
-<li></li>
 </ul>
-<div class="figure align-default" id="id12">
+<div class="figure align-default" id="id14">
 <a class="reference internal image-reference" href="../_images/nlp_bert_elmo_gpt.png"><img alt="../_images/nlp_bert_elmo_gpt.png" src="../_images/nlp_bert_elmo_gpt.png" style="height: 200px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Differences in pre-training model architectures. BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-toleft LSTMs to generate features for downstream tasks. Among the three, only BERT representations are jointly conditioned on both left and right context in all layers. In addition to the architecture differences, BERT and OpenAI GPT are fine-tuning approaches, while ELMo is a feature-based approach.. <span id="id4">[<a class="reference internal" href="#id8"><span>DCLT19</span></a>]</span></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Differences in pre-training model architectures. BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-toleft LSTMs to generate features for downstream tasks. Among the three, only BERT representations are jointly conditioned on both left and right context in all layers. In addition to the architecture differences, BERT and OpenAI GPT are fine-tuning approaches, while ELMo is a feature-based approach.. <span id="id4">[<a class="reference internal" href="#id8"><span>DCLT19</span></a>]</span></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p>The most fascinating feature of BERT is that it is super easy to use it for a large number of NLP tasks. The idea is to take the pretrained BERT model and later fine tune it for the specific task. The pre-trained model is trained on a large corpus in a unsupervised manner, hence the model learns the generic representations of the tokens for large corpus of text. This makes it easy to later fine tune it for any other LP task, as the model comes pretrained with large context about the language, grammar and semantic representations.</p></li>
 </ul>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id15">
 <a class="reference internal image-reference" href="../_images/nlp_bert_applications.png"><img alt="../_images/nlp_bert_applications.png" src="../_images/nlp_bert_applications.png" style="height: 400px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustrations of Fine-tuning BERT on Different Tasks. <span id="id5">[<a class="reference internal" href="#id8"><span>DCLT19</span></a>]</span></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustrations of Fine-tuning BERT on Different Tasks. <span id="id5">[<a class="reference internal" href="#id8"><span>DCLT19</span></a>]</span></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
-<li><p>Training BERT is an interesting paradigm in itself. The original paper prposed….</p></li>
+<li><p>Training BERT is an interesting paradigm in itself. The original paper proposed two unsupervised methods for training,</p>
+<ol class="simple">
+<li><p><strong>Masked LM (MLM)</strong>: Where some percentage of the input (15%) tokens are masked at random, and then the model tries to predict those masked tokens. They created a special token <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code> for this purpose which is later not used for fine tuning. This was</p></li>
+<li><p><strong>Next Sentence Prediction (NSP)</strong>: Where two sentences A and B are chosen such that, 50% of the time B is the actual next sentence that follows A (labeled as <code class="docutils literal notranslate"><span class="pre">IsNext</span></code>), and 50% of the time it is a random sentence from the corpus (labeled as <code class="docutils literal notranslate"><span class="pre">NotNext</span></code>). The model is trained to predict if the second sentences follows the first or not.</p></li>
+</ol>
+</li>
 </ul>
 </div>
 <div class="section" id="code">
@@ -465,7 +469,10 @@
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
-<span class="normal">122</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># helper</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># helper</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
@@ -491,8 +498,9 @@
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># divide into test and train</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">])</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> \
+          <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+          <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">])</span>
 
 <span class="c1"># define dataset with load and prep functions. Pass all the data at a time.</span>
 <span class="k">def</span> <span class="nf">squz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -515,7 +523,8 @@
         <span class="n">sentence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentences</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="c1"># Load data and get label</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;max_length&quot;</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;max_length&quot;</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">max_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
         <span class="n">X</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">squz</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">label</span>
         <span class="c1"># return</span>
@@ -577,7 +586,8 @@
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
             <span class="k">if</span> <span class="s1">&#39;BERTModel&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
                 <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span>
+                                                                    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">optimizer</span>
 
 
@@ -693,7 +703,8 @@
 <span class="normal">94</span>
 <span class="normal">95</span>
 <span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># IMPORT =========</span>
+<span class="normal">97</span>
+<span class="normal">98</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># IMPORT =========</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -718,7 +729,8 @@
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;file_with_text.csv&quot;</span><span class="p">)</span>
 
 <span class="c1"># tokenize</span>
-<span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;max_length&#39;</span><span class="p">)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+                   <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;max_length&#39;</span><span class="p">)</span>
 <span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">input_ids</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
 
 <span class="c1"># create random array of floats with equal dimensions to input_ids tensor</span>
@@ -796,8 +808,8 @@
 <div class="section" id="bert-output-for-sentence-level-inference">
 <h3>BERT output for sentence level inference<a class="headerlink" href="#bert-output-for-sentence-level-inference" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>BERT provides <code class="docutils literal notranslate"><span class="pre">pooler_output</span></code> and <code class="docutils literal notranslate"><span class="pre">last_hidden_state</span></code> as two potential output for sentence level inference.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pooler_output</span></code> is also known as <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> token, where</p></li>
+<li><p>BERT provides <code class="docutils literal notranslate"><span class="pre">pooler_output</span></code> and <code class="docutils literal notranslate"><span class="pre">last_hidden_state</span></code> as two potential “<em>representations</em>” for sentence level inference.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pooler_output</span></code> is also known as <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> token, is the embedding of this special token. In many cases it is considered as a valid representation of the complete sentence.</p></li>
 </ul>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
@@ -807,7 +819,7 @@
 </span></pre></div>
 </td></tr></table></div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">hidden_state</span></code> is the embedding of all tokens in the sentence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">last_hidden_state</span></code> contains the embeddings of all tokens in the sentence from the last hidden state. We can apply permutation invariant methods (like max, mean or sum) to aggregate the embeddings into a single sentence representation.</p></li>
 </ul>
 <div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
@@ -821,10 +833,10 @@
 <div class="section" id="additional-materials">
 <h2>Additional materials<a class="headerlink" href="#additional-materials" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Jay Alammar’s blog “<em>The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)</em>” <span id="id6">[<a class="reference internal" href="#id10"><span>the</span></a>]</span></p></li>
+<li><p>Jay Alammar’s blog “<em>The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)</em>” <span id="id6">[<a class="reference internal" href="#id12"><span>the</span></a>]</span></p></li>
 </ul>
 <p id="id7"><dl class="citation">
-<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id6">the</a></span></dt>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id6">the</a></span></dt>
 <dd><p>The illustrated bert, elmo, and co. (how nlp cracked transfer learning). <span><a class="reference external" href="#"></a></span>http://jalammar.github.io/illustrated-bert/. Accessed: 2021-05-06.</p>
 </dd>
 <dt class="label" id="id8"><span class="brackets">DCLT19</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>)</span></dt>
@@ -864,7 +876,7 @@
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="algorithms.html" title="previous page">NLP Algorithms</a>
-    <a class='right-next' id="next-link" href="RoBERTa.html" title="next page">RoBERTa</a>
+    <a class='right-next' id="next-link" href="lstm_gru_rnn.html" title="next page">LSTM, GRU and RNN</a>
 
         </div>
         

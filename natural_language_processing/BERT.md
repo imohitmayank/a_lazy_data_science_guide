@@ -2,7 +2,7 @@ BERT
 ========================
 ----------
 
-### Introduction
+## Introduction
 
 - **BERT** stands for **B**idirectional **E**ncoder **R**epresentations from **T**ransformers. {cite}`devlin2019bert`
 - Basically, it is a modification of Transformers {cite}`vaswani2017attention`, where we just keep the encoder part and discard the decoder part.
@@ -16,7 +16,7 @@ Transformer architecture. BERT is the left part i.e. encoder part. {cite}`vaswan
 
 - At the time of release, it obtained state-of-the-art results on eleven natural language processing tasks. To quote the paper, "_[paper pushed] the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement)._"
 - The major motivation behind BERT is to handle the limitation of the existing language models which are unidirectional in nature. This means that they only consider text left to right for sentence level inference. BERT on the other hand, allows tokens to attend to both sides in self-attention layer. This is one of the major reason for it high performance.
--
+
 ```{figure} /imgs/nlp_bert_elmo_gpt.png
 ---
 height: 200px
@@ -33,11 +33,13 @@ height: 400px
  Illustrations of Fine-tuning BERT on Different Tasks. {cite}`devlin2019bert`
 ```
 
-- Training BERT is an interesting paradigm in itself. The original paper prposed....
+- Training BERT is an interesting paradigm in itself. The original paper proposed two unsupervised methods for training,
+  1. **Masked LM (MLM)**: Where some percentage of the input (15%) tokens are masked at random, and then the model tries to predict those masked tokens. They created a special token `[MASK]` for this purpose which is later not used for fine tuning. This was
+  2. **Next Sentence Prediction (NSP)**: Where two sentences A and B are chosen such that, 50% of the time B is the actual next sentence that follows A (labeled as `IsNext`), and 50% of the time it is a random sentence from the corpus (labeled as `NotNext`). The model is trained to predict if the second sentences follows the first or not.
 
-### Code
+## Code
 
-#### Pretrained BERT for Sentiment Classification
+### Pretrained BERT for Sentiment Classification
 
 - The code contains the `Dataset` and `Dataloader` as well, which can be referred for any fine tuning task.  
 - Download dataset from [IMDB 50k review](https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
@@ -72,8 +74,9 @@ df = pd.read_csv("../input/imdb-dataset-of-50k-movie-reviews/IMDB Dataset.csv")
 df = df.sample(10000, random_state=1)
 
 # divide into test and train
-X_train, X_test, y_train, y_test = train_test_split(df['review'].tolist(), df['sentiment'].tolist(), shuffle=True,
-                                                    test_size=0.33, random_state=1, stratify=df['sentiment'])
+X_train, X_test, y_train, y_test = \
+          train_test_split(df['review'].tolist(), df['sentiment'].tolist(),
+          shuffle=True, test_size=0.33, random_state=1, stratify=df['sentiment'])
 
 # define dataset with load and prep functions. Pass all the data at a time.
 def squz(x, dim=0):
@@ -96,7 +99,8 @@ class IMDBDataset(Dataset):
         sentence = self.sentences[index]
         label = self.labels[index]
         # Load data and get label
-        X = self.tokenizer(sentence, padding="max_length", truncation=True, max_length=self.max_length, return_tensors="pt")
+        X = self.tokenizer(sentence, padding="max_length", truncation=True,
+                        max_length=self.max_length, return_tensors="pt")
         X = {key: squz(value) for key, value in X.items()}
         y = label
         # return
@@ -158,7 +162,8 @@ class BERT_pooler_output(pl.LightningModule):
         for name, param in self.named_parameters():
             if 'BERTModel' in name:
                 param.requires_grad = False
-        optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.parameters()), lr=1e-3)
+        optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.parameters()),
+                                                                    lr=1e-3)
         return optimizer
 
 
@@ -170,7 +175,7 @@ trainer = pl.Trainer(gpus=1, max_epochs=3)
 trainer.fit(model, train_dataloader, test_dataloader)
 ```
 
-#### Fine tuning the BERT model
+### Fine tuning the BERT model
 
 - Fine tuning could include training BERT on one or many of the proposed unsupervised tasks.
 - Here, we will train the BERT on MLM (Masked language modeling) task.
@@ -205,7 +210,8 @@ model = BertForMaskedLM.from_pretrained(model_path)
 df = pd.read_csv("file_with_text.csv")
 
 # tokenize
-inputs = tokenizer(df['review'].tolist(), return_tensors='pt', max_length=512, truncation=True, padding='max_length')
+inputs = tokenizer(df['review'].tolist(), return_tensors='pt', max_length=512,
+                   truncation=True, padding='max_length')
 inputs['labels'] = inputs.input_ids.detach().clone()
 
 # create random array of floats with equal dimensions to input_ids tensor
@@ -279,10 +285,10 @@ model.save_pretrained("bert_finetuned_on_text/")
 tokenizer.save_pretrained("bert_finetuned_on_text/")
 ```
 
-#### BERT output for sentence level inference
+### BERT output for sentence level inference
 
-- BERT provides `pooler_output` and `last_hidden_state` as two potential output for sentence level inference.
-- `pooler_output` is also known as `[CLS]` token, where
+- BERT provides `pooler_output` and `last_hidden_state` as two potential "_representations_" for sentence level inference.
+- `pooler_output` is also known as `[CLS]` token, is the embedding of this special token. In many cases it is considered as a valid representation of the complete sentence.
 
 ```{code-block} python
 ---
@@ -294,7 +300,7 @@ bert_output = BERTModel(input_ids, attention_mask=attention_mask)
 output = bert_output.pooler_output  
 ```
 
-- `hidden_state` is the embedding of all tokens in the sentence.
+- `last_hidden_state` contains the embeddings of all tokens in the sentence from the last hidden state. We can apply permutation invariant methods (like max, mean or sum) to aggregate the embeddings into a single sentence representation.
 
 ```{code-block} python
 ---
@@ -306,10 +312,8 @@ bert_output = BERTModel(input_ids, attention_mask=attention_mask)
 output = squeeze(torch.matmul(attention_mask.type(torch.float32).view(-1, 1, 512), bert_output['last_hidden_state']), 1)
 ```
 
-### Additional materials
+## Additional materials
 - Jay Alammar's blog "_The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)_" {cite}`the_illustrated_bert`
-
-
 
 
 ```{bibliography}
