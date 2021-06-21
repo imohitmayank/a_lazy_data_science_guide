@@ -11,6 +11,9 @@ Advanced ML topics
 - I have used Stratified K-Folds cross-validator, you can use any function from the complete list mentioned here - [Sklearn Model selection](https://scikit-learn.org/stable/modules/classes.html#module-sklearn.model_selection)
 
 ```{code-block} python
+---
+lineno-start: 1
+---
 # import =======
 from sklearn.model_selection import StratifiedKFold
 
@@ -52,6 +55,9 @@ if __name__ == '__main__':
 - More details: [Sklearn SVR Algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)
 
 ```{code-block} python
+---
+lineno-start: 1
+---
 # import =======
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer

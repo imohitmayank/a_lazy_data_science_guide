@@ -250,6 +250,39 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-numpy-array-as-pandas-column">
+   Add numpy array as Pandas column
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#get-members-of-python-object">
+   Get members of python object
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install-packages-using-code">
+   Install packages using code
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-packaging">
+   Python packaging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-virtual-environment">
+   Python virtual environment
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -260,6 +293,114 @@
                 
   <div class="section" id="python-snippets">
 <h1>Python Snippets<a class="headerlink" href="#python-snippets" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="add-numpy-array-as-pandas-column">
+<h2>Add numpy array as Pandas column<a class="headerlink" href="#add-numpy-array-as-pandas-column" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>References from <a class="reference external" href="https://stackoverflow.com/questions/18646076/add-numpy-array-as-column-to-pandas-data-frame">stackoverflow answer</a></p></li>
+</ul>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sparse</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">])),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;newcol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="get-members-of-python-object">
+<h2>Get members of python object<a class="headerlink" href="#get-members-of-python-object" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># import</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getmembers</span>
+
+<span class="c1"># Fetching the name of all drawing related members of NetworkX class.</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;draw&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="install-packages-using-code">
+<h2>Install packages using code<a class="headerlink" href="#install-packages-using-code" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>References from <a class="reference external" href="https://www.kaggle.com/getting-started/65975">here</a></p></li>
+</ul>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># import</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="c1"># install package function</span>
+<span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span>
+
+<span class="c1"># example</span>
+<span class="c1"># install(&quot;pathfinding&quot;)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="python-packaging">
+<h2>Python packaging<a class="headerlink" href="#python-packaging" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># clean the previous build files</span>
+python setup.py clean --all
+<span class="c1"># build the new distribution files</span>
+python setup.py sdist bdist_wheel
+<span class="c1"># upload the latest version to pypi</span>
+twine upload --skip-existing dist/*
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="python-virtual-environment">
+<h2>Python virtual environment<a class="headerlink" href="#python-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Create and Activate Virtual environment</span>
+<span class="c1"># -----------------------------------------</span>
+<span class="c1"># Create the virtual environment in the current directory</span>
+python -m venv projectnamevenv
+<span class="c1"># pick one of the below based on your OS (default: Linux)</span>
+<span class="c1"># activate the virtual environment - Linux</span>
+.projectnamevenv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<span class="c1"># activate the virtual environment - windows</span>
+<span class="c1"># .\\projectnamevenv\\Scripts\\activate.bat</span>
+</pre></div>
+</td></tr></table></div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
