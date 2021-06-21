@@ -9,8 +9,8 @@
 
 - part: Machine Learning
   chapters:
-    - file: machine_learning/cross_validation
-    - file: machine_learning/hyperparameter_tuning
+    # - file: machine_learning/algorithms
+    - file: machine_learning/advanced
 #
 - part: Python
   chapters:
