@@ -255,6 +255,34 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#callbacks">
+   Callbacks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mean-pooling">
+   Mean pooling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataset-and-dataloader">
+   Dataset and Dataloader
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#freze-layers">
+   Freze Layers
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -265,9 +293,230 @@
                 
   <div class="section" id="neural-network-design">
 <h1>Neural Network Design<a class="headerlink" href="#neural-network-design" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <ul class="simple">
-<li><p>To solve a problem using Neural network, it is important to understand the science or art of NN design.</p></li>
+<li><p>To solve a problem using Neural networks, it is important to understand the science or art of NN design.</p></li>
+<li><p>Here we will discuss some interesting topic which could he helpful in the quest to create the ultimate NN for your task.</p></li>
 </ul>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Callbacks are the hooks that you can attach to your deep learning training or validation process.</p></li>
+<li><p>It can be used to affect the training process from simple logging metric to even terminating the training in case special conditions are met.</p></li>
+<li><p>Below is an example of <code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code> and <code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code> callbacks.</p></li>
+</ul>
+<div class="tabbed-set docutils">
+<input checked="checked" id="e6663e18-0f4f-4ee7-9874-4235316c7aee" name="6bc3224b-01b8-4856-af88-35c69f0d364f" type="radio">
+</input><label class="tabbed-label" for="e6663e18-0f4f-4ee7-9874-4235316c7aee">
+Keras</label><div class="tabbed-content docutils">
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># import</span>
+<span class="kn">import</span> <span class="nn">keras</span>
+
+<span class="c1"># Step 1: Defining the callbacks</span>
+<span class="c1">#------------------------------</span>
+<span class="c1"># define early stopping callback</span>
+<span class="n">earlystopping</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># define model checkpoint callback</span>
+<span class="n">checkpoint</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;checkpoint_model_</span><span class="si">{epoch:02d}</span><span class="s2">.hdf5&quot;</span><span class="p">,</span>
+        <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_best_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Assigning the callback</span>
+<span class="c1">#------------------------------</span>
+<span class="c1"># fit the model</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data_gen</span><span class="p">,</span> <span class="c1"># training data generator</span>
+<span class="c1">#                     .... # put usual code here</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">earlystopping</span><span class="p">]</span>
+                   <span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+</div>
+<div class="section" id="mean-pooling">
+<h2>Mean pooling<a class="headerlink" href="#mean-pooling" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>References this <a class="reference external" href="https://stackoverflow.com/questions/36428323/lstm-followed-by-mean-pooling/64630846#64630846">stackoverflow answer</a>.</p></li>
+</ul>
+<div class="tabbed-set docutils">
+<input checked="checked" id="55dd3f55-35b9-4423-88ff-0124258a2bb7" name="a6d730be-7509-425b-9257-6d81a0b999a1" type="radio">
+</input><label class="tabbed-label" for="55dd3f55-35b9-4423-88ff-0124258a2bb7">
+Keras</label><div class="tabbed-content docutils">
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># import</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">keras</span>
+
+<span class="c1"># create sample data</span>
+<span class="n">A</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">B</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">C</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="c1"># expected answer (for temporal mean)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The output is</span>
+<span class="sd">array([[1. , 1.4, 1.8],</span>
+<span class="sd">       [1. , 0.6, 0.2]], dtype=float32)</span>
+<span class="sd">Now using AveragePooling1D,</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">AveragePooling1D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The output is,</span>
+<span class="sd">array([[[1. , 1.4, 1.8]],</span>
+<span class="sd">       [[1. , 0.6, 0.2]]], dtype=float32)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<p>Some points to consider,</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">pool_size</span></code> should be equal to the step/timesteps size of the recurrent layer.</p></li>
+<li><p>The shape of the output is (<code class="docutils literal notranslate"><span class="pre">batch_size</span></code>, <code class="docutils literal notranslate"><span class="pre">downsampled_steps</span></code>, <code class="docutils literal notranslate"><span class="pre">features</span></code>), which contains one additional <code class="docutils literal notranslate"><span class="pre">downsampled_steps</span></code> dimension. This will be always 1 if you set the <code class="docutils literal notranslate"><span class="pre">pool_size</span></code> equal to timestep size in recurrent layer.</p></li>
+</ul>
+</div>
+<div class="section" id="dataset-and-dataloader">
+<h2>Dataset and Dataloader<a class="headerlink" href="#dataset-and-dataloader" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Dataset can be downloaded from [Kaggle](Dataset: <a class="reference external" href="https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews">https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews</a>).</p></li>
+</ul>
+<div class="tabbed-set docutils">
+<input checked="checked" id="60fb28a8-1b08-42ff-a0fc-03fbdd6bc9b4" name="7e046f12-0240-47cf-acee-84d0dc8e9a7e" type="radio">
+</input><label class="tabbed-label" for="60fb28a8-1b08-42ff-a0fc-03fbdd6bc9b4">
+PyTorch</label><div class="tabbed-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import</span>
+<span class="c1"># -----------</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Load and prepare IMDB dataset</span>
+<span class="c1">#-------------------------------</span>
+<span class="c1"># load</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;imdb-dataset-of-50k-movie-reviews/IMDB Dataset.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># divide into test and train</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sentiment&#39;</span><span class="p">])</span>
+
+<span class="c1"># Dataset</span>
+<span class="c1"># -----------</span>
+<span class="c1"># define dataset class which takes care of the dataset preparation before passing to model.</span>
+<span class="c1"># Class takes all data at once (__init__) and define functions to fetch one data at a time (__getitem__)</span>
+<span class="k">class</span> <span class="nc">IMDBDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentences</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">150</span><span class="p">):</span>
+        <span class="s1">&#39;constructor&#39;</span>
+        <span class="c1"># var</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sentences</span> <span class="o">=</span> <span class="n">sentences</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="s1">&#39;negative&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_length</span> <span class="o">=</span> <span class="n">max_length</span>
+        <span class="c1"># tokenizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># some tokenizer</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s1">&#39;Denotes the total number of samples&#39;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sentences</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="s1">&#39;Generates one sample of data&#39;</span>
+        <span class="c1"># Select sample</span>
+        <span class="n">sentence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sentences</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="c1"># Load data and get label</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="c1"># tokenize one data sample</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="c1"># return</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="c1"># Init and Dataloader</span>
+<span class="c1"># ---------------------</span>
+<span class="c1"># init the train and test dataset</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">IMDBDataset</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">IMDBDataset</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="c1"># create the dataloader</span>
+<span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="freze-layers">
+<h2>Freze Layers<a class="headerlink" href="#freze-layers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Example on how to freeze certain layers while training</p></li>
+</ul>
+<div class="tabbed-set docutils">
+<input checked="checked" id="fe4c838f-0c4e-4658-a824-ca03f7474cdb" name="6ce7cb66-6558-4b3a-bef1-0634c9051e50" type="radio">
+</input><label class="tabbed-label" for="fe4c838f-0c4e-4658-a824-ca03f7474cdb">
+PyTorch lightning</label><div class="tabbed-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Before defining the optimizer, we need to freeze the layers</span>
+<span class="c1"># In pytorch lightning, as optimizer is defined in configure_optimizers, we freeze layers there.</span>
+<span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># iterate through the layers and freeze the one with certain name (here all BERT models)</span>
+    <span class="c1"># note: the name of layer depends on the varibale name</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;BERTModel&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="c1"># only pass the non-frozen paramters to optimizer</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+    <span class="c1"># return optimizer</span>
+    <span class="k">return</span> <span class="n">optimizer</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
