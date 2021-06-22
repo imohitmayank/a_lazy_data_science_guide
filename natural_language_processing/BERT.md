@@ -35,7 +35,7 @@ height: 400px
 
 - Training BERT is an interesting paradigm in itself. The original paper proposed two unsupervised methods for training,
   1. **Masked LM (MLM)**: Where some percentage of the input (15%) tokens are masked at random, and then the model tries to predict those masked tokens. They created a special token `[MASK]` for this purpose which is later not used for fine tuning. This was
-  2. **Next Sentence Prediction (NSP)**: Where two sentences A and B are chosen such that, 50% of the time B is the actual next sentence that follows A (labeled as `IsNext`), and 50% of the time it is a random sentence from the corpus (labeled as `NotNext`). The model is trained to predict if the second sentences follows the first or not.
+  2. **Next Sentence Prediction (NSP)**: Where two sentences A and B are chosen such that, 50% of the time B is the actual next sentence that follows A (labelled as `IsNext`), and 50% of the time it is a random sentence from the corpus (labelled as `NotNext`). The model is trained to predict if the second sentences follow the first or not.
 
 ## Code
 
