@@ -25,7 +25,10 @@
       - file: natural_language_processing/lstm_gru_rnn
       - file: natural_language_processing/BERT
       # - file: natural_language_processing/RoBERTa
-    # - file: natural_language_processing/applications
+    - file: natural_language_processing/applications
+      sections:
+      - file: natural_language_processing/named_entity_recognition.md
+
 #
 - part: Data Science Tools
   chapters:
