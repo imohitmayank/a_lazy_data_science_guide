@@ -24,7 +24,7 @@ height: 200px
 Differences in pre-training model architectures. BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-toleft LSTMs to generate features for downstream tasks. Among the three, only BERT representations are jointly conditioned on both left and right context in all layers. In addition to the architecture differences, BERT and OpenAI GPT are fine-tuning approaches, while ELMo is a feature-based approach.. {cite}`devlin2019bert`
 ```
 
-- The most fascinating feature of BERT is that it is super easy to use it for a large number of NLP tasks. The idea is to take the pretrained BERT model and later fine tune it for the specific task. The pre-trained model is trained on a large corpus in a unsupervised manner, hence the model learns the generic representations of the tokens for large corpus of text. This makes it easy to later fine tune it for any other LP task, as the model comes pretrained with large context about the language, grammar and semantic representations.
+- The most fascinating feature of BERT is that it is super easy to use it for a large number of NLP tasks. The idea is to take the pretrained BERT model and later fine tune it for the specific task. The pre-trained model is trained on a large corpus in a unsupervised manner, hence the model learns the generic representations of the tokens from large corpus of text. This makes it easy to later fine tune it for any other NLP task, as the model comes pretrained with large context about the language, grammar and semantic representations.
 
 ```{figure} /imgs/nlp_bert_applications.png
 ---
@@ -34,8 +34,25 @@ height: 400px
 ```
 
 - Training BERT is an interesting paradigm in itself. The original paper proposed two unsupervised methods for training,
-  1. **Masked LM (MLM)**: Where some percentage of the input (15%) tokens are masked at random, and then the model tries to predict those masked tokens. They created a special token `[MASK]` for this purpose which is later not used for fine tuning. This was
+  1. **Masked LM (MLM)**: Where some percentage (15%) of the input tokens are masked at random, and then the model tries to predict those masked tokens. They created a special token `[MASK]` for this purpose.
   2. **Next Sentence Prediction (NSP)**: Where two sentences A and B are chosen such that, 50% of the time B is the actual next sentence that follows A (labelled as `IsNext`), and 50% of the time it is a random sentence from the corpus (labelled as `NotNext`). The model is trained to predict if the second sentences follow the first or not.
+
+## Analysis
+
+### BERT output and finetuning
+
+- An analysis on the selection of suitable BERT output and the advantage of fine-tuning the model was done. The report provides following performance table comparing different experiments. Complete article [here](https://towardsdatascience.com/tips-and-tricks-for-your-bert-based-applications-359c6b697f8e).
+
+| Exp no | Model name                       | F1 macro score | Accuracy |
+|--------|----------------------------------|----------------|----------|
+| 1      | Pooler output                    | 64.6%          | 68.4%    |
+| 2      | Last hidden state                | 86.7%          | 87.5%    |
+| 3      | Fine-tuned and Pooler output     | 87.5%          | 88.1%    |
+| 4      | Fine-tuned and last hidden state | 79.8%          | 81.3%    |
+
+- It also answers following questions,
+  - **Should I only use CLS token or all token's output for sentence representation?**  Well, it depends. From the experiments, it seems if you are fine-tuning the model, using the pooler output will be better. But if there is no fine-tuning, the last hidden state output is much better. Personally, I will prefer the last hidden state output, as it provides comparative result without any additional compute expensive fine-tuning. 
+  - **Will fine-tuning the model beforehand increase the accuracy?** A definite yes! Exp 3 and 4 reports higher score than Exp 1 and 2. So if you have the time and resource (which ironically is not usually the case), go for fine-tuning!
 
 ## Code
 
@@ -162,6 +179,7 @@ class BERT_pooler_output(pl.LightningModule):
         for name, param in self.named_parameters():
             if 'BERTModel' in name:
                 param.requires_grad = False
+        # define the optimizer
         optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.parameters()),
                                                                     lr=1e-3)
         return optimizer
@@ -180,6 +198,7 @@ trainer.fit(model, train_dataloader, test_dataloader)
 - Fine tuning could include training BERT on one or many of the proposed unsupervised tasks.
 - Here, we will train the BERT on MLM (Masked language modeling) task.
 - This includes masking some tokens of input and BERT predicting the token based on the context tokens.
+- Referenced from [this video of James Briggs](https://youtu.be/R6hcxMMOrPE).
 
 ```{code-block} python
 ---
@@ -288,7 +307,7 @@ tokenizer.save_pretrained("bert_finetuned_on_text/")
 ### BERT output for sentence level inference
 
 - BERT provides `pooler_output` and `last_hidden_state` as two potential "_representations_" for sentence level inference.
-- `pooler_output` is also known as `[CLS]` token, is the embedding of this special token. In many cases it is considered as a valid representation of the complete sentence.
+- `pooler_output` is the embedding of the `[CLS]` special token. In many cases it is considered as a valid representation of the complete sentence.
 
 ```{code-block} python
 ---
