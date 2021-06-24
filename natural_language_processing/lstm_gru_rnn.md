@@ -1,6 +1,5 @@
 LSTM, GRU and RNN
 ========================
-----------
 
 ## Introduction
 

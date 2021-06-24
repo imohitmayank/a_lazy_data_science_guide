@@ -1,6 +1,5 @@
 Online Platforms
 ================
-----------
 
 ## Google Colab
 

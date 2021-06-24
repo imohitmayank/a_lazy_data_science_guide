@@ -1,6 +1,5 @@
 A Lazy Data Science Guide
 ============================
-----------
 
 **What is this?** A guide book on data science for busy and equally lazy Data Scientists 😄
 
@@ -12,6 +11,6 @@ A Lazy Data Science Guide
 
 **How to contribute?** Any contribution is appreciated. So create an issue and I will be happy to discuss the idea!
 
-**How to appreciate?** Maybe you can do two things? -- (1) Say hello to me on [LinkedIn](https://www.linkedin.com/in/imohitmayank/), and/or (2) Click on the ⭐ @ [github](https://github.com/imohitmayank/a_lazy_data_science_guide)? Thnx! 
+**How to appreciate?** Maybe you can do two things? -- (1) Say hello to me on [LinkedIn](https://www.linkedin.com/in/imohitmayank/), and/or (2) Click on the ⭐ @ [github](https://github.com/imohitmayank/a_lazy_data_science_guide)? Thnx!
 
 -- [Mohit Mayank](https://mohitmayank.com)

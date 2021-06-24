@@ -11,13 +11,7 @@
   chapters:
     # - file: machine_learning/algorithms
     - file: machine_learning/advanced
-#
-- part: Python
-  chapters:
-    - file: python/python_snippets
-    # - file: python/code_optimization
-    # - file: python/multi_processing
-#
+
 - part: Natural Language Processing
   chapters:
     - file: natural_language_processing/algorithms
@@ -29,7 +23,18 @@
       sections:
       - file: natural_language_processing/named_entity_recognition.md
 
-#
+- part: Knowledge Graphs
+  chapters:
+  - file: knowledge_graphs/introduction
+  - file: knowledge_graphs/kg_in_practice
+  - file: knowledge_graphs/kg_embedding
+
+- part: Python
+  chapters:
+    - file: python/python_snippets
+    # - file: python/code_optimization
+    # - file: python/multi_processing
+
 - part: Data Science Tools
   chapters:
     - file: data_science_tools/version_control
