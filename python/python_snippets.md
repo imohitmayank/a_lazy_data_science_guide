@@ -85,3 +85,39 @@ python -m venv projectnamevenv
 # activate the virtual environment - windows
 # .\\projectnamevenv\\Scripts\\activate.bat
 ```
+
+## Where is my Python installed?
+
+- TO know the exact location of where the python distribution is installed, follow the steps as suggested [here](https://stackoverflow.com/questions/647515/how-can-i-find-where-python-is-installed-on-windows)
+
+```{code-block} python
+---
+lineno-start: 1
+---
+import os
+import sys
+print(os.path.dirname(sys.executable))
+```
+
+## Find files or folders
+
+- `glob` is a very efficient way to extract relevant files or folders using python.
+- A few example are shown below.
+
+```{code-block} python
+---
+lineno-start: 1
+---
+# import
+from glob import glob
+
+# Ex 1: fetch all files within a directory
+glob("../data/01_raw/CoAID/*")
+
+# Ex 2: fetch all files within a directory with a pattern 'News*COVID-19.csv'
+glob("../data/01_raw/CoAID/folder_1/News*COVID-19.csv")
+
+# Ex 2: fetch all files within multiple directories which
+#       follow a pattern 'News*COVID-19.csv'
+glob("../data/01_raw/CoAID/**/News*COVID-19.csv")
+```
