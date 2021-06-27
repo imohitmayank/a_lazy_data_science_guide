@@ -49,9 +49,9 @@ git rm --cached mylogfile.log
 git rm --cached -r mydirectory
 ```
 
-### Stack partial changes
+### Stash partial changes
 
-- Suppose you have made some partial changes and the remote is updated with a new commit. Now you cannot commit your local change (as its partial) and you need to pull the latest code from remote (as its update). `git stask` comes to the rescue, example below.
+- Suppose you have made some partial changes and the remote is updated with a new commit. Now you cannot commit your local change (as its partial) and you need to pull the latest code from remote (as its update). `git stash` comes to the rescue, example below.
 
 ```{code-block}
 # stash away the  current partial changes
