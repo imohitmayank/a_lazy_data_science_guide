@@ -55,6 +55,6 @@ feature_importance # a pandas dataframe of top_n features
 
 index = 2282 # the feature's index 
 # the label's distribution if this word is present in sentence
-fake_news.iloc[np.where(features[:, index].todense() >= 1)[0]]['label'].value_counts()
+train_df.iloc[np.where(features[:, index].todense() >= 1)[0]]['label'].value_counts()
 
 ````
