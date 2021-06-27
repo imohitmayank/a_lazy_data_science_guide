@@ -9,7 +9,7 @@
 
 - part: Machine Learning
   chapters:
-    # - file: machine_learning/algorithms
+    - file: machine_learning/basic
     - file: machine_learning/advanced
 
 - part: Natural Language Processing
