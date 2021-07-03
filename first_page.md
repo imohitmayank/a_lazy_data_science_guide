@@ -1,4 +1,4 @@
-A Lazy Data Science Guide
+Introduction
 ============================
 
 **What is this?** A guide book on data science for busy and equally lazy Data Scientists 😄
