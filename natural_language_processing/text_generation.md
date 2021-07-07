@@ -21,15 +21,17 @@ height: 200px
 ---
 T5 text-to-text framework examples. See: [Google Blog](https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html)
 ```
-<!-- {cite}`raffel2020exploring` -->
-<!-- - A brief comparison table of the different model mentioned above is as follows, **[TODO]**
 
-| models      | type | year | pre-trained? | parameters |
-|-------------|------|------|--------------|:----------:|
-| RNN         |      |      |              |            |
-| GRU         |      |      |              |            |
-| LSTM        |      |      |              |            |
-| Transformer |      |      |              |            |
-| GPT         |      |      |              |            |
-| GPT-Neo     |      |      |              |            |
-| T5          |      |      |              |            | -->
+<!-- {cite}`raffel2020exploring` -->
+
+- A brief comparison table of the different model mentioned above is as follows,
+
+| models  | type         | year | pre-trained? |         parameters         |
+|---------|--------------|------|--------------|:--------------------------:|
+| RNN     | conventional | -    | no           |       17k (one layer)      |
+| LSTM    | conventional | 1997 | no           | 71k (one layer)            |
+| GRU     | conventional | 2014 | no           | 30-40k (one layer)         |
+| GPT-2   | recent       | 2019 | yes          | 117M, 345M, 774M, 1.5B     |
+| GPT-Neo | recent       | 2021 | yes          | 125M, 1.2B, 2.7B           |
+| T5      | recent       | 2020 | yes          | 60M, 220M, 770M, 2.8B, 11B |
+
