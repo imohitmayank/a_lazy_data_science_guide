@@ -1,48 +1,44 @@
-# Table of content
-# Learn more at https://jupyterbook.org/customize/toc.html
-#
-- file: first_page
+format: jb-book
 
-- part: Deep Learning
+root: first_page
+
+parts:
+- caption: Deep Learning
   chapters:
-    - file: deep_learning/neural_network_design
+  - file: deep_learning/neural_network_design
 
-- part: Machine Learning
+- caption: Machine Learning
   chapters:
-    - file: machine_learning/basic
-    - file: machine_learning/advanced
+  - file: machine_learning/basic
+  - file: machine_learning/advanced
 
-- part: Natural Language Processing
+- caption: Natural Language Processing
   chapters:
-    - file: natural_language_processing/algorithms
-      sections:
-      - file: natural_language_processing/lstm_gru_rnn
-      - file: natural_language_processing/BERT
-      # - file: natural_language_processing/RoBERTa
-    - file: natural_language_processing/applications
-      sections:
-      - file: natural_language_processing/named_entity_recognition.md
+  - file: natural_language_processing/algorithms
+    sections:
+    - file: natural_language_processing/lstm_gru_rnn
+    - file: natural_language_processing/BERT
+    # - file: natural_language_processing/Transformer
+    # - file: natural_language_processing/GPTs
+    # - file: natural_language_processing/T5
+  - file: natural_language_processing/applications
+    sections:
+    - file: natural_language_processing/text_generation
+    - file: natural_language_processing/named_entity_recognition
 
-- part: Knowledge Graphs
+- caption: Knowledge Graphs
   chapters:
   - file: knowledge_graphs/introduction
   - file: knowledge_graphs/kg_in_practice
   - file: knowledge_graphs/kg_embedding
 
-- part: Python
+- caption: Python
   chapters:
-    - file: python/python_snippets
-    # - file: python/code_optimization
-    # - file: python/multi_processing
+  - file: python/python_snippets
 
-- part: Data Science Tools
+- caption: Data Science Tools
   chapters:
-    - file: data_science_tools/version_control
-    - file: data_science_tools/online_platforms
-
-
-#
-# - file: content
-#   sections:
+  - file: data_science_tools/version_control
+  - file: data_science_tools/online_platforms
 #     - file: markdown
 #     - file: notebooks
