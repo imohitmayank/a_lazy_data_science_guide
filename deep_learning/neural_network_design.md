@@ -142,7 +142,7 @@ test_dataloader = DataLoader(test_dataset, batch_size=64, shuffle=True)
 ```
 ````
 
-## Freze Layers
+## Freeze Layers
 
 - Example on how to freeze certain layers while training
 
