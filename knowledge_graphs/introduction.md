@@ -65,8 +65,6 @@ height: 300px
 ---
 Example of knowledge graph-based knowledge panel used by Google. [Right] the actual panel shown by google when you search for Einstein. [left]  recreation of how we might store similar information in a KG. Source: by Author + Google.
 ```
-
-
 ### Movie recommendation
 
 - Classical algorithms considered user-item interactions to generate recommendations. Over time, newer algorithms are considering additional information about the user as well as items, to improve the recommendations.
@@ -83,6 +81,177 @@ Example of knowledge graph-based knowledge panel used by Google. [Right] the act
 height: 300px
 ---
 A sample knowledge graph for movie recommendation task. {cite}`guo2020survey`
+```
+
+----------
+
+## Open-Source Knowledge graphs
+
+Some of the famous open-source knowledge graphs are,
+
+- **DBpedia**: is a crowd-sourced community effort to extract structured content from the information created in various Wikimedia projects.
+- **Freebase**: a massive, collaboratively edited database of cross-linked data. Touted as “an open shared database of the world's knowledge”
+- **OpenCyc**: is a gateway to the full power of Cyc, one of the world's most complete general knowledge base and commonsense reasoning engine.
+- **Wikidata**: is a free, collaborative, multilingual, secondary database, collecting structured data to provide support for Wikipedia
+- **YAGO**:  huge semantic knowledge base, derived from Wikipedia, WordNet and GeoNames.
+
+```{figure} /imgs/prackg_opensourcekg.png
+Stats for some of the famous open source knowledge graphs {cite}`färber2018knowledge`
+```
+
+----------
+
+## Create custom Knowledge graph
+
+We may want to create our own KG which is specific to a domain, group or organization.
+
+We can either do it
+- manually - which is tedious, or
+- automate the process - where we create a KG from existing unstructured knowledge base like text documents using NLP pipeline.
+
+- Steps followed for automatic KG creation,
+
+```{figure} /imgs/prackg_createkg.png
+Steps involved in creating a custom knowledge graph. Source: Author + {cite}`Ji_2021`
+```
+
+----------
+
+## Ontology of Knowledge graph
+
+- An ontology is a model of (a relevant part of) the world, listing the types of entities, the relationships that connect them, and constraints on the ways that entities and relationships can be combined.
+
+- Resource Description Framework (RDF) and Web Ontology Language (OWL) are some of the vocabulary framework used to model ontology.
+
+- They provides a common framework for expressing this information so it can be exchanged between applications without loss of meaning.
+
+
+```{figure} /imgs/prackg_schema.png
+RDF schema triplets (informal). Source: Author + {cite}`rdf_primer`
+```
+
+- RDF provides languages for creating ontology.
+
+- Syntax in Turtle language for creating the graph shown on the right,
+
+```{figure} /imgs/prackg_turtle.png
+Script in Turtle language to create the sample knowledge graph. Source: Author + {cite}`rdf_primer`
+```
+
+----------
+
+## Query a Knowledge graph
+
+### SPARQL
+
+- Once facts are stored as RDF, we can query them to extract relevant information.
+
+- SPARQL is a RDF query language—that is, a semantic query language for databases—able to retrieve and manipulate data stored in RDF format.
+
+- Some interesting reads are [Walkthrough Dbpedia And Triplestore](https://mickael.kerjean.me/2016/05/20/walkthrough-dbpedia-and-triplestore/)
+
+```{figure} /imgs/prackg_querykg_sparql.png
+Query Knowledge graph using SPARQL language {cite}`wikidata_sparql_query_helper`
+```
+
+### API
+
+- Open-source KG also provide several APIs for ready-made queries. (ex: wikidata)
+
+```{figure} /imgs/prackg_querykg_api.png
+Query Knowledge graph using available APIs {cite}`wikidata_api_services`
+```
+
+----------
+
+## Generalization of embedding methods
+
+- Embedding is the way of representing an object from its existing environment to another.
+
+- Knowledge graph embedding includes representation of relations and entities into continuous space.
+
+- Models for KG embedding can be categorised based on their answer for following questions, {cite}`Ji_2021`
+  - What is the **representation space** in which the relations and entities are represented?
+  - What is the **scoring function** for measuring the plausibility of factual triples?
+
+### Representation space
+
+#### Point-wise Euclidean space
+- The most common representation space.
+- Embedding space is Euclidean real valued vector or matrix space.
+- Easy to understand; Not ideal for graphical (tree-like) structure.
+
+```{figure} /imgs/kgembed_1.png
+---
+height: 200px
+---
+{cite}`Ji_2021`
+```
+
+#### Complex vector space
+- Entities and relations are represented in a complex space
+- Taking head entity as an example, **h** has a real part Re(h) and an imaginary part Im(h), i.e., $\textbf{h}=Re(\textbf{h}) + i Im(\textbf{h})$
+- Can capture anti-symmetric relations better than operations in Euclidean space.
+
+
+```{figure} /imgs/kgembed_2.png
+---
+height: 200px
+---
+{cite}`Ji_2021`
+```
+
+#### Gaussian distribution space
+- Entities and relations are represented as probabilistic distribution
+- Applicable if you want to capture uncertainties.
+
+
+```{figure} /imgs/kgembed_3.png
+---
+height: 200px
+---
+{cite}`Ji_2021`
+```
+
+
+#### Manifold space
+- Entities and relations are represented in a well defined topological space
+- Good for graphical (tree-like) structure.
+
+
+```{figure} /imgs/kgembed_4.png
+---
+height: 200px
+---
+{cite}`Ji_2021`
+```
+
+
+### Scoring functions
+
+#### Distance based
+- Measure plausibility of facts by calculating the distance between the entities.
+- Additive translation with relation is the most widely used method i.e.  $\textbf{h} + \textbf{r} \approx \textbf{t}$
+
+
+```{figure} /imgs/kgembed_5.png
+---
+height: 200px
+---
+{cite}`Ji_2021`
+```
+
+#### Similarity based
+- Measure plausibility of the facts by semantic similarity matching
+- Multiplicative formulation is most widely used method i.e. $\textbf{h}^T  \textbf{M}_r \approx \textbf{t}^T$	        , use relation matrix to transform head entity into tail entity.
+
+
+
+```{figure} /imgs/kgembed_2.png
+---
+height: 200px
+---
+{cite}`Ji_2021`
 ```
 
 ```{bibliography}

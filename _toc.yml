@@ -20,7 +20,7 @@ parts:
     - file: natural_language_processing/Transformers
     - file: natural_language_processing/BERT
     - file: natural_language_processing/GPTs
-    # - file: natural_language_processing/T5
+    - file: natural_language_processing/T5
   - file: natural_language_processing/applications
     sections:
     - file: natural_language_processing/text_generation
@@ -29,8 +29,6 @@ parts:
 - caption: Knowledge Graphs
   chapters:
   - file: knowledge_graphs/introduction
-  - file: knowledge_graphs/kg_in_practice
-  - file: knowledge_graphs/kg_embedding
 
 - caption: Python
   chapters:
