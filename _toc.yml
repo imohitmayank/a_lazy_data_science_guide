@@ -17,14 +17,14 @@ parts:
   - file: natural_language_processing/algorithms
     sections:
     - file: natural_language_processing/lstm_gru_rnn
-    - file: natural_language_processing/Transformers
+    # - file: natural_language_processing/Transformers
     - file: natural_language_processing/BERT
     - file: natural_language_processing/GPTs
     - file: natural_language_processing/T5
   - file: natural_language_processing/applications
     sections:
     - file: natural_language_processing/text_generation
-    - file: natural_language_processing/named_entity_recognition
+    # - file: natural_language_processing/named_entity_recognition
 
 - caption: Knowledge Graphs
   chapters:

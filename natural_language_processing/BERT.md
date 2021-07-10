@@ -333,6 +333,7 @@ output = squeeze(torch.matmul(attention_mask.type(torch.float32).view(-1, 1, 512
 ## Additional materials
 - Jay Alammar's blog "_The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)_" {cite}`the_illustrated_bert`
 
+## References
 
 ```{bibliography}
 :filter: docname in docnames

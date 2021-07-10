@@ -25,8 +25,8 @@ repository:
   path_to_book: docs  # Optional path to your book, relative to the repository root
   branch: master  # Which branch of the repository should be used when creating links (optional)
 
-launch_buttons:
-  thebe                  : true
+# launch_buttons:
+#   thebe                  : true
   
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
@@ -34,3 +34,7 @@ html:
   favicon: imgs/logo.png
   use_issues_button: true
   use_repository_button: true
+
+sphinx:
+  config:
+    bibtex_reference_style: author_year

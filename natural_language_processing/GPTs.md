@@ -36,11 +36,14 @@ Sentiment:
 :class: tip
 Copy the prompt from above and try it @ [GPT-Neo 2.7B model](https://huggingface.co/EleutherAI/gpt-neo-2.7B). You should get "Negative" as output! We just created a Sentiment detection module without a single training epoch!
 ```
+## Analysis
+
+### Comparing GPT models (basic details)
 
 - There are two famous series of GPT models, 
     - **GPT-{1,2,3}:** the original series released by [OpenAI](https://en.wikipedia.org/wiki/OpenAI), a San Francisco-based artificial intelligence research laboratory. It includes GPT-1 {cite}`radford2018improving`, GPT-2 {cite}`radford2019language`, GPT-3 {cite}`brown2020language`
     - **GPT-{Neo, J}:** the open source series released by [EleutherAI](https://www.eleuther.ai/).
-- Details of the models is as follows, *([details](https://huggingface.co/transformers/pretrained_models.html))*
+- Details of the models are as follows, *([details](https://huggingface.co/transformers/pretrained_models.html))*
 
 ```{table} 
 | models  | released by | year | open-source |       model size       |

@@ -122,6 +122,9 @@ y_pred = model.predict(test_padded_sequences)
 - Guide to Custom Recurrent Modeling in Keras {cite}`Guide_to_custom_recurrent_modeling`
 - Understanding LSTM Networks {cite}`lstm_understanding`
 
+
+## References
+
 ```{bibliography}
 :filter: docname in docnames
 ```
