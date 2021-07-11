@@ -42,7 +42,7 @@ Copy the prompt from above and try it @ [GPT-Neo 2.7B model](https://huggingface
 
 - There are two famous series of GPT models, 
     - **GPT-{1,2,3}:** the original series released by [OpenAI](https://en.wikipedia.org/wiki/OpenAI), a San Francisco-based artificial intelligence research laboratory. It includes GPT-1 {cite}`radford2018improving`, GPT-2 {cite}`radford2019language`, GPT-3 {cite}`brown2020language`
-    - **GPT-{Neo, J}:** the open source series released by [EleutherAI](https://www.eleuther.ai/).
+    - **GPT-{Neo, J}:** the open source series released by [EleutherAI](https://www.eleuther.ai/). For GPT-Neo, the architecture is quite similar to GPT-3, but training was done on [The Pile](https://pile.eleuther.ai/), an 825 GB sized text dataset.
 - Details of the models are as follows, *([details](https://huggingface.co/transformers/pretrained_models.html))*
 
 ```{table} 
@@ -65,7 +65,7 @@ Copy the prompt from above and try it @ [GPT-Neo 2.7B model](https://huggingface
 - To make this code work for GPT-Neo, 
     - import `GPTNeoForCausalLM` at line 2
     - replace line 5 with `model_name = "EleutherAI/gpt-neo-2.7B"` *(choose from any of the available sized models)*
-    - use `GPT2LMHeadModel` in place of `GPTNeoForCausalLM` at line 9
+    - use `GPTNeoForCausalLM` in place of `GPT2LMHeadModel` at line 9
 
 ```{code-block} python
 ---
@@ -109,6 +109,8 @@ print(predicted_text)
 ### Finetuning GPT-2 (for sentiment classification)
 
 - Tweet sentiment data can be downloaded from [here](https://www.kaggle.com/kazanova/sentiment140)
+- We add the special tokens at line 72, so that the model learns the start and end of the prompt. This will be helpful later on during the testing phase, as we don't want the model to keep on writing the next word, but it should know when to stop the process. This can be done by setting the `eos_token` and training the model to predict the same.
+- We also define how to process the training data inside `data_collator` on line 91. The first two elements within the collator are `input_ids `- the tokenized prompt and `attention_mask `- a simple 1/0 vector which denote which part of the tokenized vector is prompt and which part is the padding. The last part is quite interesting, where we pass the input data as the label instead of just the sentiment labels. This is because we are training a language model, hence we want the model to learn the pattern of the prompt and not just sentiment class. In a sense, the model learns to predict the words of the input tweet + sentiment structured in the prompt, and in the process learn the sentiment detection task.
 
 ```{code-block} python
 ---
@@ -142,7 +144,7 @@ class SentimentDataset(Dataset):
         # iterate through the dataset
         for txt, label in zip(txt_list, label_list):
             # prepare the text
-            prep_txt = f'<|startoftext|>Review: {txt}\nSentiment: {map_label[label]}<|endoftext|>'
+            prep_txt = f'<|startoftext|>Tweet: {txt}\nSentiment: {map_label[label]}<|endoftext|>'
             # tokenize
             encodings_dict = tokenizer(prep_txt, truncation=True,
                                        max_length=max_length, padding="max_length")
@@ -204,9 +206,9 @@ training_args = TrainingArguments(output_dir='results', num_train_epochs=2, logg
 
 # start training
 Trainer(model=model, args=training_args, train_dataset=train_dataset,
-        eval_dataset=test_dataset, data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
-                                                              'attention_mask': torch.stack([f[1] for f in data]),
-                                                              'labels': torch.stack([f[0] for f in data])}).train()
+        data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
+                                    'attention_mask': torch.stack([f[1] for f in data]),
+                                    'labels': torch.stack([f[0] for f in data])}).train()
 
 ## Test
 ----------
@@ -217,12 +219,12 @@ _ = model.eval()
 # run model inference on all test data
 original_label, predicted_label, original_text, predicted_text = [], [], [], []
 map_label = {0:'negative', 4: 'positive'}
-# iter over all test data
+# iter over all of the test data
 for text, label in tqdm(zip(test_dataset[0], test_dataset[1])):
     # create prompt (in compliance with the one used during training)
-    prompt = f'<|startoftext|>Review: {text}\nSentiment:'
+    prompt = f'<|startoftext|>Tweet: {text}\nSentiment:'
     # generate tokens
-    generated = tokenizer(f"<|startoftext|> {prompt}", return_tensors="pt").input_ids.cuda()
+    generated = tokenizer(f"{prompt}", return_tensors="pt").input_ids.cuda()
     # perform prediction
     sample_outputs = model.generate(generated, do_sample=False, top_k=50, max_length=512, top_p=0.90, 
             temperature=0, num_return_sequences=0)
