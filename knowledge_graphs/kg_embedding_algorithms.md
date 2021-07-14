@@ -24,7 +24,7 @@ KG embedding algorithms
 ---
 height: 200px
 ---
-{cite}`Ji_2021`
+Point-wise space {cite}`Ji_2021`
 ```
 
 #### Complex vector space
@@ -37,7 +37,7 @@ height: 200px
 ---
 height: 200px
 ---
-{cite}`Ji_2021`
+Complex vector space {cite}`Ji_2021`
 ```
 
 #### Gaussian distribution space
@@ -49,7 +49,7 @@ height: 200px
 ---
 height: 200px
 ---
-{cite}`Ji_2021`
+ Gaussian distribution {cite}`Ji_2021`
 ```
 
 
@@ -62,7 +62,7 @@ height: 200px
 ---
 height: 200px
 ---
-{cite}`Ji_2021`
+Manifold space {cite}`Ji_2021`
 ```
 
 
@@ -77,7 +77,7 @@ height: 200px
 ---
 height: 200px
 ---
-{cite}`Ji_2021`
+ Translational distancebased scoring of TransE {cite}`Ji_2021`
 ```
 
 #### Similarity based
@@ -86,11 +86,11 @@ height: 200px
 
 
 
-```{figure} /imgs/kgembed_2.png
+```{figure} /imgs/kgembed_6.png
 ---
 height: 200px
 ---
-{cite}`Ji_2021`
+ Semantic similarity-based scoring of DistMult {cite}`Ji_2021`
 ```
 
 ## Algorithm Comparison
