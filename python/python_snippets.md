@@ -124,10 +124,10 @@ glob("../data/01_raw/CoAID/**/News*COVID-19.csv")
 
 ## Increase the pandas column width in jupyter lab or notebook
 
-- Most of the time we text in a dataframe column, which while displaying gets truncated. 
-- One way to handle this to increase the max width of all columns in the dataframe.
+- Most of the times, we have text in a dataframe column, which while displaying gets truncated. 
+- One way to handle this to increase the max width of all columns in the dataframe (as shown below)
 
-```
+```{code-block} python
 ---
 lineno-start: 1
 ---
