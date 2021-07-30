@@ -121,3 +121,16 @@ glob("../data/01_raw/CoAID/folder_1/News*COVID-19.csv")
 #       follow a pattern 'News*COVID-19.csv'
 glob("../data/01_raw/CoAID/**/News*COVID-19.csv")
 ```
+
+## Increase the pandas column width in jupyter lab or notebook
+
+- Most of the time we text in a dataframe column, which while displaying gets truncated. 
+- One way to handle this to increase the max width of all columns in the dataframe.
+
+```
+---
+lineno-start: 1
+---
+import pandas as pd
+pd.set_option('max_colwidth', 100) # increase 100 to add more space for bigger text 
+```
