@@ -63,3 +63,17 @@ git pull origin master
 # pop the stashed partial changes
 git stash pop
 ```
+### Reset to the last commit
+
+- You may want to revert back to the very last commit, discarding every modification from then. This could be because you were playing around with the code or doing some minor experiments. In either cases, you can do this by, 
+
+```{code-block}
+git reset --hard HEAD 
+```
+- Otherwise, to just unstage the files which were staged by `git add`,
+
+```{code-block}
+git reset             # 
+```
+
+- Refer this [stackoverflow QA](https://stackoverflow.com/questions/14075581/git-undo-all-uncommitted-or-unsaved-changes) for more details. 
