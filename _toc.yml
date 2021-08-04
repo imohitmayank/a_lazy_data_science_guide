@@ -3,14 +3,13 @@ format: jb-book
 root: first_page
 
 parts:
-- caption: Deep Learning
-  chapters:
-  - file: deep_learning/neural_network_design
-
 - caption: Machine Learning
   chapters:
-  - file: machine_learning/basic
-  - file: machine_learning/advanced
+  - file: machine_learning/ml_snippets
+
+- caption: Deep Learning
+  chapters:
+  - file: deep_learning/deep_learning_snippets
 
 - caption: Natural Language Processing
   chapters:
@@ -33,6 +32,7 @@ parts:
 
 - caption: Python
   chapters:
+  - file: python/good_practices
   - file: python/python_snippets
 
 - caption: Data Science Tools

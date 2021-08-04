@@ -1,8 +1,7 @@
-Neural Network Design
+Deep Learning Snippets
 =========================
 
-- To solve a problem using Neural networks, it is important to understand the science or art of NN design.
-- Here we will discuss some interesting topic which could he helpful in the quest to create the ultimate NN for your task.
+- Sharing some of the most widely used and still not *famous* Deep Learning snippets.
 
 ## Callbacks
 
