@@ -44,7 +44,7 @@ Pygments==1.4
 
 ### Type 2: Kedro
 
-- Kedro is not an project structuring strategy, it's a python tool released by [QuantumBlack Labs](https://github.com/quantumblacklabs), which does project structuring for you 😎. On top of it, they provide a plethora of features to make our project organization and even code execution process super-easy, so that we can truly focus on what matters the most -- the experimentations and implementations!
+- Kedro is not a project structuring strategy, it's a python tool released by [QuantumBlack Labs](https://github.com/quantumblacklabs), which does project structuring for you 😎. On top of it, they provide a plethora of features to make our project organization and even code execution process super-easy, so that we can truly focus on what matters the most -- the experimentations and implementations!
 - Their project structure is shown below. And btw, we can create a blank project by running `kedro new` command *(don't forget to install kedro first by `pip install kedro`)*
 
 ```
@@ -59,12 +59,12 @@ get-started         # Parent directory of the template
 └── src             # Project source code
 ```
 
-- While most of the directories are similar with other types, a few points should be noted. Kedro's way of grouping different modules is by creating different *"pipelines"*. These pipelines are present within `src` folder, which in turn contains the module files. Furthermore, they have clear segregation of individual functions which are executed - these are stored within `nodes.py` file, and these functions are later connected with the input and output within `pipeline.py` file *(all within individual pipeline folder)*. Kedro also segregates the code and the parameters, by storing the parameters within `conf` folder. 
-- Apart from just helping with organizing the project, they also provide options for sequential or parallel executions. We can execute individual functions *(within `nodes.py`)*, or individual pipelines *(which are combination of functions)*, or the complete project at one go. We can also create doc of the complete project or compile and package the project as a python `.whl` file, with just a single command run. For more details, and believe me we have just touched the surface, refer their official [documentation](https://kedro.readthedocs.io/en/stable/index.html).
+- While most of the directories are similar to other types, a few points should be noted. Kedro's way of grouping different modules is by creating different *"pipelines"*. These pipelines are present within `src` folder, which in turn contains the module files. Furthermore, they have clear segregation of individual functions which are executed - these are stored within `nodes.py` file, and these functions are later connected with the input and output within `pipeline.py` file *(all within the individual pipeline folder)*. Kedro also segregates the code and the parameters, by storing the parameters within `conf` folder. 
+- Apart from just helping with organizing the project, they also provide options for sequential or parallel executions. We can execute individual functions *(within `nodes.py`)*, or individual pipelines *(which are a combination of functions)*, or the complete project at one go. We can also create doc of the complete project or compile and package the project as a python `.whl` file, with just a single command run. For more details, and believe me we have just touched the surface, refer to their official [documentation](https://kedro.readthedocs.io/en/stable/index.html).
 
 ## Code formatting
 
-- With a top down approach, let's first have a look at a *neat* piece of code. We will discuss individual aspects of the code in more details later. For now, just assume if someone asks you to do some scripting, what an ideal piece of code file should look like.
+- With a top-down approach, let's first have a look at a *neat* piece of code. We will discuss individual aspects of the code in more detail later. For now, just assume if someone asks you to do some scripting, what an ideal piece of code file should look like.
 - Following code is take from `csv_column_operations.py` module file. It was generated for the prompt: *"write a function which takes csv file as input and returns the sum of a column"*.
 
 ```{code-block}
@@ -150,7 +150,7 @@ Some might argue why do such an overkill for a simple piece of code. Note, it's 
 ### Module structure
 
 - A module is a python file with `.py` extension that contains the executable code or functions or classes, etc.
-- Usually, we start the module with module definition, which is an area where we provide some basic details of the module. We can do so using following template *(and it can be easily compared to a real code shown above)*
+- Usually, we start the module with module definition, which is an area where we provide some basic details of the module. We can do so using the following template *(and it can be easily compared to a real code shown above)*
 
 ```{code-block}
 """<Short description>
@@ -164,11 +164,11 @@ Created: <date>
 ```
 
 - Next, we should clearly segregate the parts of the module such as imports, code area, etc using comment lines.
-- Finally, at the bottom we could include some examples on how to run the code. Including these scripts within `if __name__ == '__main__':` makes sure that they only run when the file is directly executed *(like `python csv_column_operations.py`)*. So these pieces of code doesn't run when you say import the module in another script.  
+- Finally, at the bottom, we could include some examples on how to run the code. Including these scripts within `if __name__ == '__main__':` makes sure that they only run when the file is directly executed *(like `python csv_column_operations.py`)*. So these pieces of code doesn't run when you say import the module in another script.  
 
 ### Functions structure
 
-- Functions are the basic block of code which perform a specific task. A module consist of several functions. To inform the user what a particular block of code does, we start the function with a function definition. A sample template is provided below, 
+- Functions are the basic block of code that performs a specific task. A module consists of several functions. To inform the user what a particular block of code does, we start the function with a function definition. A sample template is provided below, 
 
 ```{code-block}
 """Description
@@ -185,12 +185,12 @@ Returns
 """
 ```
 
-- After this we can start adding the relevant code lines. Make sure to separate different logical blocks of code within the functions using comments.
-- One important thing to handle at the start of the coding section, is to check the parameters and input data for some datatype or data content related basic issues. A majority of code break happens due to silly mistakes like when someone provides wrong input, in which case we should print or log warning message and gracefully exit. The above same code contains two such preliminary but important checks inside the step 1 section.
+- After this, we can start adding the relevant code lines. Make sure to separate different logical blocks of code within the functions using comments.
+- One important thing to handle at the start of the coding section is to check the parameters and input data for some data type or data content related basic issues. A majority of code break happens due to silly mistakes like when someone provides wrong input, in which case we should print or log warning message and gracefully exit. The above same code contains two such preliminary but important checks inside the step 1 section.
 
 ### Naming convention
 
-- There are several formatting conventions that we can follow, like [Camel Case](https://en.wikipedia.org/wiki/Camel_case), [Snake case](https://en.wikipedia.org/wiki/Snake_case), etc. It's quite subjective and depends with the developer. Below are some example of naming different entities of a python code *(taken from PIP8 conventions  - with some modifications)* 😇,
+- There are several formatting conventions that we can follow, like [Camel Case](https://en.wikipedia.org/wiki/Camel_case), [Snake case](https://en.wikipedia.org/wiki/Snake_case), etc. It's quite subjective and depends on the developer. Below are some examples of naming different entities of a python code *(taken from PIP8 conventions  - with some modifications)* 😇,
   - **Module name:** Modules should have short, all-lowercase names (ex: `csv_column_operations.py`)
   - **Function or method name:** Function names should be lowercase, with words separated by underscores as necessary to improve readability. Also, don't forget to add your verbs! (ex: `perform_column_sum()`)
   - **Variable name:** Similar to function name but without the verbs! (ex: `list_of_news`)
@@ -201,23 +201,23 @@ Returns
 
 - PEP-8 defines three types of comments, 
   - **Block comments:** which is written for a single or a collection of code lines. This can be done either when you want to explain a set of lines or just want to segregate code. In the above example, you can see `# Step {1, 2, 3}` used as segregation comment and `# run when file is directly executed` used to explain a set of code lines.
-  - **Inline comments:** which are added on the same line as the code. For example, see how `# to handle csv files` is used to justify the pandas package import. PEP-8 suggests to use inline comments sparingly. 
-  - **Documentation Strings:** these are used for documentations for module, functions or classes. PEP-257 suggests using multiline comment for docstring *(using """)*. Example of module and function docstrings *(short for documentation strings)* is provided in the sample code above.
+  - **Inline comments:** which are added on the same line as the code. For example, see how `# to handle csv files` is used to justify the pandas package import. PEP-8 suggests using inline comments sparingly. 
+  - **Documentation Strings:** these are used for documentation for module, functions or classes. PEP-257 suggests using multiline comment for docstring *(using """)*. An example of module and function docstrings *(short for documentation strings)* is provided in the sample code above.
 - We should be as descriptive in our comments as possible. Try to separate functional sections of your code, provide explanations for complex code lines, provide details about the input/output of functions, etc. How do you know you have enough comments? - If you think someone with half your expertise can understand the code without calling you middle of the night! 😤   
 
 ### Indentations - Tabs vs Spaces
 
-- Frankly, I am only going to touch this topic with a long stick 🧹.There are already several [articles](https://softwareengineering.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e), [reddit threads](https://www.reddit.com/r/learnpython/comments/8cann8/tabs_vs_spaces_i_dont_get_it/) and even tv series (Silicon valley :tv:) where this topic has been discussed a lot!
+- Frankly, I am only going to touch this topic with a long stick 🧹. There are already several [articles](https://softwareengineering.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e), [reddit threads](https://www.reddit.com/r/learnpython/comments/8cann8/tabs_vs_spaces_i_dont_get_it/) and even tv series (Silicon valley 📺) where this topic has been discussed a lot!
 - Want my 2 cents? Pick any modern IDE *(like VSCode, Sublime, etc)*, set indentations to tabs, and set 1 tab = 4 spaces. Done 😏
 
 ## Additional tips
 
-- Till now we have discussed how to either structure the project or format the code. Next, we will cover generic set of good practices which will save you some pain down the line 😬
+- Till now we have discussed how to either structure the project or format the code. Next, we will cover a generic set of good practices which will save you some pain down the line 😬
 
 ### Logging
 
-- Instead of printing statement in the console which is temporary (do a `cls` and poof it's gone💨), a better idea is to save these statements in a separate file, which you can always go back and refer. This is logging 📜
-- Python provides an [inbuilt function](https://docs.python.org/3.7/library/logging.html) for logging. By referring the official [how to](https://docs.python.org/3.7/howto/logging.html), logging to a file is super easy, 
+- Instead of printing statements in the console which is temporary (do a `cls` and poof it's gone💨), a better idea is to save these statements in a separate file, which you can always go back and refer to. This is logging 📜
+- Python provides an [inbuilt function](https://docs.python.org/3.7/library/logging.html) for logging. By referring to the official [how to](https://docs.python.org/3.7/howto/logging.html), logging to a file is super easy, 
 
 ```{code-block}
 ---
@@ -233,7 +233,7 @@ logging.info('So should this')
 logging.warning('And this, too')
 ```
 
-- Note, there is a hierarchical leveling of log to segregate different severity of logs. In the example shown above, the `level` parameter denotes the minimal level that is tracked and hence saved to the file. As per the official [how to](https://docs.python.org/3.7/howto/logging.html), these are the different logging levels with some details about when to use which *(in increasing order of severity)*, 
+- Note, there is a hierarchical levelling of logs to segregate different severity of logs. In the example shown above, the `level` parameter denotes the minimal level that is tracked and hence saved to the file. As per the official [how to](https://docs.python.org/3.7/howto/logging.html), these are the different logging levels with some details about when to use which *(in increasing order of severity)*, 
 
 | Level    | When it’s used                                                                                                                                                         |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -246,8 +246,8 @@ logging.warning('And this, too')
 ### Documentation
 
 - Documentation of the code is an absolute must, if you are planning to maintain the code or hand it over to someone else in the foreseeable future. Just ask any developer about their excitement on finding a ready-made and well curated documentation for a package they are planning to use! On the other hand, it looks quite difficult to create one yourself, isn't it? I mean, look at the beautiful docs of [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html#sklearn.ensemble.ExtraTreesClassifier) or [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html). 😮
-- Well, sorry for the scare there, but actually it's quite simple 😉. Remember all the function and module docstring and the formatting we followed before? As it turns out, we can leverage many open source tools like [pydoc](https://docs.python.org/3/library/pydoc.html) and [sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html) to create full fledged HTML documentations! Going into practical details is out of scope of this article, but it is fairly easy to follow the "how to" steps of both the packages and get your doc ready.
-- One last thing, if you are using Kedro, this process is even more simpler. All you have to do is run one command - `kedro build-docs --open` to create the documentations and automatically open it in your default browser!
+- Well, sorry for the scare there, but actually it's quite simple 😉. Remember all the function and module docstring and the formatting we followed before? As it turns out, we can leverage many open source tools like [pydoc](https://docs.python.org/3/library/pydoc.html) and [sphinx](https://www.sphinx-doc.org/en/master/usage/quickstart.html) to create full-fledged HTML documentations! Going into practical details is out of scope of this article, but it is fairly easy to follow the "how to" steps of both the packages and get your doc ready.
+- One last thing, if you are using Kedro, this process is even simpler. All you have to do is run one command - `kedro build-docs --open` to create the documentation and automatically open it in your default browser!
 
 ### Virtual environment
 
