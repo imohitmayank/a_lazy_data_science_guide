@@ -13,7 +13,7 @@ Python Good Practices
 
 - In this part, we will basically talk about some good practices on how the complete python project can be structured. For this, we will look at two different possibilities, which anyone can choose based on how simple or complex their project is going to be.
 
-### Type 1: The Bare minimum
+### Type 1: The Classic
 
 - This is the most basic format and yet gives the hint of organized structuring. This can be followed when our project consists of only a few scripts. The directory of a sample project could look something like this:
 
