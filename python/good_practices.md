@@ -3,11 +3,12 @@ Python Good Practices
 
 ## Introduction
 
-- Let's cover some of the good practices, which will not only help us to create a working but also a beautiful piece of code 😀
+- Writing code that works now is easy. Writing code that will work tomorrow is hard. Writing code that will work tomorrow and is intuitive enough for anyone to understand and follow — well now we have hit the super hard stuff 😀. Observing several ML engineers and Data scientists working with me, I have noticed nearly all of them have their own unique style of coding. Well, don't get me wrong, subjectively is a good thing and I think it is what leads to innovations. That said while working in a team or even in open source collaboration, it helps to agree to a certain set of rules. And that's the idea behind this article, to provide python practitioners with a set of curated guidelines, from which they can pick and choose.
+- With that, let's cover some of the good practices, which will not only help us to create a working but also a beautiful piece of code 😀
 - To cover this topic, we will go through three parts, 
-  1. Project structuring
-  2. Code formatting
-  3. Additional tips
+  1. **Project structuring:** ideas on how to organize your code
+  2. **Code formatting:** ideas on how to make your code easy to follow
+  3. **Additional tips:** a few things which will help you in the longer run
 
 ## Project Structuring
 
