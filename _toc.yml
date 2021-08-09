@@ -37,7 +37,8 @@ parts:
 
 - caption: Data Science Tools
   chapters:
-  - file: data_science_tools/version_control
-  - file: data_science_tools/online_platforms
+  - file: data_science_tools/engineering
+#  - file: data_science_tools/experiment_tracking
+  - file: data_science_tools/compute_and_ai_services
 #     - file: markdown
 #     - file: notebooks
