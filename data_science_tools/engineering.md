@@ -12,9 +12,9 @@
 
 - Now comes the question of what can be tracked and how? A very simple distinction of different tools available for VC can be introduced efficiently, if we look at them from the lens of what type of data they can "version control". Such as, 
   
-  - **Code:** if you want to maintain just the code files, GIT is the defacto answer. There are several GIT based service providers whose platform can be used *(for free)* to maintain a git repository, such as "Github", "Gitlab", "BitBucket", etc.
-  
-  - **Data and ML Model:** in contrast to GIT, which was developed to maintain relatively small sized files, we need something different if we want to handle big files like datasets or ML/DL models. Enter [DVC](https://dvc.org/) (Data Version Control), an GIT extension that directly connects with data storages (cloud or local) with the git to maintain data, model and code at the same time!
+    - **Code:** if you want to maintain just the code files, GIT is the defacto answer. There are several GIT based service providers whose platform can be used *(for free)* to maintain a git repository, such as "Github", "Gitlab", "BitBucket", etc.
+
+    - **Data and ML Model:** in contrast to GIT, which was developed to maintain relatively small sized files, we need something different if we want to handle big files like datasets or ML/DL models. Enter [DVC](https://dvc.org/) (Data Version Control), an GIT extension that directly connects with data storages (cloud or local) with the git to maintain data, model and code at the same time!
 
 - We will go through some of the tools/services in little detail.
 
@@ -22,12 +22,46 @@
 
 #### Introduction
 
-- GIT is the defacto version control for code base, with popular free and services like GitHub, Gitlab and BitBucket.
-- TODO
+- In simple words, GIT is a system designed to track changes in your file. True story, it was developed by none other but the creator of Linux, yes, Linus Torvalds in 2005. The story goes something like this -- while he was developing the linux kernel along with other kernel developers, he found it troublesome to maintain, track and handle conflicting (overlapping) pieces of codes. So he ended up coding the GIT system as a side project, just to help him and his fellow developers maintain linux kernel in a more efficient manner! Now, isn't that a cod side project 😎. You can read more about GIT and the history [here](https://en.wikipedia.org/wiki/Git).
+
+- Some of the popular and free services are GitHub, Gitlab and BitBucket. While some of them may have better UI or add-on functionalities, the basic system used by all of them is the same. Hence if you learn the basic command once, you can use GIT no matter the platform. And that is why we will limit ourselves to learn GIT the old school way (via GIT bash command), and leave the fancy UI or tool based operation as an exploration activity for the interested audience. 
+
+- Before we go into the command and syntax, we need to be clear about certain topics, to better appreciate GIT. These are, 
+  
+    - **From where can we get Git?** Git is free and available [here](https://git-scm.com/). Download the latest stable version as per your OS. 
+    - **How do we use Git?** After downloading Git *(and specifically in Windows)*, from any directory in file explorer, on right click, you should get the option to open either "Git bash" or "Git GUI". For this article, we will use Git bash, as that's how real developers roll 😤 (jk)
+    - **What is Git Bash?** It is something similar to command prompt in windows or terminal in linux, but something specifically designed for Git. To perform any Git related operation, we will use the Git bash.
+    - **What is local vs remote server?** TODO
+    - **What are branches in Git?** TODO
+    - **What is a merge conflict and merge request in Git?** TODO
+    - **What is the life cycle in Git?** Basically any file in a git repository typically goes through three stages. These are, (1) working directory: the initial stage, where you have just created a git repository and git is just looking at the files to note what have changed. (2) staging area: the second stage, where you define the files 
+
+- Now let's take a practical approach of learning Git. Suppose you are working on a big project with lots of modifications happening per day. Now you are looking for a tool, that will help you keep track of the changes you make by recording the line wise modification made by you in the files in your project. For this you want to explore GIT and see if it will make your life easier or not. So, let's get stated with the exploration! 😀
+  
+    - **Initializing the Git repository:** As we discussed, Git helps in tracking the changes made in a file. On top of it, it's easy to scale it up and track a complete folder that contains hundreds of files! For reference, suppose you have already created a project (follow for more details on how to structure a python project), and want to track the changes in any of the files present there. To do so, just go to the main directory of the project and initialize git by using command `git init` . This will mark that directory as a git repository. Next, if you run `git status`, it will show you an overview of the project and all of files. Note, by default Git keeps a look out at all of the files within the directory and show when any of the files have changed.
+
+    - **Tracking files:** It may so happens that you only want to really track a few files and not all. This option is available and can be done by command `git add <file_name>`, or if you want to track all of the files do `git add .` By doing this you ave moved the files into staging area. Now if you run git status again, you can see the files names are in green. This means these files are tracked!
+
+    ```{figure} /imgs/git_init_and_track.png
+    ---
+    height: 400px
+    ---
+    Example for initializing the git repository to tracking the files.
+    ```
+
+    - **Commit:** Now, suppose we just completed one small task (adding a new function), and want to log off. It would be a good idea, if we can somehow take a snapshot of our current code and save it, so that when we come back we can easily continue. This can be done by `git commit -m "your message"` wherein you are asking git to commit all of the changes added in the staging area. This commit can be thought of as a unique snapshot of your code with the commit message as your description.
+
+    - **Push:** Now you just remembered, your team mate who works from other side of the globe asked you to share the code once done. So before logging off, we can push or commit to remote server by `git push origin master` . Note, here `git push` signifies we want to pus the code, `origin` denotes the remote server and `master` denotes the branch of `origin` on which we want to push.
+
+- And that's it! We have covered most of the fundamental aspects of using git. One important aspect still remains, that is we should refrain from committing directly to master branch. Instead whenever we are planning to do a modification, we should checkout to a new git branch (by using `git checkout -b <branch_name>`), do the modifications there, push that particular branch to remote and then create merge request. This is just a good practice followed when working with a team! 
 
 #### GIT Snippets
 
 - Listing down some of the helper code snippets for GIT
+
+##### The basic git commands
+
+- Listing down some of the most basic GIT command, that you should definitely know about.
 
 ##### Modify config to add email and name
 
@@ -107,3 +141,7 @@ git reset
 ### DVC
 
 TODO
+
+### References
+
+- [DVC](https://dvc.org/)
