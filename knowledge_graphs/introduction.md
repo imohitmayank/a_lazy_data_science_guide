@@ -33,7 +33,7 @@ A sample knowledge graph. {cite}`rdf_primer`
 
 ## Why knowledge graphs?
 
-- This is the very first and a valid question anyone will ask when introduced to KG. We will try to go through some points wherein we compare KG with normal graphs and even other ways of storing information. The aim is to highlight the major advantages of using KG.
+This is the very first and a valid question anyone will ask when introduced to KG. We will try to go through some points wherein we compare KG with normal graphs and even other ways of storing information. The aim is to highlight the major advantages of using KG.
 
 ### Compared to Normal Graph
 
@@ -51,7 +51,7 @@ A sample knowledge graph. {cite}`rdf_primer`
 
 ## How to use Knowledge Graph?
 
-- Knowledge graphs can be used for a large number of tasks -  be it for logical reasoning, explainable recommendations, complex analysis or just being a better way to store information. There are two very interesting examples which we will discuss briefly.
+Knowledge graphs can be used for a large number of tasks -  be it for logical reasoning, explainable recommendations, complex analysis or just being a better way to store information. There are two very interesting examples which we will discuss briefly.
 
 ### Google Knowledge Panel
 
