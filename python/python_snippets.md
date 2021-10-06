@@ -134,3 +134,37 @@ lineno-start: 1
 import pandas as pd
 pd.set_option('max_colwidth', 100) # increase 100 to add more space for bigger text 
 ```
+
+## Parse date and time from string
+
+- There are basically 2 ways to do this, (1) Trust machine 🤖: for majority of the 'famous' date writing styles, you can use `dateparser` package that automatically extracts the date and parse it into `datetime` format.
+
+```{code-block} python
+---
+lineno-start: 1
+---
+# import
+from dateparser import parse
+# parse
+text = 'October 05, 2021'
+dateparser.parse(text)
+# output - datetime.datetime(2021, 10, 5, 0, 0)
+```
+
+which will return output ``.
+
+- Another way is (2) DIY 💪: if you can create the [date time format](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)), you can use `datetime` package directly.
+
+```{code-block} python
+---
+lineno-start: 1
+---
+# import
+from datetime import datetime
+# parse
+text = 'October 05, 2021'
+date_format = '%B %d, %Y'
+datetime.strptime(text, date_format)
+# output - datetime.datetime(2021, 10, 5, 0, 0)
+
+```
