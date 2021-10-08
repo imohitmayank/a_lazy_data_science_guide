@@ -166,5 +166,45 @@ text = 'October 05, 2021'
 date_format = '%B %d, %Y'
 datetime.strptime(text, date_format)
 # output - datetime.datetime(2021, 10, 5, 0, 0)
+```
 
+## Bulk document insert in MongoDB
+
+- While `pymongo` provides `insert_many` function for bulk insert, it breaks in case of duplicate key. We can handle it with following function, which in its worse case is similar to `insert_one`, but shines otherwise. 
+
+
+```{code-block} python
+---
+lineno-start: 1
+---
+# import
+import pymongo
+# function
+def insert_many_wrapper(df, col):
+    """bulk insert docs into the MongoDB while handling duplicate docs
+
+    Parameters
+        - df (pandas.dataframe): row as a doc with `_id` col
+        - col (pymongo.db.col): pymongo collection object in which insertion is to be done
+    """
+    # make a copy and reset index
+    df = df.copy().reset_index(drop=True)
+    # vars
+    all_not_inserted = True
+    duplicate_count = 0
+    ttl_docs = df.shape[0]
+    # iterate till all insertions are done (or passed in case of duplicates)
+    while all_not_inserted:
+        # try insertion
+        try:
+            col.insert_many(df.to_dict(orient='records'), ordered=True)
+            all_not_inserted = False
+        except pymongo.errors.BulkWriteError as e:
+            id_till_inserted = e.details['writeErrors'][0]['keyValue']['_id']
+            index_in_df = df[df['_id']==id_till_inserted].index[0]
+            print(f"Duplicate id: {id_till_inserted}, Current index: {index_in_df}")
+            df = df.loc[index_in_df+1:, :]
+            duplicate_count += 1
+    # final status
+    print(f"Total docs: {ttl_docs}, Inserted: {ttl_docs-len(duplicate_count)}, Duplicate found: {len(duplicate_count)}")
 ```
