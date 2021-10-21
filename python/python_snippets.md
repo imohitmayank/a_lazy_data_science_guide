@@ -212,7 +212,7 @@ def insert_many_wrapper(df, col):
 ## Search top StackExchange questions
 
 - Stack Exchange exposes several API endpoints to process the questions, answers or posts from their website. 
-- A simple implementation to search and download the latest (from yesterday) and top voted questions is shown below. For more such API endpoints consult their official [doc](https://api.stackexchange.com/docs). 
+- A simple implementation to search and download the latest (from yesterday) and top voted questions is shown below. For more such API endpoints, consult their official [doc](https://api.stackexchange.com/docs). 
 
 ```{code-block} python
 ---
@@ -257,4 +257,4 @@ data = response.json()
 
 # Print the data
 print(json.dumps(data, indent=4))
----
+```
