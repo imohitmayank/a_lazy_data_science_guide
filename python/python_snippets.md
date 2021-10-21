@@ -208,3 +208,53 @@ def insert_many_wrapper(df, col):
     # final status
     print(f"Total docs: {ttl_docs}, Inserted: {ttl_docs-len(duplicate_count)}, Duplicate found: {len(duplicate_count)}")
 ```
+
+## Search top StackExchange questions
+
+- Stack Exchange exposes several API endpoints to process the questions, answers or posts from their website. 
+- A simple implementation to search and download the latest (from yesterday) and top voted questions is shown below. For more such API endpoints consult their official [doc](https://api.stackexchange.com/docs). 
+
+```{code-block} python
+---
+lineno-start: 1
+---
+"""
+Request StackExchange API to get the top 10 most voted questions and their answer from yesterday
+"""
+
+import requests
+import json
+import datetime
+import time
+
+# Get the current date
+today = datetime.date.today()
+yesterday = today - datetime.timedelta(days=1)
+
+# Get the current time
+now = datetime.datetime.now()
+
+# Get the time of yesterday
+yesterday_time = now.replace(day=yesterday.day, month=yesterday.month, year=yesterday.year)
+
+# Convert the time to epoch time
+yesterday_epoch = int(time.mktime(yesterday_time.timetuple()))
+
+# Get the time of today
+today_time = now.replace(day=today.day, month=today.month, year=today.year)
+
+# Convert the time to epoch time
+today_epoch = int(time.mktime(today_time.timetuple()))
+
+# Get the top 10 most voted questions and their answer from yesterday
+url = "https://api.stackexchange.com/2.2/questions?pagesize=10&fromdate=" + str(yesterday_epoch) + "&todate=" + str(today_epoch) + "&order=desc&sort=votes&site=stackoverflow"
+
+# Get the response from the API
+response = requests.get(url)
+
+# Convert the response to JSON
+data = response.json()
+
+# Print the data
+print(json.dumps(data, indent=4))
+---
