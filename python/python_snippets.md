@@ -258,3 +258,35 @@ data = response.json()
 # Print the data
 print(json.dumps(data, indent=4))
 ```
+
+## Export complete data from ElasticSearch
+
+- Due to several memory and efficiency related limitations, it is non-trivial to export complete data from ElasticSearch database.
+- That said, it is not impossible. PFB an `scan` based implementation that does the same for a dummy `test_news` index.
+
+```{code-block} python
+---
+lineno-start: 1
+---
+# import 
+import pandas as pd
+from elasticsearch import Elasticsearch
+from elasticsearch.helpers import scan
+from tqdm import tqdm
+
+# config
+index_name = 'test_news'
+db_ip = 'http://localhost:9200'
+
+# connect to elasticsearch
+es = Elasticsearch([db_ip])
+
+# fetch all data from elasticsearch
+scroll = scan(es, index=index_name, query={"query": {"match_all": {}}})
+data = []
+for res in tqdm(scroll):
+    data.append(res['_source'])
+
+# convert to pandas dataframe and export as csv
+pd.DataFrame(data).to_csv("news_dump.csv", index=False)
+```
