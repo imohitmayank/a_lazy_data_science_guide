@@ -290,3 +290,24 @@ for res in tqdm(scroll):
 # convert to pandas dataframe and export as csv
 pd.DataFrame(data).to_csv("news_dump.csv", index=False)
 ```
+
+## Convert python literals from string 
+
+- While I/O from database or config files, we may get some literals (ex list) in form of string, wherein they maintain their structure but the type. We can use `ast` package to convert them back to their correct type.
+- Quoting the documentation, "With `ast.literal_eval` you can safely evaluate an expression node or a string containing a Python literal or container display. The string or node provided may only consist of the following Python literal structures: strings, bytes, numbers, tuples, lists, dicts, booleans, and None."
+
+```{code-block} python
+---
+lineno-start: 1
+---
+# import
+import ast
+# list literal in string format
+list_as_string = '["a", "b"]'
+# convert
+list_as_list = ast.literal_eval(list_as_string) # Output: ["a", "b"]  
+```
+
+
+
+
