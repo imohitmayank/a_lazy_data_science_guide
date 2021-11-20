@@ -1,3 +1,4 @@
 mkdocs==1.2.3
+pymdown-extensions
 mkdocs-material-extensions
 mdx_truly_sane_lists
