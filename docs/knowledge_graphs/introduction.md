@@ -22,7 +22,7 @@ Introduction
 - A simple KG example is provided below. One example of fact could be `<BoB, is_interested_in, The_Mona_Lisa>`. You can see the KG is nothing but a collection of multiple such facts.
 
 <figure markdown> 
-        ![](/imgs/kg_1.png)
+        ![](../imgs/kg_1.png)
         <figcaption>A sample knowledge graph. (*rdf_primer*)</figcaption>
         </figure>
 - Note, there are no limitations on the data type of the fact stored in KG. As shown in the above example, we have persons (Bob, Alice, ..), paintings (Mona Lisa), dates, etc, represented as nodes in the KG.
@@ -58,7 +58,7 @@ Knowledge graphs can be used for a large number of tasks -  be it for logica
 - All this information can be stored in a KG and one such example is shown below. This showcase how easy it is to store information and also note how intuitive it is to just read and understand the fact from a KG.
 
 <figure markdown> 
-        ![](/imgs/kg_ex_1.png)
+        ![](../imgs/kg_ex_1.png)
         <figcaption>Example of knowledge graph-based knowledge panel used by Google. [Right] the actual panel shown by google when you search for Einstein. [left]  recreation of how we might store similar information in a KG. Source: by Author + Google.</figcaption>
         </figure>
 ### Movie recommendation
@@ -74,7 +74,7 @@ Knowledge graphs can be used for a large number of tasks -  be it for logica
 - This simple thought exercise should showcase how a lot of real-world interactions can be easily represented in form of facts using KG. And then we can leverage KG-based algorithms for a downstream use case like generating recommendations.
 
 <figure markdown> 
-        ![](/imgs/kg_ex_2.png)
+        ![](../imgs/kg_ex_2.png)
         <figcaption>A sample knowledge graph for movie recommendation task. (*guo2020survey*)</figcaption>
         </figure>
 
@@ -91,7 +91,7 @@ While there are several small-sized and domain-specific KGs, on the other hand, 
 - **YAGO**:  huge semantic knowledge base, derived from Wikipedia, WordNet and GeoNames.
 
 <figure markdown> 
-        ![](/imgs/prackg_opensourcekg.png)
+        ![](../imgs/prackg_opensourcekg.png)
         <figcaption>Stats for some of the famous open source knowledge graphs (*färber2018knowledge*)</figcaption>
         </figure>
 
@@ -105,7 +105,7 @@ In spite of having several open-source KGs, we may have a requirement to create 
 - **Facts selection:** Once we have extracted several facts, the next obvious steps could be to remove duplicates and identify relevant facts that could be added to a KG. To identify duplicates, we can use entity and relation disambiguation techniques. The idea is to consolidate the same facts or elements of a fact, in case of repetitions. For example, "Albert Einstein" can also be written as "Albert E." or "A. Einstein" in the text, but in reality, they all refer to the same entity. Finally, we can have a comprehensive rule-based system that decides which triplet should be added to the KG or which one could be skipped based on factors like redundant information (`A → sibling of → B` is present, hence `B → sibling of → A` is redundant) or irrelevant information.
 
 <figure markdown> 
-        ![](/imgs/prackg_createkg.png)
+        ![](../imgs/prackg_createkg.png)
         <figcaption>Steps involved in creating a custom knowledge graph. Source: Author + (*Ji_2021*)</figcaption>
         </figure>
 
@@ -118,7 +118,7 @@ In spite of having several open-source KGs, we may have a requirement to create 
 
 
 <figure markdown> 
-        ![](/imgs/prackg_schema.png)
+        ![](../imgs/prackg_schema.png)
         <figcaption>RDF schema triplets (informal). Source: Author + (*rdf_primer*)</figcaption>
         </figure>
 
@@ -126,7 +126,7 @@ In spite of having several open-source KGs, we may have a requirement to create 
 - Notice, each entity and relation has a unique identifier (their unique key or UID). Throughout the code, the same entity or relation should be referenced by the same UID. Next, using the predefined schemas, we can add facts for an entity (in graphical term, add a connecting edge and tail node to the head node). These facts could include another entity (refer by their UID), some text, date (in DateTime format), links, etc.
 
 <figure markdown> 
-        ![](/imgs/prackg_turtle.png)
+        ![](../imgs/prackg_turtle.png)
         <figcaption>Script in Turtle language to create the sample knowledge graph. Source: Author + (*rdf_primer*)</figcaption>
         </figure>
 
@@ -149,7 +149,7 @@ There are two types of databases that can be used to store graphical information
 - Most of the RDF triple stores provide a visual SPARQL query page to fetch the relevant info. For our case, let us use one such visual query helper exposed by Wikidata (shown below). A sample query is shown, where we want to extract all entities that are instances of a house cat (we just want some cats 🐱). As discussed before, each entity has a UID, hence relation `<instance of>` is represented as `P31`, and the entity `<house cat>` is represented as `Q146`. The query is quite simple to understand, as from lines 2 to 5, we are just trying to convey that we want any entity that is an instance of a house cat. As Wikidata contains data in multiple languages, line 6 is needed to filter results specific to the English language. The results (entities with their UID and some basic details) are shown below the query.
 
 <figure markdown> 
-        ![](/imgs/prackg_querykg_sparql.png)
+        ![](../imgs/prackg_querykg_sparql.png)
         <figcaption>Query Knowledge graph using SPARQL language (*wikidata_sparql_query_helper*)</figcaption>
         </figure>
 
@@ -158,7 +158,7 @@ There are two types of databases that can be used to store graphical information
 - Open-source KG also exposes several ready-made APIs for frequently used queries. One such API is shown below (for Wikidata), which returns relevant information for a given entity. Below we can see the result of querying `wbgetentities` API for entity `Q9141` which is the UID for the Taj Mahal.
 
 <figure markdown> 
-        ![](/imgs/prackg_querykg_api.png)
+        ![](../imgs/prackg_querykg_api.png)
         <figcaption>Query Knowledge graph using available APIs (*wikidata_api_services*)</figcaption>
         </figure>
 

@@ -6,7 +6,7 @@ GPT models
 - GPT stands for "Generative Pre-trained Transformer". It is an autoregressive language model which is based on the decoder block of the Transformer architecture.
 
 <figure markdown> 
-        ![](/imgs/nlp_transformers.png)
+        ![](../imgs/nlp_transformers.png)
         <figcaption>Transformer architecture. Left part is the encoder, right part is the decoder. GPT is made up of the right part i.e. decoder part. (*vaswani2017attention*)</figcaption>
         </figure>
 

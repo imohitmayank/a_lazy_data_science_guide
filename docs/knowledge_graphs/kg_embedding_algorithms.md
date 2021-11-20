@@ -21,7 +21,7 @@ KG embedding algorithms
 - Easy to understand; Not ideal for graphical (tree-like) structure.
 
 <figure markdown> 
-        ![](/imgs/kgembed_1.png)
+        ![](../imgs/kgembed_1.png)
         <figcaption>Point-wise space (*Ji_2021*)</figcaption>
         </figure>
 
@@ -32,7 +32,7 @@ KG embedding algorithms
 
 
 <figure markdown> 
-        ![](/imgs/kgembed_2.png)
+        ![](../imgs/kgembed_2.png)
         <figcaption>Complex vector space (*Ji_2021*)</figcaption>
         </figure>
 
@@ -42,7 +42,7 @@ KG embedding algorithms
 
 
 <figure markdown> 
-        ![](/imgs/kgembed_3.png)
+        ![](../imgs/kgembed_3.png)
         <figcaption>Gaussian distribution (*Ji_2021*)</figcaption>
         </figure>
 
@@ -53,7 +53,7 @@ KG embedding algorithms
 
 
 <figure markdown> 
-        ![](/imgs/kgembed_4.png)
+        ![](../imgs/kgembed_4.png)
         <figcaption>Manifold space (*Ji_2021*)</figcaption>
         </figure>
 
@@ -66,7 +66,7 @@ KG embedding algorithms
 
 
 <figure markdown> 
-        ![](/imgs/kgembed_5.png)
+        ![](../imgs/kgembed_5.png)
         <figcaption>Translational distancebased scoring of TransE (*Ji_2021*)</figcaption>
         </figure>
 
@@ -77,7 +77,7 @@ KG embedding algorithms
 
 
 <figure markdown> 
-        ![](/imgs/kgembed_6.png)
+        ![](../imgs/kgembed_6.png)
         <figcaption>Semantic similarity-based scoring of DistMult (*Ji_2021*)</figcaption>
         </figure>
 
@@ -86,7 +86,7 @@ KG embedding algorithms
 - A holistic comparison of different knowledge graph emebdding techniques w.r.t. category and scoring function is provided below, 
 
 <figure markdown> 
-        ![](/imgs/kg_algorithm_comparison.png)
+        ![](../imgs/kg_algorithm_comparison.png)
         <figcaption>A comprehensive summary of knowledge representation learning models (*Ji_2021*)</figcaption>
         </figure>
 

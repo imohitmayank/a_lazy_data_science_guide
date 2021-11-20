@@ -23,7 +23,7 @@ Text generation
 - As obvious from the examples mentioned above, it is possible to formulate a lot of problems as a text-in-text-out task, and it could even expand to classification and regression types of tasks. Some example tasks that can be performed using T5 is shown below, 
 
 <figure markdown> 
-        ![](/imgs/t5_example.gif)
+        ![](../imgs/t5_example.gif)
         <figcaption>T5 text-to-text framework examples. See: [Google Blog](https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html) (*raffel2020exploring*)</figcaption>
         </figure>
 

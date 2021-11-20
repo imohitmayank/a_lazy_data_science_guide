@@ -22,7 +22,7 @@ $$
 - LSTM cells on the other hand is more complicated and is shown below.
 
 <figure markdown> 
-        ![](/imgs/nlp_lstm.png)
+        ![](../imgs/nlp_lstm.png)
         <figcaption>LSTM cell. (*lstm_understanding*)</figcaption>
         </figure>
 
@@ -32,7 +32,7 @@ $$
 - Finally, a GRU cell looks as follow, 
 
 <figure markdown> 
-        ![](/imgs/nlp_gru.png)
+        ![](../imgs/nlp_gru.png)
         <figcaption>GRU cell with formulae. (*lstm_understanding*)</figcaption>
         </figure>
 

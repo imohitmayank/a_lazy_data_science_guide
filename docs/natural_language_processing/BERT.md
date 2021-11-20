@@ -7,7 +7,7 @@ BERT
 - Basically, it is a modification of Transformers (*vaswani2017attention*), where we just keep the encoder part and discard the decoder part.
 
 <figure markdown> 
-        ![](/imgs/nlp_transformers.png)
+        ![](../imgs/nlp_transformers.png)
         <figcaption>Transformer architecture. BERT is the left part i.e. encoder part. (*vaswani2017attention*)</figcaption>
         </figure>
 
@@ -15,14 +15,14 @@ BERT
 - The major motivation behind BERT is to handle the limitation of the existing language models which are unidirectional in nature. This means that they only consider text left to right for sentence level inference. BERT on the other hand, allows tokens to attend to both sides in self-attention layer. This is one of the major reason for it high performance.
 
 <figure markdown> 
-        ![](/imgs/nlp_bert_elmo_gpt.png)
+        ![](../imgs/nlp_bert_elmo_gpt.png)
         <figcaption>Differences in pre-training model architectures. BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-toleft LSTMs to generate features for downstream tasks. Among the three, only BERT representations are jointly conditioned on both left and right context in all layers. In addition to the architecture differences, BERT and OpenAI GPT are fine-tuning approaches, while ELMo is a feature-based approach.. (*devlin2019bert*)</figcaption>
         </figure>
 
 - The most fascinating feature of BERT is that it is super easy to use it for a large number of NLP tasks. The idea is to take the pretrained BERT model and later fine tune it for the specific task. The pre-trained model is trained on a large corpus in a unsupervised manner, hence the model learns the generic representations of the tokens from large corpus of text. This makes it easy to later fine tune it for any other NLP task, as the model comes pretrained with large context about the language, grammar and semantic representations.
 
 <figure markdown> 
-        ![](/imgs/nlp_bert_applications.png)
+        ![](../imgs/nlp_bert_applications.png)
         <figcaption>Illustrations of Fine-tuning BERT on Different Tasks. (*devlin2019bert*)</figcaption>
         </figure>
 

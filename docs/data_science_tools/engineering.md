@@ -39,7 +39,7 @@
   - **Staging files:** You are going through the project file by file, making modifications as needed. Once you are happy with any file (or think that it is done), you can add that file to the staging area by command `git add <file_name>`, or if you want to stage all of the files at one go, do `git add .`. Now if you run `git status` again, you can see the files names are in green. This means these files are staged!
 
     <figure markdown> 
-        ![](/imgs/git_init_and_track.png)
+        ![](../imgs/git_init_and_track.png)
         <figcaption>Example for initializing the git repository to tracking the files.</figcaption>
         </figure>
 
