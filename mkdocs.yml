@@ -1,6 +1,6 @@
 site_name: A Lazy Data Science Guide
 theme:
-  name: mkdocs
+  name: material
   logo: imgs/logo.png
   favicon: imgs/logo.png
   features:
@@ -27,6 +27,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.tabbed:
