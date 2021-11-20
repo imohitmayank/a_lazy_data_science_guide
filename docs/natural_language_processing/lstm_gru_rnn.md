@@ -8,7 +8,7 @@ LSTM, GRU and RNN
 - Starting with RNN, the flow of data and hidden state inside the RNN cell is shown below.
 
 <figure markdown> 
-        ![](/imgs/nlp_rnn.png)
+        ![](../imgs/nlp_rnn.png)
         <figcaption>Cell of RNN layer. (*practical_guide_to_rnn_and_lstm*)</figcaption>
         </figure>
 
