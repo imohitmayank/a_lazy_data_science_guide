@@ -1,6 +1,6 @@
 site_name: A Lazy Data Science Guide
 theme:
-  name: material
+  name: mkdocs
   logo: imgs/logo.png
   favicon: imgs/logo.png
   features:
