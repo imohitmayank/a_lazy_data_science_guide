@@ -1,4 +1,6 @@
 site_name: A Lazy Data Science Guide
+site_url: https://mohitmayank.com/a_lazy_data_science_guide/
+repo_url: https://github.com/imohitmayank/a_lazy_data_science_guide
 theme:
   name: material
   logo: imgs/logo.png
@@ -39,9 +41,6 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-repo_url: https://github.com/imohitmayank/a_lazy_data_science_guide
-site_url: https://mohitmayank.com/a_lazy_data_science_guide/
 
 extra:
   disqus: "mohitmayank"
