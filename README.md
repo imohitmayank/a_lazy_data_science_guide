@@ -1,8 +1,8 @@
 # A Lazy Data Science Guide
 
-![image](imgs/logo.png)
+![image](docs/imgs/logo.png)
 
-Book: [Here](http://mohitmayank.com/a_lazy_data_science_guide/first_page.html)
+Book: [Here](http://mohitmayank.com/a_lazy_data_science_guide/)
 
 **What is this?** A guide book on data science for busy and equally lazy Data Scientists 😄
 
@@ -18,27 +18,11 @@ Book: [Here](http://mohitmayank.com/a_lazy_data_science_guide/first_page.html)
 
 **How to cite?** Add the following to your bib file, 
 ```
-@misc{mmayanklazydatascience,
+@misc{mohitlazydatascience,
   title   = "A Lazy Data Science Guide",
   author  = "Mohit Mayank",
   journal = "mohitmayank.com",
   year    = "2021",
-  url     = "http://mohitmayank.com/a_lazy_data_science_guide/first_page.html"
+  url     = "http://mohitmayank.com/a_lazy_data_science_guide/"
 }
-```
-
-## Technical details
-### How to build
-
-- Go to the root directory and, 
-
-```bash
-jupyter-book clean .
-jupyter-book build .
-```
-
-### How to re-publish
-```bash
-cd ..
-ghp-import -n -p -f _build/html
 ```
