@@ -41,6 +41,7 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 repo_url: https://github.com/imohitmayank/a_lazy_data_science_guide
+site_url: https://imohitmayank.github.io/a_lazy_data_science_guide/
 
 extra:
   disqus: "mohitmayank"

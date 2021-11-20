@@ -1,1 +1,3 @@
 _build/*
+site/*
+.DS_Store
