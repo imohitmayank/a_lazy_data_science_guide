@@ -21,12 +21,10 @@ Introduction
 
 - A simple KG example is provided below. One example of fact could be `<BoB, is_interested_in, The_Mona_Lisa>`. You can see the KG is nothing but a collection of multiple such facts.
 
-```{figure} /imgs/kg_1.png
----
-height: 300px
----
-A sample knowledge graph. {cite}`rdf_primer`
-```
+<figure markdown> 
+        ![](/imgs/kg_1.png)
+        <figcaption>A sample knowledge graph. (*rdf_primer*)</figcaption>
+        </figure>
 - Note, there are no limitations on the data type of the fact stored in KG. As shown in the above example, we have persons (Bob, Alice, ..), paintings (Mona Lisa), dates, etc, represented as nodes in the KG.
 
 ----------
@@ -59,12 +57,10 @@ Knowledge graphs can be used for a large number of tasks -  be it for logica
 - The panel contains a wide variety of information (description, education, born, died, quotes, etc) and interestingly in different formats--(text, image, dates, numbers, etc).
 - All this information can be stored in a KG and one such example is shown below. This showcase how easy it is to store information and also note how intuitive it is to just read and understand the fact from a KG.
 
-```{figure} /imgs/kg_ex_1.png
----
-height: 300px
----
-Example of knowledge graph-based knowledge panel used by Google. [Right] the actual panel shown by google when you search for Einstein. [left]  recreation of how we might store similar information in a KG. Source: by Author + Google.
-```
+<figure markdown> 
+        ![](/imgs/kg_ex_1.png)
+        <figcaption>Example of knowledge graph-based knowledge panel used by Google. [Right] the actual panel shown by google when you search for Einstein. [left]  recreation of how we might store similar information in a KG. Source: by Author + Google.</figcaption>
+        </figure>
 ### Movie recommendation
 
 - Classical algorithms considered user-item interactions to generate recommendations. Over time, newer algorithms are considering additional information about the user as well as items, to improve the recommendations.
@@ -77,12 +73,10 @@ Example of knowledge graph-based knowledge panel used by Google. [Right] the act
 	- Bob: as DiCaprio acted in Inception as well
 - This simple thought exercise should showcase how a lot of real-world interactions can be easily represented in form of facts using KG. And then we can leverage KG-based algorithms for a downstream use case like generating recommendations.
 
-```{figure} /imgs/kg_ex_2.png
----
-height: 300px
----
-A sample knowledge graph for movie recommendation task. {cite}`guo2020survey`
-```
+<figure markdown> 
+        ![](/imgs/kg_ex_2.png)
+        <figcaption>A sample knowledge graph for movie recommendation task. (*guo2020survey*)</figcaption>
+        </figure>
 
 ----------
 
@@ -96,9 +90,10 @@ While there are several small-sized and domain-specific KGs, on the other hand, 
 - **Wikidata**: is a free, collaborative, multilingual, secondary database, collecting structured data to provide support for Wikipedia
 - **YAGO**:  huge semantic knowledge base, derived from Wikipedia, WordNet and GeoNames.
 
-```{figure} /imgs/prackg_opensourcekg.png
-Stats for some of the famous open source knowledge graphs {cite}`färber2018knowledge`
-```
+<figure markdown> 
+        ![](/imgs/prackg_opensourcekg.png)
+        <figcaption>Stats for some of the famous open source knowledge graphs (*färber2018knowledge*)</figcaption>
+        </figure>
 
 ----------
 
@@ -109,9 +104,10 @@ In spite of having several open-source KGs, we may have a requirement to create 
 - **Facts creation:** this is the first step where we parse the text (sentence by sentence) and extract facts in triplet format like `<H, R, T>`. As we are processing text, we can leverage pre-processing steps like tokenization, stemming, or lemmatization, etc to clean the text. Next, we want to extract the entities and relations (facts) from the text. For entities, we can use Named entity recognition (NER) algorithms. For relation, we can use sentence dependency parsing techniques to find the relationship between any pair of entities. [Example article with code](https://www.analyticsvidhya.com/blog/2019/10/how-to-build-knowledge-graph-text-using-spacy/).
 - **Facts selection:** Once we have extracted several facts, the next obvious steps could be to remove duplicates and identify relevant facts that could be added to a KG. To identify duplicates, we can use entity and relation disambiguation techniques. The idea is to consolidate the same facts or elements of a fact, in case of repetitions. For example, "Albert Einstein" can also be written as "Albert E." or "A. Einstein" in the text, but in reality, they all refer to the same entity. Finally, we can have a comprehensive rule-based system that decides which triplet should be added to the KG or which one could be skipped based on factors like redundant information (`A → sibling of → B` is present, hence `B → sibling of → A` is redundant) or irrelevant information.
 
-```{figure} /imgs/prackg_createkg.png
-Steps involved in creating a custom knowledge graph. Source: Author + {cite}`Ji_2021`
-```
+<figure markdown> 
+        ![](/imgs/prackg_createkg.png)
+        <figcaption>Steps involved in creating a custom knowledge graph. Source: Author + (*Ji_2021*)</figcaption>
+        </figure>
 
 ----------
 
@@ -121,16 +117,18 @@ Steps involved in creating a custom knowledge graph. Source: Author + {cite}`Ji_
 - Resource Description Framework (RDF) and Web Ontology Language (OWL) are some of the vocabulary frameworks used to model ontology. They provide a common framework for expressing this information so it can be exchanged between applications without loss of meaning.
 
 
-```{figure} /imgs/prackg_schema.png
-RDF schema triplets (informal). Source: Author + {cite}`rdf_primer`
-```
+<figure markdown> 
+        ![](/imgs/prackg_schema.png)
+        <figcaption>RDF schema triplets (informal). Source: Author + (*rdf_primer*)</figcaption>
+        </figure>
 
 - RDF provides languages for creating ontology, which we will use to create a sample KG. Below you can see the KG creating script [on left] in Turtle language for the KG [on right]. Notice, at the top of the script, we are creating references to a lot of predefined ontologies, as there is no need to reinvent the wheel. Next, to create the facts (or triplets) of our KG we can follow the lines below the `PREFIX` commands.
 - Notice, each entity and relation has a unique identifier (their unique key or UID). Throughout the code, the same entity or relation should be referenced by the same UID. Next, using the predefined schemas, we can add facts for an entity (in graphical term, add a connecting edge and tail node to the head node). These facts could include another entity (refer by their UID), some text, date (in DateTime format), links, etc.
 
-```{figure} /imgs/prackg_turtle.png
-Script in Turtle language to create the sample knowledge graph. Source: Author + {cite}`rdf_primer`
-```
+<figure markdown> 
+        ![](/imgs/prackg_turtle.png)
+        <figcaption>Script in Turtle language to create the sample knowledge graph. Source: Author + (*rdf_primer*)</figcaption>
+        </figure>
 
 - Finally, once we have prepared the script (with ttl extension - for scripts in Turtle language), that script contains the complete schema and definition of our KG. In itself, this may not be interesting, hence the file can be imported into any KG database for beautiful visualization and efficient querying.
 
@@ -150,21 +148,21 @@ There are two types of databases that can be used to store graphical information
 - Once facts are created as RDF and hosted on an RDF triplet store like Virtuoso, we can query them to extract relevant information. SPARQL is an RDF query language that is able to retrieve and manipulate data stored in RDF format. An interesting read for more detail is [Walkthrough Dbpedia And Triplestore](https://mickael.kerjean.me/2016/05/20/walkthrough-dbpedia-and-triplestore/). 
 - Most of the RDF triple stores provide a visual SPARQL query page to fetch the relevant info. For our case, let us use one such visual query helper exposed by Wikidata (shown below). A sample query is shown, where we want to extract all entities that are instances of a house cat (we just want some cats 🐱). As discussed before, each entity has a UID, hence relation `<instance of>` is represented as `P31`, and the entity `<house cat>` is represented as `Q146`. The query is quite simple to understand, as from lines 2 to 5, we are just trying to convey that we want any entity that is an instance of a house cat. As Wikidata contains data in multiple languages, line 6 is needed to filter results specific to the English language. The results (entities with their UID and some basic details) are shown below the query.
 
-```{figure} /imgs/prackg_querykg_sparql.png
-Query Knowledge graph using SPARQL language {cite}`wikidata_sparql_query_helper`
-```
+<figure markdown> 
+        ![](/imgs/prackg_querykg_sparql.png)
+        <figcaption>Query Knowledge graph using SPARQL language (*wikidata_sparql_query_helper*)</figcaption>
+        </figure>
 
 ### API
 
 - Open-source KG also exposes several ready-made APIs for frequently used queries. One such API is shown below (for Wikidata), which returns relevant information for a given entity. Below we can see the result of querying `wbgetentities` API for entity `Q9141` which is the UID for the Taj Mahal.
 
-```{figure} /imgs/prackg_querykg_api.png
-Query Knowledge graph using available APIs {cite}`wikidata_api_services`
-```
+<figure markdown> 
+        ![](/imgs/prackg_querykg_api.png)
+        <figcaption>Query Knowledge graph using available APIs (*wikidata_api_services*)</figcaption>
+        </figure>
 
-## References
 
 
-```{bibliography}
-:filter: docname in docnames
-```
+
+--8<-- "includes/abbreviations.md"

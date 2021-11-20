@@ -18,7 +18,7 @@ Python Good Practices
 
 - This is the most basic format and yet gives the hint of organized structuring. This can be followed when our project consists of only a few scripts. The directory of a sample project could look something like this:
 
-```{code-block}
+``` python linenums="1"
 my_project             # Root directory of the project
 ├── code               # Source codes
 ├── input              # Input files
@@ -32,7 +32,7 @@ my_project             # Root directory of the project
 - As obvious from the names, folder `code` contains the individual modules (`.py` files), `input` and `output` contains the input and output files respectively, and `notebook` contains the `.ipynb` notebooks files we use for experimentation. Finally, `config` folder could contain parameters within `yaml` or `json` or `ini` files and can be accessed by the code module files using [configparser]([configparser — Configuration file parser &#8212; Python 3.7.11 documentation](https://docs.python.org/3.7/library/configparser.html)).
 - `requirements.txt` contains a list of all external python packages needed by the project. One advantage of maintaining this file is that all of these packages can be easily installed using `pip install -r requirements.txt` command. *(No need of manually installing each and every external packages!)*. One example `requirements.txt` file is shown below *(with `package_name==package_version` format)*, 
 
-```{code-block}
+``` python linenums="1"
 BeautifulSoup==3.2.0
 Django==1.3
 Fabric==1.2.0
@@ -68,10 +68,7 @@ get-started         # Parent directory of the template
 - With a top-down approach, let's first have a look at a *neat* piece of code. We will discuss individual aspects of the code in more detail later. For now, just assume if someone asks you to do some scripting, what an ideal piece of code file should look like.
 - Following code is take from `csv_column_operations.py` module file. It was generated for the prompt: *"write a function which takes csv file as input and returns the sum of a column"*.
 
-```{code-block}
----
-lineno-start: 1
----
+``` python linenums="1"
 """Return sum of a column from CSV file
 
 A module with "perform_column_sum" main function that computes and return sum 
@@ -142,9 +139,8 @@ if __name__ == '__main__':
     assert(answer==6)
 ```
 
-```{note}
-Some might argue why do such an overkill for a simple piece of code. Note, it's a dummy example. In real life, you will develop more complex pieces of codes and hence it become quite important that we understand the gist.
-```
+!!! note
+    Some might argue why do such an overkill for a simple piece of code. Note, it's a dummy example. In real life, you will develop more complex pieces of codes and hence it become quite important that we understand the gist.
 
 - Now let's take a deeper dive into the individual aspect of the above code.
 
@@ -153,7 +149,7 @@ Some might argue why do such an overkill for a simple piece of code. Note, it's 
 - A module is a python file with `.py` extension that contains the executable code or functions or classes, etc.
 - Usually, we start the module with module definition, which is an area where we provide some basic details of the module. We can do so using the following template *(and it can be easily compared to a real code shown above)*
 
-```{code-block}
+``` python linenums="1"
 """<Short description>
 
 <Long description>
@@ -171,7 +167,7 @@ Created: <date>
 
 - Functions are the basic block of code that performs a specific task. A module consists of several functions. To inform the user what a particular block of code does, we start the function with a function definition. A sample template is provided below, 
 
-```{code-block}
+``` python linenums="1"
 """Description
 
 Paramters
@@ -220,10 +216,7 @@ Returns
 - Instead of printing statements in the console which is temporary (do a `cls` and poof it's gone💨), a better idea is to save these statements in a separate file, which you can always go back and refer to. This is logging 📜
 - Python provides an [inbuilt function](https://docs.python.org/3.7/library/logging.html) for logging. By referring to the official [how to](https://docs.python.org/3.7/howto/logging.html), logging to a file is super easy, 
 
-```{code-block}
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 import logging
 # config the logging behavior
@@ -261,9 +254,8 @@ logging.warning('And this, too')
   - **Activate VE:** this can be done by running command `tutorial-env\Scripts\activate.bat` on Windows and `source tutorial-env/bin/activate` on Unix or MacOS.
 - And that's it! Install, uninstall, upgrade or downgrade whatever you want! 
 
-```{note}
-Remember to switch to another VE when you start working on another project or/and to deactivate the VE when you want to move to base VE.
-```
+!!! note
+    Remember to switch to another VE when you start working on another project or/and to deactivate the VE when you want to move to base VE.
 
 ## References
 

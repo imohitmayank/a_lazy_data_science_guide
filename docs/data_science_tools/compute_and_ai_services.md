@@ -22,11 +22,7 @@ TODO
 
 - Taken from: [how-to-use-tensorboard-embedding-projector](https://stackoverflow.com/questions/40849116/how-to-use-tensorboard-embedding-projector)
 
-```{code-block}
----
-lineno-start: 1
-emphasize-lines: 13, 14
----
+``` python linenums="1"
 import numpy as np
 import tensorflow as tf
 import tensorboard as tb

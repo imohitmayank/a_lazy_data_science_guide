@@ -1,0 +1,89 @@
+site_name: A Lazy Data Science Guide
+theme:
+  name: material
+  logo: imgs/logo.png
+  favicon: imgs/logo.png
+  features:
+    - navigation.tabs
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - mdx_truly_sane_lists
+  - md_in_html
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+repo_url: https://github.com/imohitmayank/a_lazy_data_science_guide
+
+extra:
+  disqus: "mohitmayank"
+  analytics:
+    provider: google
+    property: G-2DVXT9L5D4
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/imohitmayank
+    - icon: fontawesome/brands/github
+      link: https://github.com/imohitmayank
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/imohitmayank/
+    - icon: fontawesome/brands/medium
+      link: https://medium.com/@mohitmayank
+
+nav:
+  - 'Introduction': 'index.md'
+
+  - 'Natural Language Processing':
+      - 'Algorithms':
+          -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
+          -  'natural_language_processing/BERT.md'
+          -  'natural_language_processing/GPTs.md'
+          -  'natural_language_processing/T5.md'
+      -  'Tasks':
+          -  'natural_language_processing/text_generation.md'
+
+  - 'Knowledge Graphs':
+    - 'knowledge_graphs/introduction.md'
+    - 'KG Embedding Algorithms': 'knowledge_graphs/kg_embedding_algorithms.md'
+
+  - 'Python':
+    -  'python/good_practices.md'
+    -  'python/python_snippets.md'
+
+  - 'Data Science Tools':
+    -  'data_science_tools/engineering.md'
+    -  'data_science_tools/compute_and_ai_services.md'
+
+  - 'Machine Learning':
+    - 'machine_learning/ML_snippets.md'
+
+  - 'Deep Learning':
+    - 'deep_learning/deep_learning_snippets.md'
+

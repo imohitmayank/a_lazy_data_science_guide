@@ -15,15 +15,13 @@ Introduction
 
 **How to cite?** Add the following to your bib file, 
 ```
-@misc{mmayanklazydatascience,
+@misc{mohitlazydatascience,
   title   = "A Lazy Data Science Guide",
   author  = "Mohit Mayank",
   journal = "mohitmayank.com",
   year    = "2021",
-  url     = "http://mohitmayank.com/a_lazy_data_science_guide/first_page.html"
+  url     = "http://mohitmayank.com/a_lazy_data_science_guide/"
 }
 ```
 
 -- [Mohit Mayank](https://mohitmayank.com)
-
-

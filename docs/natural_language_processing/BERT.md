@@ -3,34 +3,28 @@ BERT
 
 ## Introduction
 
-- **BERT** stands for **B**idirectional **E**ncoder **R**epresentations from **T**ransformers. {cite}`devlin2019bert`
-- Basically, it is a modification of Transformers {cite}`vaswani2017attention`, where we just keep the encoder part and discard the decoder part.
+- **BERT** stands for **B**idirectional **E**ncoder **R**epresentations from **T**ransformers. (*devlin2019bert*)
+- Basically, it is a modification of Transformers (*vaswani2017attention*), where we just keep the encoder part and discard the decoder part.
 
-```{figure} /imgs/nlp_transformers.png
----
-height: 400px
----
-Transformer architecture. BERT is the left part i.e. encoder part. {cite}`vaswani2017attention`
-```
+<figure markdown> 
+        ![](/imgs/nlp_transformers.png)
+        <figcaption>Transformer architecture. BERT is the left part i.e. encoder part. (*vaswani2017attention*)</figcaption>
+        </figure>
 
 - At the time of release, it obtained state-of-the-art results on eleven natural language processing tasks. To quote the paper, "_[paper pushed] the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement)._"
 - The major motivation behind BERT is to handle the limitation of the existing language models which are unidirectional in nature. This means that they only consider text left to right for sentence level inference. BERT on the other hand, allows tokens to attend to both sides in self-attention layer. This is one of the major reason for it high performance.
 
-```{figure} /imgs/nlp_bert_elmo_gpt.png
----
-height: 200px
----
-Differences in pre-training model architectures. BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-toleft LSTMs to generate features for downstream tasks. Among the three, only BERT representations are jointly conditioned on both left and right context in all layers. In addition to the architecture differences, BERT and OpenAI GPT are fine-tuning approaches, while ELMo is a feature-based approach.. {cite}`devlin2019bert`
-```
+<figure markdown> 
+        ![](/imgs/nlp_bert_elmo_gpt.png)
+        <figcaption>Differences in pre-training model architectures. BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-toleft LSTMs to generate features for downstream tasks. Among the three, only BERT representations are jointly conditioned on both left and right context in all layers. In addition to the architecture differences, BERT and OpenAI GPT are fine-tuning approaches, while ELMo is a feature-based approach.. (*devlin2019bert*)</figcaption>
+        </figure>
 
 - The most fascinating feature of BERT is that it is super easy to use it for a large number of NLP tasks. The idea is to take the pretrained BERT model and later fine tune it for the specific task. The pre-trained model is trained on a large corpus in a unsupervised manner, hence the model learns the generic representations of the tokens from large corpus of text. This makes it easy to later fine tune it for any other NLP task, as the model comes pretrained with large context about the language, grammar and semantic representations.
 
-```{figure} /imgs/nlp_bert_applications.png
----
-height: 400px
----
- Illustrations of Fine-tuning BERT on Different Tasks. {cite}`devlin2019bert`
-```
+<figure markdown> 
+        ![](/imgs/nlp_bert_applications.png)
+        <figcaption>Illustrations of Fine-tuning BERT on Different Tasks. (*devlin2019bert*)</figcaption>
+        </figure>
 
 - Training BERT is an interesting paradigm in itself. The original paper proposed two unsupervised methods for training,
   1. **Masked LM (MLM)**: Where some percentage (15%) of the input tokens are masked at random, and then the model tries to predict those masked tokens. They created a special token `[MASK]` for this purpose.
@@ -60,10 +54,7 @@ height: 400px
 - The code contains the `Dataset` and `Dataloader` as well, which can be referred for any fine tuning task.  
 - Download dataset from [IMDB 50k review](https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # helper
 import pandas as pd
 import numpy as np
@@ -199,10 +190,7 @@ trainer.fit(model, train_dataloader, test_dataloader)
 - This includes masking some tokens of input and BERT predicting the token based on the context tokens.
 - Referenced from [this video of James Briggs](https://youtu.be/R6hcxMMOrPE).
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # IMPORT =========
 import pandas as pd
 from tqdm import tqdm
@@ -308,33 +296,23 @@ tokenizer.save_pretrained("bert_finetuned_on_text/")
 - BERT provides `pooler_output` and `last_hidden_state` as two potential "_representations_" for sentence level inference.
 - `pooler_output` is the embedding of the `[CLS]` special token. In many cases it is considered as a valid representation of the complete sentence.
 
-```{code-block} python
----
-lineno-start: 1
-emphasize-lines: 3
----
+``` python linenums="1"
 BERTModel = BertModel.from_pretrained('bert-base-uncased')
 bert_output = BERTModel(input_ids, attention_mask=attention_mask)
-output = bert_output.pooler_output  
+output = bert_output.pooler_output
 ```
 
 - `last_hidden_state` contains the embeddings of all tokens in the sentence from the last hidden state. We can apply permutation invariant methods (like max, mean or sum) to aggregate the embeddings into a single sentence representation.
 
-```{code-block} python
----
-lineno-start: 1
-emphasize-lines: 3
----
+``` python linenums="1"
 BERTModel = BertModel.from_pretrained('bert-base-uncased')
 bert_output = BERTModel(input_ids, attention_mask=attention_mask)
 output = squeeze(torch.matmul(attention_mask.type(torch.float32).view(-1, 1, 512), bert_output['last_hidden_state']), 1)
 ```
 
 ## Additional materials
-- Jay Alammar's blog "_The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)_" {cite}`the_illustrated_bert`
+- Jay Alammar's blog "_The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)_" (*the_illustrated_bert*)
 
-## References
 
-```{bibliography}
-:filter: docname in docnames
-```
+
+--8<-- "includes/abbreviations.md"

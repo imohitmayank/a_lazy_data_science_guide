@@ -5,10 +5,7 @@ Python Snippets
 
 - References from [stackoverflow answer](https://stackoverflow.com/questions/18646076/add-numpy-array-as-column-to-pandas-data-frame)
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 import numpy as np
 import pandas as pd
 import scipy.sparse as sparse
@@ -21,10 +18,7 @@ print(df)
 
 ## Get members of python object
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 import networkx as nx
 from inspect import getmembers
@@ -39,10 +33,7 @@ for x in getmembers(nx):
 
 - References from [here](https://www.kaggle.com/getting-started/65975)
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 import sys
 import subprocess
@@ -57,10 +48,7 @@ def install(package):
 
 ## Python packaging
 
-```{code-block} bash
----
-lineno-start: 1
----
+``` python linenums="1"
 # clean the previous build files
 python setup.py clean --all
 # build the new distribution files
@@ -71,12 +59,7 @@ twine upload --skip-existing dist/*
 
 ## Python virtual environment
 
-```{code-block} bash
----
-lineno-start: 1
----
-# Create and Activate Virtual environment
-# -----------------------------------------
+``` python linenums="1"
 # Create the virtual environment in the current directory
 python -m venv projectnamevenv
 # pick one of the below based on your OS (default: Linux)
@@ -88,12 +71,9 @@ python -m venv projectnamevenv
 
 ## Where is my Python installed?
 
-- TO know the exact location of where the python distribution is installed, follow the steps as suggested [here](https://stackoverflow.com/questions/647515/how-can-i-find-where-python-is-installed-on-windows)
+- To know the exact location of where the python distribution is installed, follow the steps as suggested [here](https://stackoverflow.com/questions/647515/how-can-i-find-where-python-is-installed-on-windows)
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 import os
 import sys
 print(os.path.dirname(sys.executable))
@@ -104,10 +84,7 @@ print(os.path.dirname(sys.executable))
 - `glob` is a very efficient way to extract relevant files or folders using python.
 - A few example are shown below.
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 from glob import glob
 
@@ -127,22 +104,16 @@ glob("../data/01_raw/CoAID/**/News*COVID-19.csv")
 - Most of the times, we have text in a dataframe column, which while displaying gets truncated. 
 - One way to handle this to increase the max width of all columns in the dataframe (as shown below)
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 import pandas as pd
-pd.set_option('max_colwidth', 100) # increase 100 to add more space for bigger text 
+pd.set_option('max_colwidth', 100) # increase 100 to add more space for bigger text
 ```
 
 ## Parse date and time from string
 
 - There are basically 2 ways to do this, (1) Trust machine 🤖: for majority of the 'famous' date writing styles, you can use `dateparser` package that automatically extracts the date and parse it into `datetime` format.
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 from dateparser import parse
 # parse
@@ -155,10 +126,7 @@ which will return output ``.
 
 - Another way is (2) DIY 💪: if you can create the [date time format](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)), you can use `datetime` package directly.
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 from datetime import datetime
 # parse
@@ -173,10 +141,7 @@ datetime.strptime(text, date_format)
 - While `pymongo` provides `insert_many` function for bulk insert, it breaks in case of duplicate key. We can handle it with following function, which in its worse case is similar to `insert_one`, but shines otherwise. 
 
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 import pymongo
 # function
@@ -214,12 +179,10 @@ def insert_many_wrapper(df, col):
 - Stack Exchange exposes several API endpoints to process the questions, answers or posts from their website. 
 - A simple implementation to search and download the latest (from yesterday) and top voted questions is shown below. For more such API endpoints, consult their official [doc](https://api.stackexchange.com/docs). 
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 """
-Request StackExchange API to get the top 10 most voted questions and their answer from yesterday
+Request StackExchange API to get the top 10 most voted 
+    questions and their answer from yesterday
 """
 
 import requests
@@ -247,7 +210,9 @@ today_time = now.replace(day=today.day, month=today.month, year=today.year)
 today_epoch = int(time.mktime(today_time.timetuple()))
 
 # Get the top 10 most voted questions and their answer from yesterday
-url = "https://api.stackexchange.com/2.2/questions?pagesize=10&fromdate=" + str(yesterday_epoch) + "&todate=" + str(today_epoch) + "&order=desc&sort=votes&site=stackoverflow"
+url = "https://api.stackexchange.com/2.2/questions?pagesize=10&fromdate=" + \
+    str(yesterday_epoch) + "&todate=" + str(today_epoch) + \
+        "&order=desc&sort=votes&site=stackoverflow"
 
 # Get the response from the API
 response = requests.get(url)
@@ -264,10 +229,7 @@ print(json.dumps(data, indent=4))
 - Due to several memory and efficiency related limitations, it is non-trivial to export complete data from ElasticSearch database.
 - That said, it is not impossible. PFB an `scan` based implementation that does the same for a dummy `test_news` index.
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import 
 import pandas as pd
 from elasticsearch import Elasticsearch
@@ -296,18 +258,11 @@ pd.DataFrame(data).to_csv("news_dump.csv", index=False)
 - While I/O from database or config files, we may get some literals (ex list) in form of string, wherein they maintain their structure but the type. We can use `ast` package to convert them back to their correct type.
 - Quoting the documentation, "With `ast.literal_eval` you can safely evaluate an expression node or a string containing a Python literal or container display. The string or node provided may only consist of the following Python literal structures: strings, bytes, numbers, tuples, lists, dicts, booleans, and None."
 
-```{code-block} python
----
-lineno-start: 1
----
+``` python linenums="1"
 # import
 import ast
 # list literal in string format
 list_as_string = '["a", "b"]'
 # convert
-list_as_list = ast.literal_eval(list_as_string) # Output: ["a", "b"]  
+list_as_list = ast.literal_eval(list_as_string) # Output: ["a", "b"]
 ```
-
-
-
-
