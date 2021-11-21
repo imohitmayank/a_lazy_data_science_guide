@@ -7,7 +7,12 @@
 
 ## MLOps tools
 
-- Let's take a quick look into different tools and their segregation based on the where and how they are used,
+- Just like a mechanic should know about all the tools at his disposal, a data scientist should be aware of different ready-made and possibly free services available. You can quote me on this,
+
+!!! tip "Quote"
+    Never pay for what you can do for free, and never build something which has already been built! :smirk:
+
+- With this fortune cookie quote in mind, let's look into different tools and their segregation based on the where and how they are used,
 
 <figure markdown> 
         ![](../imgs/mlops_tools.png)
