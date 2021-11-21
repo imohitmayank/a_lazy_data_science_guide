@@ -15,3 +15,4 @@
 *[radford2019language]: Radford, Alec et al. 2019 'Language models are unsupervised multitask learners'
 *[brown2020language]: Brown, Tom B et al. 2020 'Language models are few-shot learners'
 *[roberts2020knowledge]: Roberts, Adam et al. 2020 'How Much Knowledge Can You Pack Into the Parameters of a Language Model?'
+*[fullstackdeeplearning]: Karayev, Sergey et al. Full Stack Deep Learning Course (https://fullstackdeeplearning.com/)

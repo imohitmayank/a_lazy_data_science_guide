@@ -78,7 +78,8 @@ nav:
     -  'python/python_snippets.md'
 
   - 'Data Science Tools':
-    -  'data_science_tools/engineering.md'
+    -  'data_science_tools/introduction.md'
+    -  'data_science_tools/version_control.md'
     -  'data_science_tools/compute_and_ai_services.md'
 
   - 'Machine Learning':

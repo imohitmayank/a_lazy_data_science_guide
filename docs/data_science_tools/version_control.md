@@ -1,12 +1,3 @@
-# Engineering
-
-- Several aspiring data scientists think Data science is just about training fancy models that does some superficial stuff. While it's part of the job, what we are missing here is that huge additional effort is required to make sure that a model is trainable, executable and deployable. Add to it the complexity of working in a team and now we have to make sure the code is well formatted and structured as well. In all, life of a Data scientist is similar to any software engineer, just with a caveat of having the luxury to play with the state-of-the-art AI algorithms once in a while 😄
-
-- Now, the industry is trying (or realizing) the capabilities, limitations and responsibilities of professionals in AI or ML field. This is giving rise to increase in requirements for diverse job profiles like ML engineer, MLOps engineer, Data Scientist, Research Scientist, etc. That said, Data scientist (DS) are reinventing themselves as well, giving rise to the interesting profile of Full stack Data scientists - who while researching and experiment with AI models, are not afraid to dabble into the old school engineering aspect of the project. This article is for such aspirants or practitioners.
-
-- Let's go through some of the "engineering" aspects of the project that will save you wish you knew at the start of the project.
-
-## Version Control
 
 - Version control (VC) is basically needed for any file(s) that will be maintained for a long time *(read, multiple editing process)* and/or accessed by multiple people *(in collaboration)*. If you have such a file or a set of files *(as a project)*, you will agree the necessity to track the changes. VC tries to help us with the same 🆒
 
@@ -16,9 +7,9 @@
 
 - We will now go through some of the tools/services for version control in detail.
 
-### GIT
+## GIT
 
-#### Introduction
+### Introduction
 
 - In simple words, GIT is a system designed to track changes in your file. True story, it was developed by none other but the creator of Linux, yes, Linus Torvalds in 2005! The story goes something like this -- while he was developing the linux kernel along with other kernel developers, he found it troublesome to maintain, track and handle conflicting (overlapping) pieces of codes. So he ended up coding the GIT system as a side project, just to help him and his fellow developers maintain linux kernel in a more efficient manner! Now, isn't that a cool side project 😎. You can read more about GIT and the history [here](https://en.wikipedia.org/wiki/Git).
 
@@ -53,11 +44,11 @@
 !!! note
     It may so happens that you only want to certain few files and not all of them. This can be done by creating a `.gitignore` file and placing it in the root directory. Within the file, add the relative *(from root directory)* path of all the files or folders you want the Git to ignore. For example, `data/input.csv` or `data/*` are respectively the examples to exclude one file or the complete folder from Git's tracking system.   
 
-#### GIT Snippets
+### GIT Snippets
 
 - A consolidation of some of the most helper code snippets for GIT.
 
-##### The basic git commands
+#### The basic git commands
 
 - Listing down some of the most basic GIT commands, that you should definitely know about. Most of them are references from the above theory part.
 
@@ -74,7 +65,7 @@ git commit -m "added bert model"
 git push origin use_bert_model
 ```
 
-##### Modify config to add email and name
+#### Modify config to add email and name
 
 ``` python linenums="1"
 # Add username
@@ -86,7 +77,7 @@ git config --global user.email "MY_NAME@example.com"
 # mode details: https://support.atlassian.com/bitbucket-cloud/docs/configure-your-dvcs-username-for-commits/
 ```
 
-##### Ignore files/folders
+#### Ignore files/folders
 
 - `.gitignore` file in the root directory, contains the name of files and folders which should not be tracked by GIT.
 
@@ -102,7 +93,7 @@ pic/*
 pic/*
 ```
 
-##### Untrack file/folder and delete them from GIT
+#### Untrack file/folder and delete them from GIT
 
 - To untrack the files or folders, we can create `.gitignore` file and add respective info.
 - To delete the files or folders form GIT (and not from local system), we can delete them from the cache as suggested [here](https://stackoverflow.com/questions/1143796/remove-a-file-from-a-git-repository-without-deleting-it-from-the-local-filesyste),
@@ -115,7 +106,7 @@ git rm --cached mylogfile.log
 git rm --cached -r mydirectory
 ```
 
-##### Stash partial changes
+#### Stash partial changes
 
 - Suppose you have made some partial changes and the remote is updated with a new commit. Now you cannot commit your local change (as its partial) and you need to pull the latest code from remote (as its update). `git stash` comes to the rescue, example below.
 
@@ -130,7 +121,7 @@ git pull origin master
 git stash pop
 ```
 
-##### Reset to the last commit
+#### Reset to the last commit
 
 - You may want to revert back to the very last commit, discarding every modification from then. This could be because you were playing around with the code or doing some minor experiments. In either cases, you can do this by, 
 
@@ -146,9 +137,9 @@ git reset
 
 - Refer this [stackoverflow QA](https://stackoverflow.com/questions/14075581/git-undo-all-uncommitted-or-unsaved-changes) for more details. 
 
-### DVC
+## DVC
 
-TODO
+Coming soon!
 
 ## References
 
