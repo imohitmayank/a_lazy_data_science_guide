@@ -55,7 +55,7 @@ Text generation
 
 ### Comparing models (fine-tuning performance)
 
-- A more detailed fine-tuning performance of the recent TG models for sentiment detection was performed. While the analysis is for a specific task, the process remains the same for any NLP problem that can be transformed in the form of text generation. 
+- A more detailed fine-tuning performance of the recent TG models for sentiment detection was performed [here](https://towardsdatascience.com/guide-to-fine-tuning-text-generation-models-gpt-2-gpt-neo-and-t5-dc5de6b3bc5e). While the analysis is for a specific task, the process remains the same for any NLP problem that can be transformed in the form of text generation. 
 - The following recent language models were discussed in the article, 
   - **GPT-2**: It is the second iteration of the original series of language models released by OpenAI. In fact, this series of GPT models made the language model famous! GPT stands for "Generative Pre-trained Transformer", and currently we have 3 versions of the model (v1, v2 and v3). Out of these only GPT-1 and GPT-2 are open-sourced, and hence we will pick the latest version for our experiment. On the technical side, the architecture of GPT-2 is made up of the decoder part of the Transformer architecture.
   - **GPT-Neo**: This model was released by  EleutherAI to counter the GPT-3 model which was not open-sourced. The architecture is quite similar to GPT-3, but training was done on [The Pile](https://pile.eleuther.ai/), an 825 GB sized text dataset.
@@ -74,6 +74,7 @@ Text generation
 ## Additional materials
 
 - How to generate text: using different decoding methods for language generation with Transformers - [Link](https://huggingface.co/blog/how-to-generate)
+- Guide to fine-tuning Text Generation models: GPT-2, GPT-Neo and T5 - [Link](https://towardsdatascience.com/guide-to-fine-tuning-text-generation-models-gpt-2-gpt-neo-and-t5-dc5de6b3bc5e)
 
 
 
