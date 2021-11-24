@@ -105,7 +105,102 @@ print(predicted_text)
 - We also define how to process the training data inside `data_collator` on line 91. The first two elements within the collator are `input_ids `- the tokenized prompt and `attention_mask `- a simple 1/0 vector which denote which part of the tokenized vector is prompt and which part is the padding. The last part is quite interesting, where we pass the input data as the label instead of just the sentiment labels. This is because we are training a language model, hence we want the model to learn the pattern of the prompt and not just sentiment class. In a sense, the model learns to predict the words of the input tweet + sentiment structured in the prompt, and in the process learn the sentiment detection task.
 
 ``` python linenums="1"
--
+# download packages
+#!pip install transformers==4.8.2
+
+# import packages
+import re
+import torch
+import random
+import pandas as pd
+from tqdm import tqdm
+from torch.utils.data import Dataset
+from sklearn.metrics import f1_score
+from sklearn.model_selection import train_test_split
+from transformers import GPT2Tokenizer, TrainingArguments, Trainer, GPT2LMHeadModel
+
+## Define class and functions
+#--------
+
+# Dataset class
+class SentimentDataset(Dataset):
+    def __init__(self, txt_list, label_list, tokenizer, max_length):
+        # define variables    
+        self.input_ids = []
+        self.attn_masks = []
+        self.labels = []
+        map_label = {0:'negative', 4: 'positive'}
+        # iterate through the dataset
+        for txt, label in zip(txt_list, label_list):
+            # prepare the text
+            prep_txt = f'<|startoftext|>Tweet: {txt}\nSentiment: {map_label[label]}<|endoftext|>'
+            # tokenize
+            encodings_dict = tokenizer(prep_txt, truncation=True,
+                                       max_length=max_length, padding="max_length")
+            # append to list
+            self.input_ids.append(torch.tensor(encodings_dict['input_ids']))
+            self.attn_masks.append(torch.tensor(encodings_dict['attention_mask']))
+            self.labels.append(map_label[label])
+
+    def __len__(self):
+        return len(self.input_ids)
+
+    def __getitem__(self, idx):
+        return self.input_ids[idx], self.attn_masks[idx], self.labels[idx]
+
+# Data load function
+def load_sentiment_dataset(tokenizer):
+    # load dataset and sample 10k reviews.
+    file_path = "../input/sentiment140/training.1600000.processed.noemoticon.csv"
+    df = pd.read_csv(file_path, encoding='ISO-8859-1', header=None)
+    df = df[[0, 5]]
+    df.columns = ['label', 'text']
+    df = df.sample(10000, random_state=1)
+    
+    # divide into test and train
+    X_train, X_test, y_train, y_test = \
+              train_test_split(df['text'].tolist(), df['label'].tolist(),
+              shuffle=True, test_size=0.05, random_state=1, stratify=df['label'])
+
+    # format into SentimentDataset class
+    train_dataset = SentimentDataset(X_train, y_train, tokenizer, max_length=512)
+
+    # return
+    return train_dataset, (X_test, y_test)
+
+## Load model and data
+#--------
+
+# set model name
+model_name = "gpt2"
+# seed
+torch.manual_seed(42)
+
+# load tokenizer and model
+tokenizer = GPT2Tokenizer.from_pretrained(model_name, bos_token='<|startoftext|>',
+                                          eos_token='<|endoftext|>', pad_token='<|pad|>')
+model = GPT2LMHeadModel .from_pretrained(model_name).cuda()
+model.resize_token_embeddings(len(tokenizer))
+
+# prepare and load dataset
+train_dataset, test_dataset = load_sentiment_dataset(tokenizer)
+
+## Train
+#--------
+# creating training arguments
+training_args = TrainingArguments(output_dir='results', num_train_epochs=2, logging_steps=10,
+                                 load_best_model_at_end=True, save_strategy="epoch", 
+                                 per_device_train_batch_size=2, per_device_eval_batch_size=2,
+                                 warmup_steps=100, weight_decay=0.01, logging_dir='logs')
+
+# start training
+Trainer(model=model, args=training_args, train_dataset=train_dataset,
+        data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
+                                    'attention_mask': torch.stack([f[1] for f in data]),
+                                    'labels': torch.stack([f[0] for f in data])}).train()
+
+## Test
+----------
 
 # set the model to eval mode
 _ = model.eval()
