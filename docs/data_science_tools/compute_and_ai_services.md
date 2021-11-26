@@ -50,7 +50,15 @@ drive.mount('/content/drive')
 
 ### Kaggle
 
-Coming soon!
+- Apart from being famous for hosting big AI/ML competitions, the next cool thing about the site is that it also provides free GPU/TPU computes! All you have to do is to sign up, create a new notebook and then you can start using it - import their datasets or your own, and start training you AI models!
+- All of this ofcourse has a limit, you get minimum 30 hours of GPU usage per week, and at max 20 hours of TPU per week. Another catch is that you can only use GPU/TPU for 9 hours continuously.
+- That said, Kaggle notebooks are a great place to perform your personal experiments or participate in new competitons to enhance your expertise. For more official work (industry or academics), do remember that you are putting your dataset in 3rd party's hands.
+
+<figure markdown> 
+        ![](../imgs/kaggle_code_page.png)
+        <figcaption>Code/Notebook page of [Kaggle](https://www.kaggle.com/code).</figcaption>
+        </figure>
+
 
 ### DeepNote
 
