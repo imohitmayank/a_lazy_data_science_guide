@@ -43,7 +43,7 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 extra:
-  disqus: "mohitmayank"
+  disqus: mohitmayank
   analytics:
     provider: google
     property: G-2DVXT9L5D4
