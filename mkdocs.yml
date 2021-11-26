@@ -1,5 +1,5 @@
 site_name: A Lazy Data Science Guide
-# site_url: http://mohitmayank.com/a_lazy_data_science_guide/
+site_url: http://mohitmayank.com/a_lazy_data_science_guide/
 repo_url: https://github.com/imohitmayank/a_lazy_data_science_guide
 theme:
   name: material
