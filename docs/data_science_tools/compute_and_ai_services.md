@@ -54,7 +54,18 @@ Coming soon!
 
 ### DeepNote
 
-Coming soon!
+- DeepNote provides a highly customised jupyter like notebook. It's one of the richest service in terms of features. Here goes some examples - you can create projects with multiple notebooks, you can create teams and collaborate with your colleagues live, you can quickly visualize datasets from notebooks, you can schedule notebooks, you can host reports, and best of all - they have free tier :smile:  
+
+- There are multiple pricing based tiers. To begin with you can try out the free tier and get upto 750 hours of Standard compute hours per month, that's like keeping one project (that could consist of multiple notebooks) open for the complete month! (*offer subject to change; was valid at the time of writing*)
+
+<figure markdown> 
+        ![](../imgs/deepnote_pricing.png)
+        <figcaption>Pricing tiers of [Deepnote](https://deepnote.com).</figcaption>
+        </figure>
+
+
+!!! hint
+    Planning to try DeepNote out? Use the [refer link](https://deepnote.com/referral?token=5a501a4e) to get free 20 Pro compute hours (thats upto 16GB RAM and v4vCPU)
 
 ## MLaaS: Machine Learning as a Service
 
