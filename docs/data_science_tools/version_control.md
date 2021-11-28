@@ -77,6 +77,95 @@ git config --global user.email "MY_NAME@example.com"
 # mode details: https://support.atlassian.com/bitbucket-cloud/docs/configure-your-dvcs-username-for-commits/
 ```
 
+#### Publishing to Github using APIs (Python)
+
+- Publishing (adding files for instance) to Git is quite easy using the local CLI tool and/or Github tools or UI. We have already discussed how to do this using CLI. But what if you are creating your own application and need to do the same using Github APIs? This snippet is a python based function that adds a new file to your git repo, commits and publishes it!
+- Note, this is not as simple as single API call, for detailed information on what happens behind the scene when you commit and push, I will suggest this [article](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+- You will need to create a personal token from github using this [link](https://github.com/settings/tokens). Store that as `config['Github']['personal_token']` for this function to work. Note, the function takes `config` as parameter input.
+- This snippet is inspired from this [article](http://www.levibotelho.com/development/commit-a-file-with-the-github-api/) and this [stackoverflow answer](https://stackoverflow.com/a/63461333/1421381). 
+
+```python linenums="1"
+# function to publish new content to Github
+def publish_to_github(config, content, remote_path, commit_message, repo='test', 
+                        user='imohitmayank', branch='main', name="Mohit Mayank", 
+                        email="mohitmayank1@gmail.com"):
+    """
+    Function to publish new content to Github
+
+    Parameters
+    -----------
+      config: dict with `config['Github']['personal_token']` containing your Github personal token
+      content: string content you want to push to Github
+      remote_path: path wrt to remote, where you want to save the content to; include the file name
+      commit_message: message for commit
+    """
+
+    # Step 1: Get the SHA of the branch 
+    url = f"https://api.github.com/repos/{user}/{repo}/branches/{branch}"
+    header = {'Authorization': f'token {config["Github"]["personal_token"]}'}
+    r = requests.get(url, headers=header)
+    last_commit_sha = r.json()['commit']['sha']
+    print("Step 1 Done: SHA fetched.")
+
+    # Step 2: Create a blob
+    url = f"https://api.github.com/repos/{user}/{repo}/git/blobs"
+    header = {'Authorization': f'token {config["Github"]["personal_token"]}'}
+    body =  {
+    "content": content,
+    "encoding": "utf-8"
+    }
+    r = requests.post(url, json=body, headers=header)
+    utf8_blob_sha = r.json()['sha']
+    print("Step 2 Done: Blob created.")
+
+    # Step 3: Create a tree
+    url = f"https://api.github.com/repos/{user}/{repo}/git/trees"
+    header = {'Authorization': f'token {config["Github"]["personal_token"]}'}
+    body = {
+    "base_tree": last_commit_sha,
+    "tree": [
+        {
+        "path": remote_path,
+        "mode": "100644",
+        "type": "blob",
+        "sha": utf8_blob_sha
+        }
+    ]
+    }
+    r = requests.post(url, json=body, headers=header)
+    tree_sha = r.json()['sha']
+    print("Step 3 Done: Tree created.")
+
+    ## Step 4: Commit the changes
+    url = f"https://api.github.com/repos/{user}/{repo}/git/commits"
+    header = {'Authorization': f'token {config["Github"]["personal_token"]}'}
+    body = {
+    "message": commit_message,
+    "author": {
+        "name": name,
+        "email": email
+    },
+    "parents": [
+        last_commit_sha
+    ],
+    "tree": tree_sha
+    }
+    r = requests.post(url, json=body, headers=header)
+    new_commit_sha = r.json()['sha']
+    print("Step 4 Done: Changes commited")
+
+    ## Step 5: update the HEAD
+    url = f"https://api.github.com/repos/{user}/{repo}/git/refs/heads/{branch}"
+    header = {'Authorization': f'token {config["Github"]["personal_token"]}'}
+    body = {
+        "ref": "refs/heads/{branch}",
+        "sha": new_commit_sha
+    }
+    r = requests.post(url, json=body, headers=header)
+    print("Step 5 Done: HEAD updated")
+    print("------ ALL DONE! ------")
+
+```
 #### Ignore files/folders
 
 - `.gitignore` file in the root directory, contains the name of files and folders which should not be tracked by GIT.
