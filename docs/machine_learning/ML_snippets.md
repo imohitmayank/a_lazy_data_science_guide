@@ -58,10 +58,10 @@ if __name__ == '__main__':
     # read the dataset
     df = pd.read_csv("....")
     # get one specific fold out of
-    train, test = split_dataset(dataset=df, fold=0, n_splits=3)
+    train, test = split_dataset(dataset=df, return_fold=0, n_splits=3)
     # run for all folds
     for fold in range(n_splits):
-        train, test = split_dataset(dataset=df, fold=fold, n_splits=n_splits)
+        train, test = split_dataset(dataset=df, return_fold=fold, n_splits=n_splits)
         # <perform actions here...>
 ```
 
