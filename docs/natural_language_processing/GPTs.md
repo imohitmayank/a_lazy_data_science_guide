@@ -189,7 +189,7 @@ train_dataset, test_dataset = load_sentiment_dataset(tokenizer)
 #--------
 # creating training arguments
 training_args = TrainingArguments(output_dir='results', num_train_epochs=2, logging_steps=10,
-                                 load_best_model_at_end=True, save_strategy="epoch", 
+                                 load_best_model_at_end=True, save_strategy="epoch", evaluation_strategy="epoch",
                                  per_device_train_batch_size=2, per_device_eval_batch_size=2,
                                  warmup_steps=100, weight_decay=0.01, logging_dir='logs')
 
