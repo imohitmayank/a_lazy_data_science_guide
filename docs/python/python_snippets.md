@@ -266,3 +266,26 @@ list_as_string = '["a", "b"]'
 # convert
 list_as_list = ast.literal_eval(list_as_string) # Output: ["a", "b"]
 ```
+
+## Conda cheat sheet
+
+- [Conda](https://en.wikipedia.org/wiki/Conda_(package_manager)) an open-source, cross-platform, language-agnostic package manager and environment management system. Therein again we have multiple varieties, 
+    - **Miniconda:** it's a minimilistic package with python, conda and some base packages.
+    - **Anaconda:**  it's a bigger package with all the things in Miniconda plus around 150 high quality packages.
+
+- While the complete documentation can be accessed from [here](https://docs.conda.io/projects/conda/en/latest/index.html), some important snippets are:
+
+```python linenums="1"
+# list all supported python versions
+conda search python
+
+# create a new conda environment (with new python version)
+# note, py39 is the name of the env
+conda create -n py39 python=3.9
+
+# activate an environment
+conda activate py39 # where py39 is the name of the env
+
+# deactivate the current environment
+conda deactivate 
+```
