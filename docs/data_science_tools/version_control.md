@@ -53,8 +53,16 @@
 - Listing down some of the most basic GIT commands, that you should definitely know about. Most of them are references from the above theory part.
 
 ``` python linenums="1"
+# list all local branches
+git branch
+# list all remote branches
+git branch -r
+# create a local copy of a remote branch
+git checkout --track origin/branch_name  
 # pull the latest code from "master" branch of "origin" remote server
 git pull origin master
+# checkout to an existing branch
+git checkout main
 # checkout to a new branch
 git checkout -b use_bert_model
 # after performing some changes, add files to staging state 
