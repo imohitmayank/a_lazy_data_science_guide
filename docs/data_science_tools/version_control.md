@@ -59,6 +59,10 @@ git branch
 git branch -r
 # create a local copy of a remote branch
 git checkout --track origin/branch_name  
+# show the remote links
+git remote -v
+# add a new remote
+git remote add new_remote git@github.com:User/UserRepo.git
 # pull the latest code from "master" branch of "origin" remote server
 git pull origin master
 # checkout to an existing branch
