@@ -238,6 +238,34 @@ git reset
 
 - Refer this [stackoverflow QA](https://stackoverflow.com/questions/14075581/git-undo-all-uncommitted-or-unsaved-changes) for more details. 
 
+#### Using large files
+
+- Several VC platform have a maximum file size limit, for example Github has 100MB file size limit.
+- That said, there are ways to bypass such limitations, once of those are [Git LFS](https://git-lfs.github.com/) i.e. Large file system.
+- Using Git LFS we can track large files and it internally takes care of storing them as LFS objects. This way we can store our dataset or models in the git repositories as well.
+- Below is an example track a model in a repository using Git LFS.
+
+```
+# install git lfs
+git lfs install
+
+# track a file
+git lfs track "model/model.pkl"
+# or track a folder
+git lfs track "model/**"
+
+# add the git attribute to reflect changes
+git add .gitattribute
+
+# migrate the changes i.e. replace files with pointers (for current branch)
+git lfs migrate import --include=='model/**' --verbose 
+# or for all branches
+git lfs migrate import --everything --include=='model/**' --verbose 
+
+# show the files which are tracked
+git lfs ls-files
+```
+
 ## DVC
 
 Coming soon!
