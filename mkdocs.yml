@@ -68,6 +68,7 @@ nav:
           -  'natural_language_processing/T5.md'
       -  'Tasks':
           -  'natural_language_processing/text_generation.md'
+          -  'natural_language_processing/relation_extraction.md'
 
   - 'Knowledge Graphs':
     - 'knowledge_graphs/introduction.md'
