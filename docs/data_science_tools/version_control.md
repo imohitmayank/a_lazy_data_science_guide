@@ -53,8 +53,20 @@
 - Listing down some of the most basic GIT commands, that you should definitely know about. Most of them are references from the above theory part.
 
 ``` python linenums="1"
+# list all local branches
+git branch
+# list all remote branches
+git branch -r
+# create a local copy of a remote branch
+git checkout --track origin/branch_name  
+# show the remote links
+git remote -v
+# add a new remote
+git remote add new_remote git@github.com:User/UserRepo.git
 # pull the latest code from "master" branch of "origin" remote server
 git pull origin master
+# checkout to an existing branch
+git checkout main
 # checkout to a new branch
 git checkout -b use_bert_model
 # after performing some changes, add files to staging state 
@@ -225,6 +237,34 @@ git reset
 ```
 
 - Refer this [stackoverflow QA](https://stackoverflow.com/questions/14075581/git-undo-all-uncommitted-or-unsaved-changes) for more details. 
+
+#### Using large files
+
+- Several VC platform have a maximum file size limit, for example Github has 100MB file size limit.
+- That said, there are ways to bypass such limitations, once of those are [Git LFS](https://git-lfs.github.com/) i.e. Large file system.
+- Using Git LFS we can track large files and it internally takes care of storing them as LFS objects. This way we can store our dataset or models in the git repositories as well.
+- Below is an example track a model in a repository using Git LFS.
+
+```
+# install git lfs
+git lfs install
+
+# track a file
+git lfs track "model/model.pkl"
+# or track a folder
+git lfs track "model/**"
+
+# add the git attribute to reflect changes
+git add .gitattribute
+
+# migrate the changes i.e. replace files with pointers (for current branch)
+git lfs migrate import --include=='model/**' --verbose 
+# or for all branches
+git lfs migrate import --everything --include=='model/**' --verbose 
+
+# show the files which are tracked
+git lfs ls-files
+```
 
 ## DVC
 
