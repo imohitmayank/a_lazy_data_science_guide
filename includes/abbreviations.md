@@ -16,3 +16,4 @@
 *[brown2020language]: Brown, Tom B et al. 2020 'Language models are few-shot learners'
 *[roberts2020knowledge]: Roberts, Adam et al. 2020 'How Much Knowledge Can You Pack Into the Parameters of a Language Model?'
 *[fullstackdeeplearning]: Karayev, Sergey et al. Full Stack Deep Learning Course (https://fullstackdeeplearning.com/)
+*[Sentence-BERT]: Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks (http://arxiv.org/abs/1908.10084)

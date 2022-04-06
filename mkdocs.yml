@@ -7,6 +7,7 @@ theme:
   favicon: imgs/logo.png
   features:
     - navigation.tabs
+    - navigation.sections # remove this to hide the navigation
   palette:
     - scheme: default
       toggle:
@@ -69,6 +70,7 @@ nav:
       -  'Tasks':
           -  'natural_language_processing/text_generation.md'
           -  'natural_language_processing/relation_extraction.md'
+          -  'natural_language_processing/text_similarity.md'
 
   - 'Knowledge Graphs':
     - 'knowledge_graphs/introduction.md'
