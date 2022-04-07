@@ -5,8 +5,8 @@ Text Similarity
 
 - Similarity between two words, sentences or documents is a function of commonality shared by them. This commonality can be measured by different metrics.
 - Recently there has been a trend of using semantic based approaches, but historically, many similarity based non-neural algorthms were built.
-- But what is the best string similarity algorithm? Well, it’s quite hard to answer this question, at least without knowing anything else, like what you require it for. 
-- And even after having a basic idea, it’s quite hard to pinpoint to a good algorithm without first trying them out on different datasets. It’s a trial and error process. 
+- But which is the best string similarity algorithm? Well, it’s quite hard to answer this question, at least without knowing anything else, like what you require it for i.e. your use case.
+- And even after having a basic idea, it’s quite hard to pinpoint a good algorithm without first trying them out on different datasets. It’s a trial and error process. 
 - To make this journey simpler, I have tried to list down and explain the workings of the most basic string similarity algorithms out there. Give them a try, it may be what you needed all along :peace:
 
 
@@ -150,12 +150,15 @@ $$
 
 ## Semantic based approaches
 
-- Let's try a couple of ways to compute similarity between strings. Different models can be picked or even fine tuned based on domain and requirement, but we will use the same model for simiplicity's sake. Instead we will use different packages. The first is,
+- In semantic search, strings are embeded using some neural network (NN) model. Think of it like a function that takes an input string and returns a vector of numbers. The vector is then used to compare the similarity between two strings.
+- Usually the NN models work at either token or word level, so to get embedding of a string, we first find embeddings for each token in the string and then aggregate them using mean or similar function.
+- The expectation is that the embeddings will be able to represent the string such that it capture different aspects of the language. Because of which, the embeddings provides us with much more features to compare strings.
+- Let's try a couple of ways to compute semantic similarity between strings. Different models can be picked or even fine tuned based on domain and requirement, but we will use the same model for simiplicity's sake. Instead we will just use different packages. 
 
 ### txtai
 
 - [txtai](https://github.com/neuml/txtai) is a python package to perform semantic based tasks on textual data including search, question answering, information extraction, etc.
-- Today, we will use it for the sole purpose of semnantic search. *(inspired from [txtai readme](https://github.com/neuml/txtai))*
+- Today, we will use it for the sole purpose of semantic search. *(inspired from [txtai readme](https://github.com/neuml/txtai))*
 
 ``` python linenums="1"
 # import the packages
@@ -204,6 +207,9 @@ results.drop_duplicates(subset=['query'])
 |      dishonest junk | Make huge profits without work, earn up to $10... |  0.03 |
 
 - As obvious from the result, even though there is hardly any common sub-string between the query and the data, the results make sense in a semantic way. `Beijing` is connected with `asia` and `war`, while `ice shelf` is connected with `climate change`, and so on.
+
+!!! note
+    The `score` is the cosine similarity between the embeddings of the two strings (query and data element). It's range is between {-1, 1}, and not {0, 1}. Do not think of it as probability. 
 
 ### Sentence Transformer
 
