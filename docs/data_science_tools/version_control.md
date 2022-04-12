@@ -80,6 +80,10 @@ git push origin use_bert_model
 #### Modify config to add email and name
 
 ``` python linenums="1"
+# Check the value of the config
+git config --get user.email 
+git config --get user.name 
+
 # Add username
 git config --global user.name "FIRST_NAME LAST_NAME"
 # Add email
