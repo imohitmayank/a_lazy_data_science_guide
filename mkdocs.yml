@@ -87,6 +87,7 @@ nav:
 
   - 'Machine Learning':
     - 'machine_learning/ML_snippets.md'
+    - 'machine_learning/dimensonality_reduction.md'
 
   - 'Deep Learning':
     - 'deep_learning/deep_learning_snippets.md'
