@@ -71,6 +71,8 @@ nav:
           -  'natural_language_processing/text_generation.md'
           -  'natural_language_processing/relation_extraction.md'
           -  'natural_language_processing/text_similarity.md'
+      - 'Blogs':
+          - 'natural_language_processing/explainable_ai_llm.md'
 
   - 'Knowledge Graphs':
     - 'knowledge_graphs/introduction.md'
