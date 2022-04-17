@@ -4,7 +4,7 @@
 
 <figure markdown> 
     ![](../imgs/librarian_readin_book_LatenDiffusion_4collage.png)
-    <figcaption>Art generated with AI for prompt [By Author]</figcaption>
+    <figcaption>Art generated with AI [By Author]</figcaption>
 </figure>
 
 ## Introduction
