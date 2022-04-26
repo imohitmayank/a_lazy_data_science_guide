@@ -258,9 +258,9 @@ results.drop_duplicates(subset=['query'])
 ```
 
 - This will return the same table as the previous one. In face if you noticed, we have used the same model. If you look further, in `txtai` we used `sentence-transformers` and we have used the same model.
-- The package provides an extensive variety of pretraied models. A comparitive table is shown below (taken from [Sentence-Transformer](https://www.sbert.net/docs/pretrained_models.html))
+- The package provides an extensive variety of pretraied models. A comparitive table is shown below *(taken from [Sentence-Transformer](https://www.sbert.net/docs/pretrained_models.html))*
 
-| Model Name                             | Performance Sentence Embeddings (14 Datasets)  | Performance Semantic Search (6 Datasets)  |  Avg. Performance  | Speed  | Model Size  |
+| Model Name                             | Performance Sentence Embeddings (14 Datasets)  | Performance Semantic Search (6 Datasets)  |  Avg. Performance  | Sentence Encoding Speed  | Model Size  |
 |----------------------------------------|:----------------------------------------------:|:-----------------------------------------:|:------------------:|:------:|:-----------:|
 | all-mpnet-base-v2                      |                      69.57                     |                   57.02                   |        63.30       |  2800  |    420 MB   |
 | multi-qa-mpnet-base-dot-v1             |                      66.76                     |                   57.60                   |        62.18       |  2800  |    420 MB   |
