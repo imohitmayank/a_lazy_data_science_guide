@@ -38,8 +38,8 @@ Sentiment:
 ### Comparing GPT models (basic details)
 
 - There are two famous series of GPT models, 
-    - **GPT-{1,2,3}:** the original series released by [OpenAI](https://en.wikipedia.org/wiki/OpenAI), a San Francisco-based artificial intelligence research laboratory. It includes GPT-1 (*radford2018improving, GPT-2 radford2019language, GPT-3 brown2020language*)
-    - **GPT-{Neo, J}:** the open source series released by [EleutherAI](https://www.eleuther.ai/). For GPT-Neo, the architecture is quite similar to GPT-3, but training was done on [The Pile](https://pile.eleuther.ai/), an 825 GB sized text dataset.
+  - **GPT-{1,2,3}:** the original series released by [OpenAI](https://en.wikipedia.org/wiki/OpenAI), a San Francisco-based artificial intelligence research laboratory. It includes GPT-1 (*radford2018improving, GPT-2 radford2019language, GPT-3 brown2020language*)
+  - **GPT-{Neo, J}:** the open source series released by [EleutherAI](https://www.eleuther.ai/). For GPT-Neo, the architecture is quite similar to GPT-3, but training was done on [The Pile](https://pile.eleuther.ai/), an 825 GB sized text dataset.
 - Details of the models are as follows, *([details](https://huggingface.co/transformers/pretrained_models.html))*
 
 | models  | released by | year | open-source |       model size       |
@@ -237,6 +237,42 @@ df = pd.DataFrame({'original_text': original_text, 'predicted_label': predicted_
 # predict the accuracy
 print(f1_score(original_label, predicted_label, average='macro'))
 ```
+
+### Finetuning GPT-3
+- While GPT-3 is not open source, OpenAI has provided the paid option to [finetune the model](https://beta.openai.com/docs/guides/fine-tuning). 
+- They expose several APIs to perform finetuning. In a sense they are doing most of the heavy lifting by making the finetuning process super easy.
+- To begin with, make sure you have the OpenAI python library installed. Do it by `pip install openai`. 
+- Then make sure the data is in correct format. Basically you require a `.csv` file with atleast two columns - `prompt` and `completion` with the respective data. Ideally the [documentation](https://beta.openai.com/docs/guides/fine-tuning) suggest to have atleast 100 examples. 
+- Next, we will prepare a `jsonl` file  using the `csv` file. OpenAI expects the data in this format. And they also expose an API to do so, just run the following in CLI. 
+  
+``` bash linenums="1"
+openai tools fine_tunes.prepare_data -f data_to_fine_tune.csv
+```
+
+- Now we will upload the prepared data to the OpenAI Server. Do this by running following code in Python.
+ 
+``` python linenums="1"
+# set the organization and api key (you can get them from Manage Account page)
+openai.organization = "my-organization-key"
+openai.api_key = "my-api-key"
+
+# upload the data to OpenAI Server
+file_meta_data = openai.File.create(file = open(f"data_to_fine_tune_prepared.jsonl",
+                                    encoding='utf-8'),
+                                    purpose='fine-tune')
+```
+
+- Now we will train the model. Do this by running following code in Python.
+
+``` python linenums="1"
+print(openai.FineTune.create(model="curie", training_file=file_meta_data["id"]))
+```
+
+- And there we go, the finetuning has started! You can monitor the progress by running `openai.FineTune.list()`. The last entry will contain a `status` key that will change to `succeeded` when the finetuning is complete. Also, note down the model name from the `fine_tuned_model` key, you will need it later to access the trained model.
+- After the finetuning is done, you can use the model as usual from the playground or API!
+
+!!! tip
+    OpenAI provides multiple models (engines) with different accuracy and speed. These are `Davinci`, `Curie`, `Babbadge` and `Ada` - in the descending order of accuracy but increasing speed.
 
 ## Additional materials
 
