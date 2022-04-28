@@ -239,7 +239,7 @@ print(f1_score(original_label, predicted_label, average='macro'))
 ```
 
 ### Finetuning GPT-3
-- While GPT-3 is not open source, OpenAI has provided the paid option to [finetune the model](https://beta.openai.com/docs/guides/fine-tuning). 
+- While GPT-3 is not open source, OpenAI has provided the paid option to [finetune the model](https://beta.openai.com/docs/guides/fine-tuning). At the time of writing, free credits were provided to new users -- so another reason to go and [register now](https://openai.com/api/) :wink:
 - They expose several APIs to perform finetuning. In a sense they are doing most of the heavy lifting by making the finetuning process super easy.
 - To begin with, make sure you have the OpenAI python library installed. Do it by `pip install openai`. 
 - Then make sure the data is in correct format. Basically you require a `.csv` file with atleast two columns - `prompt` and `completion` with the respective data. Ideally the [documentation](https://beta.openai.com/docs/guides/fine-tuning) suggest to have atleast 100 examples. 
