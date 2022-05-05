@@ -59,7 +59,9 @@ extra:
       link: https://medium.com/@mohitmayank
 
 nav:
-  - 'Introduction': 'index.md'
+  - 'Introduction': 
+      - 'Hello': 'index.md'
+      - 'Getting started': 'introduction/getting_started.md'
 
   - 'Natural Language Processing':
       - 'Algorithms':
