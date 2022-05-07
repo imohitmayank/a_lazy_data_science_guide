@@ -2,10 +2,10 @@
 
 > Hold your large language models accountable by learning how to "explain" the predictions.
 
-<figure markdown> 
+<!-- <figure markdown> 
     ![](../imgs/librarian_readin_book_LatenDiffusion_4collage.png)
     <figcaption>Art generated with AI [By Author]</figcaption>
-</figure>
+</figure> -->
 
 ## Introduction
 
