@@ -211,6 +211,44 @@ results.drop_duplicates(subset=['query'])
 !!! note
     The `score` is the cosine similarity between the embeddings of the two strings (query and data element). It's range is between {-1, 1}, and not {0, 1}. Do not think of it as probability. 
 
+- The above approach could be slow as for each call to `similarity`, the sentences are embedded again and again. To speed it up, we could use `index` to precompute the embeddings for the data. This can be done by, 
+
+```python linenums="1"
+# index the data
+embeddings.index([(uid, text, None) for uid, text in enumerate(data)]) 
+# now instead of similarity, use search function
+embeddings.search("feel good story", limit=1)
+# Output:
+# [{'id': '4',
+#   'score': 0.08329004049301147,
+#   'text': 'Maine man wins $1M from $25 lottery ticket'}]
+```
+
+- `txtai` also provides explaination of the result. For this we can use `explain` function as follows, 
+
+```python linenums="1"
+# first index the data
+embeddings.index([(uid, text, None) for uid, text in enumerate(data)]) 
+# next call the explain function 
+embeddings.explain("feel good story", limit=1)
+# Output:
+# [{'id': '4',
+#   'score': 0.08329004049301147,
+#   'text': 'Maine man wins $1M from $25 lottery ticket',
+#   'tokens': [('Maine', 0.003297939896583557),
+#    ('man', -0.03039500117301941),
+#    ('wins', 0.03406312316656113),
+#    ('$1M', -0.03121592104434967),
+#    ('from', -0.02270638197660446),
+#    ('$25', 0.012891143560409546),
+#    ('lottery', -0.015372440218925476),
+#    ('ticket', 0.007445111870765686)]}]
+```
+
+- The output contains word level importance score for the top similar sentence in the data (`limit=1`). 
+- From the output we can see the word `win` is the most important word wrt to the query. The score computation is based on the occlusion based explaination approach. Here, several permutations of the same sentence is created, each one with one word/token missing. Then cosine similarity is computed between the fixed query and each permutation. Finally, the similairty score of the permutation is subtracted from the score of the original sentence (with all words present). The intuition is as follows, 
+  - if an important word like `win` is missing from the sentence, the score of the sentence will be reduced and the difference will be positive
+  -  if an unimportant word like `man` is missing from the sentence, the score of the sentence will increase and the difference will be negative
 ### Sentence Transformer
 
 - [SentenceTransformers](https://www.sbert.net/) is is a Python framework for state-of-the-art sentence, text and image embeddings. The inital work in this framework is detailed in the paper *Sentence-BERT*
