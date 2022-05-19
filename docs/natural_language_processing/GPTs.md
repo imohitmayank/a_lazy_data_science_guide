@@ -268,7 +268,7 @@ file_meta_data = openai.File.create(file = open(f"data_to_fine_tune_prepared.jso
 print(openai.FineTune.create(model="curie", training_file=file_meta_data["id"]))
 ```
 
-- And there we go, the finetuning has started! You can monitor the progress by running `openai.FineTune.list()`. The last entry will contain a `status` key that will change to `succeeded` when the finetuning is complete. Also, note down the model name from the `fine_tuned_model` key, you will need it later to access the trained model.
+- And there we go, the finetuning has started! You can monitor the progress by running `openai.FineTune.list()`. The last entry will contain a `status` key that will change to `succeeded` when the finetuning is complete. Also, note down the model name from the `fine_tuned_model` key, you will need it later to access the trained model. Btw if you only want to print the last entry try this instead `openai.FineTune.list()['data'][-1]`.
 - After the finetuning is done, you can use the model as usual from the playground or API!
 
 !!! tip
