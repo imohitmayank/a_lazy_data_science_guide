@@ -73,6 +73,7 @@ nav:
           -  'natural_language_processing/text_generation.md'
           -  'natural_language_processing/relation_extraction.md'
           -  'natural_language_processing/text_similarity.md'
+          -  'natural_language_processing/named_entity_recognition.md'
       - 'Blogs':
           - 'natural_language_processing/explainable_ai_llm.md'
 
