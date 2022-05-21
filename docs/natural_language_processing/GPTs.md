@@ -194,7 +194,7 @@ training_args = TrainingArguments(output_dir='results', num_train_epochs=2, logg
                                  warmup_steps=100, weight_decay=0.01, logging_dir='logs')
 
 # start training
-Trainer(model=model, args=training_args, train_dataset=train_dataset,
+Trainer(model=model, args=training_args, train_dataset=train_dataset, eval_dataset=test_dataset,
         data_collator=lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                                     'attention_mask': torch.stack([f[1] for f in data]),
                                     'labels': torch.stack([f[0] for f in data])}).train()
