@@ -71,7 +71,7 @@ doc = nlp(text)
 for ent in doc.ents:
   print(f"Type: {ent.label_} -- Value: {ent.text}")
 
-# OUtput:
+# Output:
 # Type: PERSON -- Value: Mohit
 # Type: GPE -- Value: India
 # Type: TIME -- Value: around 9 AM
