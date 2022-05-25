@@ -5,12 +5,16 @@
 
 
 <figure markdown> 
-    ![](../imgs/ml_intro.png){ width="500" }
+    ![](../imgs/ml_intro_hierarchy_of_ai.png){ width="500" }
     <figcaption>The hierarchy of Artificial Intelligence</figcaption>
 </figure>
 
-
 ## Different types of Learning
+
+<figure markdown> 
+    ![](../imgs/ml_intro_types_of_learning.png){ width="500" }
+    <figcaption>The paradigms of Machine Learning</figcaption>
+</figure>
 
 ### Supervised Learning 
 
@@ -34,7 +38,7 @@
 ### Self-supervised Learning
 
 - It is a machine learning approach wherein we create supervisory signals from the unlabeled data itself, often leveraging the underlying structure in the data. The idea is to take unlabeled data and create generic tasks, that could be different from the intended downstream task but will help model learn the fundamentals. Then the model could be   fine-tuned for the specific downstream task easily with very less labeled data. It is closely connected to how humans learn — as human normally first develop common sense (a general understanding of the world) and then learn specific tasks quite easily (when comparing to machines). 
-- It is becoming a norm in the AI field to to train large models using self-supervised learning, as the resulting models are generalist ie. could be used for multiple downstream tasks. The method of training vary wrt the datatype. For example, in NLP, we can hide part of a sentence and predict the hidden words from the remaining words. In CV, we can predict past or future frames in a video (hidden data) from current ones (observed data). Same could be done for Audio.
+- It is becoming a norm in the AI field to train large models using self-supervised learning, as the resulting models are generalist ie. could be used for multiple downstream tasks. The method of training vary wrt the datatype. For example, in NLP, we can hide part of a sentence and predict the hidden words from the remaining words. In CV, we can predict past or future frames in a video (hidden data) from current ones (observed data). Same could be done for Audio.
 
 ## Additional materials
 
