@@ -91,6 +91,7 @@ nav:
     -  'data_science_tools/compute_and_ai_services.md'
 
   - 'Machine Learning':
+    - 'machine_learning/introduction.md'
     - 'machine_learning/ML_snippets.md'
 
   - 'Deep Learning':
