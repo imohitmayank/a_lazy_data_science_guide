@@ -267,6 +267,17 @@ list_as_string = '["a", "b"]'
 list_as_list = ast.literal_eval(list_as_string) # Output: ["a", "b"]
 ```
 
+## Plotly visualization on Pandas dataframe
+
+- If you want to visualize your pandas dataframe using plotly package, there is no need to use the package explicitly. It can be done right from the pandas dataframe object, with just a couple of lines of code as shown below:
+
+```python linenums="1"
+# set the backend plotting option
+pd.options.plotting.backend = "plotly"
+# do a normal plot!
+pd.DataFrame(result).plot(x='size', y='mean')
+```
+
 ## Conda cheat sheet
 
 - [Conda](https://en.wikipedia.org/wiki/Conda_(package_manager)) an open-source, cross-platform, language-agnostic package manager and environment management system. Therein again we have multiple varieties, 
