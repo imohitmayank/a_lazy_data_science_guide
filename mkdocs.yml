@@ -84,6 +84,8 @@ nav:
   - 'Python':
     -  'python/good_practices.md'
     -  'python/python_snippets.md'
+    - 'Blogs':
+        -  'python/scraping_websites.md'
 
   - 'Data Science Tools':
     -  'data_science_tools/introduction.md'
