@@ -91,13 +91,13 @@ spacy.displacy.render(doc, style='ent', jupyter=True, options={'distance': 90})
 
 ### Training custom NER model using Spacy v3
 
-- All NER use-cases are not the same, and you may want to train custom model with new entity type. [Spacy](https://spacy.io/) provides option to train custom NER models as well. To be frank the complete process is quite complicated, but nothing to worry, strap on and let's cover the complete process here.
+- All NER use-cases are not the same, and you may want to train a custom model with new entity types. [Spacy](https://spacy.io/) provides an option to train custom NER models as well. To be frank the complete process is quite complicated, but nothing to worry, strap on and let's cover them steo by step.
 
 #### Config Creation
 
 - To begin with, we will define the settings that will be used throughout the training process. Starting with Spacy v3, all parameter settings need to be configured using a `.cfg` file. We can create a `.cfg` file following the guide [here](https://spacy.io/usage/training). Basically, it requires to
-  - Firstly, create a base config using the quickwidget provided at the page. Do remember to check the correct options.
-  - Secondly, run the command to create full config `python -m spacy init fill-config base_config.cfg config.cfg`
+  - Firstly, create a base config using the quick widget provided at the [page](https://spacy.io/usage/training). Do remember to check the correct options. *(Refer below image for one example)*
+  - Secondly, run CLI command to update the base config `python -m spacy init fill-config base_config.cfg config.cfg`
 
 <figure markdown> 
     ![](../imgs/ner_training_config_init.png){ width="500" }
@@ -113,8 +113,8 @@ spacy.displacy.render(doc, style='ent', jupyter=True, options={'distance': 90})
 | I was playing Call of Duty   | {'entities': [[14, 26, 'Game']]}                   |
 | I did not like COD1 and COD2 | {'entities': [[15, 19, 'Game'], [24, 28, 'Game']]} |
 
-- As obvious, `text` contains the base text and `label` contains all the entities that ideally should be extracted from text. This is our golden dataset. Here, inside `label` we have a dict with `entities` key and the value is list of different entities. Each entity has `[start_index, end_index, entity_type]` data. Note, we follow the Python indexing i.e. the indexing starts with 0, `start_index` is the index of start character and `end_index` is the index of `end character + 1`. In the first example, `"I was playing Call of Duty"[14:26]` will return `"Call of Duty"` which is a very famous video game :smile: 
-- Now we will convert the CSV file into Spacy format. It is the recommended format by the package. To do this, run the following code, 
+- As obvious, `text` contains the base text and `label` contains all the entities that ideally should be extracted from text. This is our golden dataset. Here, inside `label` we have a dict with `entities` key and the value is list of different entities. Each entity has `[start_index, end_index, entity_type]` data. Note, we follow the Python indexing i.e. the indexing starts with 0, `start_index` is the index of start character and `end_index` is the index of `end character + 1`. In the first example, `"I was playing Call of Duty"[14:26]` will return `"Call of Duty"` which is a very famous video game 🎮
+- Now we will convert the CSV file into Spacy format. It is the recommended format supported by the package. To do this, run the following code, 
 
 ``` python linenums="1"
 # import 
@@ -123,7 +123,7 @@ from spacy.tokens import DocBin
 
 # function
 
-def convert_to_spacy(data_df, output_path="data_for_training.spacy"):
+def convert_to_spacy(data_df, output_path):
     """
     Convert the data to spacy format
 
@@ -154,11 +154,13 @@ def convert_to_spacy(data_df, output_path="data_for_training.spacy"):
     db.to_disk(output_path) # save the docbin object
 
 # run the code
-convert_to_spacy(data_df, "data_for_training.spacy")
+convert_to_spacy(data_df, "train_data.spacy")
 ```
 
 !!! Note
-    Remember to split the CSV file into train and test data. Then you can run the above code twice to generate two spacy files, one for train and one for test. Btw we can use random split, as stratified split is quite difficult to do. This is because each text may heve multiple instances of same or different entities and we want to split the text based on entities! Because of this, a stratified split is equivalent to solving a optimizing problem. Hence we will use a random split for rough estimation and the result may surprise you :wink:
+    Remember to split the CSV file into train and test data. Then you can run the above code twice to generate two spacy files, one for train and one for test. 
+
+    Also, we can use random split, as stratified split is quite difficult to do. This is because each text may heve multiple instances of same or different entities and we want to split the text based on entities! Because of this, a stratified split is equivalent to solving a optimizing problem - How to split the text samples such that the underlying entities are equally distributed! Hence we will use a random split for rough estimation and the result may surprise you :wink:
 
 #### Data Validation
 
@@ -202,7 +204,7 @@ Labels in train data: 'Game'
 
 ```
 
-- Based on the quality of annotations or the tool used, you may get error like `Whitespaces present` in the data validation step. This is because the annotations has whitespaces and it becomes difficult to train the model with such examples. In such case, we can fix the data by removing the whitespaces as shown below, 
+- Based on the quality of annotations or the tool used, you may encounter error like `Whitespaces present` in the data validation step. This is because the annotations has whitespaces and it becomes difficult to train the model with such examples. In such case, we can fix the data by removing the whitespaces as shown below, 
 
 ``` python linenums="1"
 # var to hold the count of faulty annotations
@@ -275,7 +277,7 @@ Epoch 11:  66%|█████████████████████�
 - Finally, once the trainig is done, we can evaluate the model using the Spacy CLI command, 
 
 ``` shell 
-spacy evaluate model/model-best data/test_data.spacy --gpu-id 0
+spacy evaluate models/model-best data/test_data.spacy --gpu-id 0
 ```
 
 ## Additional materials
