@@ -315,4 +315,7 @@ results.drop_duplicates(subset=['query'])
 | distiluse-base-multilingual-cased-v2   |                      60.18                     |                   27.35                   |        43.77       |  4000  |    480 MB   |
 
 
+!!! Note
+    Training semantic search model is different from normal classification or regression models. Think of it like this -- for classification each sample has one label, but for semantic search a combination of samples has one label. This is because in search you want to match the query and result, and then provide some score for that combination. You can refer [Sbert training page](https://www.sbert.net/docs/training/overview.html) for more details.
+
 --8<-- "includes/abbreviations.md"
