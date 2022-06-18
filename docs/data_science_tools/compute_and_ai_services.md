@@ -98,10 +98,197 @@ In this section we will cover some of the famous platforms that provide Machine 
 !!! hint
     As AWS Sagemaker is a costly affair, several DS teams try to find workarounds. Some of them are like using spot instances for training as they are cheaper & using AWS Lambda for deploying small models. 
 
-### Azure ML Services (Microsoft)
+<!-- ### Azure ML Services (Microsoft)
 
 Coming soon!
 
 ### Google AI Platform
 
-Coming soon!
+Coming soon! -->
+
+### Kubeflow
+
+#### Introduction
+
+- [Kubeflow](https://www.kubeflow.org/) is an open-source project that is dedicated to making development, tracking and deployments of machine learning (ML) workflows on Kubernetes simple, portable and scalable. As per their website, *"Anywhere you are running Kubernetes, you should be able to run Kubeflow."*
+- While there are many **paid** MLaaS like [Sagemaker](https://aws.amazon.com/sagemaker/), [Azure ML Services](https://azure.microsoft.com/en-in/services/machine-learning/) and [Google AI Platform](https://cloud.google.com/vertex-ai), Kubeflow is an outlier that provides most of the features present in the paid platforms, but for free!
+- We can deploy Kubeflow on Kubernetes by following the [guide on their website](https://www.kubeflow.org/docs/started/installing-kubeflow/). Once done, you can boot it up and it should look as shown below, 
+
+<figure markdown> 
+        ![](../imgs/kubeflow_main_page.png)
+        <figcaption>Main page of [Kubeflow](https://www.kubeflow.org/).</figcaption>
+        </figure>
+
+!!! Hint
+    Go with Kubeflow if you are setting up a new AI team for your organziation or school, and don't want to commit to costly services like Sagemaker. But beware, it does require DevOps knowledge, as you will need to setup Kubernetes and manage it. While it is completly free, you will be charged for the compute you utilize. To cut down the cost, in case you are connecting Kubeflow with AWS, you can use Spot instances. 
+
+#### Components
+
+- Kubeflow provides several individual components that will help with the ML lifecycle. Note, we can even pick and choose the components you want while installation. Some of them are, 
+  - **Notebook:** here we can create jupyter notebook servers and perform quick experimentations. Each server is assigned it's volume (hard memory). On booting up a server, a new compute is procured and you will see [Jupyter Lab](https://jupyter.org/) page where you can create mulitple notebooks, scripts or terminals. The compute could be EC2 instance or Spot instance, incase of AWS connection and based on your configuration.
+  - **Pipeline:** here we define one ML project. Kubeflow supports defining a pipeline in terms of a DAG (Directed Acyclic Graph), where each individual function or module is one node. Pipeline represents a graph of modules, where execution happens in a sequential or parallel manner while considering the inter-module dependencies , ex: `module_2` requires output of `module_1`. While this leads to modularization of the code, the real intention is to make the pipeline execution traceable and independent from each other. This is achieved by containerizing each module and running them on different instances, making the process truly independent.  
+  - **Experiments:** On a single ML project, we may want to run multiple experiments, ex: (1) `test_accuracy` to try out a couple of parameters and compare accuracy, (2) `test_performance` to compare latency on different shape and size of data. This is where you define it.
+  - **Runs:** One execution of an experiment for a pipeline is captured here, ex: for `test_accuracy` experiment of MNIST pipeline, perform one run with `learning_rate = 0.001`.
+  - **Experiments (AutoML):** we cannot try all the parameters for the `test_accuracy` one by one. The obvious question, why not automate it by doing hyperparameter tuning. AutoML is your guy for that!
+  - **Models:** after all experimentations and model training, we would like to host/deploy the model. It can done using this section.
+
+#### Creating and running Pipeline
+
+- Let's start the coding :smile:. So for this tutorial, we will create a simple Kubeflow pipeline with two steps, 
+  - **Step 1 - Download data:** where we will downloads data from S3 bucket, pass the download data to the next step for further analysis. 
+  - **Step 2 - Perform analysis:** we will perform some rudimentary analysis on the data and log the metrics. 
+- We will try to go through some basic and advanced options, so that you can refer the code to create your own pipeline, even if it is completely different. After creating the pipeline, we will register it, create an experiment and then execute a couple of runs.
+
+- Lets start with importing the relevant packages. Make sure to install `kfp` with the latest version. 
+``` python linenums="1"
+# imports
+import kfp
+import kfp.dsl as dsl
+from typing import NamedTuple
+import kfp.components as comp
+from kfp.components import InputPath, OutputPath
+```
+
+- Now we will create the first module that downloads data from S3 bucket. Note, Kubeflow takes care of the logistics of data availability between modules, but we need to share the path where data is downloaded. This is done by typecasing parameter with `OutputPath(str)` as done on `line 2`. The process will be similar for ML models as well. We can download a model in the first module and perform training in another, and perform performance check in the third module. 
+
+``` python linenums="1"
+## Step 1
+def download_data(data_path: OutputPath(str)):
+    # import the functions
+    import os
+    import boto3
+    
+    # create the path if not exist
+    if not os.path.exists(data_path):
+        os.makedirs(data_path)
+        
+    # setup boto3
+    s3 = boto3.resource('s3')
+    s3_client = boto3.client('s3')
+    bucket_name = 'my-bucket'
+    bucket = s3.Bucket(bucket_name)
+    
+    # get list of all files at the s3 bucket prefix
+    prefix = "dataset/"
+    query = s3_client.list_objects(Bucket=bucket_name, Prefix=prefix, Delimiter='/')
+    files = []
+    if 'Contents' in query:
+        for obj in query['Contents']: 
+            files.append(obj['Key'])
+            
+    # download each file into the folder
+    for file_path in files:
+        # get file name
+        file_name = file_path.split('/')[-1]
+        # download and save the file
+        s3_client.download_file(bucket_name, 
+                        file_path, 
+                        f'{data_path}/{file_name}')
+        print(f"Downloaded: '{file_path}' into '{data_path}/{file_name}'")
+        
+    # done!
+    return print("Done")
+
+# download_data()
+# create kubeflow component
+download_data_comp = kfp.components.create_component_from_func(
+    func=download_data,
+    base_image='python:3.7',
+    packages_to_install=['boto3'])
+```
+- From `line 40` to `line 43`, we are converting the function to Kubeflow pipeline component. As the component will run on an independent instance, we need to provide the `base_image` and `packages_to_install` information as well. 
+- Next, we will create the second module that loads the data from first module and just returns some dummy metric. In reality, you can do a lot of things like data preprocessing or data transformation or EDA. For now, we will just stick with a dummy example.
+
+``` python linenums="1"
+## Step 2
+from typing import NamedTuple
+def data_analysis(data_path: InputPath(str)) -> NamedTuple('Outputs', [
+  ('mlpipeline_metrics', 'Metrics'),
+]):
+    # import
+    import json
+    from glob import glob
+    from collections import namedtuple
+    
+    # load each json file
+    for file_path in glob(f"{data_path}/*.json"):
+        # load the call data file and perform some analysis
+        data = json.load(open(file_path))
+        # print
+        print(f"Loaded {file_path}")
+        # --- do something fancy here ---
+        
+    # create metrics that should be logged
+    metrics = {'metrics': [
+        {
+        'name': 'accuracy',
+        'numberValue': 89
+        },
+        {
+        'name': 'f1',
+        'numberValue': 89
+        }]}
+
+    return [json.dumps(metrics)]
+    
+# create kubeflow component
+data_analysis_comp = kfp.components.create_component_from_func(
+    func=data_analysis,
+    base_image='python:3.7',
+    packages_to_install=[])
+```
+- In the function we are defining the `data_path` as `InputPath(str)` and is later used directly on `line 13`, without the need of manually sharing the data across instances. 
+- We define `mlpipeline_metrics` as output *(by type casing)* as this is mandatory if you want to log metrics. This is done on `line 21` to `line 29`, where we log dummy `accuracy` and `f1` metrics. Next we return the metrics. Finally, we also create Kubeflow component.
+- Next, we will combine all of the components together to create the pipeline.
+
+``` python linenums="1"
+## Create pipeline
+from kubernetes.client.models import (V1Affinity, 
+                                      V1NodeAffinity, 
+                                      V1NodeSelector, 
+                                      V1NodeSelectorTerm, 
+                                      V1NodeSelectorRequirement)
+
+# define pipeline
+@dsl.pipeline(name="my_pipeline", 
+              description="A simple demo of kubeflow pipeline")
+
+# Define parameters to be fed into pipeline
+def my_pipeline(data_path='data/'):
+    # Step 1
+    download_data_container = download_data_comp()
+    # Step 2
+    data_analysis_container = data_analysis_comp(download_data_container.output)
+    
+    # add affinity
+    aff = V1Affinity(node_affinity=V1NodeAffinity(
+        required_during_scheduling_ignored_during_execution=V1NodeSelector( 
+            node_selector_terms=[V1NodeSelectorTerm( 
+                match_expressions=[V1NodeSelectorRequirement(
+                    key="xxxx", 
+                    operator="In",
+                    values=['yyy'])])]))
+    )
+    
+    download_data_container.add_affinity(aff)
+    data_analysis_container.add_affinity(aff)
+
+# create client that would enable communication with the Pipelines API server 
+client = kfp.Client()
+experiment_name = 'my_pipeline'
+# Compile pipeline to generate compressed YAML definition of the pipeline.
+kfp.compiler.Compiler().compile(my_pipeline,  
+  '{}.zip'.format(experiment_name))
+```
+
+- We start with a simople importing relevant modules and initiating the pipeline function where we define the name and description of the pipeline. Next we connect the components together. 
+- From `line 20` to `line 30`, we are defining and setting the node wide affinity so that we only use spot instances for the computation. This will keep our cost to the minimum. 
+- Finally we create a Kubeflow client and cmpile the complete pipeline. This will create a zip file of the compiled pipeline that we can upload from the pipeline tab in Kubeflow. 
+- Next, we can create an experiment and the perform a run from the respective Kubeflow tab. The process is quite simple and can be easily done from the UI. Once we have executed a run and the process is completed, we can see the individual modules and the status in the run page as shown below. 
+
+<figure markdown> 
+        ![](../imgs/kubeflow_my_pipeline_graph.png){ width="500" }
+        <figcaption>Run page after successful execution of a run of `my_pipeline` pipeline</figcaption>
+        </figure>
+
+- And we have done it :sunglasses:
