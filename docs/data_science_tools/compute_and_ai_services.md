@@ -125,21 +125,22 @@ Coming soon! -->
 #### Components
 
 - Kubeflow provides several individual components that will help with the ML lifecycle. Note, we can even pick and choose the components you want while installation. Some of them are, 
-  - **Notebook:** here we can create jupyter notebook servers and perform quick experimentations. Each server is assigned it's volume (hard memory). On booting up a server, a new compute is procured and you will see [Jupyter Lab](https://jupyter.org/) page where you can create mulitple notebooks, scripts or terminals. The compute could be EC2 instance or Spot instance, incase of AWS connection and based on your configuration.
+  - **Notebook:** here we can create jupyter notebook servers and perform quick experimentations. Each server is assigned its own volume (hard memory). On booting up a server, a new compute is procured and you will see [Jupyter Lab](https://jupyter.org/) page where you can create mulitple notebooks, scripts or terminals. The compute could be EC2 instance or Spot instance, incase of AWS connection and based on your configuration.
   - **Pipeline:** here we define one ML project. Kubeflow supports defining a pipeline in terms of a DAG (Directed Acyclic Graph), where each individual function or module is one node. Pipeline represents a graph of modules, where execution happens in a sequential or parallel manner while considering the inter-module dependencies , ex: `module_2` requires output of `module_1`. While this leads to modularization of the code, the real intention is to make the pipeline execution traceable and independent from each other. This is achieved by containerizing each module and running them on different instances, making the process truly independent.  
-  - **Experiments:** On a single ML project, we may want to run multiple experiments, ex: (1) `test_accuracy` to try out a couple of parameters and compare accuracy, (2) `test_performance` to compare latency on different shape and size of data. This is where you define it.
+  - **Experiments:** On a single ML project, we may want to run multiple experiments, ex: (1) `test_accuracy` to try out a couple of parameters and compare accuracy, (2) `test_performance` to compare latency on different shape and size of data. This is where you define individual experiments.
   - **Runs:** One execution of an experiment for a pipeline is captured here, ex: for `test_accuracy` experiment of MNIST pipeline, perform one run with `learning_rate = 0.001`.
-  - **Experiments (AutoML):** we cannot try all the parameters for the `test_accuracy` one by one. The obvious question, why not automate it by doing hyperparameter tuning. AutoML is your guy for that!
-  - **Models:** after all experimentations and model training, we would like to host/deploy the model. It can done using this section.
+  - **Experiments (AutoML):** we cannot try all the parameters for the `test_accuracy` one by one. The obvious question, why not automate it by doing hyperparameter tuning? AutoML is what you are looking for!
+  - **Models:** after all experimentations and model training, we would like to host/deploy the model. It can done using this component.
 
 #### Creating and running Pipeline
 
 - Let's start the coding :smile:. So for this tutorial, we will create a simple Kubeflow pipeline with two steps, 
-  - **Step 1 - Download data:** where we will downloads data from S3 bucket, pass the download data to the next step for further analysis. 
+  - **Step 1 - Download data:** where we will download data from S3 bucket, pass the downloaded data to the next step for further analysis. 
   - **Step 2 - Perform analysis:** we will perform some rudimentary analysis on the data and log the metrics. 
-- We will try to go through some basic and advanced options, so that you can refer the code to create your own pipeline, even if it is completely different. After creating the pipeline, we will register it, create an experiment and then execute a couple of runs.
+- We will try to go through some basic and advanced scenarios, so that you can refer the code to create your own pipeline, even if it is completely different. After creating the pipeline, we will register it, create an experiment and then execute a run.
 
-- Lets start with importing the relevant packages. Make sure to install `kfp` with the latest version. 
+- Lets start with importing the relevant packages. Make sure to install `kfp` with the latest version by using `pip install kfp --upgrade`
+
 ``` python linenums="1"
 # imports
 import kfp
@@ -196,8 +197,10 @@ download_data_comp = kfp.components.create_component_from_func(
     base_image='python:3.7',
     packages_to_install=['boto3'])
 ```
+
 - From `line 40` to `line 43`, we are converting the function to Kubeflow pipeline component. As the component will run on an independent instance, we need to provide the `base_image` and `packages_to_install` information as well. 
-- Next, we will create the second module that loads the data from first module and just returns some dummy metric. In reality, you can do a lot of things like data preprocessing or data transformation or EDA. For now, we will just stick with a dummy example.
+
+- Next, we will create the second module that loads the data from first module and just returns some dummy metrics. In reality, you can do a lot of things like data preprocessing or data transformation or EDA. For now, we will just stick with a dummy example.
 
 ``` python linenums="1"
 ## Step 2
@@ -237,8 +240,11 @@ data_analysis_comp = kfp.components.create_component_from_func(
     base_image='python:3.7',
     packages_to_install=[])
 ```
-- In the function we are defining the `data_path` as `InputPath(str)` and is later used directly on `line 13`, without the need of manually sharing the data across instances. 
+
+- In the function we are defining the `data_path` as `InputPath(str)` and is later used directly on `line 14`, without the need of manually sharing the data across instances. 
+
 - We define `mlpipeline_metrics` as output *(by type casing)* as this is mandatory if you want to log metrics. This is done on `line 21` to `line 29`, where we log dummy `accuracy` and `f1` metrics. Next we return the metrics. Finally, we also create Kubeflow component.
+
 - Next, we will combine all of the components together to create the pipeline.
 
 ``` python linenums="1"
@@ -281,10 +287,10 @@ kfp.compiler.Compiler().compile(my_pipeline,
   '{}.zip'.format(experiment_name))
 ```
 
-- We start with a simople importing relevant modules and initiating the pipeline function where we define the name and description of the pipeline. Next we connect the components together. 
+- We start with importing relevant modules and creating the pipeline function where we define the name and description of the pipeline. Next we connect the components together. 
 - From `line 20` to `line 30`, we are defining and setting the node wide affinity so that we only use spot instances for the computation. This will keep our cost to the minimum. 
-- Finally we create a Kubeflow client and cmpile the complete pipeline. This will create a zip file of the compiled pipeline that we can upload from the pipeline tab in Kubeflow. 
-- Next, we can create an experiment and the perform a run from the respective Kubeflow tab. The process is quite simple and can be easily done from the UI. Once we have executed a run and the process is completed, we can see the individual modules and the status in the run page as shown below. 
+- Finally we create a Kubeflow client and compile the complete pipeline. This will create a zip file of the compiled pipeline that we can upload from the pipeline tab in Kubeflow. 
+- Next, we can create an experiment and the perform a run from the respective Kubeflow tabs. The process is quite simple and can be easily done from the UI. Once we have executed a run and the process is completed, we can see the individual modules and the status in the run page as shown below. 
 
 <figure markdown> 
         ![](../imgs/kubeflow_my_pipeline_graph.png){ width="500" }
