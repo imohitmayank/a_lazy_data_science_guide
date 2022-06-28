@@ -77,9 +77,15 @@ nav:
       - 'Blogs':
           - 'natural_language_processing/explainable_ai_llm.md'
 
-  - 'Knowledge Graphs':
-    - 'knowledge_graphs/introduction.md'
-    - 'KG Embedding Algorithms': 'knowledge_graphs/kg_embedding_algorithms.md'
+  - 'Network Science':
+      - 'Introduction': 'network_science/introduction.md'
+      - "Graph Neural Networks":
+          - 'Introduction': 'network_science/gnn_introduction.md'
+          - 'Algorithms':
+              - 'DeepWalk': 'network_science/gnn_deepwalk.md'
+      - 'Knowledge Graphs':
+          - 'Introduction': 'network_science/kg_introduction.md'
+          - 'KG Embedding Algorithms': 'network_science/kg_embedding_algorithms.md'
 
   - 'Python':
     -  'python/good_practices.md'
