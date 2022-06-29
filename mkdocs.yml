@@ -65,6 +65,7 @@ nav:
 
   - 'Natural Language Processing':
       - 'Algorithms':
+          -  'Word2Vec': 'natural_language_processing/word2vec.md'
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
           -  'natural_language_processing/BERT.md'
           -  'natural_language_processing/GPTs.md'
