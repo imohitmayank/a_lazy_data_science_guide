@@ -10,7 +10,7 @@
 </figure>
 
 - While such representation is not unique to w2v, its major contribution was to provide a simple and faster neural network based word embedder. 
-- To do so, w2v transformed the training as a classification problem where given one word, the neural network tries to answer which word is most probable to be found in the context of the given word. This technique is formally called Skip-gram, where input is the middle word and output is context word. This is done by creating a 1-layer deep neural network where the input word is fed in one-hot encoded format and output is softmax with ideally large value to context word.
+- To do so, w2v transformed the training as a classification problem. The neural network tries to answer which word is most probable to be found in the context of a given word. Given a sequence of words that "naturally" appears in some sentence, the input could be any middle word and output could be any of the surrounding words (within some window). The training is done by creating a 1-layer deep neural network where the input word is fed as one-hot encoding and output is softmax applied with intention of getting large value for context word.
 
 <figure markdown> 
     ![](../imgs/w2v_skipgram.png)
