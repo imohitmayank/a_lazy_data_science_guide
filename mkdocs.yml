@@ -37,6 +37,11 @@ markdown_extensions:
       generic: true
   - pymdownx.tabbed:
       alternate_style: true 
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 extra_javascript:
   - javascripts/mathjax.js
@@ -105,4 +110,5 @@ nav:
 
   - 'Deep Learning':
     - 'deep_learning/deep_learning_snippets.md'
+    - 'deep_learning/deep_learning_terms.md'
 

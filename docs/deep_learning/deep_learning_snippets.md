@@ -1,7 +1,7 @@
 Deep Learning Snippets
 =========================
 
-Sharing some of the most widely used and still not *famous* Deep Learning snippets.
+Sharing some of the most widely used and still not *famous* Deep Learning snippets. :smile:
 
 ## Callbacks
 
