@@ -107,6 +107,8 @@ nav:
   - 'Machine Learning':
     - 'machine_learning/introduction.md'
     - 'machine_learning/ML_snippets.md'
+    - 'Blogs':
+      - 'Ranking Algorithms': 'machine_learning/ranking_algorithms.md'
 
   - 'Deep Learning':
     - 'deep_learning/deep_learning_snippets.md'
