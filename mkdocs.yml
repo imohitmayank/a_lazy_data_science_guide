@@ -113,4 +113,6 @@ nav:
   - 'Deep Learning':
     - 'deep_learning/deep_learning_snippets.md'
     - 'deep_learning/deep_learning_terms.md'
+    - 'Techniques':
+      - "Model Compression": 'deep_learning/model_compression.md'
 
