@@ -5,6 +5,11 @@
 - So you have a list of `N` cars with their price information. As usual, we won’t want to spend more, we can just sort the cars by their price (in ascending order) and pick the top one (with the smallest price), and we are done! This was decision making with a single criterion. 
 - But alas if life is so easy :smile: We would also like the car to have good mileage, better engine, faster acceleration (if you want to race), and some more. Here, you want to choose a car with the smallest price, but the highest mileage and acceleration, and so on. This problem can’t be so easily solved by simple sorting. Enter multi-criteria decision-making algorithms! :sunglasses:
 
+<figure markdown> 
+    ![](../imgs/ra_intro.png){ width="500" }
+    <figcaption>an Egyptian painting of a man dissecting a car to understand it better (Created by DallE)</figcaption>
+</figure>
+
 ### Dataset
 
 - Let’s choose one dataset so it becomes easier to visualize the result, to understand what’s really happening behind the scenes and finally build intuition. 
@@ -18,7 +23,7 @@
 - Explaining some attributes,
   - `mpg`: a measure of how far a car can travel if you put just one gallon of petrol or diesel in its tank (mileage).
   - `displacement`: engine displacement is the measure of the cylinder volume swept by all of the pistons of a piston engine. More displacement means more power.
-  - `acceleration`: a measure of how long it takes the car to reach a speed from 0. Higher the acceleration, better the car for drag racing :)
+  - `acceleration`: a measure of how long it takes the car to reach a speed from 0. Higher the acceleration, better the car for drag racing 🏎️
 
 - Here please notice some points,
   - The unit and distribution of the attributes are not the same. Price plays in thousands of $, acceleration in tens of seconds and so on.
