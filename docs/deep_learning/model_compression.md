@@ -19,6 +19,11 @@
 
 ## Knowledge Distillation
 
+<figure markdown> 
+    ![](../imgs/mc_kd_cover.png){ width="500" }
+    <figcaption>Teacher teaching a student. *Source: DallE*</figcaption>
+</figure>
+
 - The main idea in knowledge distillation (KD) is to make a smaller model (student model) mimic the larger model (teacher model). This could lead to student model having competitive or sometimes even superior performance than teacher model.
 - For example consider this use case -- suppose you have a medium sized (>300MBs) model that is quite accurate (>80%) but slow (700-800ms per inference on CPU). While we can apply any of the above solution, it will not be cost effective. With KD if we can distil the model's knowledge to a much smaller one (say, 40-50MBs) with minimum compromise on accuracy (>78%) we can greatly reduce the inference time (2x to 3x) and make the complete solution scalable. 
 
