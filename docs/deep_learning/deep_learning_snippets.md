@@ -92,3 +92,47 @@ def configure_optimizers(self):
     # return optimizer
     return optimizer
 ```
+
+## Check for GPU availability 
+
+- We need GPUs for deep learning, and before we start training or inference it's a good idea to check if GPU is availbale on the system or not. 
+- The most basic way to check for GPUs (if it's a NVIDIA one) is to run `nvidia-smi` command. It will return a detailed output with driver's version, cuda version and the processes using GPU. [Refer this](https://medium.com/analytics-vidhya/explained-output-of-nvidia-smi-utility-fc4fbee3b124) for more details on individual components.
+
+
+``` shell
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 435.21       Driver Version: 435.21       CUDA Version: 10.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce MX110       Off  | 00000000:01:00.0 Off |                  N/A |
+| N/A   43C    P0    N/A /  N/A |    164MiB /  2004MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      6348      G   /usr/lib/xorg                                 53MiB |
+|    0     13360      G   ...BBBBBaxsxsuxbssxsxs --shared-files         28MiB |
++-----------------------------------------------------------------------------+
+```
+
+- You can even use deep learning frameworks like Pytorch to check for the GPU availbaility. In act, this is where you will most probably use them.
+
+``` python linenums="1"
+# import 
+import torch
+# checks
+torch.cuda.is_available()
+## Output: True
+torch.cuda.device_count()
+## Output: 1
+torch.cuda.current_device()
+## Output: 0
+torch.cuda.device(0)
+## Output: <torch.cuda.device at 0x7efce0b03be0>
+torch.cuda.get_device_name(0)
+## Output: 'GeForce MX110'
+```
