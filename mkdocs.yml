@@ -114,3 +114,7 @@ nav:
     - 'deep_learning/deep_learning_snippets.md'
     - 'deep_learning/deep_learning_terms.md'
 
+  - 'Audio Intelligence':
+    - 'Tasks':
+       - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
+
