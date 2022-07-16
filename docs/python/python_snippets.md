@@ -79,6 +79,14 @@ import sys
 print(os.path.dirname(sys.executable))
 ```
 
+## Get list of installed Python packages
+
+- To know exactly which packages are current installed (and their version) in your VE, try
+
+``` shell linenums="1"
+pip list --format=freeze > reqirements.txt
+```
+
 ## Find files or folders
 
 - `glob` is a very efficient way to extract relevant files or folders using python.
