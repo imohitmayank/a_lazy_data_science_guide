@@ -116,5 +116,6 @@ nav:
 
   - 'Audio Intelligence':
     - 'Tasks':
+       - 'Voice Activity Detection': 'audio_intelligence/voice_activity_detection.md'
        - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
 
