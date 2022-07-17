@@ -1,4 +1,4 @@
-mkdocs-material
-pymdown-extensions
-# mdx_truly_sane_lists
-mkdocs-material-extensions
+mkdocs-material==8.3.4
+pymdown-extensions==9.5
+mdx_truly_sane_lists
+mkdocs-material-extensions==1.0.3
