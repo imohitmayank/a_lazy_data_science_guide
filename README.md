@@ -4,6 +4,8 @@
 
 Book: [Here](http://mohitmayank.com/a_lazy_data_science_guide/)
 
+[![deploy_mkdocs](https://github.com/imohitmayank/a_lazy_data_science_guide/actions/workflows/deploy_mkdocs.yml/badge.svg)](https://github.com/imohitmayank/a_lazy_data_science_guide/actions/workflows/deploy_mkdocs.yml)
+
 **What is this?** A guide book on data science for busy and equally lazy Data Scientists 😄
 
 **What does this include?** While the book started as a collection of snippets, the plan is to overtime include details about the algorithms, applications, tools, best practices and much more to make this the ultimate guide for a budding or experienced Data Scientists.
