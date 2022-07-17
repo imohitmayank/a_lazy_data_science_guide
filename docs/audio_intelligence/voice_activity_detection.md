@@ -12,7 +12,7 @@
 
 - The complete VAD process can be broken down to two simple steps, 
   - `Step 1:` we start with dividing the audio into multiple chunks of small sizes. Usually these chunks are quite small like `10ms`, `20ms` or `30ms`. 
-  - `Step 2:` we have a classifier or detector, that takes the chunk as input and predicts if the chunk has voice or not a voice. The classifier could be simple algorthms or even neural models. It depends on the acceptable tradeoff between accuracy and speed. 
+  - `Step 2:` we have a classifier or detector, that takes the chunk as input and predicts if the chunk has voice or not. The classifier could be a simple logic based algorithm or even neural network models. It depends on the acceptable tradeoff between accuracy and speed. 
 
 ## Code
 
@@ -54,7 +54,6 @@ segments = []
 for i, start in enumerate(np.arange(0, len(y), samples_per_window)):
     stop = min(start + samples_per_window, len(y))
     loc_raw_sample = raw_samples[start * bytes_per_sample: stop * bytes_per_sample]
-    # print(f"Shape: {len(loc_raw_sample)}")
     try:
         is_speech = vad.is_speech(loc_raw_sample, 
                               sample_rate = sr)
@@ -70,11 +69,11 @@ for i, start in enumerate(np.arange(0, len(y), samples_per_window)):
 ```
 
 - Let's go through the code,
-  - `Line 1-4`: we import the required packages, make sure to install them using `pip` before starting. In case you are facing some issue, please installed the specific python and package versions as mentioned in the code.
-  - `Line 7- 18`: we read a sample wav file *(use your own :smile:)* and then transform the bitrate of the audio into `int16`. One point to note here is that `webrtcvad` only works for `sample rate = 16000` and `bitrate = int16`. And `librosa` loads an audio file in float bitrate, because of this requirement we need to perform the transformations.
-  - `Line 21`: we transform the numpy array *(format in which an audio file is loaded in `librosa`)* to bit string. This will be required for chunking and VAD analysis.
-  - `Line 24-27`: we initialize an instance of `webrtcvad` with aggressiveness parameter. Note, the range is form 0 to 3, and higher the value, the more strict VAD is in classification chunksa s voice. This means, you can miss some relevant voice chunks for higher aggressiveness and on the other hand get some false positives with lower aggressiveness.
-  - `Line 31-45`: the code to first create chunks of the audio and the perform VAD classification at `line 38-39`. The final results is stored in `segments` variables and a sample output is shown below, 
+  - `Line 3-5`: we import the required packages. Make sure to install them using `pip` before starting. In case you are facing some issue, please install the specificed python and package versions *(mentioned in the code)*.
+  - `Line 7- 18`: we read a sample wav file *(use your own :smile:)* and then transform the bit depth of the audio into `int16`. One point to note here is that `webrtcvad` only works for `sample rate = 16000` and `bit depth = int16`. And `librosa` loads an audio file in float. Because of all this requirement we need to perform the transformations.
+  - `Line 21`: we transform the numpy array *(format in which an audio file is loaded in `librosa`)* to byte string. This will be required for chunking and VAD analysis.
+  - `Line 24-27`: we initialize an instance of `webrtcvad` with aggressiveness parameter. Note, the range is form 0 to 3, and higher the value, the more strict VAD is in classification chunks as voice. This means, you can miss some relevant voice chunks for higher aggressiveness and on the other hand get some false positives with lower aggressiveness.
+  - `Line 31-45`: the code to first create chunks of the audio and then perform VAD classification at `line 37-38`. The final results is stored in `segments` variable and a sample output is shown below, 
 
     | start | stop | is_speech |
     |-----:|----------:|------|
@@ -90,10 +89,10 @@ for i, start in enumerate(np.arange(0, len(y), samples_per_window)):
 
 <figure markdown> 
     ![](../imgs/audio_vad_result_ag0.png)
-    <figcaption>Waveform of audio with `webrtcvad` detected voice chunks shown as yelloe line on top. The aggressiveness parameter value was 0, hence lot's of false positive *(chunks with no voice)* are detected as well.</figcaption>
+    <figcaption>Waveform of audio with `webrtcvad` detected voice chunks highlighted with yellow line on top. The aggressiveness parameter value was 0, hence lot's of false positive *(chunks with no voice)* are detected as well.</figcaption>
 </figure>
 
 <figure markdown> 
     ![](../imgs/audio_vad_result_ag3.png)
-    <figcaption>Waveform of audio with `webrtcvad` detected voice chunks shown as yelloe line on top. The aggressiveness parameter value was 3, hence the detection is quite strict *(some voice parts are missed)*.</figcaption>
+    <figcaption>Same as above, but with aggressiveness parameter value set to 3. Hence the detection is quite strict *(some voice parts are missed)*.</figcaption>
 </figure>
