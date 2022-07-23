@@ -66,7 +66,7 @@ extra:
 nav:
   - 'Introduction': 
       - 'Hello': 'index.md'
-      - 'Getting started': 'introduction/getting_started.md'
+      - 'Getting started with Data Science': 'introduction/getting_started.md'
 
   - 'Natural Language Processing':
       - 'Algorithms':
@@ -111,9 +111,11 @@ nav:
       - 'Ranking Algorithms': 'machine_learning/ranking_algorithms.md'
 
   - 'Deep Learning':
-    - 'deep_learning/deep_learning_snippets.md'
-    - 'deep_learning/deep_learning_terms.md'
+    - 'DL snippets': 'deep_learning/deep_learning_snippets.md'
+    - 'DL terms': 'deep_learning/deep_learning_terms.md'
     - 'Interview Questions' : 'deep_learning/interview_questions.md'
+    - 'Techniques':
+      - 'deep_learning/normalization.md'
 
   - 'Audio Intelligence':
     - 'Tasks':
