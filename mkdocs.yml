@@ -113,6 +113,7 @@ nav:
   - 'Deep Learning':
     - 'deep_learning/deep_learning_snippets.md'
     - 'deep_learning/deep_learning_terms.md'
+    - 'Interview Questions' : 'deep_learning/question_answers.md'
 
   - 'Audio Intelligence':
     - 'Tasks':
