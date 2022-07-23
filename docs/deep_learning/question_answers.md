@@ -17,4 +17,10 @@
 
         Batch Normalization also has a beneficial effect on the gradient flow through the network, by reducing the dependence of gradients on the scale of the parameters or of their initial values. This allows us to use much higher learning rates with- out the risk of divergence. Furthermore, batch normal- ization regularizes the model and reduces the need for Dropout (Srivastava et al., 2014). Finally, Batch Normal- ization makes it possible to use saturating nonlinearities by preventing the network from getting stuck in the satu- rated modes. [Ref](https://arxiv.org/abs/1502.03167v3)
 
-        
+!!! Question ""
+    === "Question"
+        What is weight tying in language model?
+
+    === "Answer"
+
+        Weight-tying is where you have a language model and use the same weight matrix for the input-to-embedding layer (the input embedding) and the hidden-to-softmax layer (the output embedding). The idea is that these two matrices contain essentially the same information, each having a row per word in the vocabulary. [Ref](https://tomroth.com.au/weight_tying/)
