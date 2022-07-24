@@ -1,5 +1,5 @@
-!!! failure
-    This page is still under progress. Please check back after some time or [contact me](mohitmayank1@gmail.com)
+!!! warning
+    This page is still under progress. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com)
 
 ## Introduction
 
