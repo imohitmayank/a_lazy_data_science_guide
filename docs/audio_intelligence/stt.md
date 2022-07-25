@@ -1,6 +1,3 @@
-!!! warning
-    This page is still under progress. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com)
-    
 ## Introduction
 
 - Speech to text task is known by many names, be it Audio Transcription or Automatic Speech Recognition (ASR). Basically, it's the process of generating textual transcription of a conversation, where speech is provided as input and we get text as output.
