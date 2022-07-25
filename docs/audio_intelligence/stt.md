@@ -7,7 +7,7 @@
 - The task is quite complex as it has depedency on several other modules like Voice activity detection and speaker diarization. On top of this, the core transcription module should be able to handle multiple languages, accents and domain specific keywords. 
 - We can perform transcriptions in either of the two ways,
   - `Online transcription`: this is for live use cases where you want to stream ongoing data and perform transcription on the go. For example, an ongoing sales or customer support call or news event, etc. Usually a smaller and faster (hence less accurate) model is used for this.
-  - `Offline transcription`: this is for deplayed transcription that happens after the event is over. For example, recorded telecast or OTT series's caption, etc. Usually a relatively bigger and more accurate model (hence slower) model is used for this.
+  - `Offline transcription`: this is delayed transcription that happens after the call or recording is over. For example, recorded telecast or OTT series's caption, etc. Usually a relatively bigger and more accurate (hence slower) model is used for this.
 
 ## Available Solutions (Paid)
 
@@ -21,12 +21,12 @@
   - [Deepgram](https://deepgram.com/)
 
 !!! Note
-    Users must consider accuracy, additional features and cost before selecting any of the above services for their use case. The accuracy of each of the above services are on par but may vary based on specific domain. For example, one may perform better for healthcare domain, while the other on sales. Be sure to try them out before selecting one. 
+    Please consider accuracy, additional features and cost before selecting any of the above services for your use case. The accuracy of each of the above services are arguably on par, but may vary based on specific domain. For example, one may perform better for healthcare domain, while the other on sales. Be sure to try them out before selecting one. 
 
 - There are several advantages of using paid ASR services, 
-  - They take care of the major headache in the transcription space like support for multiple languages and accents. Their model is constantly trained to improve the performance on existing language and even to add support for new ones. 
+  - They take care of the major headache in the transcription space like support for multiple languages and accents. Their model is constantly fine-tuned to improve the performance on existing language and even to add support for new ones. 
   - They take care of output formatting like adding punctuations, sentence breaks, speaker diarization etc. Otherwise for a inhouse ASR system, we will have to build these as well.
-  - They take care of hosting the ASR models. Depending on the use case *(for example if you want live transcription which needs to be super fast)*, we may end up spending substantially on GPU computes and hardare management. 
+  - They take care of hosting the ASR models. Depending on the use case *(for example if you want live transcription which needs to be super fast)*, we may end up spending substantially on GPU computes and hardware management. 
   - Finally, there has been a trend of providing audio intelligence features on top of core transcription services. For example, [AssemblyAI provides add on services like sentiment analysis, entity detection, Auto Chapters, etc.](https://www.assemblyai.com/products/audio-intelligence)
 - The one and the major con of these services, as you might have guessed, is cost 💲 
 
