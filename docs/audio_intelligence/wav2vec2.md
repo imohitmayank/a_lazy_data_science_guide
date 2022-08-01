@@ -48,6 +48,7 @@
 
 ``` python linenums="1"
 # import 
+import torch
 import librosa
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Tokenizer
 
@@ -74,34 +75,84 @@ print(transcription)
 
 ### Offline transcription using Wav2Vec2 (N-gram)
 
-- There is a pre-trained model in Huggingface with N-gram decoder and n-gram lnaguage model. The usage is very similar to the CTC model, we just have to change the model name. Note, this downloads the Wav2Vec2 model plus the N-gram language model.
+- There is a pre-trained model in Huggingface with N-gram decoder and n-gram lnaguage model. The usage is very similar to the CTC model, we just have to change the model name. Note, this downloads the Wav2Vec2 model plus the N-gram language model which will be around 3.2 GBs!
 
 ``` python linenums="1"
+# install dependencies
+!pip install pyctcdecode pypi-kenlm
 # import
-from transformers import Wav2Vec2ProcessorWithLM
+import librosa
+from transformers import Wav2Vec2ProcessorWithLM, Wav2Vec2ForCTC
 
 # load the processor
 processor = Wav2Vec2ProcessorWithLM.from_pretrained("patrickvonplaten/wav2vec2-base-100h-with-lm")
+model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h")
 
 # load the audio data (use your own wav file here!)
 input_audio, sr = librosa.load('my_wav_file.wav', sr=16000)
 
 # tokenize
-input_values = tokenizer(input_audio, return_tensors="pt", padding="longest").input_values
+input_values = processor(input_audio, return_tensors="pt", padding="longest").input_values
 
 # retrieve logits
 logits = model(input_values).logits
 
 # decode using n-gram
-transcription = processor.batch_decode(logits.numpy()).text
+transcription = processor.batch_decode(logits.detach().numpy()).text
 
 # print the output
 print(transcription)
 ```
 
-<!-- ### Creating your own N-gram language model 
+### Creating your own N-gram language model for Word2Vec2 
 
-- To use n-gram model we can [KenML](https://github.com/kpu/kenlm) to create language model and then use [pyctcdecode](https://github.com/kensho-technologies/pyctcdecode) for decoding.  -->
+- To use n-gram model we can [KenML](https://github.com/kpu/kenlm) to create language model and then use [pyctcdecode](https://github.com/kensho-technologies/pyctcdecode) for decoding. This part is referenced from [Huggingface blog on Wav2vec2 with n-gram](https://huggingface.co/blog/wav2vec2-with-ngram). The steps are as follows, 
+  - First, we will select one text dataset. This dataset can be the transcript of train data (part of labeled data we used to finetune Wav2Vec2 model) or a related (same domain like medical, telecom, etc) collection of documents. 
+  - Next we can perform data cleaning like removing special characters and then combine the individual sentences to a free flow text and save that into text file. After this we can run KenML to create a language model. 
+
+    ``` shell
+    kenlm/build/bin/lmplz -o 3 <"text.txt" > "3-gram.arpa"
+    ```
+
+  - The arpa file contains the n-gram language model that is ready to go with just two minor modifications. As per the [Huggingface blog](https://huggingface.co/blog/wav2vec2-with-ngram), we need to add `</s>` end of sentence token as 1 gram as well, so we open the arpa file, duplicate the existing `<s>` start of sentence token, and just replace the `<s>` with `</s>`. Next we also increment the count of 1-gram (present at the top of the arpa file) by 1, because of what we just did. Then we save the file. 
+
+  - Next, we load the a LM-less model and then we can use the `pyctcdecode`.
+
+``` python linenums="1"
+# Taken from Blog @ https://huggingface.co/blog/wav2vec2-with-ngram
+# import packages
+from transformers import AutoProcessor
+from pyctcdecode import build_ctcdecoder
+from transformers import Wav2Vec2ProcessorWithLM
+
+# load a LM-less model
+processor = AutoProcessor.from_pretrained("hf-test/xls-r-300m-sv")
+
+# get the vocabulary of the tokenizer
+vocab_dict = processor.tokenizer.get_vocab()
+sorted_vocab_dict = {k.lower(): v for k, v in sorted(vocab_dict.items(), key=lambda item: item[1])}
+
+# build the decoder
+decoder = build_ctcdecoder(
+    labels=list(sorted_vocab_dict.keys()),
+    kenlm_model_path="3-gram.arpa",
+)
+
+# create a processor with the decoder
+processor_with_lm = Wav2Vec2ProcessorWithLM(
+    feature_extractor=processor.feature_extractor,
+    tokenizer=processor.tokenizer,
+    decoder=decoder
+)
+
+# now the processor can be used for inference as shown in other above code sections.
+```
+
+- We can even reduce the size of the LM-model by converting it to a binary file.
+
+``` shell
+kenlm/build/bin/build_binary 3-gram.arpa 3-gram.bin
+```
 
 ### Online transcription using Wav2Vec2
 
