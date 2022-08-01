@@ -38,7 +38,7 @@
 - Recent advances in artificial intelligence and specially transfer learning has lead to release of several pre-trained ASR models that are ready to use from day one. In case you want to improve the accuracy for your domain, we can even fine tune the model further!
 - One of the most famous models right now is Facebook's [Wav2Vec2](https://huggingface.co/facebook/wav2vec2-base-960h). More models can be [found here](https://huggingface.co/models?pipeline_tag=automatic-speech-recognition&sort=downloads).
 
-### Offline transcription using Wav2Vec2
+### Offline transcription using Wav2Vec2 (CTC)
 
 - Here is the code to perform offline transcription using Wav2Vec2 model with `transformer` package.
 
@@ -68,7 +68,7 @@ transcription = tokenizer.batch_decode(predicted_ids)
 print(transcription)
 ```
 
-### Online transcription using Wav2Vec2
+### Online transcription using Wav2Vec2 (CTC)
 
 - For live transcription using Wav2Vec2, we can utilize [wav2vec2-live](https://github.com/oliverguhr/wav2vec2-live) package. 
 - Once you have cloned the repo and installed the packages from `requirements.txt`, the live transcription can be started with *(taken from the package readme and modified)*, 

@@ -52,12 +52,24 @@ $$
 
 ### Inference
 
-- Now while we can train the models, we want the model to work during the inference time as well. Here, we won't know the correct transcription and the relevant paths, but we will have to find one. For this we can employ a couple of varieties, 
-  - The easiest approach is to go greedy! At each time step, we pick the token with the highest probability. But this could lead to suboptimal outputs as some time steps could have high probability but incorrect predictions. Also remember we trained the model to improve the summation of probabilty for all relevant paths. Now there could be a scenario where one irrelevant path (say `[SEP]ih`) has more probability than all individual paths, but the summation of two relevant paths are higher (say `hi[SEP]` and `hii`).
+- Now after training the model, we want it to work during the inference. Here, we won't know the correct transcription or the relevant paths, so we will have to find one. For this we can employ a couple of approaches, 
+  - The easiest approach is to go greedy! At each time step, we pick the token with the highest probability. But this could lead to suboptimal outputs as some time steps could have high probability but incorrect predictions. Also remember we trained the model to improve the summation of probabilty for all relevant paths. Now there could be a scenario where one irrelevant path (say `[SEP]ih`) has more probability than all individual paths, but the summation of two relevant paths are higher (say `hi[SEP]` and `hii`). Apart from this, as the predictions are at time step level, they are independent of context and this could lead to other issues like spelling mistakes and wrong grammer.
   - The next approach could be to use Beam search where we keep exploring top N paths, where N is the beam size. To handle the above problem, we can modify the beam search where before selecting the next paths to explore, we consider the summation of the explored paths so far by applying CTC collapsing. More details can be [found here](https://distill.pub/2017/ctc/) and an [implementation is here](https://gist.github.com/awni/56369a90d03953e370f3964c826ed4b0).
+  - Another approach could be to utilise a language model for decoding. This will take care of the spelling mistakes and grammer issues. For this we can either use n-gram language model or a neural language model. While neural language model is more powerful, it is more complicated to implement and will be much slower, and the comparitive gain in improvement wrt n-gram is not that much (*[Wav2vec2](https://arxiv.org/abs/2006.11477)*). There are several open source packages that can be utilised to create a language model like [KenML](https://github.com/kpu/kenlm) and then use it for decoding  with [pyctcdecode](https://github.com/kensho-technologies/pyctcdecode).
+
+<!-- ## Code
+
+### Using n-gram model for decoding Wav2Vec2
+
+- To use n-gram language model, we will need to create a language model first. All that is required 
+
+``` shell
+kenlm/build/bin/lmplz -o 5 <"text.txt" > "5gram.arpa"
+``` -->
 
 ## Additional Materials
 
 - [Distill - Sequence Modeling
 With CTC](https://distill.pub/2017/ctc/)
 - [An Intuitive Explanation of Connectionist Temporal Classification](https://towardsdatascience.com/intuitively-understanding-connectionist-temporal-classification-3797e43a86c)
+- [Boosting Wav2Vec2 with n-grams in 🤗 Transformers](https://huggingface.co/blog/wav2vec2-with-ngram)

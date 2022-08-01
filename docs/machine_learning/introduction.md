@@ -45,8 +45,6 @@
 
 ## Additional Techniques
 
-- Apart from the us
-
 ### Active Learning
 
 - Active learning is all about selecting the minimal set of training data that will lead to the maximum performance gain. Active learning could have following use cases, 
