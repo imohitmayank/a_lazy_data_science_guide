@@ -47,6 +47,13 @@ BERT
   - **Should I only use CLS token or all token's output for sentence representation?**  Well, it depends. From the experiments, it seems if you are fine-tuning the model, using the pooler output will be better. But if there is no fine-tuning, the last hidden state output is much better. Personally, I will prefer the last hidden state output, as it provides comparative result without any additional compute expensive fine-tuning. 
   - **Will fine-tuning the model beforehand increase the accuracy?** A definite yes! Exp 3 and 4 reports higher score than Exp 1 and 2. So if you have the time and resource (which ironically is not usually the case), go for fine-tuning!
 
+### Is BERT a Text Generation model?
+
+- Short answer is no. BERT is not a text generation model or a language model because the probability of the predicting a token in masked input is dependent on the context of the token. This context is bidirectional, hence the model is not able to predict the next token in the sequence accurately with only one directional context *(as expected for language model)*.
+- Several analysis were done on the text generation prowess of BERT model. One such analysis is presented [in this paper](https://arxiv.org/abs/1902.04094?context=cs). Here the authors presents BERT as markov random field language model. Then after some errors were pointed out wrt paper, the authors corrected the claim and suggested BERT is a non-equilibrium language model ([here](https://sites.google.com/site/deepernn/home/blog/amistakeinwangchoberthasamouthanditmustspeakbertasamarkovrandomfieldlanguagemodel))
+
+!!! Tip
+    Do you know that during mask prediction, BERT model predicts some tokens for `[PAD]` tokens as well. This is true for sentences that are smaller than the max length of the model and hence require padding. In a sense, this is kind of text generation, where you just provide the sentence and the model predicts the next token till the max length. But as expected the prediction is not that accurate.
 ## Code
 
 ### Pretrained BERT for Sentiment Classification
