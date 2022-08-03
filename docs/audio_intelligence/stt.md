@@ -44,6 +44,7 @@
 
 ``` python linenums="1"
 # import 
+import torch
 import librosa
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Tokenizer
 
@@ -51,7 +52,7 @@ from transformers import Wav2Vec2ForCTC, Wav2Vec2Tokenizer
 tokenizer = Wav2Vec2Tokenizer.from_pretrained("facebook/wav2vec2-large-960h")
 model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h")
 
-# load the audio data
+# load the audio data (use your own wav file here!)
 input_audio, sr = librosa.load('my_wav_file.wav', sr=16000)
 
 # tokenize
