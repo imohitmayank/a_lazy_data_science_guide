@@ -121,4 +121,9 @@ agent.get_query(query)
 agent.query_db(query)
 ```
 
+## Additional materials
+
+- [How to Talk to Your Database - Salesforce](https://blog.salesforceairesearch.com/how-to-talk-to-your-database/)
+- [Stack Exchange: Natural Language to SQL query](https://datascience.stackexchange.com/questions/31617/natural-language-to-sql-query)
+
 Cheers :wave:
