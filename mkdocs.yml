@@ -76,10 +76,11 @@ nav:
           -  'natural_language_processing/GPTs.md'
           -  'natural_language_processing/T5.md'
       -  'Tasks':
+          -  'natural_language_processing/text_similarity.md'
           -  'natural_language_processing/text_generation.md'
           -  'natural_language_processing/relation_extraction.md'
-          -  'natural_language_processing/text_similarity.md'
-          -  'natural_language_processing/named_entity_recognition.md'
+          -  'Named Entity Recognition' : 'natural_language_processing/named_entity_recognition.md'
+          -  'Natural Language Querying': 'natural_language_processing/nlq.md'
       - 'Blogs':
           - 'natural_language_processing/explainable_ai_llm.md'
 
