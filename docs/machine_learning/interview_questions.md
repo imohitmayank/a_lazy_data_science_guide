@@ -11,7 +11,7 @@
 
 !!! Question ""
     === "Question"
-        Is it possible that during ML training, both validation (or test) loss and accuracy, qre increasing?
+        Is it possible that during ML training, both validation (or test) loss and accuracy, are increasing?
 
     === "Answer"
 
