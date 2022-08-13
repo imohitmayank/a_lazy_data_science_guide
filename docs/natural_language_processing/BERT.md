@@ -32,9 +32,9 @@ BERT
 
 ## Analysis
 
-### BERT output and finetuning
+### BERT output and finetuning (unsupervised)
 
-- An analysis on the selection of suitable BERT output and the advantage of fine-tuning the model was done. The report provides following performance table comparing different experiments. Complete article [here](https://towardsdatascience.com/tips-and-tricks-for-your-bert-based-applications-359c6b697f8e).
+- An analysis on the selection of suitable BERT output and the advantage of fine-tuning *(unsupervised learning on unlabeled data on tasks like MLM)* the model was done. The report provides following performance table comparing different experiments. Complete article [here](https://towardsdatascience.com/tips-and-tricks-for-your-bert-based-applications-359c6b697f8e).
 
 | Exp no | Model name                       | F1 macro score | Accuracy |
 |--------|----------------------------------|----------------|----------|
@@ -54,6 +54,16 @@ BERT
 
 !!! Tip
     Do you know that during mask prediction, BERT model predicts some tokens for `[PAD]` tokens as well. This is true for sentences that are smaller than the max length of the model and hence require padding. In a sense, this is kind of text generation, where you just provide the sentence and the model predicts the next token till the max length. But as expected the prediction is not that accurate.
+
+
+### BERT for sentence representation?
+
+- One question usually asked is that - "Can we use BERT to generate meaningful sentence representations?" The answer is "No". Don't get me wrong, while it is possible to use BERT to generate sentence representations, but the key word here is "meaningful". One of the way to do this is to pass one sentence to the model and get the representation for fixed `[CLS]` token as sentence representation. But as shown in [2], this common practice yields bad sentence embedding, often even worse than Glove embeddings *(which was introduced in 2014)*!
+- The major problem here is the pre-training strategy used to train BERT. While it is good for downstream tasks like classification, it's not that good for generating generic representations. This is because for correct sentence representation, we want the embeddings of similar sentences closer to each other and dissimilar sentences to be further apart. And this is not what happens during BERT pretraining. To cater to this issue, we will have to further finetune the model. And in fact, this is where BERT shines again, as with minimal training *(sometimes even for 20 mins with <1000 samples)* we can expect good results.
+- One of the ways to finetune for sentence represenration is to use triplet loss. For this, we prepare a dataset with a combination of `(anchor, positive, negative)` sentences. Here anchor is the base sentence, positive is the sentence that is similar to the anchor sentence, and negative is the sentence that is dissimilar to the anchor sentence. The model is trained to "bring" the representation of `(anchor, positive)` closer and `(anchor, negative)` apart. The loss is defined below, where $s_*$ is the respective sentence representation and $\epsilon$ is the margin.
+
+$$triplet loss = max( \parallel s_a - s_p \parallel - \parallel s_a - s_n \parallel + \epsilon , 0)$$
+
 ## Code
 
 ### Pretrained BERT for Sentiment Classification
@@ -317,9 +327,10 @@ bert_output = BERTModel(input_ids, attention_mask=attention_mask)
 output = squeeze(torch.matmul(attention_mask.type(torch.float32).view(-1, 1, 512), bert_output['last_hidden_state']), 1)
 ```
 
-## Additional materials
-- Jay Alammar's blog "_The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)_" (*the_illustrated_bert*)
+!!! Tip
+    Consider finetuning the BERT model *(triplet loss)* further to generate meaningful sentence representation, as pretrained BERT model is even worse than Glove embeddings [2]. For more details look at [this analysis](BERT.md#bert-for-sentence-representation) or use [S-BERT package](https://www.sbert.net/examples/training/sts/README.html) to finetune.
+## References
 
+[1] [Jay Alammar's blog "The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)"](the_illustrated_bert*(https://jalammar.github.io/illustrated-bert/))
 
-
---8<-- "includes/abbreviations.md"
+[2] [Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks](https://arxiv.org/abs/1908.10084)
