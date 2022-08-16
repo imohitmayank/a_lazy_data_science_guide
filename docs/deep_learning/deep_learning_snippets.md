@@ -136,3 +136,31 @@ torch.cuda.device(0)
 torch.cuda.get_device_name(0)
 ## Output: 'GeForce MX110'
 ```
+
+## HuggingFace Tokenizer
+
+- Tokenizer is a pre-processing step that converts the text into a sequence of tokens. [HuggingFace tokenizer](https://huggingface.co/docs/transformers/main_classes/tokenizer) is a wrapper around the [tokenizers library](https://github.com/huggingface/tokenizers), that contains multiple base algorithms for fast tokenization.
+
+``` python linenums="1"
+
+# import
+from transformers import AutoTokenizer
+
+# load a tokenizer (use the model of your choice)
+tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
+
+# create an dummy text
+text = "Hello my Name is Mohit"
+
+# this will tokenize the text and return a list of tokens
+tokenizer.tokenize(text)
+# Output: ['hello', 'my', 'name', 'is', 'mo', '##hit']
+
+# this will tokenize the text and return a list of token ids
+tokenizer.encode(text)
+# Output: [101, 7592, 2026, 2171, 2003, 9587, 16584, 102]
+
+# this will return the decoded text (from token ids)
+tokenizer.decode(tokenizer.encode(text))
+# Output: [CLS] hello my name is mohit [SEP]
+```
