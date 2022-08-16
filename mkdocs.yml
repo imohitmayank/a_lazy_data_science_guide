@@ -116,7 +116,8 @@ nav:
     - 'DL snippets': 'deep_learning/deep_learning_snippets.md'
     - 'DL terms': 'deep_learning/deep_learning_terms.md'
     - 'Interview Questions' : 'deep_learning/interview_questions.md'
-    # - 'Techniques':
+    - 'Techniques':
+      - 'deep_learning/loss_functions.md'
       # - 'deep_learning/normalization.md'
 
   - 'Audio Intelligence':
