@@ -18,7 +18,8 @@ Text Similarity
   - **Sequence-based:** Here, the similarity is a factor of common sub-strings between the two strings. The algorithms, try to find the longest sequence which is present in both strings, the more of these sequences found, higher is the similarity score. Note, here combination of characters of same length have equal importance.
   - **Semantic-based:** Here, the similarity is not based on pure presence of common sub-strings, but on the semantic meaning of the sub-strings. Semantic based approaches considers the contextual and linguistic meaning of the sub-strings. For example, in semantic based approaches, the similarity between “toad” and “frog” will be high, which is not possible in other approaches.
 
-
+!!! Note
+    Semantic based algorithms are quite difficult to use as semnatic is a subjective matter. For example, how will you compare these two sentences -- "How is the weather today?" and "How is the weather tomorrow?"? If we go by non-semantic approach, we will get a very high score. But for semantic models, two things are possible and correct at the same time -- get a high score as we are talking about the weather, or get a low score as we are talking about different days. This is why, it is important to finetune the semantic models for your use case. *(for example here, what is more important - the topic or the context. Based on the answer, prepare a dataset and finetune).*
 ## Edit distance based algorithms
 
 - Let’s try to understand most widely used algorithms within this type,
