@@ -314,3 +314,16 @@ conda deactivate
 # delete an environment
 conda env remove -n py39
 ```
+
+## Requirement files
+
+- Requirement file is a collection of packages you want to install for a Project. A sample file is shown below, 
+
+``` shell
+# fine name requirements.txt
+package-one==1.9.4
+git+https://github.com/path/to/package-two@41b95ec#egg=package-two
+package-three==1.0.1
+package-four
+```
+- Note three ways of defining packages, (1) with version number, (2) with github source and (3) without version number (installs the latest). Once done, you can install all these packages at one go by `pip install -r requirements.txt`
