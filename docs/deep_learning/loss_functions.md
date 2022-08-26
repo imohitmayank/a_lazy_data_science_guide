@@ -66,7 +66,7 @@ $${\displaystyle \operatorname {CrossEntropy_cost} ={\frac {1}{n}}\sum _{i=1}^{n
 !!! Hint
     Refer [this excellent video](https://www.coursera.org/lecture/neural-networks-deep-learning/logistic-regression-cost-function-yWaRd) from AndrewNg on CrossEntropyLoss for more details.
 
-### Triplet loss
+<!-- ### Triplet loss -->
 
 
 ## References
