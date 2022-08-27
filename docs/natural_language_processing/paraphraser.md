@@ -81,8 +81,72 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 ## Can I call you after I've finished this
 ```
 
-!!! Hint
-    Any LLM can be used for Paraphrase generation (with conservating accuracy). One example with pretrained T5 is [shown here](T5.md#t5-inference). If you want to better result, finetune it on datasets like [PAWS](https://huggingface.co/datasets/paws), [MSRP](https://huggingface.co/datasets/HHousen/msrp), etc. A more detailed list of dataset is presented [here](https://www.sbert.net/examples/training/paraphrases/README.html). 
+### Finetuning T5 as Paraphraser
+
+- Any LLM can be used for Paraphrase generation by zero-shot for conservating accuracy. If you want to better result, finetune it on datasets like [PAWS](https://huggingface.co/datasets/paws), [MSRP](https://huggingface.co/datasets/HHousen/msrp), etc. A more detailed list of dataset is presented [here](https://www.sbert.net/examples/training/paraphrases/README.html). Here we will try to finetune [T5](T5.md), 
+
+``` python linenums="1"
+# install
+!pip install -q simplet5
+!pip install -q datasets
+
+# import
+import pandas as pd
+from simplet5 import SimpleT5
+from datasets import load_dataset
+
+# load datasets
+msrp = load_dataset("HHousen/msrp")
+paws = load_dataset("paws", 'labeled_final')
+
+# prepare dataset
+def clean_msrp_paws_dataset(data):
+    df = pd.DataFrame(data)
+    df = df[df['label']==1]
+    df['source_text'] = f'Paraphrase: ' + df['sentence1']
+    return df
+
+# clean both train and test data
+train_msrp_data = clean_msrp_paws_dataset(msrp['train'])
+test_msrp_data = clean_msrp_paws_dataset(msrp['test'])
+
+# clean_msrp_paws_dataset
+train_paws_data = clean_msrp_paws_dataset(paws['train'])
+test_paws_data = clean_msrp_paws_dataset(paws['test'])
+validation_paws_data = clean_msrp_paws_dataset(paws['validation'])
+
+# combine the individual splits of datasets
+msrp_dataset = pd.concat([train_msrp_data, test_msrp_data])
+paws_dataset = pd.concat([train_paws_data, test_paws_data, validation_paws_data])
+
+# combine the datasets
+df1 = msrp_dataset[['source_text', 'sentence2']]
+df1 = df1.rename(columns={'source_text':'source_text', 'sentence2': 'target_text'})
+df2 = paws_dataset[['source_text', 'sentence2']]
+df2 = df2.rename(columns={'source_text':'source_text', 'sentence2': 'target_text'})
+train_data = pd.concat([df1, df2])
+
+# Train
+# load model
+model = SimpleT5()
+model.from_pretrained(model_type="t5", model_name="t5-small")
+
+# train model
+model.train(train_df=train_data,
+            eval_df=train_data.head(100),  # dummy eval, in reality keep some held-out samples as validation/test
+            source_max_token_len=300, 
+            target_max_token_len=200, 
+            batch_size=4, 
+            max_epochs=20, 
+            outputdir = "outputs",
+            use_gpu=True
+            )
+
+# Inference
+# last_epoch_model = "/content/outputs/simplet5-epoch-1-train-loss-1.5314-val-loss-1.2911" # put the name here
+# model.load_model("t5", last_epoch_model, use_gpu=True)
+# model.predict("Paraphrase: He is  going to USA to visit his friend")
+```
 
 ## References
 
