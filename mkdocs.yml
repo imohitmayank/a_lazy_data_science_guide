@@ -76,6 +76,7 @@ nav:
           -  'natural_language_processing/GPTs.md'
           -  'natural_language_processing/T5.md'
       -  'Tasks':
+          -  'natural_language_processing/paraphraser.md'
           -  'natural_language_processing/text_similarity.md'
           -  'natural_language_processing/text_generation.md'
           -  'natural_language_processing/relation_extraction.md'
