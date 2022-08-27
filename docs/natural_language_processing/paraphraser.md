@@ -4,12 +4,12 @@
 ## Introduction
 
 - Paraphrasing is a NLP task of reformatting the input text considering a set of objectives. The objectives could be,
-  - **Adequecy:** is the meaning of sentence preserved? 
-  - **Fluency:** is the paraphrase fluent?
-  - **Diversity:** how much different paraphrase is from original sentence?
-  - **Tonality:** has the tone of the parapharse changed?
-  - **Formality:** has the writing style of the parapharse changed?
-  - **Length:** has the paraphrase become more concise or detailed?
+  - **Adequecy:** *is the meaning of sentence preserved?* It can be measured by using a NLI model that could determine if the paraphrase is entailment of the original sentence or not. 
+  - **Fluency:** *is the paraphrase fluent?* It can be measured by using fluency classification models.
+  - **Diversity:** *how much different paraphrase is from original sentence?* It can be measured by computing [text similarity](text_similarity.md) between the original sentence and paraphrase. Lower the text similarity score, higher the diversity. We can use edit based algorithms like Levenshtein. 
+  - **Tonality:** *has the tone of the parapharse changed?* It can be measured with tone detection models.
+  - **Formality:** *has the writing style of the parapharse changed?* It can be measured with formality detection models.
+  - **Length:** *has the paraphrase become more concise or detailed?* It can be measured by simple word or token based tokenizers. 
 
 !!! Note
     The objectives could be one or multiple. Also, they could be applied while training or inference. Once way to combine existing models with objectives it was not trained on, is to perform multiple generations and pick the one with highest score in terms of objective metrics. 
