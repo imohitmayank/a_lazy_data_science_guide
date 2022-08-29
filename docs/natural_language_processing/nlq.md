@@ -1,11 +1,8 @@
-!!! warning
-    This page is still under progress. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com)
-
 ## Introduction
 
 - Natural Language Querying (NLQ) is the process of querying DBs not in their specific querying language but using natural language text. One example could be to fetch results from a SQL table for question - `"Who is the Prime Minister of India?"` by just using the text and not some technical query like `select name from pm_table where country = "India"`.  
-- There are two main reasons that makes this task important for any product or SaaS,
-  - Each DB have their own specific querying language. This is a nightmare even for developers, as they will have to gain expertise in mulitple DB languages.
+- There are two main reasons that makes this task important for any IaaS *(Information as a service)* product or SaaS,
+  - Each DB has its own specific querying language. This is a nightmare even for developers, as they will have to gain expertise in mulitple DB languages.
   - Looking at a product from users perspective, it makes sense to let the user query in the language they prefer and not the technical query languages suitable for each DBs.
 
 ## Different Approaches
@@ -25,12 +22,12 @@ graph LR
 ```
 
 !!! Note
-    NLQ, as a topic, is DB agnostic, but in reality different NLQ systems are built for specific DBs for example SQL, SPARQL, MongoDB QL, etc.
+    NLQ, as a topic, is DB agnostic. But in reality different NLQ systems are built for specific DBs for example SQL, SPARQL, MongoDB QL, etc.
 
 
 ## Code
 
-- Let us try to explore the different ready made solutions for NLQ.
+- Let us explore the different ready made solutions for NLQ.
 
 ### TaPaS
 
@@ -42,7 +39,7 @@ graph LR
     <figcaption>Illustration of the TaPas model for one example ([TaPas paper](https://arxiv.org/abs/2004.02349))</figcaption>
 </figure>
 
-- One unique differentiator of TaPas is the unique formatting and encoding of the query and the table. As a table contains values spread across columns and rows, special column, rows and segment embeddings are added to the input to make the model learn the proper context. One example is shown below, 
+- One interesting differentiator of TaPas is the unique formatting and encoding of the query and the table. As a table contains values spread across columns and rows, special column, rows and segment embeddings are added to the input to make the model learn the proper context. One example is shown below, 
   
 <figure markdown> 
     ![](../imgs/nlp_nlq_tapas_posembedding.png)
@@ -76,15 +73,15 @@ data = data.astype(str)
 query = "Who is the Prime Minister of India?"
 answer = nlq_tapas(table=data, query=query)['answer']
 print(answer)
-# Output: "Narendra Modi" (or atleast, at the time of writing)
+# Output: "Narendra Modi" (at the time of writing)
 ```
 
 !!! tip
-    Personal opinion - TAPAS's accuracy is quite good wrt TableQA, but the major drawback is that it only works for small tables. Hence, forget about using it for industry use case with large tables.
+    Personal opinion - TAPAS's accuracy is quite good wrt TableQA, but the major drawback is that it only works for small tables. Hence, forget about using it for industry use case with larger tables.
 
 ### TableQA
 
-- [TableQA](https://github.com/abhijithneilabraham/tableQA) follows Query creator approach to build an AI tool for querying natural language on tabular data. While the approach was released rather recently *(Jan 2022)*, it's performance is comparable or worse than TaPas. As per the authors, TableQA shines when it comes to NLQ on large tables and comlex queries.
+- [TableQA](https://github.com/abhijithneilabraham/tableQA) follows Query creator approach to build an AI tool for querying natural language on tabular data. While the approach was released rather recently *(Jan 2022)*, it's performance is comparable or worse than TaPas. As per the authors, TableQA shines when it comes to NLQ on large tables and complex queries.
 - It is more of a framework consisting of mulitple modules. The complete process consists of components like table selector, known fields extractor, unknown fields extractor, and agreegator function classifer and SQL generator.
 
 
