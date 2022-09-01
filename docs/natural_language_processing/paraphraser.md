@@ -154,3 +154,4 @@ model.train(train_df=train_data,
 
 [2] [Parrot Paraphraser](https://github.com/PrithivirajDamodaran/Parrot_Paraphraser)
 
+Cheers :wave:

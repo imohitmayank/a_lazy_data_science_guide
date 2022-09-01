@@ -80,6 +80,7 @@ nav:
           -  'natural_language_processing/text_similarity.md'
           -  'natural_language_processing/text_generation.md'
           -  'natural_language_processing/relation_extraction.md'
+          -  'Question Answering': 'natural_language_processing/qa.md'
           -  'Data-to-Text Generation': 'natural_language_processing/data_to_text_generation.md'
           -  'Named Entity Recognition' : 'natural_language_processing/named_entity_recognition.md'
           -  'Natural Language Querying': 'natural_language_processing/nlq.md'
