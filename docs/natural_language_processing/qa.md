@@ -31,14 +31,15 @@
     We can use additional models like LLM (GPTs, T5, etc) on top of QA system to convert short form answers to long form. Existing model will require finetuning with the Question and Short form answer as input and Long form answer as output.
 
   
-<!-- ## Datasets
+## Datasets
 
-### SQuaRD -->
+### SQuAD
 
+- Stanford Question Answering Dataset (SQuAD) [2] is a reading comprehension dataset, consisting of questions posed by crowdworkers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage, or the question might be unanswerable. There are two verisons of the dataset, 
+  - SQuAD 1.1 contains 100,000+ question-answer pairs on 500+ articles.
+  - SQuAD2.0 combines the 100,000 questions in SQuAD1.1 with over 50,000 unanswerable questions written adversarially by crowdworkers to look similar to answerable ones. To do well on SQuAD2.0, systems must not only answer questions when possible, but also determine when no answer is supported by the paragraph and abstain from answering.
 
 ## Metrics
-
-- There are two main metrics preferred to analyze the performance of Question Answering models. They are, 
 
 ### Exact Match
 
@@ -74,7 +75,35 @@ F1 = 2 * precision * recall / (precision + recall)
     In case one question has multiple independent answers, we can compare each golden answer for the example against the prediction and pick the one with highest score. The overall accuracy is then the average of the individual example level score. This logic can be applied to both the metrics discussed above.
 
 
-<!-- ## Code -->
+## Code
+
+### Using Transformers (HF hub)
+
+- [Huggingface](https://huggingface.co/models?pipeline_tag=question-answering&sort=downloads) provides hosts multiple models for the task of QA. Most of these models are fined tuned on SQuAD dataset. Let's pick one and explore how to use it.
+
+``` python linenums="1"
+# install packages 
+!pip install -q transformers
+!pip install -q sentencepiece
+
+# import
+from transformers.pipelines import pipeline
+from transformers import AutoModelForQuestionAnswering
+from transformers import AutoTokenizer
+
+# var
+model_name = "deepset/xlm-roberta-base-squad2"
+
+# generate pipeline
+nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
+
+input = {
+    'question': 'Who is visiting his grandmother?',
+    'context': 'My name is Mohit. I am going to visit my grandmother. She is old.'
+}
+print(nlp(input))
+## Output --> {'score': 0.30, 'start': 10, 'end': 17, 'answer': ' Mohit.'}
+```
 
 ## References
 
