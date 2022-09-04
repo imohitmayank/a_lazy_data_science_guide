@@ -36,7 +36,7 @@ $${\displaystyle \operatorname {MSE_cost} ={\frac {1}{n}}\sum _{i=1}^{n}\operato
 
 ### Cross entropy loss
 
-- Cross entropy loss is used for classification tasks. For binary classification the formula is shown below, ($y$ is the actual class and $\hat{y}$ is the predicted class)
+- Cross entropy loss is used for classification tasks. It is a simplication of Kullback–Leibler divergence that is used to compute the difference between two probability distributions *(here the model's prediction and true one)*. For binary classification the formula is shown below, ($y$ is the actual class and $\hat{y}$ is the predicted class)
 
 $${\displaystyle \operatorname {CrossEntropy_loss}(i) = -(y_i \log(\hat{y_i})+(1-y_i) \log(1-\hat{y_i}))}$$
 

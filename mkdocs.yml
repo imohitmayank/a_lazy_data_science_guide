@@ -74,6 +74,7 @@ nav:
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
           -  'natural_language_processing/BERT.md'
           -  'natural_language_processing/GPTs.md'
+          -  'MiniLM': 'natural_language_processing/minilm.md'
           -  'natural_language_processing/T5.md'
       -  'Tasks':
           -  'natural_language_processing/paraphraser.md'
