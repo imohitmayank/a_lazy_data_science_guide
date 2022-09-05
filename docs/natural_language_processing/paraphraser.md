@@ -1,6 +1,3 @@
-!!! warning
-    This page is still under progress. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com)
-
 ## Introduction
 
 - Paraphrasing is a NLP task of reformatting the input text considering a set of objectives. The objectives could be,
@@ -20,8 +17,8 @@
 
 ### Parrot Paraphraser
 
-- Usually a Seq2Seq or specifically large language models are either directly used or finetuned to perform Paraphrasing. This is because LLM have good with text generation and Paraphrasing can be easily converted to text generation task. 
-- Parrot [2] is a Python package that use finetuned T5 model to perform Paraphrasing. Let's first see how to use the pacakge, 
+- Usually a Seq2Seq or specifically large language models (LLMs) are either directly used or finetuned to perform Paraphrasing. This is because LLM are good with text generation and Paraphrasing can be easily converted to text generation task. 
+- Parrot [2] is a Python package that use finetuned T5 model to perform Paraphrasing. Let's first see how to use the package, 
 
 ``` python linenums="1"
 # taken from Parrot Readme -- https://github.com/PrithivirajDamodaran/Parrot_Paraphraser
@@ -56,7 +53,7 @@ para_phrases = parrot.augment(input_phrase=phrase,
                                fluency_threshold = 0.90)
 ```
 
-- If you want to directly use the finetuned model, try this
+- As Parrot package internally uses multiple models to detect adequacy, fluency and diversity, the execution time could be slower. We can compromise good generation with execution time by directly using the finetuned model as shown below, 
 
 ``` python linenums="1"
 # install packages
@@ -83,7 +80,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 ### Finetuning T5 as Paraphraser
 
-- Any LLM can be used for Paraphrase generation by zero-shot for conservating accuracy. If you want to better result, finetune it on datasets like [PAWS](https://huggingface.co/datasets/paws), [MSRP](https://huggingface.co/datasets/HHousen/msrp), etc. A more detailed list of dataset is presented [here](https://www.sbert.net/examples/training/paraphrases/README.html). Here we will try to finetune [T5](T5.md), 
+- Any LLM can be used for Paraphrase generation by zero-shot for comparative accuracy. If you want to better result, finetune it on datasets like [PAWS](https://huggingface.co/datasets/paws), [MSRP](https://huggingface.co/datasets/HHousen/msrp), etc. A more detailed list of dataset is presented [here](https://www.sbert.net/examples/training/paraphrases/README.html). Here we will try to finetune [T5](T5.md), 
 
 ``` python linenums="1"
 # install
