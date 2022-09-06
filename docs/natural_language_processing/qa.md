@@ -1,10 +1,7 @@
-!!! warning
-    This page is still under progress. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com)
-
 ## Introduction
 
-- As the name suggests, Question Answering is a NLP task of finding answer given the question and context *(optional)*. There are two varieties based on type of inputs, 
-  - **Open-domain QA**: where **context is not provided**. The expectation is that model has *internalised* knowledge within its parameters and should be able to answer the question.
+- As the name suggests, Question Answering (QA) is a NLP task of finding answer given the question and context *(optional)*. QA could be of two types based on the input, 
+  - **Open-domain QA**: where **context is not provided**. The expectation is that the model has *internalised* knowledge within its parameters and should be able to answer the question with additional context.
 
     ``` mermaid
     graph LR
@@ -13,7 +10,7 @@
     style B stroke:#f66,stroke-width:2px,stroke-dasharray: 5 5
     ```
 
-  - **Closed-domain QA**: where **context is provided**. The expectation is that model should find the answer from the context.
+  - **Closed-domain QA**: where **context is provided**. The expectation is that the model has learned to find answers from context.
 
     ``` mermaid
     graph LR
@@ -24,7 +21,7 @@
     ```
 
 - Answers could be also be of two types, 
-  - **Short form Answers**: where the answer is brief and to the point. In above example, the answers are short form. Majority of the Closed domain QA generate short form answers as they follow extractive approach of finding answer.
+  - **Short form Answers**: where the answer is brief and to the point. In the above example, the answers are short form. Majority of the Closed domain QA models generate short form answers as they follow extractive approach of finding answer.
   - **Long form Answers**: where the answer is descriptive, standalone and may also contain additional details. For the above example, long form answer could be `Mohit is the author of Lazy Data Scientist`. 
 
 !!! Note
@@ -43,11 +40,11 @@
 
 ### Exact Match
 
-- As the name suggests, for each question we compare the golden answer with the predicted answer. If the two answers are exactly similar (`y_pred == y_true`) then `exact_match_example = 1` else `exact_match_example = 0`.
+- As the name suggests, for each question we compare the golden answer with the predicted answer. If the two answers are exactly similar (`y_pred == y_true`) then `exact_match = 1` else `exact_match = 0`.
 
 ### F1 score
 
-- It's a possibility that the predicted answer includes the important parts of the golden answer, but due to the nature of exact match, the score is still 0. Let's understand it with an example, here ideally the score should be high *(if not 1)*, but exact match will give 0.
+- There is a possibility that the predicted answer includes the important parts of the golden answer, but due to the nature of exact match, the score is still 0. Let's understand it with an example, here ideally the score should be high *(if not 1)*, but exact match will give 0.
   - Question: When can we meet?
   - Golden answer: We can meet around 5 PM.
   - Predicted answer: 5 PM.
@@ -79,7 +76,7 @@ F1 = 2 * precision * recall / (precision + recall)
 
 ### Using Transformers (HF hub)
 
-- [Huggingface](https://huggingface.co/models?pipeline_tag=question-answering&sort=downloads) provides hosts multiple models for the task of QA. Most of these models are fined tuned on SQuAD dataset. Let's pick one and explore how to use it.
+- [Huggingface](https://huggingface.co/models?pipeline_tag=question-answering&sort=downloads) hosts multiple models for the QA task. Most of these models are fined tuned on SQuAD dataset. Let's pick one and see how to use it.
 
 ``` python linenums="1"
 # install packages 
@@ -112,3 +109,5 @@ print(nlp(input))
 [2] [SQuAD Explorer](https://rajpurkar.github.io/SQuAD-explorer/)
 
 [3] [How to Build an Open-Domain Question Answering System?](https://lilianweng.github.io/posts/2020-10-29-odqa/)
+
+Cheers :wave:
