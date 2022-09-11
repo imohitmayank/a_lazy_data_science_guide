@@ -21,11 +21,36 @@
     ```
 
 - Answers could be also be of two types, 
-  - **Short form Answers**: where the answer is brief and to the point. In the above example, the answers are short form. Majority of the Closed domain QA models generate short form answers as they follow extractive approach of finding answer.
-  - **Long form Answers**: where the answer is descriptive, standalone and may also contain additional details. For the above example, long form answer could be `Mohit is the author of Lazy Data Scientist`. 
+  - **Short form Answers**: where the answer is brief and to the point. 
+    - In the above examples, the answer (`Mohit`) is in short form. Majority of the closed domain QA models generate short form answers as they follow extractive approach of finding answer.
+    - For this, encoder based architectures (like [BERT](BERT.md)) can be used. The input can be provided as `[CLS] question [SEP] context [SEP]`
+    - As output, we compute probabilities of two special logits -- answer start and answer end. This gives the exact position of the answer. In reality, we apply softmax on the output logits values to get probabilistic estimation for each token in the input.
+    
+    <figure markdown> 
+        ![](../imgs/nlp_qa_outputprob.png)
+        <figcaption>Behavior of Short form closed QA system. [Top] In case the answer is present in the context, answer start and end token's probabilties can be utilised to get the answer. [Bottom] In case answer is missing, [CLS] is predicted. </figcaption>
+    </figure>
 
-!!! Note
-    We can use additional models like LLM (GPTs, T5, etc) on top of QA system to convert short form answers to long form. Existing model will require finetuning with the Question and Short form answer as input and Long form answer as output.
+    - We pick the pair *(answer start and end logit)* that has the highest probability *(product of their individual probability)* and it's a valid answer *(answer with positive or zero length and answer with tokens only from context)*. If we go greedy i.e. pick the `top_n = 1` for both logits, we will get the pair with the highest probability but it is not guaranteed to be a valid answer. 
+    - To mitigate this, we pick `top_n` (~10-20) highest probability tokens for both start and end answer values. This gives us $n^2$ possibilities of answers that can be explored to find the valid answer.
+
+  - **Long form Answers**: where the answer is descriptive, standalone and may also contain additional details. 
+    - For the above example, long form answer could be `Mohit is the author of Lazy Data Scientist`. 
+    - We can use additional models like LLM (GPTs, T5, etc) on top of QA system to convert short form answers to long form. Existing model will require finetuning with the Question and Short form answer as input and Long form answer as output.
+    - We can even try to n-shot the process using LLMs as shown in the following prompt:
+    ``` python
+    Question: What is the author's name?
+    Context: Author is Mohit Mayank.
+    Short answer: Mohit Mayank.
+    Long answer: Author's name is Mohit Mayank.
+
+    ## provide 2-3 examples as above
+
+    Question: What is the captial of India?
+    Context: India's new captial New Delhi was setup with ....
+    Short answer: New Delhi
+    Long answer: # let the model predict long form answer!!
+    ```
 
   
 ## Datasets
@@ -109,5 +134,7 @@ print(nlp(input))
 [2] [SQuAD Explorer](https://rajpurkar.github.io/SQuAD-explorer/)
 
 [3] [How to Build an Open-Domain Question Answering System?](https://lilianweng.github.io/posts/2020-10-29-odqa/)
+
+[4] [Question Answering - Huggingface](https://huggingface.co/course/chapter7/7?fw=pt)
 
 Cheers :wave:
