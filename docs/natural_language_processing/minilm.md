@@ -1,9 +1,6 @@
-!!! warning
-    This page is still under progress. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com)
-
 ## Introduction
 
-- Knowledge distillation is the process of compressing the knowledge of a large model (teacher) into a smaller one (student). MiniLM [1,2,3] proposes novel approaches to perform distillation of large models like BERT and RoBERTa into smaller models that could be 99% acccurate on certain tasks while being more than 2 times faster in inference!
+- Knowledge distillation is the process of compressing the knowledge of a large model (teacher) into a smaller one (student). MiniLM [1,2,3] propose novel approaches to perform distillation of large models like BERT and RoBERTa into smaller models that could be 99% acccurate on certain tasks while being more than 2 times faster in inference!
 - Apart from sharing details on the distillation process, authors also open-sourced the distilled models at [3]. While the teacher models were encoder models, the author proposes MiniLM can be used for NLU *(ex: extractive QA)* as well as NLG tasks *(ex: abstractive summarization)*. For NLG task, authors followed UniLM paper and used masked attention layers.
 
 ## MiniLM
@@ -53,7 +50,7 @@
   - Authors performed teacher layer selection strategy. In MiniLMv1, knowledge from teacher's last layer was transfered to student's last layer. In MiniLMv2, while the transfer still happened to student's last layer, teacher's layer changes,
     - For BERT-large, 21st layer in teacher model was used for transfer
     - For RoBERTa-large and XML-R-large, 19th layer in teacher model was used for transfer
-    - For base sized models, laster layer  in teacher model was used for transfer
+    - For base sized models, last layer in teacher model was used for transfer
   - Authors **experimented with multiple self-attention** (Q-K, K- Q, Q-V, V-Q, K-V and V-K relations). However, introducing more self-attention relations also brings a higher computational cost. Hence to achieve a balance between performance and computational cost, author choose to transfer Q-Q, K-K and V-V self-attention relations instead of all self-attention relations.
    
   
