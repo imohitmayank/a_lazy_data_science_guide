@@ -163,4 +163,9 @@ tokenizer.encode(text)
 # this will return the decoded text (from token ids)
 tokenizer.decode(tokenizer.encode(text))
 # Output: [CLS] hello my name is mohit [SEP]
+
+# get the token and id details in key value pair
+vocabulary = tokenizer.get_vocab()
+# length of vocab here is 30522
+# vocabulary['hello'] returns 7592
 ```

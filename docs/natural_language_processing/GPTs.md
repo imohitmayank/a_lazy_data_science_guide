@@ -102,6 +102,10 @@ print(predicted_text)
 
 - Tweet sentiment data can be downloaded from [here](https://www.kaggle.com/kazanova/sentiment140)
 - We add the special tokens at line 72, so that the model learns the start and end of the prompt. This will be helpful later on during the testing phase, as we don't want the model to keep on writing the next word, but it should know when to stop the process. This can be done by setting the `eos_token` and training the model to predict the same.
+  
+!!! Note
+    Original GPT-2 paper and implementation uses `<|endoftext|>` as the `eos_token` and `bos_token` *(beginning of sentence)*. We can do the same, but for clarity in the implementation, we can also use `<|startoftext|>` as `bos_token` special token. 
+
 - We also define how to process the training data inside `data_collator` on line 91. The first two elements within the collator are `input_ids `- the tokenized prompt and `attention_mask `- a simple 1/0 vector which denote which part of the tokenized vector is prompt and which part is the padding. The last part is quite interesting, where we pass the input data as the label instead of just the sentiment labels. This is because we are training a language model, hence we want the model to learn the pattern of the prompt and not just sentiment class. In a sense, the model learns to predict the words of the input tweet + sentiment structured in the prompt, and in the process learn the sentiment detection task.
 
 ``` python linenums="1"
