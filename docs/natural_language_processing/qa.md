@@ -34,6 +34,9 @@
     - We pick the pair *(answer start and end logit)* that has the highest probability *(product of their individual probability)* and it's a valid answer *(answer with positive or zero length and answer with tokens only from context)*. If we go greedy i.e. pick the `top_n = 1` for both logits, we will get the pair with the highest probability but it is not guaranteed to be a valid answer. 
     - To mitigate this, we pick `top_n` (~10-20) highest probability tokens for both start and end answer values. This gives us $n^2$ possibilities of answers that can be explored to find the valid answer.
 
+    !!! Note
+        To solve similar tasks, BERT utilises different task specific heads on top of the BERT encoder. In the case of QA, a head could be simple feed forward layer with two classes - answer start and answer end. The same head is applied to each token in the BERT output, and probability of the both classes are computed.
+
   - **Long form Answers**: where the answer is descriptive, standalone and may also contain additional details. 
     - For the above example, long form answer could be `Mohit is the author of Lazy Data Scientist`. 
     - We can use additional models like LLM (GPTs, T5, etc) on top of QA system to convert short form answers to long form. Existing model will require finetuning with the Question and Short form answer as input and Long form answer as output.
