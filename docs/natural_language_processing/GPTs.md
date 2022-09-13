@@ -137,7 +137,7 @@ class SentimentDataset(Dataset):
         # iterate through the dataset
         for txt, label in zip(txt_list, label_list):
             # prepare the text
-            prep_txt = f'<|startoftext|>Tweet: {txt}\nSentiment: {map_label[label]}<|endoftext|>'
+            prep_txt = f'<|startoftext|>Tweet: {txt}<|pad|>Sentiment: {map_label[label]}<|endoftext|>'
             # tokenize
             encodings_dict = tokenizer(prep_txt, truncation=True,
                                        max_length=max_length, padding="max_length")
