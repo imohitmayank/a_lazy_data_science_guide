@@ -3,7 +3,7 @@
 
 !!! Question ""
     === "Question"
-        While training deep learning models, why do we prefer training on mini-batch rather than on individual sample?
+        #### While training deep learning models, why do we prefer training on mini-batch rather than on individual sample?
 
     === "Answer"
 
@@ -11,7 +11,7 @@
 
 !!! Question ""
     === "Question"
-        What are the benefits of using Batch Normalizattion?
+        #### What are the benefits of using Batch Normalizattion?
 
     === "Answer"
 
@@ -19,7 +19,7 @@
 
 !!! Question ""
     === "Question"
-        What is weight tying in language model?
+        #### What is weight tying in language model?
 
     === "Answer"
 
@@ -28,7 +28,7 @@
 
 !!! Question ""
     === "Question"
-        Is BERT a Text Generation model?
+        #### Is BERT a Text Generation model?
 
     === "Answer"
 
@@ -37,7 +37,7 @@
 
 !!! Question ""
     === "Question"
-        What is Entropy *(information theory)*?
+        #### What is Entropy *(information theory)*?
 
     === "Answer"
 
@@ -45,8 +45,20 @@
 
 !!! Question ""
     === "Question"
-        What is so special about the special tokens used in different LM tokenizers?
+        #### What is so special about the special tokens used in different LM tokenizers?
 
     === "Answer"
 
         Special tokens are called special because they are added for a certain purpose and are independent of the input. For example, in BERT we have `[CLS]` token that is added at the start of every input sentence and `[SEP]` is a special separator token. Similarly in GPT2, `<|endoftext|>` is special token to denote end of sentence. Users can create their own special token based on their specific use case and train them during finetuning. [Refer cronoik's answer in SO](https://stackoverflow.com/questions/71679626/what-is-so-special-about-special-tokens)
+
+
+!!! Question ""
+    === "Question"
+        #### What are Attention Masks?
+
+    === "Answer"
+
+        Attention masks are the token level boolean identifiers used to differentiate between important and not important tokens in the input. One use case is during batch training, where a batch with text of different lengths can be created by adding paddings to shorter texts. The padding tokens can be identified using 0 in attention mask and the original input tokens can be marked as 1. [Refer blog @ lukesalamone.com](https://lukesalamone.github.io/posts/what-are-attention-masks/)
+
+        !!! Note
+        We can use a special token for padding. For example in BERT it can be `[PAD]` token and in GPT-2 we can use `<|endoftext|>` token.

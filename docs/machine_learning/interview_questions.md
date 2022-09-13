@@ -3,7 +3,7 @@
 
 !!! Question ""
     === "Question"
-        What is the different between Standardization and Normalization?
+        #### What is the different between Standardization and Normalization?
 
     === "Answer"
 
@@ -11,7 +11,7 @@
 
 !!! Question ""
     === "Question"
-        Is it possible that during ML training, both validation (or test) loss and accuracy, are increasing?
+        #### Is it possible that during ML training, both validation (or test) loss and accuracy, are increasing?
 
     === "Answer"
 
