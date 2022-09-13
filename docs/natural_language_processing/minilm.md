@@ -1,6 +1,6 @@
 ## Introduction
 
-- Knowledge distillation is the process of compressing the knowledge of a large model (teacher) into a smaller one (student). MiniLM [1,2,3] propose novel approaches to perform distillation of large models like BERT and RoBERTa into smaller models that could be 99% acccurate on certain tasks while being more than 2 times faster in inference!
+- Knowledge distillation is the process of compressing the knowledge of a large model (teacher) into a smaller one (student). MiniLM [1,2,3] propose novel approaches to perform distillation of large models like BERT and RoBERTa into smaller models that could be 99% accurate on certain tasks while being more than 2 times faster in inference!
 - Apart from sharing details on the distillation process, authors also open-sourced the distilled models at [3]. While the teacher models were encoder models, the author proposes MiniLM can be used for NLU *(ex: extractive QA)* as well as NLG tasks *(ex: abstractive summarization)*. For NLG task, authors followed UniLM paper and used masked attention layers.
 
 ## MiniLM
