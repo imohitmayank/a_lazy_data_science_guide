@@ -80,6 +80,10 @@
 - As the MiniLM models are based on BERT and RoBERTa, we can use their code for MiniLM. Here, let's make it much simpler by using the `AutoModel` function if you are loading the models from Huggingface. You can also download models from [3].
 
 ``` python linenums="1"
+# install packages
+!pip install -q transformers
+!pip install -q sentencepiece
+
 # import
 from transformers import AutoTokenizer, AutoModel
   
@@ -89,8 +93,12 @@ model = AutoModel.from_pretrained("microsoft/Multilingual-MiniLM-L12-H384")
 
 # inference
 inputs = tokenizer("Hello world!", return_tensors="pt")
+# dict with input_ids ---> torch.Size([1, 5]) and attention_mask ---> torch.Size([1, 5])
 outputs = model(**inputs)
+# dict with 'last_hidden_state' --> torch.Size([1, 5, 384]) and pooler_output --> torch.Size([1, 384])
 ```
+
+- The tokenization vocabulary is 250002 strong *(quite big!)*, and for input `Hello world!`. the tokenized output is `<s>_Hello_world!</s>` with corresponding input ids is `tensor([[    0, 35378,  8999,    38,     2]])`
 
 ## References
 

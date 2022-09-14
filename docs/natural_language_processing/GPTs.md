@@ -96,8 +96,22 @@ sample_outputs = model.generate(generated, do_sample=False, top_k=50, max_length
 # decode the predicted tokens into texts
 predicted_text = tokenizer.decode(sample_outputs[0], skip_special_tokens=True)
 print(predicted_text)
+"""Output --> 
+Below are some examples for sentiment detection of movie reviews.
+
+Review: I am sad that the hero died.
+Sentiment: Negative
+
+Review: The ending was perfect.
+Sentiment: Positive
+
+Review: The plot was not so good!
+Sentiment: Negative
+"""
 ```
 
+!!! Note
+    As GPT2 is a language model style decoder with no special encoder block, the output contains the input plus additional generations. This can be observed from the above example. On the other hand, output of T5 model is pure new generations *(without the repetition of input)* as it has encoder-decoder architecture.
 ### Finetuning GPT-2 (for sentiment classification)
 
 - Tweet sentiment data can be downloaded from [here](https://www.kaggle.com/kazanova/sentiment140)
