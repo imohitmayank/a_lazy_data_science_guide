@@ -62,3 +62,11 @@
 
         !!! Note
         We can use a special token for padding. For example in BERT it can be `[PAD]` token and in GPT-2 we can use `<|endoftext|>` token.
+
+!!! Question ""
+    === "Question"
+        #### What is the difference between Attention and Self-Attention?
+
+    === "Answer"
+
+        Self-attention (SA) is applied within one component, so the input is from one component only. One example is the encoder block in Transformers, where SA is used, and it takes the tokens from only the sentence as the input. Attention on the other hand can be used to connect two components or modality of data. Decoder in Transformer has Attention layer that connects the encoder and decoder data together. [Refer StackExchange QA](https://datascience.stackexchange.com/questions/49468/whats-the-difference-between-attention-vs-self-attention-what-problems-does-ea)
