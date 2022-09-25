@@ -131,6 +131,7 @@ nav:
     - 'Audio Intelligence Terms': 'audio_intelligence/audio_intelligence_terms.md'
     - 'Algorithms':
        - 'Wav2Vec2': 'audio_intelligence/wav2vec2.md'
+       - 'audio_intelligence/whisper.md'
     - 'Tasks':
        - 'Voice Activity Detection': 'audio_intelligence/voice_activity_detection.md'
        - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
