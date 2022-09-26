@@ -1,6 +1,3 @@
-!!! warning
-    This page is still ongoing modifications. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com) if it has been a while! Sorry for the inconvenience :pray:
-
 ## Introduction
 
 - Whisper is an open source multi-task audio model released by OpenAI. It is an ASR system that works on 97 different languages *(including english)* and can even perform translation from other languages to english. 
