@@ -327,3 +327,28 @@ package-three==1.0.1
 package-four
 ```
 - Note three ways of defining packages, (1) with version number, (2) with github source and (3) without version number (installs the latest). Once done, you can install all these packages at one go by `pip install -r requirements.txt`
+
+## Pandas Groupby Function
+
+- Pandas can be utilised for fast analysis of categorical data using groupby. Let's have a look.
+
+```python linenums="1"
+#import
+import numpy as np
+import pandas as pd
+
+# load a dummy df
+df = pd.Dataframe('dummy.csv') # example below
+## Name | Gender   | Salary
+## Ravi | Male     | $20,000
+## Sita | Female   | $40,000
+## Kito | Female   | $11,000
+
+# perform groupby to get average salary per gender
+## Option 1
+df.groupby(['Gender']).agg({'Salary': [np.mean]})
+## Option 2
+df.groupby(['Gender']).mean()
+## Option 3
+df.groupby(['Gender']).apply(lambda x: x['Salary'].mean())
+```
