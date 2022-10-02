@@ -56,7 +56,10 @@
     <figcaption>Comparison of Whisper on various datasets [1]</figcaption>
 </figure>
 
+!!! Warning
+    Claims on bad performance of Whisper was made in this [Twitter thread](https://twitter.com/lunixbochs/status/1574848899897884672). Here, [Ryan Hileman](https://twitter.com/lunixbochs) compared Whisper with NVIDIA and Talon model on several datasets to find Talon performing well against Whisper models. Also, he noted that Whisper models are quite slow in execution *(even the tiny model)*. Finally, he provided samples for *"catastrophic failures"* of Whisper of following types -- (1) generating complete paragraphs for single word audio input *(like dec, car, two, snake, other)*, (2) hallucinations and repetition in the output.
 
+    Anyone thinking of using Whisper for their project should consider these concerns and test them out themselves before deployment.
 ## Released Models
 
 - Authors released 5 variety of models based on size, going from 39M param tiny model to 1550M param large model. For each there are is an english only model `{size}.en` (ex: `tiny.en`) and a multilingual model `{size}` (ex: `tiny`). 
