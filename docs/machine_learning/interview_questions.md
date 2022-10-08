@@ -1,5 +1,5 @@
 
-- One of the most obvious reason for failing an interview is not knowing the answer to the questions. While there are other factors at play, like how confident you sound, your behavior, attitude and even the mood of the interviewer, knowledge of the Data science field is well within the scope of this book - hence something I can help you with. So here are some questions to make you ready for your upcoming interview.  
+- Here are some questions and their answers to make you ready for your next interview. Best of luck :wave:
 
 !!! Question ""
     === "Question"

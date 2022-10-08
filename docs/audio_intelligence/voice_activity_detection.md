@@ -16,6 +16,8 @@
 
 ## Code
 
+### Py-WebRTC VAD
+
 - For practice, we will use [Py-WebRTC VAD](https://github.com/wiseman/py-webrtcvad) package that is a port to the WebRTC project by Google. It provides sufficiently good accuracy with lightening speed! ⚡️ The complete code is shown below, 
 
 ``` python linenums="1"
@@ -96,3 +98,7 @@ for i, start in enumerate(np.arange(0, len(y), samples_per_window)):
     ![](../imgs/audio_vad_result_ag3.png)
     <figcaption>Same as above, but with aggressiveness parameter value set to 3. Hence the detection is quite strict *(some voice parts are missed)*.</figcaption>
 </figure>
+
+<!-- ### Silero-VAD [TODO]
+
+https://github.com/snakers4/silero-vad -->

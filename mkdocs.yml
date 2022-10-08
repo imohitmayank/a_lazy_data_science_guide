@@ -91,6 +91,19 @@ nav:
       - 'Blogs':
           - 'natural_language_processing/explainable_ai_llm.md'
 
+  - 'Audio Intelligence':
+      - 'Interview Questions': 'audio_intelligence/interview_questions.md'
+      - 'Algorithms':
+        - 'Wav2Vec2': 'audio_intelligence/wav2vec2.md'
+        - 'audio_intelligence/whisper.md'
+      - 'Tasks':
+        - 'Voice Activity Detection': 'audio_intelligence/voice_activity_detection.md'
+        - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
+        - 'Speech to Text': 'audio_intelligence/stt.md'
+        - 'Text to Speech': 'audio_intelligence/tts.md'
+      - 'Techniques':
+        - 'Connectionist Temporal Classification': 'audio_intelligence/connectionist_temporal_classification.md'
+
   - 'Network Science':
       - 'Introduction': 'network_science/introduction.md'
       - "Graph Neural Networks":
@@ -116,27 +129,14 @@ nav:
     - 'machine_learning/introduction.md'
     - 'machine_learning/ML_snippets.md'
     - 'Interview Questions' : 'machine_learning/interview_questions.md'
+    # - 'Techniques':
+    #   - 'machine_learning/clustering.md'
     - 'Blogs':
       - 'Ranking Algorithms': 'machine_learning/ranking_algorithms.md'
 
   - 'Deep Learning':
     - 'DL snippets': 'deep_learning/deep_learning_snippets.md'
-    - 'DL terms': 'deep_learning/deep_learning_terms.md'
     - 'Interview Questions' : 'deep_learning/interview_questions.md'
     - 'Techniques':
       - 'deep_learning/loss_functions.md'
       # - 'deep_learning/normalization.md'
-
-  - 'Audio Intelligence':
-    - 'Audio Intelligence Terms': 'audio_intelligence/audio_intelligence_terms.md'
-    - 'Algorithms':
-       - 'Wav2Vec2': 'audio_intelligence/wav2vec2.md'
-       - 'audio_intelligence/whisper.md'
-    - 'Tasks':
-       - 'Voice Activity Detection': 'audio_intelligence/voice_activity_detection.md'
-       - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
-       - 'Speech to Text': 'audio_intelligence/stt.md'
-       - 'Text to Speech': 'audio_intelligence/tts.md'
-    - 'Techniques':
-       - 'Connectionist Temporal Classification': 'audio_intelligence/connectionist_temporal_classification.md'
-

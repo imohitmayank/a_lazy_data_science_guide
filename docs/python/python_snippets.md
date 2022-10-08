@@ -352,3 +352,26 @@ df.groupby(['Gender']).mean()
 ## Option 3
 df.groupby(['Gender']).apply(lambda x: x['Salary'].mean())
 ```
+
+## Save and Load from Pickle
+
+- Pickle can be used to efficiently store and load python objects and data. Refer [StackOverflow](https://stackoverflow.com/questions/11218477/how-can-i-use-pickle-to-save-a-dict-or-any-other-python-object)
+
+```python linenums="1"
+# import
+import pickle
+
+# create data
+a = {'a': 1, 'b': [1,2,3,4]}
+
+# save pickle
+with open('filename.pickle', 'wb') as handle:
+    pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+# load pickle
+with open('filename.pickle', 'rb') as handle:
+    b = pickle.load(handle)
+
+# check
+assert print(a == b)
+```

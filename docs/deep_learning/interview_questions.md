@@ -1,5 +1,5 @@
  
-- One of the most obvious reason for failing an interview is not knowing the answer to the questions. While there are other factors at play, like how confident you sound, your behavior, attitude and even the mood of the interviewer, knowledge of the Data science field is well within the scope of this book - hence something I can help you with. So here are some questions to make you ready for your upcoming interview.  
+- Here are some questions and their answers to make you ready for your next interview. Best of luck :wave:
 
 !!! Question ""
     === "Question"
@@ -70,3 +70,20 @@
     === "Answer"
 
         Self-attention (SA) is applied within one component, so the input is from one component only. One example is the encoder block in Transformers, where SA is used, and it takes the tokens from only the sentence as the input. Attention on the other hand can be used to connect two components or modality of data. Decoder in Transformer has Attention layer that connects the encoder and decoder data together. [Refer StackExchange QA](https://datascience.stackexchange.com/questions/49468/whats-the-difference-between-attention-vs-self-attention-what-problems-does-ea)
+
+!!! Question ""
+    === "Question"
+        #### What is the difference between Logits, Soft and Hard targets?
+
+    === "Answer"
+
+        - Let us understand each of the terms one by one. For better understanding, let's take a dog vs cat image classification as an example. 
+          - **Logits** are the un-normalized output of the model. In our cat vs dog example, logits will be, say, `10.1` for cat and `5.6` for dog for an image with cat. [Refer this SE question]((https://datascience.stackexchange.com/questions/31041/what-does-logits-in-machine-learning-mean)).
+          - **Soft target**: are normalized logits by applying a [linear function](https://stats.stackexchange.com/questions/163695/non-linearity-before-final-softmax-layer-in-a-convolutional-neural-network). In our example, if we use softmax to the logits we get `0.99` for cat and `0.1` for dog.
+          - **Hard targets**: are the encoding of the soft targets. In our example, as the model predicted (here correctly) the image as of cat, the hard targets be `1` for cat and `0` for dog.
+
+        ``` mermaid
+        graph LR
+            A[Logits] -- normalization --> B[Soft Targets]
+            B -- encoding --> C[Hard Targets]
+        ```
