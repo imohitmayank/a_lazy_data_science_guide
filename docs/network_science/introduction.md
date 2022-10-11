@@ -22,6 +22,7 @@
 - **Path and Walk**: Path or Walk are the route between two nodes that goes through multiple nodes and edges. For example, `A --> B --> C` is a path of length 2 as there are two edges in the route. The difference between a path and a walk is that walks can repeat edges and nodes. Refer [Stack Exchange Answer](https://math.stackexchange.com/questions/1890620/finding-path-lengths-by-the-power-of-adjacency-matrix-of-an-undirected-graph).
 - **Connected Graph:** A graph with a possible path between any two nodes is called a connected graph. On the contrary, the graph will be disconnected and there might be multiple clusters of individual connected sub-graphs in the overall graph. 
 - **Clique and Complete graph:** A clique of a graph is a set of nodes where every pair of nodes has an edge between them. It is the strongest form of cluster in the graph. Similarly if the graph itself is a clique i.e. there is an edge between all the pairs of nodes, it is called a complete graph. This also means that the graph contains all the possible edges.
+- **Spanning Tree:** A tree is an undirected graph where any two nodes are connected by exaclty one path. The spanning tree of a graph is a subgraph that is a tree that contains every node in the graph. In practice, Kruskal Algorithm can be used to find the minimum spanning tree for a graph, where we have multiple possibilities of creating spanning trees but want one with minimum total edge or node weights. 
 - **Adjacency matrix:** It is a square matrix of size `NxN`, where `N` is the number of unique nodes. The matrix contains 1 and 0 value that denotes the presence (1) or absence (0) of an edge between the nodes. unique graph and it's adjacency matrix is shown below, where the column and row represent nodes in alphabetic order.
   ``` mermaid
   graph LR
@@ -34,6 +35,12 @@
 
   !!! Hint
       $N^{th}$ power of the Adjacency Matrix ($M$) is a new square matrix ($M^N$), where $M_{ij}^N$ represents the number of walks of length $N$ between the nodes $i$ and $j$.
+
+- **Laplacian matrix:** given a graph with $v_i$ to $v_n$ nodes, Laplacian matrix $L_{nxn}$ is
+
+  $${\displaystyle L_{i,j}:={\begin{cases}\deg(v_{i})&{\mbox{if}}\ i=j\\-1&{\mbox{if}}\ i\neq j\ {\mbox{and}}\ v_{i}{\mbox{ is adjacent to }}v_{j}\\0&{\mbox{otherwise}},\end{cases}}}$$
+
+  Or it can also be computed as $L = D - A$, where $D$ is the degree matrix *(could be in-degree, out-degree or both)* and $A$ is the adjacency matrix. Laplacian matrix are important objects in the field of [Spectral Graph Theory](https://web.stanford.edu/class/cs168/l/l11.pdf), and we can infer many properties of the graph like connected components by looking at its laplacian matrix. Refer this [Maths Stack Exchange Question](https://math.stackexchange.com/questions/18945/understanding-the-properties-and-use-of-the-laplacian-matrix-and-its-norm).
 
 ### References
 
