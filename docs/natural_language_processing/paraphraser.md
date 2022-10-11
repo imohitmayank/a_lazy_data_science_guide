@@ -13,6 +13,18 @@
 
 - While we will go through the programmer way of performing Paraphrasing, here are some of the free tools *(limited)* available online for Paraphrasing -- [Quillbot](https://quillbot.com/), [Paraphraser.io](https://www.paraphraser.io/), [Rephrase.Info](https://www.rephrase.info/), [Outwrite](https://www.outwrite.com/), [Grammarly](https://app.grammarly.com/), etc.
 
+
+## Datasets
+
+- There are mulitple open-source datasets that can be used to train or fine-tune our own paraphrasing model. Below is a list with some useful details, [3]
+
+<figure markdown> 
+    ![](../imgs/nlp_paraphraser_data.png){ width="500" }
+    <figcaption>Highlights of primarily used paraphrase generation datasets [3]</figcaption>
+</figure>
+
+- Thats not all, [PAWS](https://huggingface.co/datasets/paws) and [MSRP](https://huggingface.co/datasets/HHousen/msrp) are also widely used. A more detailed list of dataset is presented [here](https://www.sbert.net/examples/training/paraphrases/README.html).
+
 ## Code
 
 ### Parrot Paraphraser
@@ -80,7 +92,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 ### Finetuning T5 as Paraphraser
 
-- Any LLM can be used for Paraphrase generation by zero-shot for comparative accuracy. If you want to better result, finetune it on datasets like [PAWS](https://huggingface.co/datasets/paws), [MSRP](https://huggingface.co/datasets/HHousen/msrp), etc. A more detailed list of dataset is presented [here](https://www.sbert.net/examples/training/paraphrases/README.html). Here we will try to finetune [T5](T5.md), 
+- Any LLM can be used for Paraphrase generation by zero-shot for comparative accuracy. If you want to better result, finetune it on your own datasets. Here we will try to finetune [T5](T5.md), 
 
 ``` python linenums="1"
 # install
@@ -150,5 +162,7 @@ model.train(train_df=train_data,
 [1] [Paraphrase Generation: A Survey of the State of the Art](https://aclanthology.org/2021.emnlp-main.414.pdf)
 
 [2] [Parrot Paraphraser](https://github.com/PrithivirajDamodaran/Parrot_Paraphraser)
+
+[3] [Paraphrase Generation: A Survey of the State of the Art](https://aclanthology.org/2021.emnlp-main.414/)
 
 Cheers :wave:
