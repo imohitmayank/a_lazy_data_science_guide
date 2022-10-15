@@ -129,8 +129,8 @@ nav:
     - 'machine_learning/introduction.md'
     - 'machine_learning/ML_snippets.md'
     - 'Interview Questions' : 'machine_learning/interview_questions.md'
-    # - 'Techniques':
-    #   - 'machine_learning/clustering.md'
+    - 'Techniques':
+      - 'machine_learning/clustering.md'
     - 'Blogs':
       - 'Ranking Algorithms': 'machine_learning/ranking_algorithms.md'
 

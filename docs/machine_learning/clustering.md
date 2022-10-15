@@ -3,8 +3,11 @@
     
 ## Introduction
 
-- Clustering is an [unsupervised task](introduction.md#unsupervised-learning) of grouping a set of items based on item’s features where the final grouping should minimize certain cost function. While finding optimum grouping is NP hard, there are several algorithms that can help us find sub-optimal solutions. Also note that as the data is not labeled, the grouping could be completely different from the user’s expectation. Each clustering algorithm has its own internal similarity function and grouping strategy by which the clusters are formed.
-- Clustering algorithms can be grouped based on different perspectives. From time of application perspectie, we can have online vs offline clustering algorithms. From input data type perspective, we could have algorithms that consider item's features while others that considers item-item similarity matrix. From input parameter perspective, there are algorithms that require no of clusters as input while others do not.
+- Clustering is an [unsupervised task](introduction.md#unsupervised-learning) of grouping a set of items based on item’s features where the final grouping should minimize certain cost function. While finding optimum grouping is very hard, there are several algorithms that can help us find sub-optimal solutions. Also note that as the data is not labeled, the grouping could be completely different from the user’s expectation. Each clustering algorithm has its own internal similarity function and grouping strategy by which the clusters are formed.
+- Clustering algorithms can be categorised based on different perspectives. Below are some examples *(not a complete list)*, 
+  - Considering time of application, we can have online *(streaming data)* vs offline *(all data present)* clustering algorithms. 
+  - Considering input data type, we have algorithms that consider item's features while others that considers item-item similarity matrix. 
+  - Considering input parameter, there are algorithms that require no of clusters as input while others do not.
 
 ## Metrics
 
@@ -12,7 +15,7 @@
 
 ### Silhouette Score
 
-- Silhouette score considers the intra-cluster $a(i)$ and inter-cluster $b(i)$ distances to generate a performance metric for the clustering of a dataset. The score can range between -1 *(bad clustering)* and 1 *(good clustering)*, with higher number denoting better clustering. We can choose different distance functions *(euclidean, manhattan, cosine, etc)* based on the data, but the overall formulation for each data point is shown below. We can average the value to get dataset level score.
+- Silhouette score considers the intra-cluster $a(i)$ and inter-cluster $b(i)$ distances to generate a performance metric for the clustering of a dataset. The score can range between -1 *(bad clustering)* and 1 *(good clustering)*, with higher number denoting better clustering. We can choose different distance functions *(euclidean, manhattan, cosine, etc)* based on the data. The formulation wrt each data point is shown below, where we can average the value to get dataset level scores.
 
 $$
 {\displaystyle a(i)={\frac {1}{|C_{I}|-1}}\sum _{j\in C_{I},i\neq j}d(i,j)}
@@ -51,7 +54,7 @@ score = silhouette_score(X, labels, metric='cosine')
 
 ### K-Means
 
-- K-means can be easily understood by considering the steps mentioned below. The step (a) is a one time activity done during the initialization part, while steps (b) and (c) are repeated until the convergence i.e. there is no more change in cluster membership even if we continue the process or there is no more *noticable* centroid movement. 
+- K-means is the swiss army knife of the clustering algorithms, the forever baseline - the first clustering algorithm anyone tries :smile:. It can be easily understood by considering the steps mentioned below. The step (a) is a one time activity done during the initialization part, while steps (b) and (c) are repeated until the convergence i.e. there is no more change in cluster membership even if we continue the process or there is no more *noticable* centroid movement. 
   1. **Centroid Assignment:** Assign K centroids. There are three points to remember here, 
      1. How to decide the value of K? --> here it is an input parameter. In practice we can analyze the cluster results with different k *(2 to N)* and pick the one with best metric score like silhouette score.
      2. Are centroids choosen from data points? --> during initialization they may be selected from data points but over iterations they become their own special points that are part of the same feature space
@@ -66,8 +69,8 @@ score = silhouette_score(X, labels, metric='cosine')
 - Remember, K-means algorithm is guaranteed to converge but the final result may vary based on the centroid initialisation. This is why it is suggested to try multiple runs with different initialization and pick the one with best clustering or use smarter initialization technique like k-means++. Refer [ML Interview Questions](../machine_learning/interview_questions.md#is-k-means-clustering-algorithm-guaranteed-to-converge-with-unique-result) and [2] for more details.
 
 - Many clustering algorithms have improved k-means over time, they are:
-  - **K-Medians:**  It is a variation of k-means clustering where instead of calculating the mean for each cluster to determine its centroid, we calculates the median. As it uses Manhattan distance *(L1-norm distance)*, the algorithm becomes more reliable for discrete or even binary data sets.
-  - **K-Medoids:** In contrast to the k-means algorithm, k-medoids chooses actual data points as centers instead. Furthermore, k-medoids can be used with arbitrary dissimilarity measures, whereas k-means generally requires Euclidean distance. Because k-medoids minimizes a sum of pairwise dissimilarities instead of a sum of squared Euclidean distances, it is more robust to noise and outliers than k-means. Refer [3] for solved example.
+  - **K-Medians:**  It is a variation of k-means clustering where instead of calculating the mean for each cluster to determine its centroid, we calculates the median. As it uses Manhattan distance *(L1-norm distance)*, the algorithm becomes more reliable for discrete or binary data sets.
+  - **K-Medoids:** In contrast to the k-means algorithm, k-medoids chooses actual data points as centers instead. Furthermore, k-medoids can be used with arbitrary dissimilarity measures, whereas k-means generally requires Euclidean distance. Because k-medoids minimizes a sum of pairwise dissimilarities instead of a sum of squared Euclidean distances, it is more robust to noise and outliers than k-means. Refer [3] for an intuitive solved example.
   - **K-means++:** It is the standard K-means algorithm but with a smarter initialization of the centroids. We start with choosing one center randomly from the data points. Then for each data point $x$ not chosen yet, we find the distance $D(x)$ between $x$ and the nearest center that has already been chosen. The new center is choosen again at random but this time using a weighted probability distribution where a point $x$ is chosen with probability proportional to $D(x)^2$. We repeat these steps until `k` centers have been chosen.
   - **Mini Batch K-means:** It is an optimized version of k-means for faster execution with only slighly worse results.  Here, at each iteration a set of random data points are selected to form a mini-batch and they are assigned to the nearest centroids. The centroid adjustment happens for each sample by taking streaming average of the sample and all previous samples assigned to that centroid. Mini Batch K-means converges faster than K-means.
 
@@ -104,7 +107,7 @@ sil_score = silhouette_score(X, labels, metric='cosine')
     - **Single Linkage:** Pick the least distant pair of points as the representation of cluster distance. Formulation is : $\min \,\{\,d(a,b):a\in A,\,b\in B\,\}.$
     - **Ward:** find the pair of clusters that leads to minimum increase in total within-cluster variance after merging. This is only applicable for euclidean distance. [4]
     - **Average:** Uses the average of distances between all pairs of data points from the two clusters. Formulation is ${\displaystyle {\frac {1}{|A|\cdot |B|}}\sum _{a\in A}\sum _{b\in B}d(a,b).}$
-- Now it should be easy to understand the overall process. Taking agglomerative as example, to begin with all samples are separate clusters. At each iteration, we will compute the linkage score between all pairs of clusters and find the pair with the minimum score. We merge that pair of clusters together and go ahead with next iteration. We keep on repeating this process until we have reached a desired number of clusters (`n_clusters`) or the linkage distance threshold (`distance_threshold`) has triggered, above which, clusters will not be merged.
+- Now it should be easy to understand the overall process. Taking agglomerative as example, to begin with, all samples are separate clusters. At each iteration, we will compute the linkage score between all pairs of clusters and find the pair with the minimum score. We merge that pair of clusters together and go ahead with next iteration. We keep on repeating this process until we have reached a desired number of clusters (`n_clusters`) or the linkage distance threshold (`distance_threshold`) has triggered, above which, clusters will not be merged.
 
 !!! Note
     At a time, we can only use either `n_clusters` or `distance_threshold`.
@@ -127,6 +130,10 @@ labels = model.fit_predict(X)
 sil_score = silhouette_score(X, labels, metric='cosine')
 ```
 
+<!-- !!! Hint
+    To understand the fundamentals of Linear Algebra, I would recommend [Essence of Linear Algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab), a video series by [3Blue1Brown](https://www.youtube.com/c/3blue1brown). Special chapter relevant for our use case is [EigenValue and EigenVectors](https://www.youtube.com/watch?v=PFDu9oVAE-g&t=6s)
+     -->
+     
 ## References
 
 [1] [Sklearn - Clustering](https://scikit-learn.org/stable/modules/clustering.html)
