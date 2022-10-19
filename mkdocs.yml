@@ -140,3 +140,13 @@ nav:
     - 'Techniques':
       - 'deep_learning/loss_functions.md'
       # - 'deep_learning/normalization.md'
+  
+  - 'Reinforcement Learning':
+    - 'reinforcement_learning/introduction.md'
+    - 'Interview Questions' : 'reinforcement_learning/interview_questions.md'
+    - 'Algorithms':
+      - 'Q-Learning': 'reinforcement_learning/q_learning.md'
+    # - 'Blogs':
+    #   - 'reinforcement_learning/interactive_q_learning.md'
+    #   - 'reinforcement_learning/multi_arm_bandit_part_1.md'
+    #   - 'reinforcement_learning/multi_arm_bandit_part_2.md'
