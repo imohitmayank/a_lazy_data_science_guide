@@ -151,7 +151,7 @@ $$
 
 ## Semantic based approaches
 
-- In semantic search, strings are embeded using some neural network (NN) model. Think of it like a function that takes an input string and returns a vector of numbers. The vector is then used to compare the similarity between two strings.
+- In semantic search, strings are embedded using some neural network (NN) model. Think of it like a function that takes an input string and returns a vector of numbers. The vector is then used to compare the similarity between two strings.
 - Usually the NN models work at either token or word level, so to get embedding of a string, we first find embeddings for each token in the string and then aggregate them using mean or similar function.
 - The expectation is that the embeddings will be able to represent the string such that it capture different aspects of the language. Because of which, the embeddings provides us with much more features to compare strings.
 - Let's try a couple of ways to compute semantic similarity between strings. Different models can be picked or even fine tuned based on domain and requirement, but we will use the same model for simiplicity's sake. Instead we will just use different packages. 
