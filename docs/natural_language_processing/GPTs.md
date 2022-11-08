@@ -256,6 +256,50 @@ df = pd.DataFrame({'original_text': original_text, 'predicted_label': predicted_
 print(f1_score(original_label, predicted_label, average='macro'))
 ```
 
+### Inference of GPT-3
+
+- Running GPT-3 model is super easy using the [OpenAI python package](https://github.com/openai/openai-python). Here is how to do it, 
+
+``` python linenums="1"
+# install 
+# pip install --upgrade openai
+
+# import
+import openai
+
+# set API org and key
+openai.organization = "OPENAI_API_ORG" # replace or comment
+openai.api_key = "OPENAI_API_KEY" # replace
+
+# inference
+response = openai.Completion.create(
+            model = "text-davinci-002", # set as per your need
+            prompt = 'Tell me a Joke:',
+            max_tokens = 256, # set as per your need
+            top_p = 1, # set as per your need
+            temperature = 0.7, # set as per your need
+        )
+
+# Output:
+# "choices": [
+#     {
+#       "finish_reason": "stop",
+#       "index": 0,
+#       "logprobs": null,
+#       "text": "\n\nWhy did the chicken cross the road?\n\nTo get to the other side."
+#     }
+#   ],
+#   "created": 1667925044,
+#   "id": "cmpl-6ALmmOOkVWE03AmO9Cur8XM3jpEXk",
+#   "model": "text-davinci-002",
+#   "object": "text_completion",
+#   "usage": {
+#     "completion_tokens": 19,
+#     "prompt_tokens": 6,
+#     "total_tokens": 25
+#   }
+```
+
 ### Finetuning GPT-3
 - While GPT-3 is not open source, OpenAI has provided the paid option to [finetune the model](https://beta.openai.com/docs/guides/fine-tuning). At the time of writing, free credits were provided to new users -- so another reason to go and [register now](https://openai.com/api/) :wink:
 - They expose several APIs to perform finetuning. In a sense they are doing most of the heavy lifting by making the finetuning process super easy.
