@@ -25,7 +25,7 @@ Transformers
 
 ### Self-Attention 
 
-- Probably the most important component of Transformer is the Attention Layer. The intuition here is that the context matters. For example in a sentence, meaning of a word like "bank" could vary based on if it is "river bank" or "financial bank". Similarly, pronouns like He, She, It, etc could also *attend* to certain other words in the sentence *(name of the person or object)*. With this in mind, a true meaning *(representation)* of a word cn only be identified by attending to all the other words in context. Self-Attention is just one way to do that.
+- Probably the most important component of Transformer is the Attention Layer. The intuition here is that the context matters. For example in a sentence, meaning of a word like "bank" could vary based on if it is "river bank" or "financial bank". Similarly, pronouns like He, She, It, etc could also *attend* to certain other words in the sentence *(name of the person or object)*. With this in mind, a true meaning *(representation)* of a word can only be identified by attending to all the other words in context. Self-Attention is just one way to do that.
 
 <figure markdown> 
         ![](../imgs/nlp_transformers_dotattention.png){ width="300" }
