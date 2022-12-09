@@ -55,6 +55,8 @@
     Long answer: # let the model predict long form answer!!
     ```
 
+    !!! Note
+        [Perplexity AI](https://www.perplexity.ai/) is a good example that uses [GPT 3.5](../natural_language_processing/GPTs.md) to generate long form answers and even provide evidences for the answer. First, it performs web search using Microsoft Bing to identify relevant websites and the contents are summarized. The summaries are then passed to GPT along with the original question to answer the question with the reference details for the evidence.
   
 ## Datasets
 
