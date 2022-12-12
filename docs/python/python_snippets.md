@@ -375,3 +375,39 @@ with open('filename.pickle', 'rb') as handle:
 # check
 assert print(a == b)
 ```
+
+## Download Youtube video
+
+- Youtube video can be downloaded using the `pytube` package. Here is an example.
+
+```python linenums="1"
+# import
+from pytube import YouTube
+
+## var: link to download
+video_url = "https://www.youtube.com/watch?v=JP41nYZfekE"
+
+# create instance
+yt = YouTube(video_url)
+
+# download
+abs_video_path = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download()
+## print(f"Video downloaded at {abs_video_path}")    
+```
+
+## Machine Translation
+
+- EasyNMT lets you perform state-of-the-art machine translation with just 3 lines of python code!
+- It supports translation between 150+ languages and automatic language detection for 170+ languages. Pre-trained machine translation models are auto-downloaded and can perform sentence and document translations!
+
+```python linenums="1"
+# import
+from easynmt import EasyNMT
+
+# load model
+model = EasyNMT('opus-mt')
+
+#Translate a single sentence to German
+print(model.translate('This is a sentence we want to translate to German', target_lang='de'))
+## Output: Dies ist ein Satz, den wir ins Deutsche übersetzen wollen
+```
