@@ -98,10 +98,14 @@ result = model.transcribe("audio.mp3", language="english")
 # result['text'] --> complete transcription that with punctuations
 # result['segments'] --> segment wise transcription with timestamps and other details 
 # result['langauge'] --> detected language of the audio
+
+# can be used for translation as well (here, Japanese to English)
+result = model.transcribe("japanese.wav", language="Japanese", task="translate", beam_size=5, best_of=5)
 ```
 
 !!! Note
-    Language detection works only if you don't specify it explicitly using `language` param in `transcribe` function. Also, the package uses only the first 30 secs to detect the language.
+    Auto language detection only works if you don't specify it explicitly using `language` param in `transcribe` function. The package uses only the first 30 secs to detect the language.
+    Also, whisper's translation is not that accurate hence an alternative approach could be to  perform transcription using Whisper but use [another package](../python/python_snippets.md#machine-translation) to translate the transcription.
 
 - The package also provides CLI support, here is an example, 
 
