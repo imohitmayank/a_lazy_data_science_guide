@@ -222,9 +222,10 @@ import logging
 # config the logging behavior
 logging.basicConfig(filename='example.log',level=logging.DEBUG)
 # some sample log messages
-logging.debug('This message should go to the log file')
-logging.info('So should this')
-logging.warning('And this, too')
+logging.debug('This message should go to the log file', exc_info=True)
+logging.info('So should this', exc_info=True)
+logging.warning('And this, too', exc_info=True)
+# we add "exc_info=True" to capture the stack trace
 ```
 
 - Note, there is a hierarchical levelling of logs to segregate different severity of logs. In the example shown above, the `level` parameter denotes the minimal level that is tracked and hence saved to the file. As per the official [how to](https://docs.python.org/3.7/howto/logging.html), these are the different logging levels with some details about when to use which *(in increasing order of severity)*, 
