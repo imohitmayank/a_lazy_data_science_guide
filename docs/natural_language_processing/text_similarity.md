@@ -156,6 +156,9 @@ $$
 - The expectation is that the embeddings will be able to represent the string such that it capture different aspects of the language. Because of which, the embeddings provides us with much more features to compare strings.
 - Let's try a couple of ways to compute semantic similarity between strings. Different models can be picked or even fine tuned based on domain and requirement, but we will use the same model for simiplicity's sake. Instead we will just use different packages. 
 
+!!! Hint
+    As embedding is an integral part of semantic search, it is important to check the quality of a embedding method before using it. [MTEB](https://github.com/embeddings-benchmark/mteb) is the "Massive Text Embedding Benchmark" python package that lets you test any embedding function on more than 30 tasks. The process is quite simple - usually the text is embedded using the provided function or neural network, and the performance of embedding is computed and checked on downstream tasks like classification, clustering, and more.
+
 ### txtai
 
 - [txtai](https://github.com/neuml/txtai) is a python package to perform semantic based tasks on textual data including search, question answering, information extraction, etc.
