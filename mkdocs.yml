@@ -131,8 +131,8 @@ nav:
     - 'Interview Questions' : 'machine_learning/interview_questions.md'
     - 'Techniques':
       - 'machine_learning/clustering.md'
-    - 'Blogs':
-      - 'Ranking Algorithms': 'machine_learning/ranking_algorithms.md'
+    # - 'Blogs':
+    #   - 'Ranking Algorithms': 'machine_learning/ranking_algorithms.md'
 
   - 'Deep Learning':
     - 'DL snippets': 'deep_learning/deep_learning_snippets.md'

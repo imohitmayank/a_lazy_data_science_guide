@@ -33,3 +33,14 @@
     === "Answer"
 
         Yes it is possible, imagine a centroid placed in middle of ring of other centroids. Several implementations either removes that centroid or random;y replace it somewhere else in the data space. Refer [Visualizing K Means Clustering - Naftali Harris](https://www.naftaliharris.com/blog/visualizing-k-means-clustering/)
+
+!!! Question ""
+    === "Question"
+        #### What is entropy in information theory?
+
+    === "Answer"
+
+        Entropy is a measure of the amount of uncertainty or randomness in a system. It is often used in information theory and statistical mechanics to describe the unpredictability of a system or the amount of information required to describe it. It's formula is, $\mathrm {H} (X):=-\sum _{x\in {\mathcal {X}}}p(x)\log p(x)=\mathbb {E} [-\log p(X)]$
+
+        Here is an [excellent video](https://www.youtube.com/watch?v=ErfnhcEV1O8) from Aurelien Geron, explaining the topic.
+
