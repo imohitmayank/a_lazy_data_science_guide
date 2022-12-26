@@ -11,7 +11,7 @@
 
 ## Metrics
 
-- Before starting with Clustering algorithms, let's understand the metrics that can be used to compare the clustering performance. 
+Before starting with Clustering algorithms, let's understand the metrics that can be used to compare the clustering performance. 
 
 ### Silhouette Score
 
@@ -49,6 +49,56 @@ from sklearn.metrics import silhouette_score
 score = silhouette_score(X, labels, metric='cosine')
 ```
 
+### Homogeneity, Completeness and V measure
+
+- For a given set of datapoints, the original labels are called "Class" and the output of clustering algorithms is called "Clusters". To measure performance of the algorithm, we can check how well the cluster and class align. This alignment can be captured by creating a contingency table that contains distribution of data points falling under different combinations of class and clusters. For example, consider 6 datapoints for which we have the class label `[1, 1, 1, 2, 2, 2]` and cluster label `[1, 1, 2, 2, 3, 3]`. The contingency table will contains $a_{ck}$ elements where $c$ denotes the class and $k$ the clusters. It will look as follows,
+
+  | _class/cluster_ | **1** | **2** | **3** |
+  |-----------------|-------|-------|-------|
+  | **1**           | 2     | 1     | 0     |
+  | **2**           | 0     | 1     | 2     |
+  | **3**           | 0     | 0     | 0     |
+  
+!!! Note
+    As clear from the table above, the alignment could be directional in nature i.e. the metrics using the contingency table will generate different score if we compare *(class, cluster)* and *(cluster, class)*. 
+
+- With this context, let's understand the metrics in detail, [5]
+  - **Homogeneity:** it describes the "purity" of the cluster i.e. it measures whether or not the same class is assigned to all points within a cluster. The formulation is as follows, 
+  
+  $$
+  h = 1 - \frac {H(C|K)}{H(C)}, where
+  $$
+
+  $$
+  H (C | K) = - \sum_{k=1}^{|K|} \sum_{c=1}^{|C|} \frac{a_{ck}}{N} \log_{}{\frac{a_{ck}}{\sum_{c=1}^{|C|} a_{ck}}}
+  $$
+
+  $$
+  H (C) = - \sum_{c=1}^{|C|} \frac{\sum_{k=1}^{|K|} a_{ck}}{n} \log_{}{\frac{\sum_{k=1}^{|K|} a_{ck}}{n}}
+  $$
+
+  - **Completeness:** it describes the "purity" of the class i.e. it measures if all points belonging to a given class are assigned to the same cluster. The formulation is as follows, 
+
+  $$
+  c = 1 - \frac {H(K|C)}{H(K)}, where
+  $$
+
+  $$
+  H (K | C) = - \sum_{c=1}^{|C|} \sum_{k=1}^{|K|} \frac{a_{ck}}{N} \log_{}{\frac{a_{ck}}{\sum_{k=1}^{|K|} a_{ck}}}
+  $$
+
+  $$
+  H (K) = - \sum_{k=1}^{|K|} \frac{\sum_{c=1}^{|C|} a_{ck}}{n} \log_{}{\frac{\sum_{c=1}^{|C|} a_{ck}}{n}}
+  $$
+
+  - **V measure:** it is a combination of the above scores and is used to measure the overall performance of a clustering algorithm. To be exact, it is the harmoic mean of the Homogeneity and Completeness scores. The formulation is given below, where beta is the ratio of weight attributed to homogeneity vs completeness. If beta is greater than 1, completeness is weighted more strongly in the calculation. If beta is less than 1, homogeneity is weighted more strongly. By default, beta is 1.
+
+  $$
+  v = \frac{(1 + beta) * homogeneity * completeness}{(beta * homogeneity + completeness)}
+  $$
+
+!!! Hint
+    Sklearn provides individual and combined implementations for these metrics. Refer [sklearn.metrics.homogeneity_completeness_v_measure](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.homogeneity_completeness_v_measure.html#sklearn.metrics.homogeneity_completeness_v_measure)
 
 ## Clustering Algorithms
 
@@ -143,3 +193,5 @@ sil_score = silhouette_score(X, labels, metric='cosine')
 [3] [K-Medoids clustering with solved example](https://www.geeksforgeeks.org/ml-k-medoids-clustering-with-example/)
 
 [4] Wikipedia - [Hierarchical clustering](https://en.wikipedia.org/wiki/Hierarchical_clustering) | [Ward's method](https://en.wikipedia.org/wiki/Ward%27s_method)
+
+[5] [V-Measure: A Conditional Entropy-Based External Cluster Evaluation Measure](https://aclanthology.org/D07-1043/)
