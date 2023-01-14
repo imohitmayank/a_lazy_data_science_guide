@@ -69,6 +69,7 @@ nav:
       - 'Getting started with Data Science': 'introduction/getting_started.md'
 
   - 'Natural Language Processing':
+      - 'Interview Questions' : 'natural_language_processing/interview_questions.md'
       - 'Algorithms':
           -  'Word2Vec': 'natural_language_processing/word2vec.md'
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
