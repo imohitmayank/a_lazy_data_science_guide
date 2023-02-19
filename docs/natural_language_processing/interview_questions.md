@@ -1,6 +1,20 @@
 - Here are some questions and their answers to make you ready for your next interview. Best of luck :wave:
 
 !!! Question ""
+
+    === "Question"
+        #### What are the different types of reasoning tasks in NLP?
+
+    === "Answer"
+
+        - **Arithmetic Reasoning:** Arithmetic reasoning is the ability of an NLP system to perform mathematical operations on numerical data. This can include basic arithmetic operations such as addition, subtraction, multiplication, and division as well as more complex operations such as algebraic equations and calculus.
+        - **Commonsense Reasoning:** Commonsense reasoning refers to the ability of an NLP system to make deductions based on the knowledge and information that is commonly understood by humans. This includes understanding social norms, cultural contexts, and everyday life experiences. *([StrategyQA](https://allenai.org/data/strategyqa) is a sample dataset that contains True/False questions like "Did Aristotle use a laptop?")*
+        - **Symbolic Reasoning:** Symbolic reasoning involves the ability of an NLP system to manipulate and reason about symbolic representations of information, such as words, phrases, and sentences. This includes tasks such as parsing, string operations, semantic role labeling and entity recognition. *(Last Letter Concatenation is a sample dataset with questions like "Take the last letters of the words in 'Lady Gaga' and concatenate them")*
+        - **Logic Reasoning:** Logic reasoning refers to the ability of an NLP system to perform logical deductions based on formal rules of inference. This can include tasks such as identifying logical fallacies, determining the validity of arguments, and drawing conclusions based on deductive reasoning. *(Date understanding is a sample dataset with questions like "Today is Christmas Eve 1937, what is the date tomorrow in MM/DD/YYYY?")*
+
+
+!!! Question ""
+
     === "Question"
         #### What are word embeddings in NLP?
 
