@@ -78,6 +78,7 @@ nav:
           -  'natural_language_processing/GPTs.md'
           -  'MiniLM': 'natural_language_processing/minilm.md'
           -  'natural_language_processing/T5.md'
+          -  'natural_language_processing/FlanModels.md'
       -  'Tasks':
           -  'natural_language_processing/paraphraser.md'
           -  'natural_language_processing/text_similarity.md'
