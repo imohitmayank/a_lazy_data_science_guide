@@ -16,11 +16,11 @@ Flan Models
 
 ## Dataset
 
-- The Flan models were finetuned on 1836 tasks. Let’s understand some topics to make things clear. 
-  - “**Dataset”** is an data source (ex: SQuAD), 
-  - “**Task category**” is a unique task setup like query generation or question answering, and finally 
+- The Flan models were finetuned on 1836 tasks. Here are some definitions, 
+  - “**Dataset”** is an data source *(ex: SQuAD)*, 
+  - “**Task category**” is a unique task setup like query generation or question answering.
   - “**Task**” is unique combinations of `<dataset, task category>`. This is possible because a single dataset can be used for different task categrory *(ex: SQuAD for query generation or QA or context generation)*. 
-- On using 473 datasets and 146 task category we end up with 1836 different tasks. 
+- Combining 473 datasets and 146 task category we end up with 1836 different tasks. 
 
 <figure markdown> 
 ![](../imgs/flanmodels_dataset.png)
@@ -29,7 +29,7 @@ Flan Models
 
 ## Finetuning process
 
-- Instruction finetuning was performed for T5, PaLM and U-PaLM, where the model sizes span from Flan-T5-small (80M parameters), to PaLM and U-PaLM (540B parameters). 
+- Instruction finetuning was performed for T5, PaLM and U-PaLM, where the model sizes span from Flan-T5-small *(80M parameters)*, to PaLM and U-PaLM *(540B parameters)*. 
 - Same training procedure was used for each model except for a few hyperparameters like learning rate, batch size, dropout, and finetuning steps. Constant learning rate schedule was used to finetune using the Adafactor optimizer. 
 - Notably, the amount of compute used for finetuning is only a small fraction relative to the training compute, as shown in the table below.
 
@@ -48,12 +48,12 @@ Flan Models
 
 ## Code
 
-- The code of inference and finetuning Flan models are very similar to the original models. Below we will show inference code for FlanT5, which is similar to the [T5 inference](../natural_language_processing/T5.md#t5-inference). 
-- Similarly, if you want to further finetune Flan-T5 for your use case, you can refer [T5 finetuning code](../natural_language_processing/T5.md#t5-finetuning).
+- The code of inference and finetuning Flan models are very similar to the original models. Below we will show inference code for Flan-T5, which is similar to the [T5 inference](../natural_language_processing/T5.md#t5-inference). 
+- Similarly, if you want to further finetune Flan-T5 for your use case, you can refer [T5 finetuning code](../natural_language_processing/T5.md#t5-finetuning). If you are using HuggingFace, then all you need to do is replace the model name to `google/flan-t5-{size}`, where size could be `small`, `base`, `large`, `xl` and `xxl`. 
 
 ### Flan-T5 Inference
 
-- The following code is referenced from the HuggingFace FlanT5 page [2]
+- The following code is referenced from the HuggingFace Flan-T5 page [2]
 
 ``` python linenums="1"
 # import
