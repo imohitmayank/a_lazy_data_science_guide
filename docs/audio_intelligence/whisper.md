@@ -76,7 +76,9 @@
 
 ## Code
 
-- Authors have released a Python package called `whisper` [1] that makes using the pretrained models as easy as writing 3 lines of code. 
+- We will go through two ways to use Whisper model. 
+  - Authors have released a Python package called `whisper` [1] that makes using the pretrained models as easy as writing 3 lines of code. 
+  - OpenAI recently released the API for Whisper model [2] While it a paid service (~$0.36 for 1 hour of audio transcription), they take care of constantly improving the model and hosting complexities. 
 
 ### Python Package Inference
 
@@ -146,7 +148,56 @@ result = whisper.decode(model, mel, options)
 # print the recognized text
 print(result.text)
 ```
+### OpenAI API
 
+- Before we code, here are some important points to be aware of, 
+  - OpenAI hosted Whisper model is recommended to be used for ~59 languages for which the WER rate is <50%, as for others the accuracy will not be good. [Refer](https://platform.openai.com/docs/guides/speech-to-text/supported-languages)
+  - Whisper API only supports files that are less than 25 MB. For bigger files, we will have to split or used compressed audio.
+  - Finally, we can even use prompt engineering to further improve the accuracy of transcription. It can be used for word boosting, enforcing punctuations, styles and more. [Refer](https://platform.openai.com/docs/guides/speech-to-text/prompting)
+
+!!! Note
+    Use of prompt engineering to enhance the transcription accuracy is a relatively newer approach and needs research for more clarity. 
+
+- With that out of the way, using OpenAI API for audio transcription using Whisper is quite easy as shown below, [1]
+
+``` python linenums="1"
+# Install
+!pip install openai>=0.27.0
+#  import 
+import openai
+# load the audio file
+audio_file= open("/path/to/file/audio.mp3", "rb")
+# pass for transcription
+transcript = openai.Audio.transcribe("whisper-1", audio_file)
+```
+
+- For translation you can directly use
+
+``` python linenums="1"
+# Install
+!pip install openai>=0.27.0
+#  import 
+import openai
+# load the audio file
+audio_file= open("/path/to/file/german_audio.mp3", "rb")
+# pass for translation 
+transcript = openai.Audio.translate("whisper-1", audio_file)
+```
+
+- Finally, we can use prompt engineering to enhance the accuracy by using `prompt` param. Below are some examples, 
+
+``` python linenums="1"
+# Word Boosting name - 'Mohit' 
+transcript = openai.Audio.translate("whisper-1", audio_file, 
+    prompt="This transcript may contains people name like Mohit.")
+# Enforce puntuations and special characters
+transcript = openai.Audio.translate("whisper-1", audio_file, 
+    prompt="Hello, this transcript may contains people name like 'Mohit'.")
+# Enforce filler words
+transcript = openai.Audio.translate("whisper-1", audio_file, 
+    prompt="Hmm...this transcript may contains people name like Mohit.")
+    
+```
 ## References
 
-[1] Whisper by OpenAI - [Blog](https://openai.com/blog/whisper/) | [Paper](https://cdn.openai.com/papers/whisper.pdf) | [Code](https://github.com/openai/whisper)
+[1] Whisper by OpenAI - [Blog](https://openai.com/blog/whisper/) | [Paper](https://cdn.openai.com/papers/whisper.pdf) | [Code](https://github.com/openai/whisper) | [API Doc]([lazydsguide](https://platform.openai.com/docs/guides/speech-to-text))
