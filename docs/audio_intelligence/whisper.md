@@ -171,6 +171,14 @@ audio_file= open("/path/to/file/audio.mp3", "rb")
 transcript = openai.Audio.transcribe("whisper-1", audio_file)
 ```
 
+!!! Note
+    Apart from `file` and `model`, `transcribe` function supports multiple parameters like, ([Refer API doc](https://platform.openai.com/docs/api-reference/audio/create#audio/create-file))
+
+    - `prompt`: for prompt engineering *(more details below)*
+    - `response_format`: to change the transcription output. We can use `verbose_json` to get timestamp and logits details.
+    - `temperature`: to introduce randomness in generation *(default is 0)*
+    - `language`: language of input audio
+
 - For translation you can directly use
 
 ``` python linenums="1"
