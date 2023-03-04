@@ -46,11 +46,45 @@
 <!-- - **Exploration vs Exploitation:** RL agent's policy fundamental waether to perform exploraton -->
 <!-- - **Q-learning:** Q-learning is a classic RL algorithm where agent learns to maximize the value function. -->
 
+## The Paradigms in RL
+
+### Forward Reinforcement Learning
+
+- It refers to the process of learning a policy or control strategy in an environment by taking actions and receiving feedback or rewards from the environment. The objective of this approach is to maximize the expected cumulative reward obtained from the environment by learning a policy that maps the state of the environment to an action to be taken.
+
+### Inverse Reinforcement Learning
+
+- Inverse Reinforcement Learning (IRL) aims to learn the underlying reward function of a given environment from a set of observed trajectories, instead of learning a policy directly. This approach can be used to infer the reward function from human demonstrations or expert behavior, and then learn a policy that maximizes the inferred reward function.
+
+### Behavior Cloning
+
+- Behavior cloning refers to a supervised learning technique where a model is trained to mimic the behavior of an expert agent or human in a given task. In this approach, the model is trained on a dataset of state-action pairs, where each action is a direct imitation of the expert's actions in the corresponding state. Behavior cloning can be used as a pre-training step for more complex reinforcement learning algorithms, or as a standalone approach in cases where the expert's behavior is sufficient for solving the task.
+
+### Apprenticeship Learning
+
+- Apprenticeship learning, also known as imitation learning, is a machine learning technique where a learner tries to imitate the behavior of an expert agent or human in a given task. Unlike behavior cloning, which only learns to mimic the expert's actions, apprenticeship learning aims to learn the underlying decision-making process or policy of the expert by observing their behavior in a given environment. This approach is useful when the expert's behavior is not easily captured by a simple state-action mapping, and when the reward function of the task is unknown or difficult to specify.
+
 !!! Hint
-    If you are looking for a detailed course on Reinforcement learning, I cannot think of a better free course than the one by [David Silver on Youtube](https://www.youtube.com/playlist?list=PLzuuYNsE1EZAXYR4FJ75jcJseBmo4KQ9-). :ok_hand:
+    One easy way to differentiate the above mentioned domains is as follows, [3]
+    
+    - In IRL, we recover a Reward function
+    - In Apprenticeship Learning, we find a good policy using the recovered reward function from IRL
+    - In Behavior cloning, we directly learn the teacher's policy using supervised learning
+
+## Resources
+
+If you are looking for a deep dive into Reinforcement learning, here are some good materials, :ok_hand: 
+
+-  I cannot think of a better free course than [David Silver on Youtube](https://www.youtube.com/playlist?list=PLzuuYNsE1EZAXYR4FJ75jcJseBmo4KQ9-). 
+-  In case you prefer books, here is the best of them all - [Reinforcement Learning: An Introduction](https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf). 
+-  If you love the API doc way of learning, here is [OpenAI Spinning Up in Deep RL](https://spinningup.openai.com/en/latest/index.html) 
 
 
 ## References
 
-[1] [Reinforcement Learning - Wikipedia](https://en.wikipedia.org/wiki/Reinforcement_learning)
+[1] Reinforcement Learning - [Wikipedia](https://en.wikipedia.org/wiki/Reinforcement_learning)
+
+[2] Apprenticeship Learning via Inverse Reinforcement Learning - [Paper](https://ai.stanford.edu/~ang/papers/icml04-apprentice.pdf)
+
+[3] Inverse Reinforcement Learning - [Lecture PDF](https://people.eecs.berkeley.edu/~pabbeel/cs287-fa12/slides/inverseRL.pdf)
 
