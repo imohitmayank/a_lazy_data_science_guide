@@ -146,6 +146,8 @@ nav:
   - 'Reinforcement Learning':
     - 'reinforcement_learning/introduction.md'
     - 'Interview Questions' : 'reinforcement_learning/interview_questions.md'
+    - 'Techniques' : 
+        - 'RLHF': 'reinforcement_learning/rlhf.md'
     - 'Algorithms':
       - 'Q-Learning': 'reinforcement_learning/q_learning.md'
     # - 'Blogs':
