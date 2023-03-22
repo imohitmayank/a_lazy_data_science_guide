@@ -7,9 +7,9 @@ BERT
 - Basically, it is a modification of Transformers (*vaswani2017attention*), where we just keep the encoder part and discard the decoder part.
 
 <figure markdown> 
-        ![](../imgs/nlp_transformers.png)
-        <figcaption>Transformer architecture. BERT is the left part i.e. encoder part. (*vaswani2017attention*)</figcaption>
-        </figure>
+    ![](../imgs/nlp_transformers.png)
+    <figcaption>Transformer architecture. BERT is the left part i.e. encoder part. (*vaswani2017attention*)</figcaption>
+</figure>
 
 - At the time of release, it obtained state-of-the-art results on eleven natural language processing tasks. To quote the paper, "_[paper pushed] the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement)._"
 - The major motivation behind BERT is to handle the limitation of the existing language models which are unidirectional in nature. This means that they only consider text left to right for sentence level inference. BERT on the other hand, allows tokens to attend to both sides in self-attention layer. This is one of the major reason for it high performance.
