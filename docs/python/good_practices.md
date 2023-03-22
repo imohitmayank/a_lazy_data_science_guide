@@ -238,6 +238,34 @@ logging.warning('And this, too', exc_info=True)
 | ERROR    | Due to a more serious problem, the software has not been able to perform some function.                                                                                |
 | CRITICAL | A serious error, indicating that the program itself may be unable to continue running.                                                                                 |
 
+- While the above code is good for normal testing, for production you might want to have more control -- like formatting the output slightly differently *(formatter)* or have multiple places to publish logs *(handlers)*. One such use case is convered below, where we want to log to console as well as a file in a detailed json format.
+
+```python
+# import
+import sys
+import logging
+import json_log_formatter
+
+# create formatter (using json_log_formatter)
+formatter = json_log_formatter.VerboseJSONFormatter()
+
+# create two handlers (console and file)
+logger_sys_handler = logging.StreamHandler(sys.stdout)
+logger_file_handler = logging.FileHandler(filename='log.json')
+
+# perform the same formatting for both handler
+logger_sys_handler.setFormatter(formatter)
+logger_file_handler.setFormatter(formatter)
+
+# get the logger and add handlers
+logger = logging.getLogger('my_logger')
+logger.addHandler(logger_sys_handler)
+logger.addHandler(logger_file_handler)
+
+# set level
+logger.setLevel(logging.INFO)
+```
+
 ### Documentation
 
 - Documentation of the code is an absolute must, if you are planning to maintain the code or hand it over to someone else in the foreseeable future. Just ask any developer about their excitement on finding a ready-made and well curated documentation for a package they are planning to use! On the other hand, it looks quite difficult to create one yourself, isn't it? I mean, look at the beautiful docs of [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html#sklearn.ensemble.ExtraTreesClassifier) or [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html). 😮
