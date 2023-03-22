@@ -411,3 +411,23 @@ model = EasyNMT('opus-mt')
 print(model.translate('This is a sentence we want to translate to German', target_lang='de'))
 ## Output: Dies ist ein Satz, den wir ins Deutsche übersetzen wollen
 ```
+
+## Pandas read excel file
+
+- While `pandas` is quite famous for CSV analysis, it can be used to read and process Excel files as well. Here are some snippets, 
+
+```python linenums="1"
+# import
+import pandas as pd
+
+# if you just want to read one sheet, by default it reads the first one. 
+df = pd.read_excel("file.xlsx", sheet_name="Page1")
+
+# if you want to get the names of sheet and do more selective reading
+excel_data = pd.ExcelFile("file.xlsx")
+# get the sheet names
+print(excel_data.sheet_names)
+# read one sheet (decide using last print result)
+sheet_name = '..' 
+df = excel_data.parse(sheet_name)
+```
