@@ -1,10 +1,6 @@
 LLaMA
 =======
 
-!!! warning
-    This page is under review. We are working on closing the process. Sorry for the inconvinence :pray:
-
-
 ## Introduction
 
 - In Feb 2023, Meta introduced a collection of foundation language models ranging from 7B to 65B parameters under the name of LLaMA.
@@ -13,8 +9,10 @@ LLaMA
   - With added improvements, the resulting models are highly competitive against more powerful models. For instance, LLaMA-13B outperforms GPT-3 (175B) on most benchmarks, and LLaMA- 65B is competitive with the best models, Chinchilla-70B and PaLM-540B.
   - Finally, LLaMA was open-sourced!
 
-!!! Note
-    “Official” weights were only released to the research community and even then you need to fill out a form to request access. That said, there has been “pirating” of the weights that allow anyone to play around with the model. More details in this [LinkedIn Post](https://www.linkedin.com/posts/imohitmayank_torrents-ai-academicresearch-activity-7038013544793030656-D7UU?utm_source=share&utm_medium=member_desktop)
+!!! Tip
+    “Official” weights were only released to the research community and even then you need to fill out a form to request access. 
+    
+    That said, there has been “pirating” of the weights that allow anyone to play around with the model. It was quite interesting, more details in this [LinkedIn Post](https://www.linkedin.com/posts/imohitmayank_torrents-ai-academicresearch-activity-7038013544793030656-D7UU?utm_source=share&utm_medium=member_desktop) :smile:
 
 ## Architecture Modifications
 
@@ -59,6 +57,10 @@ On top of architecture modifications, several optimizations were made to improve
 </figure>
 
 - Enter Stanford Alpaca [2], an instruction-based finetuned LLaMA that further improves the performance of LLaMA models so much so that even 7B Alpaca model is comparable with OpenAI’s text-davinci-003.
+
+!!! Warning
+    Alpaca team suggested that the model is better than LLaMA. There were no comparitive numbers or tables shared.
+
 - The process starts with first generating 52K instruction-following samples using OpenAI's text-davinci-003.  Then LLaMA model was finetuned on these data using supervised learning, basically taking inspiration from self-instruct paper. This process reduces the cost of preparing a GPT level model to under ~ $600 ( $500 to generate the data + $100 to finetune). The process is summarised below,
 
 
@@ -67,7 +69,7 @@ On top of architecture modifications, several optimizations were made to improve
 </figure>
 
 !!! Note
-    The code to generate the 52k dataset along with finetuning recipe was open-sourced here.
+    The code to generate the 52k dataset along with finetuning recipe was open-sourced [2]
 
 ## Code
 
