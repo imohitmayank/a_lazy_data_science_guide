@@ -1,6 +1,6 @@
 ## Introduction
 
-- Natural Language Querying (NLQ) is the process of querying DBs not in their specific querying language but using natural language text. One example could be to fetch results from a SQL table for question - `"Who is the Prime Minister of India?"` by just using the text and not some technical query like `select name from pm_table where country = "India"`.  
+- Natural Language Querying (NLQ) is the process of querying DBs not in their official querying language but using natural language text. One example could be to fetch results from a SQL table for question - `"Who is the Prime Minister of India?"` by just using the text and not some technical query like `select name from pm_table where country = "India"`.  
 - There are two main reasons that makes this task important for any IaaS *(Information as a service)* product or SaaS,
   - Each DB has its own specific querying language. This is a nightmare even for developers, as they will have to gain expertise in mulitple DB languages.
   - Looking at a product from users perspective, it makes sense to let the user query in the language they prefer and not the technical query languages suitable for each DBs.
@@ -28,6 +28,88 @@ graph LR
 ## Code
 
 - Let us explore the different ready made solutions for NLQ.
+
+### Large Language Models (LLMs)
+
+-  While LLMs have been proven to work well for a lot of NLP related downstream tasks, will it work for NLQ? Let's think about it, due to huge training data LLMs might have already seen a lot of SQL queries and their respective descriptions. So in fact they have "some idea" on the relationship between a SQL query *(or other query language for that matter)* and its respective natural language query. Some might even say that it understands the fundamentals of Text-to-SQL task. But what LLM doesn't know is your Database/Table's schema and how you are storing the data. So hypothetically, if we provide these details it should work, right? The answer is yes!
+- In paper [4], authors took this idea further and evaluated multiple LLMs to answer two questions, 
+  - **Which LLM is best for Text-to-SQL task?** Considering only inference, Codex based models like `code-davinci-001`  were the top perfomers. If we can finetune the models, `T5-3B + PICARD` was better.
+  - **Which prompt is best for Text-to-SQL task?** Apart from the instructions, the prompt should also contain the schema of the table *(with `CREATE TABLE` command containing column name, type, column reference and keys)* along with a couple of rows as example. Below is an example of just the additional data [3]
+  ```sql
+  # schema
+  CREATE TABLE "Track" (
+    "TrackId" INTEGER NOT NULL,
+    "Name" NVARCHAR(200) NOT NULL,
+    "AlbumId" INTEGER,
+    "MediaTypeId" INTEGER NOT NULL,
+    "GenreId" INTEGER,
+    "Composer" NVARCHAR(220),
+    "Milliseconds" INTEGER NOT NULL,
+    "Bytes" INTEGER,
+    "UnitPrice" NUMERIC(10, 2) NOT NULL,
+    PRIMARY KEY ("TrackId"),
+    FOREIGN KEY("MediaTypeId") REFERENCES "MediaType" ("MediaTypeId"),
+    FOREIGN KEY("GenreId") REFERENCES "Genre" ("GenreId"),
+    FOREIGN KEY("AlbumId") REFERENCES "Album" ("AlbumId")
+    )
+  # examples
+  SELECT * FROM 'Track' LIMIT 3;
+    TrackId	Name	AlbumId	MediaTypeId	GenreId	Composer	Milliseconds	Bytes	UnitPrice
+    1	For Those About To Rock (We Salute You)	1	1	1	Angus Young, Malcolm Young, Brian Johnson	343719	11170334	0.99
+    2	Balls to the Wall	2	2	1	None	342562	5510424	0.99
+    3	Fast As a Shark	3	2	1	F. Baltes, S. Kaufman, U. Dirkscneider & W. Hoffman	230619	3990994	0.99
+  ```
+- If all of this seems too tedius, we can use [LangChain](https://python.langchain.com/en/latest/) that does all of the heavy lifting for us so that we can just do the fun stuff i.e. ask questions :wink:. Here, we will connect SQLite database with LLM model. *(Script inspired from [SQLite example](https://python.langchain.com/en/latest/modules/chains/examples/sqlite.html))*
+
+    ``` python linenums="1"
+    # import
+    from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
+
+    # connect to SQLite DB
+    db = SQLDatabase.from_uri("sqlite://all_employees.db")
+
+    # connect to the OpenAI Davinci GPT-3 model
+    llm = OpenAI(temperature=0)
+
+    # create SQLDatabaseChain
+    db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=True)
+
+    # run the code
+    db_chain.run("How many employees are there?")
+    # output
+    >> SELECT COUNT(*) FROM Employee;
+    >> SQLResult: [(8,)]
+    >> Answer: There are 8 employees.
+    ```
+
+- Let's talk about what happened with the code above. First, LangChain create a prompt template and fills the variables automatically using the DB we plugin with the chain. The variables are `{dialect}` *(here SQL)*, `{table_info}` *(the additional data we talked about above)* and `{input}` *(the question)*. The template looks as follow, 
+
+  ```
+  Given an input question, first create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer. Unless the user specifies in his question a specific number of examples he wishes to obtain, always limit your query to at most {top_k} results. You can order the results by a relevant column to return the most interesting examples in the database.
+
+  Never query for all the columns from a specific table, only ask for a the few relevant columns given the question.
+
+  Pay attention to use only the column names that you can see in the schema description. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
+
+  Use the following format:
+
+  Question: "Question here"
+  SQLQuery: "SQL Query to run"
+  SQLResult: "Result of the SQLQuery"
+  Answer: "Final answer here"
+
+  Only use the tables listed below.
+
+  {table_info}
+
+  Question: {input}
+  ```
+
+- Once done, it runs the LLM on the formatted prompt to get the SQL output. Then it execute the query on the connected DB to fetch the result. Finally, it also formats the results into a proper natural language output. All of this with just some prompt engineering! :fire:
+
+!!! Note
+    While the results are quite impressive, do remember that we need to use powerful *(read costly)* LLMs for it work with respectable accuracy. As we are formatting the prompt with DB schema, the prompt size might become huge if your DB or Table is big. It is hence recommended to create custom prompts when possible. Be also aware of the respective LLM costs if you are using 3rd party LLMs like GPT-4 or Cohere.
+
 
 ### TaPaS
 
@@ -122,5 +204,7 @@ agent.query_db(query)
 
 - [How to Talk to Your Database - Salesforce](https://blog.salesforceairesearch.com/how-to-talk-to-your-database/)
 - [Stack Exchange: Natural Language to SQL query](https://datascience.stackexchange.com/questions/31617/natural-language-to-sql-query)
+- [LangChain Blog: LLMs and SQL](https://blog.langchain.dev/llms-and-sql/)
+- [Evaluating the Text-to-SQL Capabilities of Large Language Models](https://arxiv.org/pdf/2204.00498.pdf)
 
 Cheers :wave:
