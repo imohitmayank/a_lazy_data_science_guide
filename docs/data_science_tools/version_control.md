@@ -270,6 +270,53 @@ git lfs migrate import --everything --include=='model/**' --verbose
 git lfs ls-files
 ```
 
+#### Setting up multiple Github accounts on a single machine using SSH
+
+- It is possible to setup multiple Github account on a single machine using SSH. This is useful when you want to work on multiple projects which are hosted on different Github accounts. For example, you might have one personal and one work account that you want to use on your machine. You can refer [this](https://gist.github.com/Jonalogy/54091c98946cfe4f8cdab2bea79430f9) for more details, and I will also summarize the steps below.
+- The process is quite simple, first we will generate two SSH keys *(for two accounts)* and save them on our machine. Next, we will create a global ssh config file to map the two keys with github. Then, we will add the public keys to the respective github account. Finally, we will create a git config file for each local project and add the user details. Let's get started. 
+  1. Create SSH keys using the command shared below, make sure to replace the email address with your own. You will be prompted to enter a file name, you can enter any name you want. For example, if you want to create a key for your personal account, you can enter `id_rsa_personal`. Repeat this process twice to generate two keys for two different accounts.
+
+    `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
+
+  2. Next, create a config file in `.ssh` folder to map the two accounts with their keys. If the file is not present, you can create it using the following command.
+
+    `touch ~/.ssh/config`
+
+    After this, open the file and add the following content.
+
+    ``` shell
+    # Personal account
+    Host github.com-personal
+      HostName github.com
+      User git
+      IdentityFile ~/.ssh/id_rsa_personal
+      IdentitiesOnly yes
+
+    # Work account
+    Host github.com-work
+      HostName github.com
+      User git
+      IdentityFile ~/.ssh/id_rsa_work
+      IdentitiesOnly yes
+    ```
+
+  3. Now, we will add the public keys to the respective Github account. You can find the public key in the following location, `~/.ssh/id_rsa_personal.pub` and `~/.ssh/id_rsa_work.pub`. Copy the content of the file and add it to the respective Github account. You can refer this [official doc](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) for more details. 
+  4. Finally go to the local project directory and create a config file in the `.git` folder. Add the following content to the file.
+
+    ``` shell
+    [user]
+    name = personal # use work if this is for work account
+    email = {email-address} # add the respective email address
+    [remote "origin"]
+	url = git@github.com-personal:imohitmayank/my-repo.git # use git@github.com-personal:.. for work
+	fetch = +refs/heads/*:refs/remotes/origin/*
+    ```
+
+  - And that's it, now for any git related interactions initiated from this directory, personal github account will be used. :smile:
+
+  !!! Note
+       Step `a` to `c` is only needed to be done once. After that, you can follow step d for any new project.
+
 ## DVC
 
 Coming soon!
