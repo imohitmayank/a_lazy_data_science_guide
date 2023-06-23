@@ -13,6 +13,17 @@
 
 !!! Question ""
     === "Question"
+        #### What is the difference between Frame, Frame rate, Number of Channels and Sample size?
+
+    === "Answer"
+
+        - **Frame**: one sample of the audio data per channel.
+        - **Frame rate:** the number of times per unit time the sound data is sampled. Same as sample rate.
+        - **Number of channels:** indicates if the audio is mono, stereo, or quadro.
+        - **The sample size:** the size of each sample in bytes.
+
+!!! Question ""
+    === "Question"
         #### What is the difference between i-vector, d-vector and x-vector?
 
     === "Answer"
