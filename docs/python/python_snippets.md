@@ -431,3 +431,23 @@ print(excel_data.sheet_names)
 sheet_name = '..' 
 df = excel_data.parse(sheet_name)
 ```
+
+## Send Slack Messages
+
+- One of the easiest way to send Slack message is via unique Incoming Webhook. 
+- Basically, you need to create a Slack App, register an incoming webhook with the app and whenever you want to post a message - just send a payload to the webhook. For more details on setup, you can refer the [official page](https://api.slack.com/messaging/webhooks)
+- Once done, you just need to send the message like shown below, 
+```
+# import requests (needed to connect with webhook)
+import requests
+# func
+def send_message_to_slack(message):
+    # set the webhook
+    webhook_url = "...enter incoming webhook url here..."
+    # modify the message payload
+    payload = '{"text": "%s"}' % message
+    # send the message
+    response = requests.post(webhook_url, payload)
+# test
+send_message_to_slack("test")
+```
