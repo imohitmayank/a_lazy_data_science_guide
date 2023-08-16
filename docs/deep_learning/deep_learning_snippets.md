@@ -95,7 +95,7 @@ def configure_optimizers(self):
 
 ## Check for GPU availability 
 
-- We need GPUs for deep learning, and before we start training or inference it's a good idea to check if GPU is availbale on the system or not. 
+- We need GPUs for deep learning, and before we start training or inference it's a good idea to check if GPU is available on the system or not. 
 - The most basic way to check for GPUs (if it's a NVIDIA one) is to run `nvidia-smi` command. It will return a detailed output with driver's version, cuda version and the processes using GPU. [Refer this](https://medium.com/analytics-vidhya/explained-output-of-nvidia-smi-utility-fc4fbee3b124) for more details on individual components.
 
 
@@ -119,7 +119,7 @@ def configure_optimizers(self):
 +-----------------------------------------------------------------------------+
 ```
 
-- You can even use deep learning frameworks like Pytorch to check for the GPU availbaility. In act, this is where you will most probably use them.
+- You can even use deep learning frameworks like Pytorch to check for the GPU availability. In fact, this is where you will most probably use them.
 
 ``` python linenums="1"
 # import 
@@ -169,3 +169,25 @@ vocabulary = tokenizer.get_vocab()
 # length of vocab here is 30522
 # vocabulary['hello'] returns 7592
 ```
+
+<!-- ## Tensor operations
+
+- Tensors are the building blocks of any Deep Learning project. Here, let's go through some common tensor operations,
+
+=== "Pytorch"
+
+    ``` python
+
+    # create a tensor
+
+    # remove all 1 sized dimensions
+    tensor_array.squeeze() # Input: (1, 1, 192), Output: (, 192)
+
+    # from numpy array to tensor
+
+    # from tensor to numpy array
+    tensor_array.detach().numpy()
+    ```
+
+!!! Note
+    `tensor.detach()` and `torch.no_grad()` both are used to defined logic for which grad should not be computed. While `detach` is specifically for a tensor, `no_grad` turns off `required_grad` temporarily for any operations within the `with` block. *(Refer [StackOverflow Question](https://stackoverflow.com/questions/56816241/difference-between-detach-and-with-torch-nograd-in-pytorch))* -->

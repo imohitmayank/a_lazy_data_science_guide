@@ -92,8 +92,9 @@ nav:
           -  'Natural Language Querying': 'natural_language_processing/nlq.md'
       # - 'Techniques':
           # - 'natural_language_processing/metrics.md'
-      # - 'Blogs':
-      #     - 'natural_language_processing/explainable_ai_llm.md'
+      - 'Blogs':
+          - 'natural_language_processing/explainable_ai_llm.md'
+          - 'natural_language_processing/streaming_chatgpt_gen.md'
 
   - 'Audio Intelligence':
       - 'Interview Questions': 'audio_intelligence/interview_questions.md'
