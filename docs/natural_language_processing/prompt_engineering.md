@@ -1,29 +1,26 @@
-!!! warning
-    This page is still ongoing modifications. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com) if it has been a while! Sorry for the inconvinence :pray:
-
-# Prompt Engineering in LLMs
+# Prompt Engineering
 
 ## Introduction
 
-Prompt engineering involves crafting well-defined and strategically designed input queries to elicit desired responses from AI systems. It serves as a bridge between human intention and machine understanding, enabling AI models to provide more accurate and contextually relevant outputs. As AI applications continue to proliferate across various domains, mastering the art of prompt engineering has become essential for both developers and users.  What makes prompt engineering more tempting is that it does not require any finetuning of the model but nevertheless, it can enhance the model accuracy substantially! In this article, we will explore different key strategies for crafting effective prompts that enhance AI model capabilities.
+Prompt engineering involves crafting well-defined and strategically designed input queries to elicit desired responses from AI systems. It serves as a bridge between human intention and machine understanding, enabling AI models to provide more accurate and contextually relevant outputs. As AI applications continue to proliferate across various domains, mastering the art of prompt engineering has become essential for both developers and users.  What makes prompt engineering more tempting is that it does not require any finetuning of the model but nevertheless, it can enhance the model accuracy substantially! In this article, we will explore different key strategies for crafting effective prompts that can enhance AI model capabilities.
 
 ## Types of Prompts
 
-Before getting started, let’s discuss the two main types of prompts used in prompt engineering,
+Before getting started with prompt techniques, let’s discuss the main types of prompts,
 
 ### System Prompts
 
-System prompts are like global settings that are applied once and set the mood and intention of the AI model’s subsequent generations in the same chat. These prompts are carefully crafted by developers to guide the AI system toward specific outputs that align with the intended use case. ChatGPT UI’s custom instruction is a good example of a system prompt, as whatever you mention there is applicable to all your chats. Users can provide details to format output in a certain format (like JSON), provide details about themselves so that the responses are personalized, set the tone or mood of the generation, define privacy and ethics details, and much more! An example is shown below
+System prompts are like global settings that are applied once to set the mood and intention of the AI model’s subsequent generations in the same chat. These prompts are carefully crafted by developers to guide the AI system toward specific outputs that align with the intended use case. ChatGPT UI’s custom instruction is a good example of a system prompt, as whatever you mention there is applicable to every chat. Users can provide details to format output in a certain style (like JSON), provide details about themselves so that the responses are personalized, set the tone of the generation, define privacy and ethics details, and much more! An example is shown below
 
 ```ts
 System Prompt:
-You are a helpful AI Assistant. Help users in replying to their queries and make 
+You are a helpful AI Assistant. Help users by replying to their queries and make 
 sure the responses are polite. Do not hallucinate and say "I don't know" if required.
 ```
 
 ### User Prompts
 
-User prompts are generated on the fly by users and are designed to elicit specific responses to their queries. Unlike system prompts, user prompts are not pre-defined and can vary widely in structure and content. These are more transactional in nature, and are usally present after system prompt and could be mulitple in count.
+User prompts are generated on the fly by users and are designed to elicit specific responses to their queries. Unlike system prompts, user prompts are not pre-defined and can vary widely in structure and content. These are more transactional in nature, and are usally present after system prompt and could be multiple in count.
 
 ```sql
 System Prompt:
@@ -68,7 +65,7 @@ User Prompt:
 Calculate the total revenue for our company in the last quarter, given the following financial data: [insert data].
 ```
 
-Note, deciding which data should go where (system or user prompt) depends on experimenting how it works for a specific model but a general thumb rule is to keep the constant details on system prompt and dynamic details on user prompt. In the first example above, we can also have following prompts
+Note, deciding which data should goes where *(system or user prompt)* depends on experimenting how it works for a specific model but a general thumb rule is to keep the constant details in system prompt and dynamic details in user prompt. In the first example above, we can also have following prompts,
 
 ```sql
 Example 1 - Clear instructions with System prompt
@@ -86,7 +83,8 @@ While zero-shot prompts are fundamental, there are situations where you may need
 
 ```sql
 System prompt: 
-You are a Translator GPT. Given a sentence in English, translate it into French. Examples are shared below,
+You are a Translator GPT. Given a sentence in English, translate it into French. 
+Examples are shared below,
 
 English: "Hello, how are you?"
 French: "Bonjour, comment ça va ?"
@@ -99,7 +97,7 @@ English: "Please pass the salt."
 French: 
 ```
 
-Note, the number of examples to be included (n-shot) is highly experimental. The objective should be to keep the example number as small as possible (otherwise the token size and cost will increase) while making sure the accuracy is not impacted. So the prompt design should be done incrementally, i.e. keep adding more examples if the accuracy is below expectations. Also, make sure to add diverse examples and do not add exact or even semantically similar examples as latest LLMs are quite “smart” enough to learn from few examples.
+Note, the number of examples to be included (n-shot) is highly experimental. The objective should be to keep the example count as less as possible *(otherwise the token size and cost will increase)* while making sure the accuracy is not impacted. So the prompt design should be done incrementally, i.e. keep adding more examples if the accuracy is below expectations. Also, make sure to add diverse examples and do not add exact or even semantically similar examples as latest LLMs are quite “smart” enough to learn from few examples.
 
 ### Few-shot Chain-of-Thought Prompt
 
@@ -113,7 +111,10 @@ Few shot CoT Prompting was introduced in [1] and the idea is that generating a c
 
 ### Zero-shot Chain-of-Thought Prompt
 
-Zero shot variant of CoT was introduced in [2] and it indicates significant increase in accuracy even if you do not provide any examples. All you need to do it to add “Let’s think step by step.” 😜 
+Zero shot variant of CoT was introduced in [2] and it can significantly increase the accuracy of Zero shot prompts, and all you need to do is to add “Let’s think step by step.” 😜. Btw additional post-processing is required on the output to extract the correct result, which can either be done by creating regex scripts or calling LLMs again to extract the answer.
+
+!!! Note
+    Few-shot prompts should always give better result than Zero-shot, but the former requires additional token consumption which will increase the cost. To mitigate this, developers can experiment with Zero-shot CoT technique and if the result accuracy is acceptable, it might end up reducing the overall cost.
 
 <figure markdown> 
     ![](../imgs/nlp_pe_zscot.png)
@@ -122,7 +123,7 @@ Zero shot variant of CoT was introduced in [2] and it indicates significant incr
 
 ### Self-consistency
 
-Self-consistency is based on the idea that there are multiple ways to solve a complex problems i.e. if multiple reasoning paths are leading to samethe output, it is highly probable that it is a correct answer. In their own words, *"...we hypothesize that correct reasoning processes, even if they are diverse, tend to
+Self-consistency [3] is based on the idea that there are multiple ways to solve a complex problem i.e. if multiple reasoning paths are leading to the same output, it is highly probable that it is a correct answer. In their own words, *"...we hypothesize that correct reasoning processes, even if they are diverse, tend to
 have greater agreement in their final answer than incorrect processes."*. The self-consistency method consists of three steps:
 
 1. prompt a language model using chain-of-thought (CoT) prompting;
@@ -143,7 +144,7 @@ Tree-of-Thoughts (ToT) [4] is based on the idea that to solve any complex proble
 
 1. How to decompose the intermediate process into thought steps -- depending on different problems, a thought could be a couple of words (Crosswords), a line of equation (Game of 24), or a whole paragraph of writing plan (Creative Writing). In general, a thought should be “small” enough so that LMs can generate promising and diverse samples.
 2. How to generate potential thoughts from each state -- again it depends on the problem, so for Creative writing we can sample thoughts from a CoT prompt and for Game of 24 and Crosswords we can propose thoughts sequentially using propose prompt.
-3. How to heuristically evaluate states -- this can be done automatically by either asking the model to generate a value *(score between 1 to 10 or class of sure/likely/impossible)* or voting on different results.
+3. How to heuristically evaluate states -- this can be done automatically by either asking the model to generate a value *(score between 1 to 10 or classification of sure/likely/impossible)* or voting on different results.
 4. What search algorithm to use -- authors propose Breadth-first search (BFS) and Depth-first Search (DFS) and left more complex search algorithms like A* for future works.
 
 <figure markdown> 
@@ -151,17 +152,29 @@ Tree-of-Thoughts (ToT) [4] is based on the idea that to solve any complex proble
     <figcaption>Schematic illustrating various approaches to problem solving with LLMs. Each rectangle box represents a thought, which is a coherent language sequence that serves as an intermediate step toward problem solving</figcaption>
 </figure>
 
-<!-- ### Retrieval Augmented Generation (RAG)
+### Retrieval Augmented Generation (RAG)
 
-TODO
+In all of the previous approaches, the result was generated entirely by the LLMs without any external intervention. This leverages the knowledge stored within the neural networks of the LLMs *(read, weights in the network)*. This poses issues like hallucinations *(this happens when model is not sure what to say, especially due to lack of knowledge)* and factual inaccuracies *(lack of knowledge leads to model lying)*. To mitigate these issues, we can "connect" LLMs with external data source *(vector database, wikipedia, google, etc)* so that true, diverse and dynamic data can be fetched from these sources and LLM can do what they are best suited for - reasoning on the provided data to format the final result. This is the fundamental idea behind Retrieval Augmented Generation (RAG).
+
+One example of such system is [Sankshep](https://www.sankshep.co.in/) *(by yours truly :sunglasses:)* that provides ChatGPT-powered assistant to summarize and talk to Arxiv research papers. Here, if you ask a question regarding the paper, Sankshep refer the content of the paper to be better aware and provide factually correct results.
+
+<figure markdown> 
+    ![](../imgs/nlp_pe_sankshep.png)
+    <figcaption>Sankshep.co.in built considering Retrieval Augmented Generation (RAG)</figcaption>
+</figure>
 
 ### ReAct
 
-TODO
+ReAct [5] combines the external knowledge of RAG with the planning and reasoning notion of ToT. As per the paper, 
 
-### Graph Prompts
+> A unique feature of human intelligence is the ability to seamlessly combine task-oriented actions with verbal reasoning. Consider the example of cooking up a dish in the kitchen. Between any two specific actions, we may reason in language in order to track progress (“now that everything is cut, I should heat up the pot of water”), to handle exceptions or adjust the plan according to the situation (“I don’t have salt, so let me use soy sauce and pepper instead”), and to realize when external information is needed (“how do I prepare dough? Let me search on the Internet”).
 
-TODO -->
+The important point of the above quote (and in fact the paper) is the intention to combine two powerful abilities of LLMs — reasoning (e.g. chain-of-thought prompting) and acting (e.g. action plan generation). While the former helps with improving the accuracy of an individual task, the latter provides the LLM power to perform multiple tasks. The idea is quite simple — ask LLM a question (input) and let it “plan” what to do next (action) by reasoning on the input (thoughts). It can even propose values to the action (action input). Once we perform the action and get an output (observation) the LLM can again reason (thought) to propose the next “plan” (action). In a way, we keep the LLM busy in this loop, until it terminates and we get the result we wanted. To summarize we iterate over “input —> thoughts —> action —> action input —> observation —> thoughts”. For practical details, please refer [Creating GPT-driven Applications using LangChain](https://mohitmayank.com/blog/openai-gpt-apps-langchain)
+
+<figure markdown> 
+    ![](../imgs/nlp_pe_react.png)
+    <figcaption>LLM reasoning and planning using ReAct technique</figcaption>
+</figure>
 
 ## Conclusion
 
@@ -176,3 +189,7 @@ Prompt engineering is a crucial skill for leveraging the capabilities of LLMs ef
 [3] [Self-consistency improves chain of thought reasoning in language models](https://arxiv.org/pdf/2203.11171.pdf)
 
 [4] [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/pdf/2305.10601.pdf)
+
+[5] [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
+
+[6] [Prompting Guide](https://www.promptingguide.ai/)

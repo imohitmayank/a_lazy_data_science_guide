@@ -93,7 +93,7 @@ nav:
       # - 'Techniques':
           # - 'natural_language_processing/metrics.md'
       - 'Blogs':
-          - 'Prompt Engineering in LLMs': 'natural_language_processing/prompt_engineering.md'
+          - 'Prompt Engineering': 'natural_language_processing/prompt_engineering.md'
           - 'natural_language_processing/explainable_ai_llm.md'
           - 'natural_language_processing/streaming_chatgpt_gen.md'
 
