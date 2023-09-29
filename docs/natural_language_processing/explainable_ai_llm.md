@@ -46,7 +46,7 @@ The neuron view is useful to drill down even deeper into the attentions scores t
     <figcaption>Neuron view of GPT-2 for layer 1, head 10 [1]</figcaption>
 </figure>
 
-Here, for layer 1 and head 10, some of the neurons' value decreases with an increase in distance. This showcases that the particular neurons have incorporated distance patterns!
+Neuron view of BERT for layer 0, head 0 (same one depicted above). Positive and negative values are colored blue and orange, respectively, with color saturation based on the magnitude of the value. As with the attention-head view, connecting lines are weighted based on attention between the words.
 
 ### Saliency methods
 
