@@ -1,5 +1,5 @@
-!!! warning
-    This page is still ongoing modifications. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com) if it has been a while! Sorry for the inconvinence :pray:
+!!! note
+    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 👍
     
 ## Introduction
 

@@ -43,6 +43,14 @@
 
 !!! Question ""
     === "Question"
+        #### Even though Sigmoid function is non-linear, why is Logistic regression considered a linear classifier?
+
+    === "Answer"
+
+        Logistic regression is often referred to as a linear classifier despite using the sigmoid (logistic) activation function because it models the relationship between the input features and the log-odds (logit) of the binary target variable in a linear manner. The linearity in logistic regression refers to the fact that it creates a linear decision boundary in the feature space, which is a hyperplane. [Refer](https://stats.stackexchange.com/questions/93569/why-is-logistic-regression-a-linear-classifier)
+
+!!! Question ""
+    === "Question"
         #### What is the difference between Logits, Soft and Hard targets?
 
     === "Answer"
