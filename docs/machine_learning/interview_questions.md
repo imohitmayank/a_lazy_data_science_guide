@@ -3,12 +3,25 @@
 
 !!! Question ""
     === "Question"
-        #### What is deep learning and how is it different from traditional machine learning?
+        #### What is Deep learning and how is it different from traditional Machine learning?
 
     === "Answer"
         
         Deep learning is a subfield of machine learning that uses neural networks with many layers, called deep neural networks, to learn and make predictions. It is different from traditional machine learning in that it can automatically learn hierarchical representations of the data and doesn't rely heavily on feature engineering.
         
+!!! Question ""
+    === "Question"
+        #### What is Dummy Variable Trap in ML?
+
+    === "Answer"
+        
+        - When using linear models, like logistic regression, on a one-hot encoded *(dummy var)* dataset with a finite set of levels *(unique values in a categorical column)*, it is suggested to drop one level from the final data such that total no of new one-hot encoded columns added is one less than the unique levels in the column. For example, consider a `season` column that contains 4 unique values `spring`, `summer`, `fall`, and `winter`. When doing one-hot encoding it is suggested to finally keep any 3 and not all 4 columns.
+        - **The reason:** *"If dummy variables for all categories were included, their sum would equal 1 for all observations, which is identical to and hence perfectly correlated with the vector-of-ones variable whose coefficient is the constant term; if the vector-of-ones variable were also present, this would result in perfect multicollinearity, so that the matrix inversion in the estimation algorithm would be impossible."* Refer [Wikipedia](https://en.wikipedia.org/wiki/Dummy_variable_(statistics))
+        
+        !!! note
+            If using regularizing, then don't drop a level as it biases your model in favor of the variable you dropped. Refer [Damien Martin's Blog](https://kiwidamien.github.io/are-you-getting-burned-by-one-hot-encoding.html)
+        
+
 !!! Question ""
     === "Question"
         #### How does backpropagation work in a neural network?
