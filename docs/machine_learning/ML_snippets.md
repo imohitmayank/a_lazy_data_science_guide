@@ -19,9 +19,42 @@ Sharing some of the most widely used and arguably not *so famous* Machine Learni
   - We assume a pandas dataframe of name `train_df` is present which contains `x_train` and `y_train` as columns with name `title` and `label` respectively. 
 
 ``` python linenums="1"
+# import
+import random
+import pandas as pd
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.feature_extraction.text import CountVectorizer
+
+# PART 1: Train the model
+# -----------------------
+# variables
+max_features = 10000
+
+# get features
+vectorizer = CountVectorizer(max_features=max_features)
+features = vectorizer.fit_transform(x_train)
+
+# model
+model = ExtraTreesClassifier(random_state=1)
+model.fit(features, y_train)
+
+
+# PART 2: View top features
+# -----------------------
+
+top_n = 10 # no of top features to extract 
+feature_imp_indices = model.feature_importances_.argsort()[-top_n:][::-1]
+feature_importance = pd.DataFrame({'score': model.feature_importances_[feature_imp_indices], 
+                                  'feature': np.array(vectorizer.get_feature_names())[feature_imp_indices],
+                                  'indices': feature_imp_indices})
+feature_importance # a pandas dataframe of top_n features
+
+
+# PART 3: View individual feature's evidence
+# -----------------------
 index = 2282 # the feature's index 
 # the label's distribution if this word is present in sentence
-train_df.iloc[np.where(features[:, index].todense() >= 1)[0]]['label'].value_counts()
+x_train.iloc[np.where(features[:, index].todense() >= 1)[0]]['label'].value_counts()
 ```
 
 ## Cross validation
@@ -67,9 +100,7 @@ if __name__ == '__main__':
 
 ## Hyper-parameter tuning
 
-- Below is an example of hyperparameter tuning for SVR regression algorithm. There we specify the search space i.e. the list of algorithm parameters to try, and for each parameter combination perform a 5 fold CV test.
-- More details: [Sklearn Hyperparameter tuning](https://scikit-learn.org/stable/modules/grid_search.html)
-- More details: [Sklearn SVR Algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)
+- Below is an example of hyperparameter tuning for SVR regression algorithm. There we specify the search space i.e. the list of algorithm parameters to try, and for each parameter combination perform a 5 fold CV test. Refer for more details - [Sklearn Hyperparameter tuning](https://scikit-learn.org/stable/modules/grid_search.html) and [Sklearn SVR Algorithm](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html)
 
 ``` python linenums="1"
 # import =======
@@ -187,7 +218,6 @@ test_dataloader = DataLoader(test_dataset, batch_size=64, shuffle=True)
 
 === "PyTorch lightning"
 ``` python linenums="1"
-{code-block} python
 # Before defining the optimizer, we need to freeze the layers
 # In pytorch lightning, as optimizer is defined in configure_optimizers, we freeze layers there.
 def configure_optimizers(self):
