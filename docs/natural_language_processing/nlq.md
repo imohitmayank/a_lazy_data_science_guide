@@ -22,7 +22,7 @@ graph LR
 ```
 
 !!! Note
-    NLQ, as a topic, is DB agnostic. But in reality different NLQ systems are built for specific DBs for example SQL, SPARQL, MongoDB QL, etc.
+    NLQ, as a topic, is DB agnostic, and in reality NLQ systems are built for different DBs like SQL, SPARQL, MongoDB QL, etc. In fact, we can even see NLQ system for programming language data types like [PandasAI](https://github.com/gventuri/pandas-ai) for [Pandas](https://pandas.pydata.org/) DataFrame in Python.
 
 
 ## Code
@@ -110,6 +110,140 @@ graph LR
 !!! Note
     While the results are quite impressive, do remember that we need to use powerful *(read costly)* LLMs for it work with respectable accuracy. As we are formatting the prompt with DB schema, the prompt size might become huge if your DB or Table is big. It is hence recommended to create custom prompts when possible. Be also aware of the respective LLM costs if you are using 3rd party LLMs like GPT-4 or Cohere.
 
+### PandasAI
+
+- [PandasAI](https://github.com/gventuri/pandas-ai) follows on the above [LLM based approach](#large-language-models-llms) to create an advanced NLQ system that can answer questions on [Pandas](https://pandas.pydata.org/) DataFrame in Python. 
+- It does that by generating intermediate python code that are executed on the loaded dataframe. This way, it follows the Query creator approach using Python language. As it generates python script, it also supports additional functionalities like generating graphs on the data! Let's see the package in action by asking question on a dataframe, 
+
+``` python linenums="1"
+## Install
+!pip install BeautifulSoup4
+!pip install pandasai
+
+## Import
+import pandas as pd
+from pandasai import SmartDataframe
+from pandasai.llm import OpenAI
+
+## let's create a dummy data -- remove this incase you have your own data
+# Create a dictionary with dummy data
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva'],
+    'Age': [25, 30, 22, 35, 28],
+    'City': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami']
+}
+
+# Create a pandas DataFrame
+df = pd.DataFrame(data)
+
+## setup the LLM and DF
+llm = OpenAI(api_token="...") # put your OpenAI token here
+df = SmartDataframe(df, config={"llm": llm})
+
+## chat (run one by one)
+df.chat('What is the data size?') ## Answer - "The data size is 5 rows and 3 columns."
+# df.chat('Plot a chart of people\'s ages')
+# df.chat("What is the Age of Alice?")
+# df.chat("Are there anyone with age more than 50?")
+
+## See the logs
+# df.logs
+```    
+
+- While PandasAI performs extensive data, prompt and output cleaning and formatting, let's have a bird's eye view of what is happening inside. First, given the dataframe, a prompt is created that provides some details about the dataframe and asks to modify an existing python function *(with existing function definition - interesting!)*. The modified python function on execution will return the output we need. Below is the input prompt for our example, 
+
+!!! Note
+    - You can explore the steps performed by PandasAI by looking into the `df.logs` after executing the `df.chat()`.
+    - The `dataframe` section in the prompt contains size details and 5 rows *(randomly selected)* from the dataframe.
+
+
+```
+Using prompt: 
+You are provided with the following pandas DataFrames:
+
+<dataframe>
+Dataframe dfs[0], with 5 rows and 3 columns.
+This is the metadata of the dataframe dfs[0]:
+Name,Age,City
+Alice,25,New York
+Bob,30,Los Angeles
+Charlie,22,Chicago
+David,35,Houston
+Eva,28,Miami
+</dataframe>
+
+<conversation>
+User 1: What is the size of the data?
+</conversation>
+
+This is the initial python code to be updated:
+``````python
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+``````
+
+Using the provided dataframes (`dfs`), update the python code based on the last question in the conversation.
+
+Updated code:
+```
+
+- Now once we run the above prompt on the LLM of our choice, we get the following modified function as output, 
+
+```
+Code generated:
+```````
+# TODO import all the dependencies required
+import pandas as pd
+
+def analyze_data(dfs: list[pd.DataFrame]) -> dict:
+    """
+    Analyze the data
+    1. Prepare: Preprocessing and cleaning data if necessary
+    2. Process: Manipulating data for analysis (grouping, filtering, aggregating, etc.)
+    3. Analyze: Conducting the actual analysis (if the user asks to plot a chart save it to an image in temp_chart.png and do not show the chart.)
+    At the end, return a dictionary of:
+    - type (possible values "string", "number", "dataframe", "plot")
+    - value (can be a string, a dataframe or the path of the plot, NOT a dictionary)
+    Examples: 
+        { "type": "string", "value": "The highest salary is $9,000." }
+        or
+        { "type": "number", "value": 125 }
+        or
+        { "type": "dataframe", "value": pd.DataFrame({...}) }
+        or
+        { "type": "plot", "value": "temp_chart.png" }
+    """
+    # Get the size of the data
+    size = dfs[0].shape
+    size_str = f"The data has {size[0]} rows and {size[1]} columns."
+    
+    return {"type": "string", "value": size_str}
+```````
+```
+
+- PandasAI then exectes the code on the input dataframe and returns the ouput! 
+
+!!! Warning
+    The above shown prompt is just one example of how PandasAI works *(part of their `generate_python_code` script)*. The package has added multiple fallbacks and advanced logic to make the system more robust and accurate. It is open-source so have a look at their codebase, there are lots of things to learn. :wink:
 
 ### TaPaS
 
