@@ -12,6 +12,19 @@
         - **Symbolic Reasoning:** Symbolic reasoning involves the ability of an NLP system to manipulate and reason about symbolic representations of information, such as words, phrases, and sentences. This includes tasks such as parsing, string operations, semantic role labeling and entity recognition. *(Last Letter Concatenation is a sample dataset with questions like "Take the last letters of the words in 'Lady Gaga' and concatenate them")*
         - **Logic Reasoning:** Logic reasoning refers to the ability of an NLP system to perform logical deductions based on formal rules of inference. This can include tasks such as identifying logical fallacies, determining the validity of arguments, and drawing conclusions based on deductive reasoning. *(Date understanding is a sample dataset with questions like "Today is Christmas Eve 1937, what is the date tomorrow in MM/DD/YYYY?")*
 
+!!! Question ""
+
+    === "Question"
+        #### How much VRAM is required to load a 7B LLM?
+
+    === "Answer"
+        
+        In full precision (float32), the model stores each parameter in 32 bits or 4 bytes. Therefore, for inference only, loading a 7B model requires 28 billion bytes, which is equivalent to 28 GB of GPU memory. If we use half precision, each parameter is stored in 16 bits, or 2 bytes, resulting in a requirement of 14 GB for inference. Additionally, there are more efficient algorithms like 8 bit and 4 bit, where with 4 bits (half a byte) per parameter, only 3.5 GB of memory is needed for inference.
+
+        For training, the memory requirement depends on the optimizer used. If the regular AdamW optimizer is employed, it necessitates 8 bytes per parameter since it not only stores the parameters but also their gradients and second-order gradients. Therefore, for a 7 billion parameter model, it would require 56 GB of GPU memory. Alternatively, using AdaFactor, which requires 4 bytes per parameter, the memory requirement decreases to 28 GB. There are also optimizers like bitsandbytes, such as the 8-bit AdamW, which only need 2 bytes per parameter, resulting in a 14 GB GPU memory requirement. [Source](https://discuss.huggingface.co/t/llama-7b-gpu-memory-requirement/34323/8)
+
+        [Read for more details](https://huggingface.co/docs/transformers/perf_train_gpu_one#anatomy-of-models-memory)
+
 
 !!! Question ""
 
