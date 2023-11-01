@@ -137,6 +137,16 @@
 
 !!! Question ""
     === "Question"
+        #### Explain Label smoothing.
+
+    === "Answer"
+
+        
+        Label smoothing is a technique used in machine learning to prevent the model from becoming over-confident (overfitting). The smoothing is done by adding a small amount of noise to the labels of the training data, which makes the model less likely to overfit to the training data. Technically it generates soft labels by applying a weighted average between the uniform distribution and the hard label. Refer [Paper 1](https://arxiv.org/pdf/1906.02629.pdf) or
+        [Paper 2](https://arxiv.org/pdf/2011.12562.pdf)
+
+!!! Question ""
+    === "Question"
         #### Please explain what is Dropout in deep learning?
 
     === "Answer"
