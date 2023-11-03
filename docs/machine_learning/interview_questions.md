@@ -91,6 +91,35 @@
           - **Dropout**, which randomly drops out a certain percentage of neurons during training to prevent them from co-adapting and becoming too specialized
           - Adding **more data** to the training set
 
+!!! Question ""
+    === "Question"
+        ####  Explain the concept of temperature in deep learning?
+
+    === "Answer"
+        
+        In deep learning, the concept of "temperature" is often associated with the Softmax function and is used to control the degree of confidence or uncertainty in the model's predictions. It's primarily applied in the context of classification tasks, such as image recognition or natural language processing, where the model assigns probabilities to different classes.
+
+        The Softmax function is used to convert raw model scores or logits into a probability distribution over the classes. Each class is assigned a probability score, and the class with the highest probability is typically selected as the predicted class.
+
+        The Softmax function is defined as follows for a class "i":
+
+        $$P(i) = \frac{e^{z_i / \tau}}{\sum_{j} e^{z_j / \tau}}$$
+
+        Where:
+
+        - \(P(i)\) is the probability of class "i."
+        - \(z_i\) is the raw score or logit for class "i."
+        - \(\tau\), known as the "temperature," is a positive scalar parameter.
+
+        The temperature parameter, \(\tau\), affects the shape of the probability distribution. When \(\tau\) is high, the distribution becomes "soft," meaning that the probabilities are more evenly spread among the classes. A lower temperature results in a "harder" distribution, with one or a few classes having much higher probabilities.
+
+        Here's how temperature impacts the Softmax function:
+        
+        - High \(\tau\): The model is more uncertain, and the probability distribution is more uniform, which can be useful when exploring diverse options or when dealing with noisy data.
+        - Low \(\tau\): The model becomes more confident, and the predicted class will have a much higher probability. This is useful when you want to make decisive predictions.
+
+        Temperature allows you to control the trade-off between exploration and exploitation in the model's predictions. It's a hyperparameter that can be adjusted during training or inference to achieve the desired level of certainty in the model's output, depending on the specific requirements of your application.
+
 
 !!! Question ""
     === "Question"
@@ -134,6 +163,23 @@
     === "Answer"
         
         Gradient Descent is an optimization algorithm used to minimize the loss function of a neural network. It works by updating the weights of the network in the opposite direction of the gradient of the loss function with respect to the weights. The magnitude of the update is determined by the learning rate. There are several variants of gradient descent, such as batch gradient descent, stochastic gradient descent, and mini-batch gradient descent.
+
+!!! Question ""
+    === "Question"
+        #### What is Representation learning?
+
+    === "Answer"
+
+        Representation learning is the fundamental concept in AI that denotes the power of the system to learn multiple levels of feature representation with increasing abstraction i.e. learning representations of data. These representations are stored inside the neurons and are used to make predictions and make decisions. 
+
+!!! Question ""
+    === "Question"
+        #### Explain Label smoothing.
+
+    === "Answer"
+
+        Label smoothing is a technique used in machine learning to prevent the model from becoming over-confident (overfitting). The smoothing is done by adding a small amount of noise to the labels of the training data, which makes the model less likely to overfit to the training data. Technically it generates soft labels by applying a weighted average between the uniform distribution and the hard label. Refer [Paper 1](https://arxiv.org/pdf/1906.02629.pdf) or
+        [Paper 2](https://arxiv.org/pdf/2011.12562.pdf)
 
 !!! Question ""
     === "Question"

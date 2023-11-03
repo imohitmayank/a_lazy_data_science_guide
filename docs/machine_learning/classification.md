@@ -1,5 +1,5 @@
 !!! note
-    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 👍
+    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 🍔 :wink:
 
 ## Introduction
 
