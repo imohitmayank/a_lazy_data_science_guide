@@ -176,6 +176,30 @@ The important point of the above quote (and in fact the paper) is the intention 
     <figcaption>LLM reasoning and planning using ReAct technique</figcaption>
 </figure>
 
+### EmotionPrompt
+
+<figure markdown> 
+    ![](../imgs/nlp_pe_emotionprompt.png)
+    <figcaption>EmotionPrompt impact on different LLMs</figcaption>
+</figure>
+
+- Emotion plays a vital role in our daily lives, but LLMs are usually considered deprived of it. Researchers test that theory using EmotionPrompt [7] that involves combining the original prompt with emotional stimuli to improve LLMs' performance. Researchers conducted two experiments, (1) automatic experiments across 45 tasks using a range of LLMs, such as Flan-T5-Large, Vicuna, Llama 2, BLOOM, ChatGPT, and GPT-4. (2) human studies involving 106 participants. And both the cases shows improvements across performance, truthfulness, and responsibility metrics.
+
+!!! Warning
+    The above statements does not, in any way, implies that LLMs really understand emotions OR we have acheived AGI OR doom of humanity is near :smile:
+
+- On the topic of creating EmotionPrompt, researchers tested out 11 different prompts created in consideration of 3 different psychological domains:
+  - **Self-monitoring**: is a concept in social psychology and refers to the process by which individuals regulate and control their behavior in response to social situations. Example of a prompt - "This is very important to my career".
+  - **Social Cognitive theory**: wherein self-efficacy *(individual's belief in their capacity to act in the ways necessary to rech specific goal)* was applied to build up confidence and emphasize the goal. Example of a prompt - "believe in your abilities".
+  - **Cognitive Emotion Regulation**: suggests that people lacking emotion regulation skills are more likely to engage in compulsive behavior and techniques like reappraisal can help. According to this theory, researchers aimed to stimulate the reappraisal skills of LLMs by incorporating pivotal terms, such as “sure” and “take another look”. Example of a prompt - "Are you sure?".
+
+<figure markdown> 
+    ![](../imgs/nlp_pe_emotionprompt_examples.png)
+    <figcaption>EmotionPrompt impact on different LLMs</figcaption>
+</figure>
+
+- Researchers [7] conducted a segregated examination to assess the effectiveness of various emotional stimuli on two different benchmarks, Instruction Induction and BIG-Bench. They used six Large Language Models (LLMs) for each emotional stimulus and calculated the average performance for both human-designed and APE-generated prompts. Key findings revealed that EP02 was the most effective stimuli for Instruction Induction, while EP06 performed best in BIG-Bench, highlighting the influence of task complexity and type on the choice of emotional stimuli. The study suggests that different stimuli can activate LLMs' capabilities differently, making them more suitable for specific tasks, thus emphasizing the need for task-specific emotional stimuli in interactions with LLMs.
+
 ## Conclusion
 
 Prompt engineering is a crucial skill for leveraging the capabilities of LLMs effectively. By understanding the different types of prompts and employing strategies such as zero-shot prompts, few-shot prompts, etc, developers and users can harness the power of AI to achieve more accurate and contextually relevant responses. As AI technologies continue to evolve, mastering prompt engineering will remain an essential tool for unlocking the full potential of AI systems across various domains.
@@ -193,3 +217,5 @@ Prompt engineering is a crucial skill for leveraging the capabilities of LLMs ef
 [5] [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
 
 [6] [Prompting Guide](https://www.promptingguide.ai/)
+
+[7] [Large Language Models Understand and Can Be Enhanced by Emotional Stimuli](https://www.sankshep.co.in/PDFViewer/https%3A%2F%2Farxiv.org%2Fpdf%2F2307.11760.pdf)
