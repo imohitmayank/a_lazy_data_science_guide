@@ -29,16 +29,26 @@
     - **Prosody prediction:** Rhythm, stress, intonation corresponds to variations in syllable duration, loudness and pitch. This plays an important part on how human-like the speech is. Prosody prediction used tagging system to label each kind of prosody and ToBI (tagging and break indices) is a popular tagging system for English.
     - **Grapheme to Phoneme Conversion:** Converting characters to pronunciation can greatly help with the speech synthesis process. Ex: “speech” is converted to “s p iy ch”.
   - **Acoustic Models:** They generate acoustic features from linguistics features or directly from phonemes or characters. While there are several models used in SPSS systems, let’s focus on NN based approaches.
-    - **RNN-based models:** Tacotron leverages an encoder-attention-decoder framework and takes characters as input and outputs linear-spectrograms, and uses Griffin Lim algorithm to generate waveform. Tacotron 2 generates mel-spectrograms
+    - **RNN-based models:** Tacotron leverages an encoder-decoder framework and takes characters as input and outputs linear-spectrograms, and uses Griffin Lim algorithm to generate waveform. Tacotron 2 generates mel-spectrograms
     and converts them into waveform using an additional WaveNet model.
     - **CNN-based models:** DeepVoice utilises convolutional neural networks to obtain linguistic features. Then it leverages a WaveNet based vocoder to generate waveform. DeepVoice 2 introduced multi-speaker modeling. DeepVoice 3 leverages a fully-convolutional network structure for speech synthesis, which generates mel-spectrograms from characters and can scale up to real-word multi-speaker datasets.
-    - **Transformers-based models:** TransformerTTS leverage transformer based encoder-attention-decoder architecture to generate mel-spectrogram form phonemes. It tackles two flaws of RNN, (a) RNN based encoder and decoder cannot be trained in parallel due to their recurrent nature, and (b) RNN is not good for long generations. While the voice quality is on par with Tacotron, the generations are not that robust *(ex: same word repeating multiple times or missing some words)*. FastSpeech mitigated the issues by adopting fast-forward Transformer network and removing the attention mechanism between text and speech. *(It is deployed in AzureTTS services)*. FastSpeech 2 further improves the overall performance.
+    - **Transformers-based models:** TransformerTTS leverage transformer based encoder-attention-decoder architecture to generate mel-spectrogram from phonemes. It tackles two flaws of RNN, (a) RNN based encoder and decoder cannot be trained in parallel due to their recurrent nature, and (b) RNN is not good for long generations. While the voice quality is on par with Tacotron, the generations are not that robust *(ex: same word repeating multiple times or missing some words)*. FastSpeech mitigated the issues by adopting fast-forward Transformer network and removing the attention mechanism between text and speech. *(It is deployed in AzureTTS services)*. FastSpeech 2 further improves the overall performance.
   - **Vocoder:** Early neural vocoders such as WaveNet, Char2Wav, WaveRNN directly take linguistic features as input and generate waveform. Later versions take mel-spectrograms as input and generate waveform. Since speech waveform is very long, autoregressive waveform generation takes much inference time. Thus, generative models such as Flow, GAN, VAE, and DDPM (Denoising Diffusion Probabilistic Model, Diffusion for short) are used in waveform generation.
 
 <figure markdown> 
     ![](../imgs/tts_process.png)
-    <figcaption>Different process of TTS Systems. Source [1]</figcaption>
+    <figcaption>Different TTS models and their classification in different types of TTS Systems. Source [1]</figcaption>
 </figure>
+
+## Evaluating TTS Models
+
+- Benchmarking TTS model is a challenging tasks as we have to consider various aspects of the generated speech like pronunciation, intonation, naturalness, clarity, similarity with speaker, etc. Hence it make sense to have combination of subjective and objective metrics to evaluate a TTS model. Let's discuss some of the metrics,  
+  - **Mean Opinion Score (MOS)**: it is a subjective score where human evaluator are asked to score synthesized speech on a scale of 1 to 5 *(higher the better)*
+  - **SECS**: it stands for "Speaker Encoder Cosine Similarity" and it is used in voice cloning tasks to measure similarity between the generated speech and the reference speech of a target speaker. The idea is that if the generated speech is really good wrt voice cloning perspective, then the speaker encoders will give relatively similar embeddings to the output and reference speech and the SECS should be high.
+  - **Word Error Rate (WER)**: [WER](http://127.0.0.1:8000/a_lazy_data_science_guide/audio_intelligence/stt/#wer-word-error-rate) can also be used in TTS domain to make sure that the generated speech is coherent with the reference speech.
+
+!!! Hint
+    For any one project, make sure to use the same speaker encoder for SECS and transcription system for WER metric computation.
 
 ## Code
 
