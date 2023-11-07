@@ -120,16 +120,14 @@ nav:
           - 'Introduction': 'network_science/kg_introduction.md'
           - 'KG Embedding Algorithms': 'network_science/kg_embedding_algorithms.md'
 
-  - 'Python':
-    -  'python/good_practices.md'
-    -  'python/python_snippets.md'
-    - 'Blogs':
-        -  'python/scraping_websites.md'
-
   - 'Data Science Tools':
     -  'data_science_tools/introduction.md'
+    -  'data_science_tools/python_snippets.md'
+    -  'data_science_tools/python_good_practices.md'
     -  'data_science_tools/version_control.md'
     -  'data_science_tools/compute_and_ai_services.md'
+    -  'Blogs':
+        -  'data_science_tools/scraping_websites.md'
 
   - 'Machine Learning':
     - 'machine_learning/introduction.md'

@@ -286,6 +286,41 @@ logger.setLevel(logging.INFO)
 !!! note
     Remember to switch to another VE when you start working on another project or/and to deactivate the VE when you want to move to base VE.
 
+### Type Hints and Data Validation
+
+- Python comes with dynamic variable type support, i.e. you can execute code `x=1` and `x='a'` one after the another and the it will still work. This is in contrast with languages like Java and C++ where you have to specify the type explicitly, for example `int a = 1`. While this feature makes Python easier to use and more dynamic, it comes at the cost of clarity and complexity. Now, let's talk about some good practices to mitigate this.
+
+  - [Type Hints](https://docs.python.org/3/library/typing.html), as the name suggests, is an inbuilt functionality in Python to provide hints about the variable or parameter types in Python. One example is shown below, where `name: str` denotes that the function `greeting` expects a string input, and `-> str` denotes that it returns a string output.
+
+  ```python linenums="1"
+    def greeting(name: str) -> str:
+        return 'Hello ' + name
+  ```
+
+  !!! Note
+      Python runtime does not enforce type checks by default, type hints are there for cleaner code and are used by 3rd party tools like IDEs and linters.
+  
+  - For Data validation purpose, we can use [Pydantic](https://docs.pydantic.dev/latest/) that provides multiple ready-made validation, custom validation and json serialization support. One example is shown below, where we define the model `Delivery` class *(that inherits from `BaseModel`)* with `timestamp`, `dimensions` and `enum` fields and provide their respective type hints. Here, Pydantic enforces that `timestamp` should be of type `datetime`, `dimensions` should be of type `tuple` of two `int` and `enum` will be positive integer.
+
+  ```python linenums="1"
+    from datetime import datetime
+    from typing import Tuple
+    from pydantic import BaseModel, PositiveInt
+
+    # class definition
+    class Delivery(BaseModel):
+        timestamp: datetime
+        dimensions: Tuple[int, int]
+        enum: PositiveInt
+
+
+    m = Delivery(timestamp='2020-01-02T03:04:05Z', dimensions=['10', '20'], enum=1)
+    print(repr(m.timestamp))
+    #> datetime.datetime(2020, 1, 2, 3, 4, 5, tzinfo=TzInfo(UTC))
+    print(m.dimensions)
+    #> (10, 20)
+  ```
+
 ## References
 
 - [PEP8 Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
