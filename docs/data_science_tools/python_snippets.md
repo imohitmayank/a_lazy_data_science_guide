@@ -298,9 +298,13 @@ pd.DataFrame(result).plot(x='size', y='mean')
 # list all supported python versions
 conda search python
 
-# create a new conda environment (with new python version)
+# create a new global conda environment (with new python version)
 # note, py39 is the name of the env
 conda create -n py39 python=3.9
+
+# create a new local conda environment 
+# (under venv folder in current directory and with new python version)
+conda create -p ./venv -n py39 python=3.9
 
 # list all of the environments
 conda info --envs
