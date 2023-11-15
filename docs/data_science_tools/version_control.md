@@ -319,9 +319,38 @@ git lfs ls-files
 
 ## DVC
 
-Coming soon!
+(*Lazy Data Scientist at work* - 😴)
 
-## References
+# Additional Tips
+
+### Semantic Versioning
+
+- The Semantic Versioning (SemVer) is a methodology that advocates for a structured approach to versioning software to solve the common issues encountered in software management, often referred to as "dependency hell" [3]. SemVer provides a set of rules for how version numbers are assigned and incremented. A normal version number is in the form of X.Y.Z, with X for major, Y for minor, and Z for patch releases. The details of the rules are as follows:
+
+  - **MAJOR version** is incremented for incompatible API changes.
+  - **MINOR version** is incremented for the addition of backward-compatible functionality.
+  - **PATCH version** is incremented for backward-compatible bug fixes.
+
+- SemVers also suggests that pre-release versions can be indicated by labels such as alpha, beta, rc (release candidate), etc., with possible numerical identifiers. The pre-release versions have a lower precedence than the associated normal version. This allows developers to release new features or bug fixes for testing before the official version is finalized. By using this system, developers can make iterative improvements and signal to users that the version is not yet meant for production use.  
+- Below we have some versioning examples following the lifecycle of a product, 
+
+  ``` json
+  Pre-release Versions:
+  - 1.0.0-alpha: An alpha pre-release of the first major version, indicating it is not stable and is for testing.
+  - 1.0.0-alpha.1: A subsequent pre-release, could be an iteration with minor changes or fixes from the previous alpha.
+  - 1.0.0-beta: A beta pre-release which is closer to the final product but may still undergo changes.
+  - 1.0.0-rc.1: Release candidate 1, indicating the software is potentially shippable, with all features completed and bug fixes applied, but still might have known issues.
+  - 1.0.0-rc.2: Release candidate 2, an iteration after rc.1, with further fixes or minor changes.
+
+  Post-release Versions:
+  - 1.0.0: The official release of the software, considered stable and suitable for production.
+  - 1.0.1: A patch release indicating backward-compatible bug fixes have been applied.
+  - 1.1.0: A minor release which adds backward-compatible features or improvements.
+  - 2.0.0: A major release indicating there are changes that are not backward-compatible.
+  ```
+
+# References
 
 - [GIT](https://git-scm.com/)
 - [DVC](https://dvc.org/)
+- [Semnantic Versioning 2.0 - Blog](https://semver.org/)
