@@ -2,13 +2,13 @@
 
 ## Introduction 
 
-- Scraping is the process of traversing and collecting data from the web pages. People scrapewebsites for many reasons -- be it to get information about companies or fetch latest news or get stock prices informations or just create a dataset for the next big AI model :sunglasses: 
-- In this article, we will be focusing on two different techniques to scrapewebsite. 
+- Scraping is the process of traversing and collecting data from the web pages. People scrape websites for many reasons -- to get information about companies or fetch latest news or get stock prices informations or just create a dataset for the next big AI model :sunglasses: 
+- In this article, we will be focusing on two different techniques to scrape website. 
   - For static website, we can use [Scrapy](https://docs.scrapy.org). As an example, we will scrape data from the [Devgan](http://devgan.in/all_sections_ipc.php) website that hosts details of difference sections in [Indian Penal Code](https://en.wikipedia.org/wiki/Indian_Penal_Code) (IPC). [[Github Code]](https://github.com/imohitmayank/ipc_semantic_search/tree/main/devganscrap)
-  - For dynamic website, we can use [Selenium](https://selenium-python.readthedocs.io/getting-started.html) in combination with [BeautifulSoup4](https://pypi.org/project/beautifulsoup4/). As an example, we will scrapedata from Google search results. In short, Selenium is an open-source tool for browser automation and using it we will automate the process of opening the browser, loading the website *(as dynamic websites populates the data once the website is completely loaded)*. For extracting the data from the website, we will use BS4.
+  - For dynamic website, we can use [Selenium](https://selenium-python.readthedocs.io/getting-started.html) in combination with [BeautifulSoup4](https://pypi.org/project/beautifulsoup4/) (BS4). As an example, we will scrape data from Google search results. In short, Selenium is an open-source tool for browser automation and it will be used to automate the process of opening the browser and loading the website *(as dynamic websites populates the data once the website is completely loaded)*. For extracting the data from the website, we will use BS4.
 
 !!! Warning
-    This article is purely for educational purpose. I would highly recommend considering website's Terms of Service (ToS) or getting website owner's permission before performing scraping. 
+    This article is purely for educational purpose. I would highly recommend considering website's Terms of Service (ToS) or getting website owner's permission before scraping. 
 
 ## Static Website scrape using Scrapy
 
@@ -134,18 +134,21 @@ And that's it! Cheers! :smile:
 
 ### Understanding the website
 
-- Well, everyone knows and has used Google atleast once in their life. But anyways, for this example, if we want to find say all the latest news from TechCrunch, this is how the google search will look like.
+- Well, everyone knows and has used Google atleast once in their life. Nevertheless, for an example, if we want to find all of the latest news from TechCrunch, this is how the google search will look like.
 
 <figure markdown> 
     ![](../imgs/dt_scrapwebsite_googlesearch.png)
     <figcaption>Google search result shows the news for the 14th of Nov, 2023</figcaption>
 </figure>
 
-- Now if you try to load the page source, you will only get code which does not contain any data as shown above. This is because Google is a dynamic website. A dynamic website is event-driven and created with server-side languages. Because of this, we cannot use Scrapy alone as it cannot run Javascript, we need a browser. That's where Selenium and BS4 comes in.
+- On looking at the page source of the above screen, you will only see javascript code that does not contain any data as shown above. This is because Google is a dynamic website which is event-driven and created with server-side languages. Because of this, we cannot use Scrapy alone as it cannot run Javascript, what we we need is a browser to run the code. That's where Selenium and BS4 comes in.
 
 ### Selenium and BS4 Automation
 
-- We will code a generic function to automate the process of opening the google search, loading the website and extracting the data from the website. To run it for TechCrunch, we just need to change the input param. Before starting make sure to install the Selenium package and drivers as [explained here](https://selenium-python.readthedocs.io/getting-started.html). Let's start coding,  
+- We will code a generic function to automate the process of opening Chrome browser, loading the website and extracting the data from the website. To run it for our example of TechCrunch, we just need to change the input param. 
+
+!!! Note
+    Before starting make sure to install the Selenium package and drivers as [explained here](https://selenium-python.readthedocs.io/getting-started.html).
 
 ``` python linenums="1"
 from selenium import webdriver
@@ -206,8 +209,8 @@ Let's understand the code in detail,
 
 - `Line 1-6`: Importing the required packages.
 - `Line 8-11`: Initializes the Chrome WebDriver with the specified options.
-- `Line 14-40`: Defines a function to scrape Google. It takes a search query, the number of pages to scrape, and an optional starting page. Inside the function, we iterate over the number of pages specified, constructing a URL for each page of Google search results based on the query and the current page. The WebDriver is used to navigate to the URL. Then, we use BS4 to parse the page source and extracts the title, link, and description of each search result and appends it to the `results` list. At each iteration, we save the result to a CSV. Finally, we quite the drive and result the `results`.
+- `Line 14-40`: Defines a function to scrape Google. It takes a search query, the number of pages to scrape, and an optional starting page. Inside the function, we iterate over the number of pages specified, constructing a URL for each page of Google search results based on the query and the current page. The WebDriver is used to navigate to the URL. Then, we use BS4 to parse the page source and extracts the title, link, and description of each search result and appends it to the `results` list. At each iteration, we save the result to a CSV. Finally, we close the driver and return the `results`.
 - `Line 42-49`: Defines `save_results_to_csv` function to save the scraped results to a CSV file. It uses Python's `csv` module to write the title, link, and description of each search result to a CSV file.
-- `Line 52`: We call the `scrape_google` function to scrape 10 pages of Google search results for the specified query.
+- `Line 52`: We call the `scrape_google` function to scrape first 10 pages of Google search results for the specified query.
 
 And we are done! :wave:
