@@ -90,6 +90,7 @@ nav:
           -  'Data-to-Text Generation': 'natural_language_processing/data_to_text_generation.md'
           -  'Named Entity Recognition' : 'natural_language_processing/named_entity_recognition.md'
           -  'Natural Language Querying': 'natural_language_processing/nlq.md'
+          -  'Retrieval Augmented Generation (RAG)' : 'natural_language_processing/rag.md'
       # - 'Techniques':
           # - 'natural_language_processing/metrics.md'
       - 'Blogs':
@@ -126,8 +127,7 @@ nav:
     -  'data_science_tools/python_good_practices.md'
     -  'data_science_tools/version_control.md'
     -  'data_science_tools/compute_and_ai_services.md'
-    -  'Blogs':
-        -  'data_science_tools/scraping_websites.md'
+    -  'data_science_tools/scraping_websites.md'
 
   - 'Machine Learning':
     - 'machine_learning/introduction.md'
