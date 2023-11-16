@@ -147,8 +147,8 @@ nav:
     - 'Interview Questions' : 'reinforcement_learning/interview_questions.md'
     - 'Techniques' : 
         - 'RLHF': 'reinforcement_learning/rlhf.md'
-    - 'Algorithms':
-      - 'Q-Learning': 'reinforcement_learning/q_learning.md'
+        - 'Q-Learning': 'reinforcement_learning/q_learning.md'
+        - 'Multi-Arm Bandit': 'reinforcement_learning/multi_arm_bandit.md'
     # - 'Blogs':
     #   - 'reinforcement_learning/interactive_q_learning.md'
     #   - 'reinforcement_learning/multi_arm_bandit_part_1.md'
