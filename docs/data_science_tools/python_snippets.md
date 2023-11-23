@@ -357,6 +357,39 @@ df.groupby(['Gender']).mean()
 df.groupby(['Gender']).apply(lambda x: x['Salary'].mean())
 ```
 
+## Extract Dict (JSON) from a String
+
+- Converting a string which is completely JSON into a dictionary is quite easy and can be done with `json.loads(string)`. 
+- In case the text contains some additional materials before and after the JSON, we need to pre-process the data first. Below is a code that first extracts the JSON part and then converts it to a dictionary.
+
+```python linenums="1"
+def extract_json_from_string(string):
+    """
+    Extracts a JSON string from the given input string.
+
+    Parameters:
+        string (str): The input string from which to extract the JSON.
+
+    Returns:
+        dict or None: The parsed JSON dictionary if a valid JSON string is found, otherwise None.
+    """
+    try:
+        # Find the start and end indices of the JSON string
+        start_index = string.find('{')
+        end_index = string.rfind('}')
+
+        # If both indices are found, parse the JSON
+        if start_index != -1 and end_index != -1 and end_index > start_index:
+            cleaned_json_string = string[start_index : end_index + 1]
+            return json.loads(cleaned_json_string)
+
+    except json.JSONDecodeError as e:
+        print("JSON decoding error:", e)
+        return None
+
+    # Return None if no valid JSON is found
+    return None
+```
 ## Save and Load from Pickle
 
 - Pickle can be used to efficiently store and load python objects and data. Refer [StackOverflow](https://stackoverflow.com/questions/11218477/how-can-i-use-pickle-to-save-a-dict-or-any-other-python-object)
