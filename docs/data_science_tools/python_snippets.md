@@ -390,6 +390,25 @@ def extract_json_from_string(string):
     # Return None if no valid JSON is found
     return None
 ```
+
+## Pandas custom Data type
+
+- Pandas comes with pre-defined data types like Object, int, str and more. But we can also define our own custom data types. Here is an example. ([Refer](https://stackoverflow.com/questions/47741400/pandas-dataframe-group-and-sort-by-weekday))
+
+```python linenums="1"
+# import
+from pandas.api.types import CategoricalDtype
+# define unique values
+categories_values = [ 'Monday', 'Tuesday', 'Wednesday', 
+            'Thursday', 'Friday', 'Saturday', 'Sunday']
+# create custom data type
+cat_type = CategoricalDtype(categories=categories_values, ordered=True)
+# assign data type to col in Pandas
+loc_df['dayofweek'] = loc_df['dayofweek'].astype(cat_type)
+# perform operations like sorting! 
+loc_df.sort_values(by=['dayofweek'], inplace=True)
+```
+
 ## Save and Load from Pickle
 
 - Pickle can be used to efficiently store and load python objects and data. Refer [StackOverflow](https://stackoverflow.com/questions/11218477/how-can-i-use-pickle-to-save-a-dict-or-any-other-python-object)
