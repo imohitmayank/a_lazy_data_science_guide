@@ -99,6 +99,46 @@ for i, start in enumerate(np.arange(0, len(y), samples_per_window)):
     <figcaption>Same as above, but with aggressiveness parameter value set to 3. Hence the detection is quite strict *(some voice parts are missed)*.</figcaption>
 </figure>
 
-<!-- ### Silero-VAD [TODO]
+### Silero-VAD
 
-https://github.com/snakers4/silero-vad -->
+!!! Hint
+    Personal experience - Silerio-VAD is much more efficient and accurate than Py-WebRTC VAD. It is highly recommended even for production systems.
+
+- [Silero-VAD](https://github.com/snakers4/silero-vad) is another voice activity detection model that stands out for its stellar accuracy and speed. The model can process an audio chunk of over 30 milliseconds in less than 1 millisecond on a single CPU thread. This performance can be further enhanced through batching or GPU usage, with ONNX potentially offering a 4-5 times speed increase under certain conditions. Additionally, Silero VAD's lightweight nature is evident in its JIT model, which is approximately one megabyte in size, making it highly efficient and easy to integrate into various applications.
+
+- Beyond its technical prowess, Silero VAD is notable for its general applicability and flexibility. It was trained on a vast corpus covering over 100 languages, enabling it to perform effectively across a range of audio types, from different domains to various background noise and quality levels. The model supports 8000 Hz and 16000 Hz sampling rates, accommodating different audio quality requirements. Furthermore, while it was trained on 30 ms chunks, it can handle longer chunks directly, and possibly even shorter ones. Its high portability is another advantage, benefiting from the robust ecosystems of PyTorch and ONNX, and it can run wherever these frameworks are available. Finally, Silero VAD is published under the permissive MIT license. Now, let's try it out ([Refer](https://colab.research.google.com/github/snakers4/silero-vad/blob/master/silero-vad.ipynb#scrollTo=pSifus5IilRp))
+
+``` python linenums="1"
+# import 
+import torch
+
+# load the silerio vad model
+model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
+                              model='silero_vad',
+                              force_reload=True,
+                              onnx=False) # perform `pip install -q onnxruntime` and set this to True, if you want to use ONNX
+# get the helper functions out of util
+(get_speech_timestamps,
+ save_audio,
+ read_audio,
+ VADIterator,
+ collect_chunks) = utils
+
+# Option 1: Process complete audio
+wav = read_audio('example.wav', sampling_rate=SAMPLING_RATE)
+speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
+# Output: [{'end': 31200, 'start': 1568},
+#  {'end': 73696, 'start': 42528}, ..]
+
+# Option 2: Run on small chunks
+for chunk in chunk_list:
+    speech_prob = model(chunk, SAMPLING_RATE).item()
+    print(speech_prob)
+    ## Output: 0.06508486717939377 
+    ## If the probability is more than a threshold, then it is speech.
+    ## The threshold is an hyperparameter and can be experimented for each use case. Default value of 0.5 can be used here.
+model.reset_states() # reset state after every audio
+```
+
+!!! Warning
+    For consistent results, use `model.reset_states()` after every audio chunk. [Refer here](https://github.com/snakers4/silero-vad/discussions/358) for more details.
