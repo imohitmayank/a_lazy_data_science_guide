@@ -1,6 +1,3 @@
-!!! warning
-    This page is still ongoing modifications. Please check back after some time or [contact me](mailto:mohitmayank1@gmail.com) if it has been a while! Sorry for the inconvenience :pray:
-
 Transformers
 ===============
 ## Introduction
