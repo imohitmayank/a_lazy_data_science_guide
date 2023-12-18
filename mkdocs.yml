@@ -134,7 +134,6 @@ nav:
 
   - 'Machine Learning':
     - 'machine_learning/introduction.md'
-    - 'ML Terms': 'machine_learning/machine_learning_terms.md'
     - 'machine_learning/ML_snippets.md'
     - 'Interview Questions' : 'machine_learning/interview_questions.md'
     - 'Techniques':
