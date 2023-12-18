@@ -71,7 +71,7 @@ nav:
 
   - 'Natural Language Processing':
       - 'Interview Questions' : 'natural_language_processing/interview_questions.md'
-      - 'Algorithms':
+      - 'Models':
           -  'Word2Vec': 'natural_language_processing/word2vec.md'
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
           -  'Transformers': 'natural_language_processing/transformer.md'
@@ -94,10 +94,11 @@ nav:
           # -  'Retrieval Augmented Generation (RAG)' : 'natural_language_processing/rag.md'
       # - 'Techniques':
           # - 'natural_language_processing/metrics.md'
-      - 'Blogs':
+      - 'Techniques':
           - 'Prompt Engineering': 'natural_language_processing/prompt_engineering.md'
           - 'natural_language_processing/explainable_ai_llm.md'
           - 'natural_language_processing/streaming_chatgpt_gen.md'
+          - 'natural_language_processing/making_llm_multilingual.md'
 
   - 'Audio Intelligence':
       - 'Interview Questions': 'audio_intelligence/interview_questions.md'
