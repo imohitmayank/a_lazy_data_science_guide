@@ -3,7 +3,7 @@ Transformers
 ## Introduction
 
 - "Attention Is All You Need" paper [1] introduced the concept of "Transformers" and it revolutionalized the complete domain of Deep Learning. So much so that in 2022 we have Transformers has become multi-disiplinary and is used across NLP, CV, RL, Graphs, and more! In NLP, Transformers variants are still state of the art! *(even after 5 years)*.
-- As the paper's name suggests, the authors showcase how only using multiple stacks of attention layers provides enough learning power to the architecture to improve the SotA in multiple takss. Quoting the paper, *"Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution."*
+- As the paper's name suggests, the authors showcase how only using multiple stacks of attention layers provides enough learning power to the architecture to improve the SotA in multiple tasks. Quoting the paper, *"Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution."*
 - Let's try to understand the fundamentals of Transformers by going through each components in detail. 
 
 !!! Hint
@@ -30,26 +30,24 @@ Transformers
 </figure>
 
 
-- Compared to previous approaches like RNN or Word2Vec that were used to create representations of the words, Attention models modifies the representation for each input based on the context. Word2Vec had a fixed context and worked at word level, so "bank" will have 1 representation 9word embedding). RNN on the other hand only conisidered sequential context that lead to forgetting the context of the past *(words far on the left)*.
+- Compared to previous approaches like RNN or Word2Vec that were used to create representations of the words, Attention models modifies the representation for each input based on the context. Word2Vec had a fixed context and worked at word level, so "bank" will have 1 representation word embedding. RNN on the other hand only considered sequential context that lead to forgetting the context of the past *(words far on the left)*.
   
 !!! Note
-    Transformer works at sub-word level tokens and not words. And context of attention is equal tot he input which could be a phrase, a sentence, a paragraph or a complete article. 
+    The smallest unit of input in Transformer are called tokens which could be at sub-word or words level. And attention could span over a phrase, a sentence, a paragraph or a complete article. 
 
-- The process of self-attention is quite simple, and at a high level consists of only two steps. For each token, 
-  - (1) find the importance score of every token in the context *(including the token in question)*, and
-  - (2) using the score, do a weighted sum of the every token's representations to create the final token representation.
+- The process of self-attention is quite simple. For each token, 
+  1. find the importance score of every token in the context *(including the token in question)*, and
+  2. using the score, do a weighted sum of the every token's representations to create the final token representation.
 
-- And thats it :smile: Well at least at 10k feet :airplane:. Looking at the technicalities, the process drills down to,
+- And thats it :smile: Well at least from 10k feet :airplane:. Looking at the technicalities, the process drills down to,
   - Every token is not used as-it-is, but first converted to key, value and query format using linear projections. We have key, value and query weights denoted as $W_k$, $W_v$ and $W_q$. Each input token's representation is first multipled with these weights to get $k_i$, $v_i$ and $q_i$.
   - Next the query of one token is dot product with the keys of all token. On applying softmax to the output, we get a probability score of importance of every token for the the given token.
   - Finally, we do weighted sum of values of all keys with this score and get the vector representation of the current token.
-- It is easy to understand the process while looking at one token at a time, but in reality it is completly vectorized and happens for all the tokens at the same time. The formulation for the self-attention is as follows, 
+- It is easy to understand the process while looking at one token at a time, but in reality it is completely vectorized and happens for all the tokens at the same time. The formula for the self-attention is shown below, where Q, K and V are the matrices you get on multiplication of all input tokens with the query, key and value weights.
   
 $$ 
 Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V 
 $$
-
-- where Q, K and V are the matrices you get on multiplication of all input tokens with the query, key and value weights.
 
 !!! Note
     Authors introduced the scaling factor to handle potential vanishing gradient problem. In their words, *"We suspect that for large values of $d_k$, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients. To counteract this effect, we scale the dot products by $\frac{1}{\sqrt{d_k}}$"*
