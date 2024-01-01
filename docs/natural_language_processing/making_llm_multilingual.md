@@ -1,9 +1,5 @@
 # Making LLM Multi-lingual
 
-!!! note
-    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 🍔 :wink:
-    
-
 ## Introduction
 
 Current Large Language Models (LLMs) show impressive linguistic capabilities but are predominantly skewed towards English, limiting their effectiveness in truly multilingual contexts. To bridge this gap, initiatives like OpenHathi's adaptation of LLaMa-2 are pivotal, aiming to create genuinely multilingual *(or bilingual in OpenHathi's case)* models that can process and understand multiple languages with equal proficiency. This article delves into why and how we should move towards multilingual LLMs, expanding the horizons of AI's linguistic abilities.
@@ -38,6 +34,22 @@ Creating a multilingual model presents various challenges. Firstly, there is the
 
 - Finally the trained base model was finetuned for different downstream usecases and its performance was better than GPT-3.5 for some Hindi content oriented tasks like content moderation or writing in Hindi. On top of it, the token consumption was substantially less due to modified tokenizer. This makes OpenHathi the go-to AI model for Hindi or Romanised Hindi (Hinglish) tasks.
 
+### Tamil-LLaMa for Tamil
+
+- Another example is Tamil-LLaMA [2] which was created by [Abhinand Balachandran](https://www.linkedin.com/in/abhinand-05/), wherein he released 7B and 13B models. Here are the finer details, 
+  1. **Modifying the Tokenizer**: The open-source LLaMA 2 model was modified with 16,000 new Tamil tokens, aiming to achieve superior text generation and comprehension in Tamil. This lead to new model only requiring 20%-25% of the tokens for Tamil text generation when compared to original LLaMA tokeniser.
+
+  2. **Datasets**: For the initial pre-training phase of LLaMA 2, author used the CulturaX dataset which is a combination of many popular datasets. To manage high cost, only 600k documents *(out of the 4.72 million documents in CulturaX)* were used. For Instruction finetuning, a translated version of the Stanford Alpaca dataset comprising 52,000 instructions was used. Concurrently, author also integrated a specialized no-code section from the OpenOrca dataset, which consists of around 93,000 instructions. Note, Google Translation API service was used for all translation purpose.
+
+  3. **Trained a PEFT Adapter:** The LoRA methodology was strategically employed for efficient model training on a comprehensive Tamil corpus, ensuring computational feasibility and model robustness. Here are the finer details on the data used for indiviudal training step.
+
+  <figure markdown> 
+        ![](../imgs/nlp_multilingual_tamilllama_training_details.png)
+        <figcaption>Training details of Tamil-LLaMa [2]</figcaption>
+  </figure>
+
 ## Reference
 
 [1] [OpenHathi Series Release Notes](https://www.sarvam.ai/blog/announcing-openhathi-series)
+
+[2] தமிழ் Llama - [Article](https://analyticsindiamag.com/meet-the-creator-of-tamil-llama/) | [Paper](https://www.sankshep.co.in/PDFViewer/https%3A%2F%2Farxiv.org%2Fpdf%2F2311.05845.pdf)
