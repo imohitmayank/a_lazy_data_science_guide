@@ -39,6 +39,26 @@ print(wav_file_stats)
 #  'Compression Type': 'NONE',
 #  'Compression Name': 'not compressed'}
 ```
+## Get WAV file duration in seconds
+
+``` python linenums="1"
+# import 
+import wave
+
+def print_wav_duration(file_path):
+    # Open the wave file
+    with wave.open(file_path, 'rb') as wav_file:
+        # Extract the frame rate and number of frames
+        frame_rate = wav_file.getframerate()
+        n_frames = wav_file.getnframes()
+        # Calculate duration
+        duration = n_frames / float(frame_rate)
+        print(f"The duration of the file is: {duration} seconds.")
+
+# Example usage with a placeholder file path
+# You would replace 'path/to/file.wav' with the actual file path of your .wav file
+print_wav_duration('path/to/file.wav')
+```
 
 ## Convert Dual Channel WAV file to Mono
 
