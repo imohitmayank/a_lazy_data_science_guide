@@ -87,6 +87,17 @@ print(os.path.dirname(sys.executable))
 pip list --format=freeze > reqirements.txt
 ```
 
+## Unzipping files using Zipfile
+
+```
+# import
+import zipfile
+
+# unzipping
+with zipfile.ZipFile('sample.zip', 'r') as zip_ref:
+    zip_ref.extractall()
+```
+
 ## Find files or folders
 
 - `glob` is a very efficient way to extract relevant files or folders using python.
