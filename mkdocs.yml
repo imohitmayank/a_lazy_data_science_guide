@@ -102,6 +102,7 @@ nav:
 
   - 'Audio Intelligence':
       - 'Interview Questions': 'audio_intelligence/interview_questions.md'
+      - 'Code Snippets': 'audio_intelligence/audio_snippets.md'
       - 'Algorithms':
         - 'Wav2Vec2': 'audio_intelligence/wav2vec2.md'
         - 'audio_intelligence/whisper.md'
