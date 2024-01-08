@@ -12,7 +12,7 @@ Creating a multilingual model presents various challenges. Firstly, there is the
 
 ### OpenHathi for Hindi
 
-- [Sarvam.ai](www.sarvam.ai) announced the OpenHathi series of work to encourage innovation in Indian language AI. This was built under a partnership with AI4Bharat *(academic partners)* who contributed language resources and benchmarks. Below are the highlights of their process of finetuning existing LLaMa-2 *(to create a base model)* into a bilingual LLM:
+- [Sarvam.ai](https://www.sarvam.ai) announced the OpenHathi series of work to encourage innovation in Indian language AI. This was built under a partnership with AI4Bharat *(academic partners)* who contributed language resources and benchmarks. Below are the highlights of their process of finetuning existing LLaMa-2 *(to create a base model)* into a bilingual LLM:
 
   1. **Modifying the Tokenizer:** A custom tokenizer was developed to handle Hindi text efficiently by integrating new tokens into the LLaMa-2's embedding layer. This modification was crucial for accurately processing and representing Hindi language nuances within the model. This also substantially reduced the overall token consumptions for inference and training *(sometimes even 4x!)*.
 

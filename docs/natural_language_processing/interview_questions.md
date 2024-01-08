@@ -235,3 +235,22 @@
     === "Answer"
 
         Self-attention (SA) is applied within one component, so the input is from one component only. One example is the encoder block in Transformers, where SA is used, and it takes the tokens from only the sentence as the input. Attention on the other hand can be used to connect two components or modality of data. Decoder in Transformer has Attention layer that connects the encoder and decoder data together. [Refer StackExchange QA](https://datascience.stackexchange.com/questions/49468/whats-the-difference-between-attention-vs-self-attention-what-problems-does-ea)
+
+
+!!! Question ""
+    === "Question"
+        #### What is the difference between Bi-encoder and Cross-encoder?
+
+    === "Answer"
+
+        In the context of NLP, the difference between Bi-encoders and Cross-encoders lies in how they handle and process input sentences and the kind of outputs they produce. [Refer SBert](https://www.sbert.net/examples/applications/cross-encoder/README.html)
+
+        1. **Bi-Encoders:**
+           - **Process:** Bi-encoders process two sentences (A and B) independently through a transformer network like BERT. Each sentence is input separately, resulting in two separate sentence embeddings (u and v).
+           - **Output:** The output is a pair of sentence embeddings, which can be compared using measures like cosine similarity to determine their relationship or similarity.
+           - **Usage:** These are particularly useful when you want to pre-compute sentence embeddings for a large collection of text, as you can then quickly compare new sentences to the entire collection using the embeddings. They are efficient for tasks that require comparing multiple sentences against one another.
+
+        2. **Cross-Encoders:**
+           - **Process:** Cross-encoders take a pair of sentences as a single input and pass them simultaneously to the transformer network. The model takes into account the interaction between the sentences directly during the encoding process.
+           - **Output:** Instead of separate embeddings, a Cross-encoder outputs a single score or value, typically between 0 and 1, representing the relationship or similarity of the sentence pair. It does not produce separate sentence embeddings.
+           - **Usage:** Cross-encoders are generally more accurate for tasks like semantic similarity or relevance ranking because they consider the interaction between the sentence pair directly. However, they are less efficient compared to Bi-encoders for large-scale tasks because each sentence pair must be processed together and in real-time, making it hard to pre-compute and store representations.
