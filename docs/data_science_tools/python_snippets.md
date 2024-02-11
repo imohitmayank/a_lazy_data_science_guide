@@ -344,7 +344,7 @@ package-four
 
 ## Reading `.numbers` file
 
-- `.numbers` file is a proprietary file format of Apple's Numbers application. It is a spreadsheet file format that is used to store data in a table format. To process and load the data from `.numbers` file, we can use `numbers_parser` package. Below is an example of how to read the data from multiple `.numbers` files and combine them into one file.
+- `.numbers` file is a proprietary file format of Apple's Numbers application. It is a spreadsheet file format that is used to store data in a table format. To process and load the data from `.numbers` file, we can use [numbers_parser](https://github.com/masaccio/numbers-parser) package. Below is an example of how to read the data from multiple `.numbers` files and combine them into one file.
 
 ```python linenums="1"
 # import
