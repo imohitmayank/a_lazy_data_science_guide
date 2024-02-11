@@ -342,6 +342,38 @@ package-four
 ```
 - Note three ways of defining packages, (1) with version number, (2) with github source and (3) without version number (installs the latest). Once done, you can install all these packages at one go by `pip install -r requirements.txt`
 
+## Reading `.numbers` file
+
+- `.numbers` file is a proprietary file format of Apple's Numbers application. It is a spreadsheet file format that is used to store data in a table format. To process and load the data from `.numbers` file, we can use `numbers_parser` package. Below is an example of how to read the data from multiple `.numbers` files and combine them into one file.
+
+```python linenums="1"
+# import
+import os
+import glob
+import pandas as pd
+from tqdm import tqdm
+from numbers_parser import Document
+
+# Get the list of files in the directory using glob
+numbers_files = glob.glob(cwd + '/*.numbers')
+
+# Combine the .numbers files into one file
+combined_df = []
+for file in tqdm(numbers_files):
+    doc = Document(file)
+    sheets = doc.sheets
+    tables = sheets[0].tables
+    data = tables[0].rows(values_only=True)
+    df = pd.DataFrame(data[1:], columns=data[0])
+    df['file'] = file
+    # Append the dataframe to the combined dataframe
+    combined_df.append(df)
+    
+# Save the combined file
+combined_df = pd.concat(combined_df)
+combined_df.to_csv('combined_numbers_new.csv', index=False)
+```
+
 ## Pandas Groupby Function
 
 - Pandas can be utilised for fast analysis of categorical data using groupby. Let's have a look.
