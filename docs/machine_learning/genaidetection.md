@@ -7,9 +7,9 @@ AI generated content is becoming increasingly prevalent, and it is important to 
 
 ## Text
 
-- Detecting AI generated text can be challenging, as AI generated text can be very similar to human generated text. However, there are some methods that can be used to detect AI generated text.
+- Detecting AI generated text might seem impossible, as how can we distinguish text written by human from AI, where even different people have so many diverse way of writing!? This diversity comes from individual knowledge, experience and understanding of the language. That said, on a personal level, there are some implicit or explicit patterns that we use to distinguish something written by us *(or our loved ones)* from someone else's. And this is what AI text detection system try to leverage *(but on a much grander scale)*, to find patterns that distinguish AI generated text from human generated one.
 
-- The simplest approach to detect AI generated text is to use classifiers *(mostly neural network based)* that will distinguish AI generated text from human generated text. This approach is based on the assumption that AI generated text has different statistical properties than human generated text, and that these properties can be learned by a classifier. The classifier can be trained using a labeled dataset of AI generated text and human generated text. Once the classifier is trained, it can be used to detect AI generated text in new data. 
+- The simplest approach to detect AI generated text is to use classifiers *(mostly neural network based)*. This approach is based on the assumption that AI generated text has different statistical properties than human generated text, and that these properties can be learned by a classifier. The classifier can be trained using a labeled dataset of AI generated text and human generated text. Once the classifier is trained, it can be used to detect AI generated text in new data. Let's look at some of the methods, 
 
 ### Kaggle Competition Winning Solution
 
@@ -20,10 +20,10 @@ AI generated content is becoming increasingly prevalent, and it is important to 
 
 ### Ghostbuster
 
-- Ghostbuster [2] was part of the above winning solution and can be used separately to detect AI generated text as well. 
+- Ghostbuster [2] was part of the above winning solution and can also be used separately to detect AI generated text. 
 
 <figure markdown> 
-    ![](../imgs/ml_genaidetection_ghostbuster.png){ width="500" }
+    ![](../imgs/ml_genaidetection_ghostbuster.png)
     <figcaption> Ghostbuster [2] Detecting Text Ghostwritten by Large Language Models </figcaption>
 </figure>
 
@@ -44,15 +44,14 @@ AI generated content is becoming increasingly prevalent, and it is important to 
 
 ## Images
 
-- AI models for image generation are becoming more realistic over time. While in the past it was easy to detect them by identifying obvious flaws like missing shadows, unnatural faces or extra fingers :wink: etc, newer models are able to generate images that are almost indistinguishable from real ones. That said, there are still some methods that can be used to detect AI generated images.
+- AI models for image generation are becoming more realistic over time. While in the past it was easy to detect AI images by identifying obvious flaws like missing shadows, unnatural faces or extra fingers :wink: etc, but the newer models are able to generate images that are almost indistinguishable from real ones. That said, there are still some methods that can be used to detect AI generated images.
 
 ### Projective Geometry
 
 - The intuition behind this approach is that AI generated images do not have the same projective geometry as real images *(as of yet)*. As per the paper [4], it is possible to create a high quality AI image detector by looking at multiple factors like, 
-  1. **Scale discrepancies** - Generated images often do not adhere to the principle of size constancy, which states that objects of the same size should appear smaller as they move farther away from the viewer. As a result, the scaling in these images is inconsistent, leading to a distorted sense of depth perception.
+  1. **Scale discrepancies** - Generated images often do not adhere to the principle of size constancy, which states that objects of the same size should appear smaller as they move farther away from the viewer. As a result, the scaling in AI images is inconsistent, leading to a distorted sense of depth perception. Along with this some AI generated images might have incorrect representation of scale of real world objects, which means that objects in the image do not have the same scale as they would in real life.
   2. **Inconsistencies in Vanishing Points** - AI generated images often have inconsistencies in vanishing points, which are the points at which parallel lines appear to converge in the distance.
   3. **Lighting and Shadow inconsistencies** - AI generated images often lack shadows or have inconsistent lighting i.e. the shadow direction could be unnatural and inconsistent in case of presence of multiple objects in image.
-  4. **Scale Inconsistencies** - AI generated images often have scale inconsistencies, which means that objects in the image do not have the same scale as they would in real life.
 - All of the above factors highlight the fact that the current Image generation models lack World Model understanding. While the model do have basic understanding about the different concepts like human, animal, places, etc, they lack the understanding of how these concepts interact with each other in the real world. This is the reason why the generated images lack the projective geometry that is present in real images.
 
 <figure markdown> 
@@ -86,14 +85,17 @@ AI generated content is becoming increasingly prevalent, and it is important to 
     <figcaption> OpenAI Sora generation for *"Archeologists discover a generic plastic chair in the desert, excavating and dusting it with great care."*  </figcaption>
 </figure>
 
+!!! Note
+    It will be interesting to find a work that can identify objects in a video and track if they follow basics physics laws or not. Maybe Game Dev QA have something similar that automates the testing of physics in the game using game play videos! 🤔
+
 ## Audio
 
-- Detecting AI generated Audio is a challenging task as there are several factors and metrics which vary even for a real audio. That said, there are some additional methods that can be used to detect AI generated audio.
+- Detecting AI generated Audio is as challenging as AI text detection. The diversity in human voice and the way we speak makes it difficult to detect AI generated audio. That said, there are some methods that can be used to detect AI generated audio.
 
 ### Audio Watermarking
 
-- Audio watermarking is a technique that can be used to embed a watermark which could be imperceptible data into an audio file, which can be extracted and authenticated to determine if the audio is AI generated or not. So by this technique if an audio contains a watermark, it is AI generated otherwise its a real one. 
-- PerTh audio watermarking technique, developed by Resemble AI [6], exploits the frequency sensitivity of human hearing to embed imperceptible data into audio files. By leveraging the fact that our hearing sensitivity varies across different frequencies, PerTh  embeds more data into less sensitive frequencies. This results in a watermark that is securely hidden in the audio, undetectable to the human ear, but retrievable when needed. It also takes advantage of the principle of auditory masking. When a loud sound, known as a masker sound, is played, quieter sounds nearby become imperceptible. PerTh utilizes this effect to place watermarked data into these "masked" areas, ensuring that the main audio content remains undisturbed.
+- Audio watermarking is a technique that can be used to embed a watermark, inform of imperceptible data, into an audio file that can be extracted and authenticated to determine if the audio is AI generated or not. So by this technique if an audio contains a watermark, it is AI generated otherwise its a real one. 
+- PerTh audio watermarking technique, developed by Resemble AI [6], exploits the frequency sensitivity of human hearing to embed data subtly into audio files. By leveraging the fact that our hearing sensitivity varies across different frequencies, PerTh  embeds more data into less sensitive frequencies. This results in a watermark that is securely hidden in the audio, undetectable to the human ear, but retrievable when needed. It also takes advantage of the principle of auditory masking. When a loud sound, known as a masker sound, is played, quieter sounds nearby become imperceptible. PerTh utilizes this effect to place watermarked data into these "masked" areas, ensuring that the main audio content remains undisturbed.
 
 <figure markdown> 
     ![](../imgs/ml_genaidetection_audio_perth.png)
@@ -102,7 +104,7 @@ AI generated content is becoming increasingly prevalent, and it is important to 
 
 ### Classification
 
-- Classification models can be trained to detect AI generated audio. The methodology could vary from end-to-end *(input: audio, output: class)* to feature based *(input: audio features, output: class)*. End-to-end classifiers can be trained using a labeled dataset of AI generated audio and human generated audio. But they are quite difficult to scale as audio come in different size and shape and it could be difficult to train the model or inference without compromising latency. Feature based classifiers are more common and easier to scale. The features could be extracted using different techniques like MFCC, Chroma, Mel Spectrogram, etc. The classification model could be a simple machine learning based or a complex deep learning based. 
+- Classification models can be trained to detect AI generated audio. The methodology could vary from end-to-end *(input: audio, output: class)* to feature based *(input: audio features, output: class)*. Classifiers can be trained using a labeled dataset of AI generated audio and human generated audio. End-to-end classifiers are quite difficult to scale as audio come in different size and shape and it could be problematic to train the model or run inference without compromising latency. Feature based classifiers are more common and easier to scale. The features could be extracted using different techniques like MFCC, Chroma, Mel Spectrogram, etc. The classification model could be a simple machine learning based or a complex deep learning based. 
 
 !!! Hint
     Some examples are Resemble Detect [6], [PlayHT's AI Audio Detection](https://play.ht/voice-classifier-detect-ai-voices/), etc. Use case specific models can also be trained, one such example is [Twilio's Answering Machine Detection model](https://www.twilio.com/docs/voice/answering-machine-detection).
