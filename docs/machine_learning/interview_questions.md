@@ -467,3 +467,11 @@
     === "Answer"
         
         XGBoost (Extreme Gradient Boosting) is a specific implementation of the Gradient Boosting method that uses a more efficient tree-based model and a number of techniques to speed up the training process and reduce overfitting. XGBoost is commonly used in machine learning competitions and it's one of the most popular libraries used for gradient boosting. It's used for classification and regression problems.
+
+!!! Question ""
+    === "Question"
+        #### What is `group_size` in context of Quantization?
+
+    === "Answer"
+        
+        Group size is a parameter used in the quantization process that determines the number of weights or activations *(imagine weights in a row of matrix)* that are quantized together. A smaller group size can lead to better quantization accuracy, but it can also increase the memory and computational requirements of the model. Group size is an important hyperparameter that needs to be tuned to achieve the best trade-off between accuracy and efficiency. Note, the default groupsize for a GPTQ is 1024. [Refer this interesting Reddit discussion](https://www.reddit.com/r/LocalLLaMA/comments/12rtg82/what_is_group_size_128_and_why_do_30b_models_give/?rdt=46348)

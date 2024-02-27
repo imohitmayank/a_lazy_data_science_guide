@@ -120,6 +120,62 @@ Below are three primary types of quantization methods used in neural networks:
 
 In summary, each quantization method has its own set of trade-offs between accuracy, efficiency, and applicability. The choice among QAT, PTQ, and ZSQ depends largely on the specific constraints of the deployment environment, the availability of computational resources, and the necessity for data privacy.
 
+## Quantization in Practice
+
+In practice, PTQ *(Post-Training Quantization)* is one of the most widely used quantization methods due to its simplicity and minimal overhead. It is particularly effective for reducing the size of neural network models without requiring access to the original training data. Here is the process of using PTQ based techniques for quantizing a model:
+
+1. First we get the model which is trained in full precision *(float32)*.
+2. Next, we can either quantized the model and save it or we can quantize the model on the fly during inference. 
+
+!!! Note
+    We need to dequant the model *(convert back to higher precision)* during inference. This is because inference requires forward pass which consists of complex computations like matrix multiplication and currently float-float matmul is much faster than int-int matmul. *([Refer](https://stackoverflow.com/questions/45373679/why-is-it-faster-to-perform-float-by-float-matrix-multiplication-compared-to-int))*
+
+!!! Hint
+    You can find thousands of quantized models *(different formats)* on the [TheBloke's collection](https://huggingface.co/TheBloke) in HuggingFace.
+
+
+<!-- ### AQLM 
+
+- Feb 2024, latest -->
+
+### AWQ
+
+- Activation-aware Weight Quantization (AWQ), introduced in Oct 2023, is a Weight only quantization method based on the fact that not all weights are equally important for the model's performance. With this in mind, AWQ tries to identify those salient weights using the activation distribution where weights with larger activation magnitudes are deemed crucial for model performance. On further analysis, it was found that just a minor fraction (~1%) of weights, if left unquantized (FP16) could lead to non-significant change in model performance. While this is a crucial observation, it is also important to note that partial quantization of weights leads to mixed-precision data types, which are not efficiently handled in many hardware architectures. To circumvent these complexities, AWQ introduces a novel per-channel scaling technique that scales the weights *(multiple weight by scale $s$ and inverse scale the activation i.e multiple activation by $1/s$)* before quantization, where $s$ is usually greater than 1, and it is determined by a grid search. This minor trick optimizes the quantization process, removes the need for mixed-precision data types, and keep the performance consistent with 1% FP16 weights.
+  
+<figure markdown> 
+    ![](../imgs/ml_modelcompression_quant_awq.png)
+    <figcaption>Source: [3]</figcaption>
+</figure>
+
+- Empirical evidence demonstrates AWQ's superiority over existing quantization techniques, achieving remarkable speedups and facilitating the deployment of large models on constrained hardware environments. Notably, AWQ has enabled the efficient deployment of massive LLMs, such as the Llama-2-13B model, on single GPU platforms with limited memory (~8GB), and has achieved significant performance gains across diverse LLMs with varying parameter sizes. 
+
+<figure markdown> 
+    ![](../imgs/ml_modelcompression_quant_awq2.png)
+    <figcaption>Better Perplexity score of AWQ on LLaMA-1 and 2 models in comparison with other quantization techniques. Source: [3]</figcaption>
+</figure>
+
+- Now, running inference on AWQ model is made simlper by using the `transformers` library. Below is an example of how to use AWQ model for inference.
+
+```python
+# install
+# !pip install autoawq
+
+# import
+from transformers import AutoModelForCausalLM, AutoTokenizer
+# one sample AWQ quantized model
+model_id = "TheBloke/zephyr-7B-alpha-AWQ"
+# load model
+model = AutoModelForCausalLM.from_pretrained(model_id, device_map="cuda:0")
+```
+
+<!-- ### GPTQ
+
+thereby maintaining the model's generalization capabilities across various domains without the risk of overfitting to specific calibration sets. -->
+
 ## References
 
 [1] [A Survey of Quantization Methods for Efficient Neural Network Inference](https://arxiv.org/abs/2103.13630)
+
+[2] Maarten Grootendorst's Blog - [Which Quantization Method is Right for You? (GPTQ vs. GGUF vs. AWQ)](https://www.maartengrootendorst.com/blog/quantization/)
+
+[3] AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration - [Paper](https://arxiv.org/abs/2306.00978) | [Code](https://github.com/mit-han-lab/llm-awq)
