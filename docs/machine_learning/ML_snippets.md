@@ -276,6 +276,10 @@ torch.cuda.get_device_name(0)
 ## Output: 'GeForce MX110'
 ```
 
+## Monitor GPU usage
+
+- If you want to continuously monitor the GPU usage, you can use `watch -n 2 nvidia-smi --id=0` command. This will refresh the `nvidia-smi` output every 2 second.
+
 ## HuggingFace Tokenizer
 
 - Tokenizer is a pre-processing step that converts the text into a sequence of tokens. [HuggingFace tokenizer](https://huggingface.co/docs/transformers/main_classes/tokenizer) is a wrapper around the [tokenizers library](https://github.com/huggingface/tokenizers), that contains multiple base algorithms for fast tokenization.
@@ -309,6 +313,74 @@ vocabulary = tokenizer.get_vocab()
 # vocabulary['hello'] returns 7592
 ```
 
+## Explore Model
+
+- You can use the `summary` method to check the model's architecture. This will show the layers, their output shape and the number of parameters in each layer.
+
+=== "Keras"
+    ``` python linenums="1"
+    # import
+    from keras.models import Sequential
+    from keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
+
+    # create a model
+    model = Sequential()
+    model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(Flatten())
+    model.add(Dense(64, activation='relu'))
+    model.add(Dense(10, activation='softmax))
+
+    # print the model summary
+    model.summary()
+    ```
+
+=== "PyTorch"
+    ``` python linenums="1"
+    # import
+    import torch
+    import torch.nn as nn
+
+    # create a model
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.conv1 = nn.Conv2d(1, 32, 3, 1)
+            self.conv2 = nn.Conv2d(32, 64, 3, 1)
+            self.conv3 = nn.Conv2d(64, 64, 3, 1)
+            self.fc1 = nn.Linear(1024, 64)
+            self.fc2 = nn.Linear(64, 10)
+
+        def forward(self, x):
+            x = F.relu(self.conv1(x))
+            x = F.max_pool2d(x, 2, 2)
+            x = F.relu(self.conv2(x))
+            x = F.max_pool2d(x, 2, 2)
+            x = F.relu(self.conv3(x))
+            x = x.view(-1, 1024)
+            x = F.relu(self.fc1(x))
+            x = self.fc2(x)
+            return F.log_softmax(x, dim=1)
+    
+    # create an instance of the model
+    model = Net()
+    # print the model summary
+    print(model)
+    ```
+
+- To check the named parameters of the model and their dtypes, you can use the following code,
+
+=== "PyTorch"
+    ``` python linenums="1"
+    print(f"Total number of names params: {len(list(model.named_parameters()))}")
+    print("They are - ")
+    for name, param in model.named_parameters():
+        print(name, param.dtype)
+    ```
 <!-- ## Tensor operations
 
 - Tensors are the building blocks of any Deep Learning project. Here, let's go through some common tensor operations,
