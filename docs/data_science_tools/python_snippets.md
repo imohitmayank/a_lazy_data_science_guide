@@ -499,6 +499,20 @@ def send_message_to_slack(message):
 send_message_to_slack("test")
 ```
 
+## Colab Snippets
+
+- [Google Colab](https://colab.research.google.com/) is the go-to place for many data scientists and machine learning engineers who are looking to perform quick analysis or training for free. Below are some snippets that can be useful in Colab.
+
+- If you are getting `NotImplementedError: A UTF-8 locale is required. Got ANSI_X3.4-1968` or similar error when trying to run `!pip install` or similar CLI commands in Google Colab, you can fix it by running the following command before running `!pip install`. But note, this might break some imports. So make sure to import all the packages before running this command.
+
+```python linenums="1"
+import locale
+locale.getpreferredencoding = lambda: "UTF-8"
+
+# now import
+# !import ...
+```
+
 <!-- ## Python Classmethod vs Staticmethod
 
 https://stackoverflow.com/questions/12179271/meaning-of-classmethod-and-staticmethod-for-beginner -->
