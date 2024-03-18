@@ -58,8 +58,8 @@ Using human feedback in reinforcement learning has several benefits, but also pr
 
 ### Summarization
 
-- Summarization aims to generate summaries that capture the most important information from a longer text. In RLHF, human feedback can be used to evaluate the quality of summaries and guide the agent towards more informative and concise summaries. This is quite difficult to capture using the metrics like ROUGE as they miss the human preferences.
-- One such approach was proposed in [1], where researchers improved a summarization model using human feedback. The overall process was as follows, 
+- One of the first examples of utilizing RLHF in NLP was proposed in [1] to improve summarization using human feedback. Summarization aims to generate summaries that capture the most important information from a longer text. In RLHF, human feedback can be used to evaluate the quality of summaries and guide the agent towards more informative and concise summaries. This is quite difficult to capture using the metrics like ROUGE as they miss the human preferences.
+- The overall process was as follows, 
   1. First, an autoregressive model is trained via supervised learning on the dataset *(TL;DR dataset with >120k post from reddits and their summaries were taken)*. The resulting model is termed as initial policy.
   2. Then the following steps are performed in iteration,
     1. For each reddit post, samples from initial policy, current policy *(for step 0 its same as initial policy)*, other baselines, and original summaries are taken and send over to human labelers. 
@@ -69,14 +69,15 @@ Using human feedback in reinforcement learning has several benefits, but also pr
 - Finally, a conditioning term in added to the final reward that penalizes the KL divergence between the learned RL policy and the original supervised model. Quoting the paper, *"This KL term serves two purposes. First, it acts as an entropy bonus, encouraging the policy to explore and deterring it from collapsing to a single mode. Second, it ensures the policy doesn’t learn to produce outputs that are too different from those that the reward model has seen during training."*
   
 <figure markdown> 
-    ![](../imgs/rl_rlhf_summary.png){ width="700" }
+    ![](../imgs/rl_rlhf_summary.png)
     <figcaption>Diagram of human feedback, reward model training, and policy training procedure in [1]</figcaption>
 </figure>
 
-### Others
+### ChatGPT like Dialog Systems
 
-- RLHF has been utlised for other NLP tasks as well. For example, 
-  - As Dialogue systems in ChatGPT. Here the aim is to generate responses to user inputs that are coherent, informative, and relevant to the user's goals. In RLHF, human feedback can be used to evaluate the quality of generated responses and guide the agent towards more effective communication strategies. For example, a user can provide explicit feedback on the relevance of a response, or implicit feedback by continuing or ending the conversation.
+- Probably the most famous use case of RLHF in NLP was to finetune the raw ChatGPT model to make it a more dialog friendly system. In a dialog system, the aim is to generate responses to user inputs that are coherent, informative, and relevant to the user's goals. In RLHF, human feedback can be used to evaluate the quality of generated responses and guide the agent towards more effective communication strategies. For example, a user can provide explicit feedback on the relevance of a response, or implicit feedback by continuing or ending the conversation.
+
+## Conclusion
 
 - While RLHF has shown promise in improving NLP tasks, there are still challenges related to the quality of human feedback and the scalability of the approach. Collecting and processing human feedback can be time-consuming and may not be feasible for large-scale applications. Furthermore, human feedback can be subjective and may not capture the full range of user preferences. However, as RLHF continues to be refined, it has the potential to greatly enhance the quality and effectiveness of NLP systems.
 
