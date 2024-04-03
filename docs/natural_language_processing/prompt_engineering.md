@@ -200,6 +200,29 @@ The important point of the above quote (and in fact the paper) is the intention 
 
 - Researchers [7] conducted a segregated examination to assess the effectiveness of various emotional stimuli on two different benchmarks, Instruction Induction and BIG-Bench. They used six Large Language Models (LLMs) for each emotional stimulus and calculated the average performance for both human-designed and APE-generated prompts. Key findings revealed that EP02 was the most effective stimuli for Instruction Induction, while EP06 performed best in BIG-Bench, highlighting the influence of task complexity and type on the choice of emotional stimuli. The study suggests that different stimuli can activate LLMs' capabilities differently, making them more suitable for specific tasks, thus emphasizing the need for task-specific emotional stimuli in interactions with LLMs.
 
+## Jailbreaking
+
+In the world of technology, jailbreaking refers to bypassing security measures on a device to grant users more control and potentially unlock functionalities not intended by the developers. Similarly, jailbreaking large language models (LLMs) aims to circumvent the safeguards put in place to ensure safe and ethical outputs. These safeguards might prevent the LLM from answering certain questions or generating certain content. Do note, the definition of "safe and ethical" content is a grey area and subject to believes of developers of the AI models, hence jailbreaking sometimes helps to circumvent such scenarios.
+
+!!! Warning
+    This section is shared for educational purposes only and should not be used to bypass legal guidelines. Always ensure that AI systems are used responsibly.
+
+### Many-Shot Jailbreaking
+
+Multi-shot jailbreaking [8] technique exploits the growing context window of LLMs. This window allows the model to consider a larger chunk of text preceding a prompt. Multi-shot jailbreaking involves feeding the LLM a series of fabricated dialogues where a user successfully elicits unsafe information from an AI assistant. By conditioning the LLM on these examples, it essentially learns to disregard its safety protocols when presented with a similar query later on. This technique has proven effective against various LLMs, highlighting the ongoing challenge of securing these powerful language models.
+
+<figure markdown> 
+    ![](../imgs/nlp_pe_multishotjailbreaking.png)
+    <figcaption> Example of Many-shot jailbreaking [8]</figcaption>
+</figure>
+
+In accordance with "In-context learning", the model "learns" from the context of the conversation and hence, the more shots you provide, the more the model "learns" about the context and hence, the more chance of it bypassing the safety protocols.
+
+<figure markdown> 
+    ![](../imgs/nlp_pe_multishotjailbreaking_2.png)
+    <figcaption>As the number of shots increases beyond a certain number, so does the percentage of harmful responses to target prompts related to violent or hateful statements, deception, discrimination, and regulated content (e.g. drug- or gambling-related statements). The model used for this demonstration is Claude 2.0. [8]</figcaption>
+</figure>
+
 ## Conclusion
 
 Prompt engineering is a crucial skill for leveraging the capabilities of LLMs effectively. By understanding the different types of prompts and employing strategies such as zero-shot prompts, few-shot prompts, etc, developers and users can harness the power of AI to achieve more accurate and contextually relevant responses. As AI technologies continue to evolve, mastering prompt engineering will remain an essential tool for unlocking the full potential of AI systems across various domains.
@@ -219,3 +242,5 @@ Prompt engineering is a crucial skill for leveraging the capabilities of LLMs ef
 [6] [Prompting Guide](https://www.promptingguide.ai/)
 
 [7] [Large Language Models Understand and Can Be Enhanced by Emotional Stimuli](https://www.sankshep.co.in/PDFViewer/https%3A%2F%2Farxiv.org%2Fpdf%2F2307.11760.pdf)
+
+[8] [Many-shot jailbreaking](https://www.anthropic.com/research/many-shot-jailbreaking)
