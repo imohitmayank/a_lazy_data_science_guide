@@ -140,8 +140,8 @@ nav:
       - 'machine_learning/clustering.md'
       - 'machine_learning/classification.md'
       - 'machine_learning/loss_functions.md'
-      # - 'Model Compression': 'machine_learning/model_compression.md'
       - 'Detecting AI Generated Content': 'machine_learning/genaidetection.md'
+      - 'Direct Preference Optimization (DPO)': 'machine_learning/dpo.md'
     - "Model Compression":
       - 'Introduction': 'machine_learning/model_compression_intro.md'
       - 'Knowledge Distillation': 'machine_learning/model_compression_kd.md'
