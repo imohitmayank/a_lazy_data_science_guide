@@ -475,3 +475,36 @@
     === "Answer"
         
         Group size is a parameter used in the quantization process that determines the number of weights or activations *(imagine weights in a row of matrix)* that are quantized together. A smaller group size can lead to better quantization accuracy, but it can also increase the memory and computational requirements of the model. Group size is an important hyperparameter that needs to be tuned to achieve the best trade-off between accuracy and efficiency. Note, the default groupsize for a GPTQ is 1024. [Refer this interesting Reddit discussion](https://www.reddit.com/r/LocalLLaMA/comments/12rtg82/what_is_group_size_128_and_why_do_30b_models_give/?rdt=46348)
+
+!!! Question ""
+    === "Question"
+        #### What is EMA (Exponential Moving Average) in context of deep learning?
+
+    === "Answer"
+
+        EMA is a technique used in deep learning to stabilize the training process and improve the generalization performance of the model. It works by maintaining a moving average of the model's parameters during training, which helps to smooth out the noise in the gradients and prevent the model from overfitting to the training data. Usually during training, the model's parameters are updated using the gradients of the loss function, but the EMA parameters are updated using a weighted average of the current parameters and the previous EMA parameters, as shown below:
+
+        $$
+        \text{ema_param} = \text{ema_param} * \text{decay} + \text{param} * (1 - \text{decay})
+        $$
+
+        One more advantage of EMA model is that it can be used to resume the training. Some models provide both the model parameters and EMA parameters.
+
+!!! Question ""
+    === "Question"
+        #### What is Bradley-Terry model? And how is it used in machine learning?
+
+    === "Answer"
+
+        Bradley-Terry model is a probability model that can be used to model the outcome of a pairwise comparison between two items. It is commonly used in sports analytics to rank teams or players based on their performance in head-to-head matches. Refer: [Wikipedia](https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model)
+
+        In case of ML, the model is a popular choice for modeling human preferences in the context of training language models. It stipulates that the probability of a human preferring one completion over another can be expressed as a ratio of exponentials of the latent reward associated with each completion. Specifically, the human preference distribution 
+        
+        $$ 
+        p^*(y_1 \succ y_2 | x) = \frac{exp(r^*(x, y_1))}{exp(r^*(x, y_1)) + exp(r^*(x, y_2))} 
+        $$
+
+        This model is commonly used to capture human preferences to provide a framework for understanding and incorporating human feedback into the training of language models.
+
+
+        
