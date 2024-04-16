@@ -71,7 +71,7 @@ nav:
 
   - 'Natural Language Processing':
       - 'Interview Questions' : 'natural_language_processing/interview_questions.md'
-      - 'Models':
+      - 'Architectures/Models':
           -  'Word2Vec': 'natural_language_processing/word2vec.md'
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
           -  'Transformers': 'natural_language_processing/transformer.md'
@@ -82,6 +82,7 @@ nav:
           -  'natural_language_processing/FlanModels.md'
           # -  'ChatGPT': 'natural_language_processing/chatgpt.md'
           -  'LLaMA': 'natural_language_processing/llama.md'
+          -  'Mamba': 'natural_language_processing/mamba.md'
       -  'Tasks':
           -  'natural_language_processing/paraphraser.md'
           -  'natural_language_processing/text_similarity.md'

@@ -41,7 +41,7 @@ Transformers
 
 - And thats it :smile: Well at least from 10k feet :airplane:. Looking at the technicalities, the process drills down to,
   - Every token is not used as-it-is, but first converted to key, value and query format using linear projections. We have key, value and query weights denoted as $W_k$, $W_v$ and $W_q$. Each input token's representation is first multipled with these weights to get $k_i$, $v_i$ and $q_i$.
-  - Next the query of one token is dot product with the keys of all token. On applying softmax to the output, we get a probability score of importance of every token for the the given token.
+  - Next the query of one token is dot product with the keys of all token. On applying softmax to the output, we get a probability score of importance of every token for the given token.
   - Finally, we do weighted sum of values of all keys with this score and get the vector representation of the current token.
 - It is easy to understand the process while looking at one token at a time, but in reality it is completely vectorized and happens for all the tokens at the same time. The formula for the self-attention is shown below, where Q, K and V are the matrices you get on multiplication of all input tokens with the query, key and value weights.
   
