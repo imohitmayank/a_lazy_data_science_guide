@@ -1,12 +1,12 @@
 ## Introduction
 
-Mamba is a new architecture designed to address a longstanding challenge in sequence modeling: the trade-off between efficiency and accuracy. Sequence modeling tasks involve analyzing ordered sequences of data, such as text, audio, or DNA.  These sequences can vary greatly in length, and processing them effectively requires models that are both powerful and computationally efficient.
+Mamba is a new architecture designed to address a longstanding challenge in sequence modeling: the trade-off between efficiency and accuracy. Sequence modeling tasks involve analyzing ordered sequences of data, such as text, audio, or video.  These sequences can vary greatly in length, and processing them effectively requires models that are both powerful and computationally efficient.
 
 Traditionally, [recurrent neural networks (RNNs)](./lstm_gru_rnn.md) were the go-to architecture for sequence modeling. However, RNNs suffer from limitations, like they struggle to capture long-range dependencies between elements in the sequence. This leads to accuracy problems.
 
 Transformers emerged as a powerful alternative to RNNs, addressing some of their shortcomings. Transformers employ an attention mechanism that allows them to focus on specific parts of the sequence, improving their ability to capture long-range dependencies. However, Transformers come with their own drawbacks as they can be computationally expensive and memory-intensive, especially for very long sequences.
 
-Mamba builds upon State Space Models (SSMs), a less common type of neural network architecture for sequence modeling. SSMs offer advantages in terms of speed and memory usage compared to Transformers. However, they haven't been able to match the accuracy of Transformers on various tasks. Mamba addresses this accuracy gap by introducing several innovations to SSMs, making them competitive with Transformers while retaining their efficiency benefits.
+Mamba builds upon State Space Models (SSMs), a less common type of architecture for sequence modeling. SSMs offer advantages in terms of speed and memory usage compared to Transformers. However, they haven't been able to match the accuracy of Transformers on various tasks. Mamba addresses this accuracy gap by introducing several innovations to SSMs, making them competitive with Transformers while retaining their efficiency benefits.
 
 ## State Space Models (SSMs)
 
@@ -22,14 +22,14 @@ In working, SSMs are quite similar to RNN as they are a type of architecture spe
 
 By combining these two pieces of information, SSMs can learn how the current token relates to the preceding tokens in the sequence. This allows the model to build up a deeper understanding of the sequence as it processes it element by element.
 
-Here's a breakdown of the core components and processing steps within SSMs:
+As part of core components, SSMs rely on four sets of matrices and parameters ($\text{Delta}$, $A$, $B$, and $C$) to handle the input sequence. Each matrix plays a specific role in transforming and combining information during the processing steps:
 
-* **Core Components:** SSMs rely on four sets of matrices and parameters ($\text{Delta}$, $A$, $B$, and $C$) to handle the input sequence. Each matrix plays a specific role in transforming and combining information during the processing steps:
-
-  - $\text{Delta}$ ($\Delta$): This parameter controls the discretization step, which is necessary because SSMs are derived from continuous differential equations.
-  - $A$ and $B$: These matrices determine how much information is propagated from the previous hidden state and the current input embedding to the new hidden state, respectively.
-  - $C$: This matrix transforms the final hidden state into an output representation that can be used for various tasks.
+- $\text{Delta}$ ($\Delta$): This parameter controls the discretization step, which is necessary because SSMs are derived from continuous differential equations.
+- $A$ and $B$: These matrices determine how much information is propagated from the previous hidden state and the current input embedding to the new hidden state, respectively.
+- $C$: This matrix transforms the final hidden state into an output representation that can be used for various tasks.
   
+Here's a breakdown of the processing steps within SSMs:
+
 * **Discretization Step:** A crucial step in SSMs involves modifying the $A$ and $B$ matrices using a specific formula based on the $\text{Delta}$ parameter. This discretization step is necessary because SSMs are derived from continuous differential equations. The mathematical conversion from continuous to discrete form requires adjusting these matrices to account for the change in how information is processed. In simpler terms, discretization essentially chops up the continuous flow of information into discrete chunks that the model can handle more efficiently.
   
   $$
@@ -38,7 +38,9 @@ Here's a breakdown of the core components and processing steps within SSMs:
   $$
 
 * **Linear RNN-like Processing:** Similar to recurrent neural networks (RNNs), SSMs process tokens one by one. At each step, they use a linear combination of the previous hidden state and the current input embedding to compute a new hidden state. This hidden state captures the essential information about the sequence seen so far. Unlike traditional RNNs, which can struggle with vanishing or exploding gradients in long sequences, SSMs are designed to address these issues and can handle longer sequences more effectively.
-* **Final Representation:** The final representation for each token is obtained by multiplying the hidden state with another matrix (C). This final representation can then be used for various tasks, such as predicting the next word in a sequence or classifying a DNA sequence. While SSMs offer advantages in terms of speed and memory efficiency, particularly when dealing with long sequences, their inflexibility in processing inputs limits their accuracy. Unlike Transformers that can selectively focus on important parts of the sequence using attention mechanisms, regular SSMs treat all tokens equally. This can hinder their ability to capture complex relationships within the sequence data.
+* **Final Representation:** The final representation for each token is obtained by multiplying the hidden state with another matrix (C). This final representation can then be used for various tasks, such as predicting the next word in a sequence or classifying a DNA sequence. 
+
+While SSMs offer advantages in terms of speed and memory efficiency, particularly when dealing with long sequences, their inflexibility in processing inputs limits their accuracy. Unlike Transformers that can selectively focus on important parts of the sequence using attention mechanisms, regular SSMs treat all tokens equally. This can hinder their ability to capture complex relationships within the sequence data.
 
 ## Selective State Space Models (SSSMs)
 
@@ -77,12 +79,6 @@ A Mamba layer consists of several components that work together to achieve effic
 
 Mamba demonstrates promising results, particularly for long sequences:
 
-* **Scalability:** Mamba exhibits linear scaling with sequence length, making it efficient for processing very long sequences where Transformers struggle.
-    <figure markdown> 
-            ![](../imgs/nlp_mamba_scaling.png)
-            <figcaption>Source: [1]</figcaption>
-    </figure>
-
 * **Speed:** Mamba achieves super fast speed which becomes even better with increase in sequence length and batch sizes.
 
     <figure markdown> 
@@ -90,7 +86,12 @@ Mamba demonstrates promising results, particularly for long sequences:
             <figcaption>Source: [1]</figcaption>
     </figure>
 
-* **Performance:** Mamba achieves performance comparable to Transformers on various tasks like language modeling. 
+* **Performance:** Mamba outperforms Transformers based models *(even 2x bigger ones!)* on various tasks.
+    <figure markdown> 
+            ![](../imgs/nlp_mamba_scaling.png)
+            <figcaption>Source: [1]</figcaption>
+    </figure>
+
     <figure markdown> 
             ![](../imgs/nlp_mamba_results.png)
             <figcaption>Source: [1]</figcaption>
