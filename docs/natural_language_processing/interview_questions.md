@@ -254,3 +254,18 @@
            - **Process:** Cross-encoders take a pair of sentences as a single input and pass them simultaneously to the transformer network. The model takes into account the interaction between the sentences directly during the encoding process.
            - **Output:** Instead of separate embeddings, a Cross-encoder outputs a single score or value, typically between 0 and 1, representing the relationship or similarity of the sentence pair. It does not produce separate sentence embeddings.
            - **Usage:** Cross-encoders are generally more accurate for tasks like semantic similarity or relevance ranking because they consider the interaction between the sentence pair directly. However, they are less efficient compared to Bi-encoders for large-scale tasks because each sentence pair must be processed together and in real-time, making it hard to pre-compute and store representations.
+  
+
+!!! Question ""
+    === "Question"
+        #### What is the Fertility and Parity of the tokenizer?
+
+    === "Answer"
+        Fertility and parity are metrics used to evaluate a tokenizer's performance. 
+
+        - **Fertility** is defined as the average number of tokens required to represent a word or document. It's calculated by dividing the number of tokens in a dataset by the number of words in the dataset. Higher fertility scores indicate weaker compression capabilities of the tokenizer.
+
+        - **Parity** assesses how fairly a tokenizer treats equivalent sentences in different languages. A tokenizer achieves parity for language A with respect to language B if the ratio of the number of tokens in language A to the number of tokens in language B is approximately 1. This is calculated by performing tokenization on a translation dataset where each sentence in language A is translated into language B and vice versa. 
+        
+
+
