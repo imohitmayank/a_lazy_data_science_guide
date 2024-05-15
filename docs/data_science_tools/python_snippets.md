@@ -327,6 +327,12 @@ conda deactivate
 
 # delete an environment
 conda env remove -n py39
+
+# by default conda activates nested environments, to avoid this
+conda config --set auto_stack 0
+
+# If you wanted to Disable Base Env Activation
+conda config --set auto_activate_base false
 ```
 
 ## Requirement files
