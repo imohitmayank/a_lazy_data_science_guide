@@ -484,3 +484,5 @@ Fine-tuning the model can be done very easily using the `llama.cpp` library. Bel
 [8] LLM.int8() - [Blog](https://huggingface.co/blog/hf-bitsandbytes-integration)
 
 [9] GGUF/GGML - [Official Docs](https://github.com/ggerganov/ggml/blob/master/docs/gguf.md) | [Blog - Quantize Llama_2 models using GGML](https://mlabonne.github.io/blog/posts/Quantize_Llama_2_models_using_ggml.html) | [K Quants](https://github.com/ggerganov/llama.cpp/pull/1684)
+
+[10] [A Visual Guide to Quantization](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization)

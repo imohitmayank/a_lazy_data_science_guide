@@ -120,6 +120,8 @@
 
         Temperature allows you to control the trade-off between exploration and exploitation in the model's predictions. It's a hyperparameter that can be adjusted during training or inference to achieve the desired level of certainty in the model's output, depending on the specific requirements of your application.
 
+        Here is a good online [tool](https://artefact2.github.io/llm-sampling/index.xhtml) to learn about the impact of temperature and other parameters on output generation. 
+
 
 !!! Question ""
     === "Question"
