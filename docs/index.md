@@ -1,4 +1,4 @@
-Hello :wave:
+Hello 👋
 =====================
 
 **What is this?** A guide book on data science for busy and equally lazy Data Scientists 😄
