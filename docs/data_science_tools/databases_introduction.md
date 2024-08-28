@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Databases are like a smart repository of data, where you can keep data in a structured, organized, and secure manner. While you might argue something like, "Why can't I just keep them in a single txt file?", remember things starts to get messy when you have a lot of data *(millions of entries and more)* and you want to be fast in execution *(finding one entry in any modern database will be much faster than from a txt file)*. In a way, databases allow for efficient retrieval, manipulation, and analysis of data. They also offer powerful querying and analysis capabilities, enabling data scientists and analysts to extract insights and make data-driven decisions. This makes them a powerful tool for data science projects. 
+Databases are like a smart repository of data, where you can keep data in a structured, organized, and secure manner. While you might argue something like, "Why can't I just keep them in a single txt file?", remember things starts to get messy when you have a lot of data *(millions of entries and more)* and you still want to be fast *(finding one entry in any modern database will be much faster than from a txt file)*. In a way, databases allow for efficient retrieval, manipulation, and analysis of data. They also offer powerful querying and analysis capabilities, enabling data scientists and analysts to extract insights and make data-driven decisions. This makes them a powerful tool for data science projects. 
 
 This article will briefly focus on the different types of databases, their features and some important generic concepts. You can also find separate articles for individual databases in this section. So without further delay, let's get started!
 
@@ -28,7 +28,7 @@ Relational databases are the most common type of database. They are structured u
 | **Popularity Rank**     | 1                     | 2                     | 3                    | 4                    | 5                    | 6                    | 7                    | 8                    |
 
 !!! Warning
-    Some details in the above table *(like Popularity Rank)* is as per the information aggregated from multiple sources at the time *(August 2024)*. This is subject to change in future. 
+    Some details in the above table *(like Popularity Rank)* are as per the information aggregated from multiple sources at the time the article was written *(August 2024)*. This could change over time. 
 
 This table summarizes the key features and characteristics of some of the top relational databases, highlighting their strengths and use cases. Oracle leads in enterprise environments, while MySQL and PostgreSQL are popular for web applications and diverse workloads. Microsoft SQL Server is favored in corporate settings, and MariaDB is recognized for its compatibility with MySQL. SQLite is widely used for lightweight applications, and IBM Db2 and SAP HANA cater to specific enterprise needs.
 

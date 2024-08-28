@@ -26,7 +26,7 @@ To get PostgreSQL running on your local machine, you will need to have the follo
 
 1. **PostgreSQL Server**: You can follow the step-by-step instructions provided on the [official website](https://www.postgresql.org/download/). Once the installation is complete, you can run the server by opening the application.
 
-2. **PostgreSQL Admin/Dev Tools**: Once the PostgreSQL server is installed, you can install tools to manage and interact with PostgreSQL. There are multiple choices, each with its own set of unique features and all of them support the basic functionalities. Here are some famous ones - [PgAdmin](https://www.pgadmin.org/), [DBeaver](https://dbeaver.io/), or you can even use terminal tools like [Psql](https://www.postgresql.org/docs/current/app-psql.html).
+2. **PostgreSQL Query Tools**: Once the PostgreSQL server is installed, you can install tools to manage and interact with PostgreSQL. There are multiple choices, each with its own set of unique features and all of them support the basic functionalities. Here are some famous ones - [PgAdmin](https://www.pgadmin.org/), [DBeaver](https://dbeaver.io/), or you can even use terminal tools like [Psql](https://www.postgresql.org/docs/current/app-psql.html).
 
 !!! Hint
     **Installation on Mac**
@@ -226,7 +226,7 @@ result = await conn.fetch(
 )
 ```
 
-You can use `conn.execute` to run the query without fetching the result. Below is the modification to the code shown above.
+You can use `conn.execute` to run the query without fetching the result. Below is the modification needed.
 
 ```python linenums="1"
 # insertion example (one row)
@@ -303,7 +303,7 @@ if __name__ == '__main__':
     loop.run_until_complete(execute_fetch_script(script, values, "Testing Run"))
 ```
 
-If you notice, all of the above examples are executing the query in one transaction. In case you want to execute multiple queries in one transaction, you can do as shown below, 
+If you noticed, all of the above examples are executing the query within a single transaction. In case you want to execute multiple queries in one transaction, you can do as shown below, 
 
 ```python linenums="1"
 # import
@@ -320,10 +320,10 @@ conn = await asyncpg.connect(user='postgres', password='admin',
 async with conn.transaction():
 
     try: 
-        # execute the select SQL script
+        # Query 1 - execute the select SQL script
         records = await conn.fetch('SELECT * FROM mytbl where projectid = $1 LIMIT $2', 2, 1)
 
-        # update the table
+        # Query 2 - update the table
         await conn.execute('UPDATE mytbl SET name = $1 where projectid = $2', 'mohit', 2)
 
     # handle exception
