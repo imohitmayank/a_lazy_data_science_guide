@@ -83,6 +83,12 @@ nav:
           # -  'ChatGPT': 'natural_language_processing/chatgpt.md'
           -  'LLaMA': 'natural_language_processing/llama.md'
           -  'Mamba': 'natural_language_processing/mamba.md'
+      - 'Large Language Models':
+          - 'Training LLMs': 'natural_language_processing/training_llm.md'
+          - 'Prompt Engineering': 'natural_language_processing/prompt_engineering.md'
+          - 'natural_language_processing/explainable_ai_llm.md'
+          - 'natural_language_processing/streaming_chatgpt_gen.md'
+          - 'natural_language_processing/making_llm_multilingual.md'
       -  'Tasks':
           -  'natural_language_processing/paraphraser.md'
           -  'natural_language_processing/text_similarity.md'
@@ -93,13 +99,6 @@ nav:
           -  'Named Entity Recognition' : 'natural_language_processing/named_entity_recognition.md'
           -  'Natural Language Querying': 'natural_language_processing/nlq.md'
           # -  'Retrieval Augmented Generation (RAG)' : 'natural_language_processing/rag.md'
-      # - 'Techniques':
-          # - 'natural_language_processing/metrics.md'
-      - 'Techniques':
-          - 'Prompt Engineering': 'natural_language_processing/prompt_engineering.md'
-          - 'natural_language_processing/explainable_ai_llm.md'
-          - 'natural_language_processing/streaming_chatgpt_gen.md'
-          - 'natural_language_processing/making_llm_multilingual.md'
 
   - 'Audio Intelligence':
       - 'Interview Questions': 'audio_intelligence/interview_questions.md'

@@ -3,7 +3,7 @@
 
 ## Introduction
 
-- Loss functions are the "ideal objectives" that neural networks (NN) tries to optimize. In fact, they are the mathematical personification of what we want to achieve with the NN. As the name suggests, it is a function that takes input and compute a loss value that determines how further away the current model is from the ideal model for that example. In an ideal world, we would expect the loss value to be 0, but in reality it could get very close to 0 and sometimes even be high enough so that we terminate training to handle overfitting.
+- Loss functions are the "ideal objectives" that neural networks (NN) tries to optimize. In fact, they are the mathematical personification of what we want to achieve with the NN. As the name suggests, it is a function that takes input and compute a loss value that determines how further away the current model is from the ideal model for that example. In an ideal world, we would expect the loss value to be 0, but in reality it could get very close to 0.
 - We also have cost functions that is nothing but aggrgation of the loss functions over a batch or complete dataset. The cost function is the function that we use in practice to optimize the model.
 
 !!! Hint

@@ -56,6 +56,12 @@ Using human feedback in reinforcement learning has several benefits, but also pr
 
 - Reinforcement learning from human feedback (RLHF) has shown great potential in improving natural language processing (NLP) tasks. In NLP, the use of human feedback can help to capture the nuances of language and better align the agent's behavior with the user's expectations.
 
+<figure markdown> 
+    ![](../imgs/rl_rlhf_instructgpt.png)
+    <figcaption>PPO model trained with RLHF outperforming SFT and base models by OpenAI. Source [2]</figcaption>
+</figure>
+
+
 ### Summarization
 
 - One of the first examples of utilizing RLHF in NLP was proposed in [1] to improve summarization using human feedback. Summarization aims to generate summaries that capture the most important information from a longer text. In RLHF, human feedback can be used to evaluate the quality of summaries and guide the agent towards more informative and concise summaries. This is quite difficult to capture using the metrics like ROUGE as they miss the human preferences.
@@ -87,3 +93,5 @@ Using human feedback in reinforcement learning has several benefits, but also pr
 ## References
 
 [1] [Learning to summarize from human feedback](https://arxiv.org/abs/2009.01325)
+
+[2] [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
