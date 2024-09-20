@@ -1,5 +1,5 @@
 
-- Here are some questions and their answers to make you ready for your next interview. Best of luck :wave:
+- Here are some questions and their answers to make you ready for your next interview. Best of luck 👋
 
 !!! Question ""
     === "Question"
