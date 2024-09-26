@@ -286,6 +286,34 @@ logger.setLevel(logging.INFO)
 !!! note
     Remember to switch to another VE when you start working on another project or/and to deactivate the VE when you want to move to base VE.
 
+### Handling Secrets and Keys
+
+- While working on a project, we often need to use some secret keys or passwords, like API keys, database passwords, etc. It is a good practice to store these keys in a separate file, which is not committed to the version control system. This file is usually named `.env` and is stored at the root of the project directory. The `.env` file contains the keys in the form of `KEY=VALUE` pairs. For example, 
+
+``` python linenums="1"
+API_KEY=1234567890
+DB_PASSWORD=abcd1234
+```
+
+- To access these keys in the code, we can use the `python-dotenv` package to read the `.env` file and store the keys in the environment variables. Then we can use `os` module to read the environment variables. For example, 
+
+``` python linenums="1"
+import os
+from dotenv import load_dotenv
+
+# load the .env file
+load_dotenv()
+
+# access the keys
+api_key = os.getenv('API_KEY')
+db_password = os.getenv('DB_PASSWORD')
+```
+
+- The `.env` file should be added to the `.gitignore` file to prevent it from being committed to the version control system. This ensures that the secret keys are not exposed to the public.
+
+!!! Hint
+    If you are using AI coding assistant like Github CoPilot, make sure to exclude the `.env` files in the settings so that it can't access the keys. 
+
 ### Type Hints and Data Validation
 
 - Python comes with dynamic variable type support, i.e. you can execute code `x=1` and `x='a'` one after the another and the it will still work. This is in contrast with languages like Java and C++ where you have to specify the type explicitly, for example `int a = 1`. While this feature makes Python easier to use and more dynamic, it comes at the cost of clarity and complexity. Now, let's talk about some good practices to mitigate this.
