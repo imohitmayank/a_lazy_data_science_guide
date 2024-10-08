@@ -127,13 +127,15 @@ nav:
   - 'Data Science Tools':
       -  'data_science_tools/introduction.md'
       -  'data_science_tools/python_snippets.md'
-      -  'data_science_tools/python_good_practices.md'
       -  'data_science_tools/version_control.md'
       -  'data_science_tools/compute_and_ai_services.md'
       -  'data_science_tools/scraping_websites.md'
       -  'Database': 
           - 'Introduction': 'data_science_tools/databases_introduction.md'
           - 'PostgreSQL': 'data_science_tools/database_postgresql.md'
+      - 'Good Practices':
+          -  'Github': 'data_science_tools/github_good_practices.md'
+          -  'Python': 'data_science_tools/python_good_practices.md'
 
   - 'Machine Learning':
     - 'machine_learning/introduction.md'

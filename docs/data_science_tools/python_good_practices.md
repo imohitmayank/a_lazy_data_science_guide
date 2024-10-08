@@ -207,6 +207,11 @@ Returns
 - Frankly, I am only going to touch this topic with a long stick 🧹. There are already several [articles](https://softwareengineering.stackexchange.com/questions/57/tabs-versus-spaces-what-is-the-proper-indentation-character-for-everything-in-e), [reddit threads](https://www.reddit.com/r/learnpython/comments/8cann8/tabs_vs_spaces_i_dont_get_it/) and even tv series (Silicon valley 📺) where this topic has been discussed a lot!
 - Want my 2 cents? Pick any modern IDE *(like VSCode, Sublime, etc)*, set indentations to tabs, and set 1 tab = 4 spaces. Done 😏
 
+### Linters
+
+- Linters are tools that analyze your code to detect various types of errors. They can help you to maintain a consistent coding style and avoid common programming errors. Python has several linters available, like [pylint](https://www.pylint.org/), [flake8](https://flake8.pycqa.org/en/latest/), [pydocstyle](https://www.pydocstyle.org/en/stable/), etc. Using them is super easy, say for `pylint` - you can install it using `pip install pylint` and run using `pylint my_module.py`. That's it!
+- If you are using VSCode, you can install the `Python` extension by Microsoft, which comes with inbuilt linter support. Or you can install fast linters *(using VSCode extension)* like [Ruff](https://github.com/astral-sh/ruff) which is upto 10-100x faster than Flake8 and Black.
+
 ## Additional tips
 
 - Till now we have discussed how to either structure the project or format the code. Next, we will cover a generic set of good practices which will save you some pain down the line 😬
