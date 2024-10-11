@@ -516,3 +516,61 @@ locale.getpreferredencoding = lambda: "UTF-8"
 <!-- ## Python Classmethod vs Staticmethod
 
 https://stackoverflow.com/questions/12179271/meaning-of-classmethod-and-staticmethod-for-beginner -->
+
+
+## Asyncio Gather
+
+- `asyncio.gather` is a powerful function in Python's `asyncio` module that allows you to run multiple coroutines concurrently and collect the results. Here is an example of how to use `asyncio.gather` to process a list of inputs concurrently and maintain order.
+
+```python linenums="1"
+# import 
+import asyncio
+import random
+
+# func to process input
+async def process_input(input_value):
+    # Generate a random sleep time between 1 and 5 seconds
+    sleep_time = random.uniform(1, 5)
+    print(f"Processing {input_value}. Will take {sleep_time:.2f} seconds.")
+    
+    # Simulate some processing time
+    await asyncio.sleep(sleep_time)
+    
+    return f"Processed: {input_value}"
+
+async def main():
+    # List of inputs to process
+    inputs = ["A", "B", "C", "D", "E"]
+    
+    # Create a list of coroutines to run
+    tasks = [process_input(input_value) for input_value in inputs]
+    
+    # Use asyncio.gather to run the coroutines concurrently and maintain order
+    results = await asyncio.gather(*tasks)
+    
+    # Print the results
+    for input_value, result in zip(inputs, results):
+        print(f"Input: {input_value} -> {result}")
+
+# Run the main function
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+- Once you run the above code, here is an example of the output you might see:
+
+```shell
+Processing A. Will take 2.45 seconds.
+Processing B. Will take 1.47 seconds.
+Processing C. Will take 4.47 seconds.
+Processing D. Will take 1.68 seconds.
+Processing E. Will take 4.47 seconds.
+Input: A -> Processed: A
+Input: B -> Processed: B
+Input: C -> Processed: C
+Input: D -> Processed: D
+Input: E -> Processed: E
+```
+
+- As you can see from the output, the inputs are processed concurrently, and the results are collected in the order of the inputs. This is true even if the processing times are different for each input.
+
