@@ -80,9 +80,9 @@ nav:
           -  'MiniLM': 'natural_language_processing/minilm.md'
           -  'natural_language_processing/T5.md'
           -  'natural_language_processing/FlanModels.md'
-          # -  'ChatGPT': 'natural_language_processing/chatgpt.md'
           -  'LLaMA': 'natural_language_processing/llama.md'
           -  'Mamba': 'natural_language_processing/mamba.md'
+          -  'DeepSeek R1': 'natural_language_processing/deepseek.md'
       - 'Large Language Models':
           - 'Training LLMs': 'natural_language_processing/training_llm.md'
           - 'Prompt Engineering': 'natural_language_processing/prompt_engineering.md'
