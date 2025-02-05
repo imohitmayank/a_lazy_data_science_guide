@@ -508,5 +508,12 @@
 
         This model is commonly used to capture human preferences to provide a framework for understanding and incorporating human feedback into the training of language models.
 
+!!! Question ""
+    === "Question"
+        #### What is Rejection Sampling in Machine Learning?
 
+    === "Answer"
+        Rejection sampling is a method to generate samples from a complex target distribution (like a hard-to-sample probability curve) by using a simpler "proposal" distribution you can easily sample from (e.g., a uniform or normal distribution). 
         
+        Here's how it works: you first pick a proposal distribution that covers the target’s range. Then, you repeatedly draw samples from this simpler distribution and "accept" or "reject" each sample based on a quality check—if a random number (from 0 to 1) is less than the ratio of the target’s density to the proposal’s density (scaled by a constant), you keep the sample; otherwise, you discard it. This process ensures the accepted samples match the target distribution. It’s like filtering out bad candidates until you’re left with samples that fit your desired pattern. While simple to implement, it becomes inefficient for high-dimensional data or if the proposal distribution doesn’t closely match the target shape.
+
