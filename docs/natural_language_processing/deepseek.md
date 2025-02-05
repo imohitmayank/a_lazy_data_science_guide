@@ -31,44 +31,42 @@ DeepSeek-R1 inherits DeepSeek-V3's MoE architecture featuring:
   - Shared experts: 8 always-active generalist modules handling common patterns
   - Routed experts: 128 specialized modules activated based on input content
 
-This architecture enables 3.8x higher training efficiency compared to dense models while maintaining 97% quality retention.
-
 !!! Hint
     If you want to learn more about the MoE framework and models, you can refer this [article](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts).
 
-### Key Architectural Innovations
-1. Multi-Head Latent Attention (MLA)
+<!-- ### Key Architectural Innovations
+1. **Multi-Head Latent Attention (MLA)**
    - Compresses key-value cache into latent vectors (16x smaller than standard attention)
    - Achieves 48% faster inference compared to traditional attention mechanisms
    - Maintains 98.7% of original attention performance while reducing memory usage
 
-2. FP8 Mixed Precision Training
+2. **FP8 Mixed Precision Training**
    - Utilizes 8-bit floating point for matrix multiplications
    - Implements fine-grained quantization with:
      - Dynamic scaling factors for numerical stability
      - 16-bit accumulation for precision-critical operations
    - Reduces memory consumption by 37% during training
 
-3. Auxiliary-Loss-Free Load Balancing
+3. **Auxiliary-Loss-Free Load Balancing**
    - Novel bias adjustment strategy prevents expert overload
    - Achieves 93.4% expert utilization rate vs 78% in conventional MoE
    - Eliminates performance degradation from balancing constraints
 
-4. Expert Choice Routing
+4. **Expert Choice Routing**
    - Implements two-level selection process:
      - Each expert selects top-k tokens (k=2)
      - Each token selects top-2 experts from those that chose it
    - Achieves 4.2x better load balance than traditional routing
 
 ### Enhanced Training Infrastructure
-- Multi-Token Prediction Objective
+- **Multi-Token Prediction Objective**
   - Predicts 6 future tokens simultaneously
   - Reduces training steps required by 27%
   - Improves code generation accuracy by 15%
 
-- Sparse MoE Layers
+- **Sparse MoE Layers**
   - Replaces 80% of dense FFN layers with MoE blocks
-  - Achieves 4.9x higher throughput than dense architectures
+  - Achieves 4.9x higher throughput than dense architectures -->
 
 ### Performance Optimization
 | Metric                     | DeepSeek-V3 | Conventional MoE |
@@ -91,7 +89,7 @@ mixing.
 
 <figure markdown> 
     ![](../imgs/nlp_deepseek_r1zero.png)
-    <figcaption>AIME accuracy of DeepSeek-R1-Zero during training. For each question, [we] sample 16 responses and calculate the overall average accuracy to ensure a stable evaluation. [1]</figcaption>
+    <figcaption>AIME accuracy of DeepSeek-R1-Zero during training. For each question, [author] sample 16 responses and calculate the overall average accuracy to ensure a stable evaluation. [1]</figcaption>
 </figure>
 
 ### 2. Cold Start for DeepSeek-R1
@@ -109,7 +107,7 @@ After the cold start, DeepSeek-R1 underwent large-scale RL training focused on e
 
 ### 4. Rejection Sampling and Supervised Fine-Tuning
 
-Upon convergence of the reasoning-oriented RL, the researchers collected new Supervised Fine-Tuning (SFT) data through rejection sampling. This data included both reasoning and non-reasoning tasks, enhancing the model's general capabilities.
+Upon convergence of the reasoning-oriented RL, the researchers collected new Supervised Fine-Tuning (SFT) data through [rejection sampling](../machine_learning/interview_questions.md#what-is-rejection-sampling-in-machine-learning). This data included both reasoning and non-reasoning tasks, enhancing the model's general capabilities.
 
 ### 5. Reinforcement Learning for All Scenarios
 
@@ -118,6 +116,11 @@ The final stage involved another round of RL, this time aimed at improving the m
 ### 6. Distillation to Smaller Models
 
 To make the advanced reasoning capabilities more accessible, the researchers distilled DeepSeek-R1's knowledge into smaller dense models based on Qwen and Llama architectures. For distilled models, authors apply only SFT and do not include an RL stage, even though incorporating RL could substantially boost model performance. 
+
+!!! Note
+    There is a major takeaway from this analysis regarding the efficiency of Distillation on different technique GPRO vs SFT: Transferring knowledge from advanced AI models to smaller versions ("distillation") often works better than training compact models (< 3B models) with resource-heavy reinforcement learning (RL), which demands massive computing power and still underperforms.
+
+    In short, if your model is <3B parameters and you have sufficient data, consider supervised finetuning over RL based training.
 
 ## Experiments
 
@@ -161,15 +164,15 @@ DeepSeek-R1 demonstrated impressive performance across various benchmarks:
 
 ## Code
 
-DeepSeek-R1-Zero exhibits an “aha moment” during training. This happened during the RL training phase wherein the model allocates more thinking time to a problem by reevaluating its initial approach. This behavior showcases the model’s growing reasoning abilities and the unexpected sophistication of reinforcement learning outcomes. The algorithm credited to this moment was Group Relative Policy Optimization (GRPO). Based on this, there has been several attempts to replicate similar moment using much smaller models. 
+DeepSeek-R1-Zero exhibits an “aha moment” during training. This happened during the RL training phase wherein the model allocates more thinking time to a problem by reevaluating its initial approach. This behavior showcases the model’s growing reasoning abilities and the unexpected sophistication of reinforcement learning outcomes. The algorithm credited to this is Group Relative Policy Optimization (GRPO). Based on this, there has been several attempts to replicate similar moment using much smaller models. 
 
-In Mini-R1 [3], the author ([Philipp Schmid](https://www.philschmid.de/)) wanted to recreate the small "aha moment" of DeepSeek-R1 using Group Relative Policy Optimization (GRPO) and the Countdown Game. The aim was to train an open model (`Qwen-2.5-3B`) using reinforcement learning trying to teach it self-verification and search abilities all on its own to solve the Countdown Game. For context, the Countdown game is a numbers puzzle where players use a set of randomly drawn numbers and basic arithmetic operations (+, -, ×, ÷) to reach or get as close as possible to a target number. At the end, the author was able to achieve 50% accuracy by 450th step of training. One interesting point to note is that in the experiment, GRPO with two rule-based rewards demanded a lot of power: 4 H100 GPUs for 6 hours over 450 training steps on a 3-billion-parameter model. This illustrates the hefty compute required for scaling reinforcement learning—remember, DeepSeek powered through with a 671-billion model over 8000 steps.
+In Mini-R1 [3], the author ([Philipp Schmid](https://www.philschmid.de/)) wanted to recreate the small "aha moment" of DeepSeek-R1 using Group Relative Policy Optimization (GRPO) and the Countdown Game. The aim was to train an open model (`Qwen-2.5-3B`) using reinforcement learning trying to teach it self-verification and search abilities all on its own to solve the Countdown Game. For context, the Countdown game is a numbers puzzle where players use a set of randomly drawn numbers and basic arithmetic operations (+, -, ×, ÷) to reach or get as close as possible to a target number. At the end, the author was able to achieve 50% accuracy by 450th step of training. One interesting point to note is that in the experiment, GRPO with two rule-based rewards demanded a lot of power: 4 H100 GPUs for 6 hours over 450 training steps on a 3-billion-parameter model. This illustrates the hefty compute required for scaling reinforcement learning—remember, DeepSeek a 671-billion model gained its performance after training over 8000 steps!
 
-In [another attempt](https://gist.github.com/willccbb/4676755236bb08cab5f4e54a0475d6fb), author ([Will brown](https://gist.github.com/willccbb)) tried to fine-tune `Qwen2.5-1.5B-Instruct` model on school math word problem dataset, which was optimised for Google Colab by [Anton](https://x.com/abacaj) for `Qwen-2.5-0.5B` base model [here](https://colab.research.google.com/drive/1bfhs1FMLW3FGa8ydvkOZyBNxLYOu0Hev?usp=sharing#scrollTo=PYykgnUJ0BdB). This increased the base model's performance on by 10% on from 41.6% to ~51% via GRPO. 
+In [another attempt](https://gist.github.com/willccbb/4676755236bb08cab5f4e54a0475d6fb), author ([Will brown](https://gist.github.com/willccbb)) tried to fine-tune `Qwen2.5-1.5B-Instruct` model on school math word problem dataset, which was optimised for Google Colab by [Anton](https://x.com/abacaj) for `Qwen-2.5-0.5B` base model [here](https://colab.research.google.com/drive/1bfhs1FMLW3FGa8ydvkOZyBNxLYOu0Hev?usp=sharing#scrollTo=PYykgnUJ0BdB). This increased the base model's performance on by 10% from 41.6% to ~51% via GRPO. 
 
 GRPO code is available on `trl` python package and the process to finetune your model is as simple as shown below, [3]
 
-```python linenums="1
+```python linenums="1"
 # install the packages
 !pip install trl 
 
@@ -218,10 +221,10 @@ trainer = GRPOTrainer(
 trainer.train()
 ```
 
-And that's it! It is recommended to refer to [3] for more specific details about training and to continue training (by increasing the steps) until the model converges. Do remember to save intermediate checkpoints while training. 
+And that's it! It is recommended to refer to [3] for more specific details about training and remember to continue training *(by increasing the steps)* until the model converges. Do save intermediate checkpoints while training. 
 
 !!! Hint
-    All of the models are open-sourced and can be downloaded from [DeepSeek page](https://huggingface.co/deepseek-ai) on HuggingFace.
+    All of the DeepSeek models are open-sourced and can be downloaded from the [DeepSeek page](https://huggingface.co/deepseek-ai) on HuggingFace.
 
 ## Limitations
 
