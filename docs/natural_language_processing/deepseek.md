@@ -118,7 +118,7 @@ The final stage involved another round of RL, this time aimed at improving the m
 To make the advanced reasoning capabilities more accessible, the researchers distilled DeepSeek-R1's knowledge into smaller dense models based on Qwen and Llama architectures. For distilled models, authors apply only SFT and do not include an RL stage, even though incorporating RL could substantially boost model performance. 
 
 !!! Note
-    There is a major takeaway from this analysis regarding the efficiency of Distillation on different technique GPRO vs SFT: Transferring knowledge from advanced AI models to smaller versions ("distillation") often works better than training compact models (< 3B models) with resource-heavy reinforcement learning (RL), which demands massive computing power and still underperforms.
+    There is a major takeaway from this analysis regarding the efficiency of Distillation on different technique GRPO vs SFT: Transferring knowledge from advanced AI models to smaller versions ("distillation") often works better than training compact models (< 3B models) with resource-heavy reinforcement learning (RL), which demands massive computing power and still underperforms.
 
     In short, if your model is <3B parameters and you have sufficient data, consider supervised finetuning over RL based training.
 
