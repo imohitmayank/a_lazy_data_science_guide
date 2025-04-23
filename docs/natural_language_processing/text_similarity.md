@@ -147,17 +147,32 @@ $$
 0.88
 ```
 
-- In first example, it found ‘ home’ as the longest substring, then considered ‘i am going’ and ‘gone’ for further processing (left of common substring), where again it found ‘go’ as longest substring. Later on right of ‘go’ it also found ’n’ as the only common and longest substring. Overall the score was 2 * (5 + 2 + 1) / 24 ~ 0.66. In second case, it found ‘hello’ as the longest longest substring and nothing common on the left and right, hence score is 0.5. The rest of the examples showcase the advantage of using sequence algorithms for cases missed by edit distance based algorithms.
+- In first example, it found ‘ home’ as the longest substring, then considered ‘i am going’ and ‘gone’ for further processing (left of common substring), where again it found ‘go’ as longest substring. Later on right of ‘go’ it also found ’n’ as the only common and longest substring. Overall the score was 2 * (5 + 2 + 1) / 24 ~ 0.66. In second case, it found ‘hello’ as the longest substring and nothing common on the left and right, hence score is 0.5. The rest of the examples showcase the advantage of using sequence algorithms for cases missed by edit distance based algorithms.
 
 ## Semantic based approaches
 
 - In semantic search, strings are embedded using some neural network (NN) model. Think of it like a function that takes an input string and returns a vector of numbers. The vector is then used to compare the similarity between two strings.
 - Usually the NN models work at either token or word level, so to get embedding of a string, we first find embeddings for each token in the string and then aggregate them using mean or similar function.
 - The expectation is that the embeddings will be able to represent the string such that it capture different aspects of the language. Because of which, the embeddings provides us with much more features to compare strings.
-- Let's try a couple of ways to compute semantic similarity between strings. Different models can be picked or even fine tuned based on domain and requirement, but we will use the same model for simiplicity's sake. Instead we will just use different packages. 
+
+<figure markdown> 
+    ![](../imgs/nlp_semanticsearch_intro.png){ width="100%"}
+    <figcaption>Semantic search embeds corpus entries and queries into a vector space. Finding the closest vector to the query vector is equivalent to finding the most similar entry in the corpus. Source: [SBert.net](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html#symmetric-vs-asymmetric-semantic-search)</figcaption>
+</figure>
 
 !!! Hint
     As embedding is an integral part of semantic search, it is important to check the quality of a embedding method before using it. [MTEB](https://github.com/embeddings-benchmark/mteb) is the "Massive Text Embedding Benchmark" python package that lets you test any embedding function on more than 30 tasks. The process is quite simple - usually the text is embedded using the provided function or neural network, and the performance of embedding is computed and checked on downstream tasks like classification, clustering, and more.
+
+!!! Hint
+    
+    To select the right model for your task, identify whether your task is symmetric or asymmetric. ([refer](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html#symmetric-vs-asymmetric-semantic-search))
+
+    - **Symmetric Search**: If your task involves matching similar-length queries and corpus entries (e.g., "How to learn Python online?" vs. "How to learn Python on the web?"), use models trained on datasets like Quora Duplicate Questions.
+    
+    - **Asymmetric Search**: If your task involves short queries and longer, detailed answers (e.g., "What is Python?" vs. a paragraph explaining Python), use models optimized for query-document mismatches, such as those pre-trained on MS MARCO.
+
+
+Let's try a couple of ways to compute semantic similarity between strings. Different models can be picked or even fine-tuned based on domain and requirement, but we will use the same model (but different packages) for simplicity's sake.
 
 ### txtai
 
