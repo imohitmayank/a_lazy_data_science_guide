@@ -111,6 +111,7 @@ nav:
         - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
         - 'Speech to Text': 'audio_intelligence/stt.md'
         - 'Text to Speech': 'audio_intelligence/tts.md'
+        - 'Neural Audio Codecs': 'audio_intelligence/neural_audio_codecs.md'
       - 'Techniques':
         - 'Connectionist Temporal Classification': 'audio_intelligence/connectionist_temporal_classification.md'
 
