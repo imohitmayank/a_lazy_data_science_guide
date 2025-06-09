@@ -6,7 +6,7 @@ Neural audio codecs are a new generation of audio compression tools powered by d
 
 ## Traditional Audio Codecs
 
-Traditional audio codecs like rely on signal processing techniques rooted in psychoacoustic models, which discard imperceptible audio components to reduce file sizes. Traditional audio codecs fall into two main camps, 
+Traditional audio codecs rely on signal processing techniques rooted in psychoacoustic models, which discard imperceptible audio components to reduce file sizes. Traditional audio codecs fall into two main camps, 
 
 ### Waveform Codecs
 
