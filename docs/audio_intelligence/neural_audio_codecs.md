@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Neural audio codecs represent a transformative approach to audio compression, leveraging deep learning models to achieve superior sound quality at lower bitrates compared to traditional methods. This article examines three pioneering implementations — SoundStream, EnCodec, and HILCodec — while contextualizing their innovations within the broader landscape of AI-driven audio processing.  
+Neural audio codecs are a new generation of audio compression tools powered by deep learning. Unlike traditional codecs, which rely on hand-crafted signal processing, neural codecs learn to compress and reconstruct audio directly from data, achieving much higher quality at lower bitrates. In this guide, we’ll explore three leading neural audio codecs—SoundStream, EnCodec, and HILCodec—highlighting what makes each unique. You’ll also find practical code examples showing how to use neural audio codecs to compress and reconstruct audio, so you can experience their capabilities firsthand.
 
 ## Traditional Audio Codecs
 
@@ -206,7 +206,7 @@ HILCodec matches or outperforms both traditional and leading neural codecs (like
 
 ## Code
 
-Let's walk through a hands-on example to see how to use one of these neural audio codecs in practice. We will use EnCodec [2].
+Let's walk through a hands-on example to see how to use one of these neural audio codecs in practice. Here, we will use EnCodec [2], but the fundamental steps are similar for other codecs like SoundStream or HILCodec.
 
 ```python linenums="1"
 # Load the required packages
