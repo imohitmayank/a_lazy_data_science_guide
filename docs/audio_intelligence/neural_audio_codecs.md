@@ -204,7 +204,132 @@ HILCodec matches or outperforms both traditional and leading neural codecs (like
     <figcaption>HILCodec Performance Results. Source: [3]</figcaption>
 </figure>
 
+## Code
+
+Let's walk through a hands-on example to see how to use one of these neural audio codecs in practice. We will use EnCodec [2].
+
+```python linenums="1"
+# Load the required packages
+from audiotools import AudioSignal
+from transformers import EncodecModel, AutoProcessor
+
+# Step 1: load the EnCodec model and processor
+model = EncodecModel.from_pretrained("facebook/encodec_24khz")
+processor = AutoProcessor.from_pretrained("facebook/encodec_24khz")
+# Note: you can also use "facebook/encodec_48khz" for higher sampling rates
+
+# Step 2: load an audio file
+audio_file = "samples/neural_codec_input.wav" # replace with your audio file path
+audio = AudioSignal(audio_file)
+audio = audio.resample(24000) # resample to 24kHz
+audio = audio.to_mono() # convert to mono
+frame_rate = audio.sample_rate # get the sample rate
+audio_sample = audio.audio_data.reshape(-1) # get the reshaped audio samples
+
+# Step 3: Preprocess the audio
+inputs = processor(raw_audio=audio_sample, 
+                    sampling_rate=frame_rate, 
+                    return_tensors="pt")
+
+# Step 4: Encode the audio
+encoder_outputs = model.encode(inputs["input_values"], 
+                                inputs["padding_mask"])
+
+# Step 5: Decode the audio
+audio_values = model.decode(encoder_outputs.audio_codes, 
+                            encoder_outputs.audio_scales, 
+                            inputs["padding_mask"])[0]
+
+# OR replace Step 4 and 5: Forward pass on the input
+audio_values = model(inputs["input_values"], inputs["padding_mask"]).audio_values 
+```
+Let's go through the important code steps:
+
+### Load the EnCodec Model and Processor 
+
+We use the `facebook/encodec_24khz` model, optimized for 24 kHz audio. The processor handles audio preprocessing, including splitting audio for batch operations and creating the `padding_mask`, that indicates which positions in the input are real audio (1) and which are padding (0) to be ignored by the model. 
+
+!!! Hint
+    You can also use `facebook/encodec_48khz` for higher sampling rates, but in this example, we will stick to 24 kHz for simplicity.
+
+### Loading and Preprocessing the Audio
+
+We load an audio file, resample it to 24 kHz, and convert it to mono. The audio data is reshaped into a 1D array for processing. In this example, we use a sample audio file named `neural_codec_input.wav` *(listen to it below)* that is 10 seconds long and after resampling, has the shape of `torch.Size([240000])` and looks like `tensor([0.0088, 0.0117, 0.0194,  ..., 0.0390, 0.0460, 0.0213])`
+
+Original Audio:
+<audio controls>
+  <source src="../../audio/neural_codec_input.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+
+### Preprocessing the Audio
+
+The audio is processed using the EnCodec processor, which prepares it for encoding by creating input tensors and a padding mask. The padding mask is crucial for handling variable-length audio inputs, ensuring that the model only processes valid audio samples. The `inputs` looks like `{'input_values': tensor([[ 0.0088,  0.0117,  0.0194,  ...,  0.0390,  0.0460,  0.0213]]), 'padding_mask': tensor([[1, 1, 1, ..., 1, 1, 1]])}`. If you notice, the `input_values` tensor contains the audio samples exactly as we have loaded, and the `padding_mask` indicates that all positions are valid (1) since we have a single audio sample without padding.
+
+### Encoding the Audio
+
+The `encode` method processes the input audio, producing quantized latent representations (`audio_codes`) and scales for decoding. This step compresses the audio into a more compact form. One important aspect here is the bandwidth -  this is how much data the compressed audio will use per second. Lower bandwidth means smaller files but lower audio quality; higher bandwidth means better quality but larger files. Bandwidth is correlated to the codebooks used in the quantization step, the relation is shown below, *(for Encodec 24kHz model)*:
+
+| Bandwidth (kbps) | Number of Codebooks (n_q) |
+|------------------|--------------------------|
+| 1.5              | 2                        |
+| 3                | 4                        |
+| 6                | 8                        |
+| 12               | 16                       |
+| 24               | 32                       |
+
+So, `bandwidth = 1.5` will use 2 codebooks, while `bandwidth = 24` will use 32 codebooks. The number of codebooks directly affects the quality and size of the compressed audio. If we try with `bandwidth = 1.5`, the `audio_codes` will have shape `torch.Size([1, 1, 2, 750])` and looks like 
+
+```
+tensor([[[[727, 407, 906,  ..., 561, 424, 925],
+        [946, 734, 949,  ..., 673, 769, 987]]]])
+```
+
+But in case of `bandwidth = 24`, the `audio_codes` will have shape `torch.Size([1, 1, 32, 750])` and looks like 
+
+```
+tensor([[[[ 727,  407,  906,  ...,  561,  424,  925],
+        [ 946,  734,  949,  ...,  673,  769,  987],
+        [ 988,   21,  623,  ...,  870, 1023,  452],
+        ...,
+        [ 792,  792,  220,  ...,  419, 1011,  422],
+        [ 502,  550,  893,  ...,  328,  832,  450],
+        [ 681,  906,  872,  ...,  820,  601,  658]]]])
+```
+
+!!! Hint
+    If you're wondering how bandwidth relates to the number of codebooks in EnCodec, here's how it works: The encoder produces 75 steps per second of audio. So, for a 10-second clip, there are 750 steps. At each step, the model outputs one code per codebook (`N_q`). For example, with `bandwidth = 1.5`, there are 2 codebooks, so you get a total of 2 × 750 = 1500 codes, which corresponds to 1.5 kbps. With `bandwidth = 24`, there are 32 codebooks, resulting in 32 × 750 = 24,000 codes, or 24 kbps. In summary: more codebooks mean higher bandwidth and better quality, but also larger compressed files.
+
+Notice one thing, an audio of 10 seconds that used 240k samples is now compressed into (N_q, 750) where N_q is the number of codebooks used. For `bandwidth = 1.5`, the shape is (2, 750) and the compression ratio is 160x and for `bandwidth = 24`, the shape is (32, 750) and the compression ratio is 10x! Quite impressive, right?
+
+### Decoding the Audio
+
+The `decode` method reconstructs the audio from the quantized codes and scales. The output is a tensor of audio samples, which can be saved as a WAV file or played directly. The shape of the output audio tensor will be `(1, 240000)` for 10 seconds of audio at 24 kHz.
+
+If you play the audio file `neural_codec_input.wav`, you will hear the original audio. After running the code, you can listen to the output generated by EnCodec. Both are presented below, 
+
+Original Audio: (48KHz)
+<audio controls>
+  <source src="../../audio/neural_codec_input.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+
+Encodec Output: (24KHz; Bandwidth: 1.5 kbps)
+<audio controls>
+  <source src="../../audio/neural_codec_encodec_output_bandwidth1.5.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+
+Encodec Output: (24KHz; Bandwidth: 24 kbps)
+<audio controls>
+  <source src="../../audio/neural_codec_encodec_output_bandwidth24.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+
+As you can hear, while there are some distortions, the output is audible and is able to maintain the speech of the original audio.  This demonstrates the effectiveness of neural codecs in audio compression. 
+
 ## Comparative Analysis  
+
 The evolution of neural codecs reveals several key trends:  
 
 | Characteristic       | SoundStream[1] | EnCodec[2]     | HILCodec[3] |  
@@ -242,6 +367,6 @@ Neural audio codecs represent a paradigm shift in audio compression, offering un
 
 [1] SoundStream: An End-to-End Neural Audio Codec - [Paper](https://arxiv.org/abs/2107.03312) | [Video](https://www.youtube.com/watch?v=V4jj-yhiclk&ab_channel=RISEResearchInstitutesofSweden)
 
-[2] [EnCodec: High Fidelity Neural Audio Compression](https://arxiv.org/abs/2210.13438)
+[2] EnCodec: High Fidelity Neural Audio Compression - [Paper](https://arxiv.org/abs/2210.13438) | [Code](https://github.com/facebookresearch/encodec)
 
 [3] [HILCodec: High Fidelity and Lightweight Neural Audio Codec](https://arxiv.org/pdf/2405.04752v1)
