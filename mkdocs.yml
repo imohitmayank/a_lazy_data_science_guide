@@ -128,6 +128,7 @@ nav:
   - 'Data Science Tools':
       -  'data_science_tools/introduction.md'
       -  'data_science_tools/python_snippets.md'
+      -  'data_science_tools/linux_snippets.md'
       -  'data_science_tools/version_control.md'
       -  'data_science_tools/compute_and_ai_services.md'
       -  'data_science_tools/scraping_websites.md'

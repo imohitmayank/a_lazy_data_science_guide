@@ -1,7 +1,7 @@
 Machine Learning / Deep Learning Snippets
 ========================
 
-Sharing some of the most widely used and arguably not *so famous* Machine Learning snippets :wink:
+Sharing some of the most widely used and arguably not *so famous* Machine Learning snippets 😉
 
 ## Feature importance
 
