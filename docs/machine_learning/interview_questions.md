@@ -1,4 +1,3 @@
-
 - Here are some questions and their answers to make you ready for your next interview. Best of luck :wave:
 
 !!! Question ""
@@ -15,8 +14,11 @@
 
     === "Answer"
         
-        - When using linear models, like logistic regression, on a one-hot encoded *(dummy var)* dataset with a finite set of levels *(unique values in a categorical column)*, it is suggested to drop one level from the final data such that total no of new one-hot encoded columns added is one less than the unique levels in the column. For example, consider a `season` column that contains 4 unique values `spring`, `summer`, `fall`, and `winter`. When doing one-hot encoding it is suggested to finally keep any 3 and not all 4 columns.
-        - **The reason:** *"If dummy variables for all categories were included, their sum would equal 1 for all observations, which is identical to and hence perfectly correlated with the vector-of-ones variable whose coefficient is the constant term; if the vector-of-ones variable were also present, this would result in perfect multicollinearity, so that the matrix inversion in the estimation algorithm would be impossible."* Refer [Wikipedia](https://en.wikipedia.org/wiki/Dummy_variable_(statistics))
+        The dummy variable trap is a situation in which a set of variables are perfectly correlated with each other, making it impossible to estimate the parameters of a linear regression model. This occurs when one or more of the dummy variables (one-hot encoded variables) are perfectly correlated with the constant term, which is a column of ones in the design matrix.
+        
+        For example, consider a dataset with a categorical variable with three levels: red, blue, and green. If we create three dummy variables for this variable, we might end up with a situation where the sum of the dummy variables is always equal to 1 for each observation. This would make it impossible to estimate the parameters of the linear regression model, as the design matrix would be singular.
+        
+        To avoid the dummy variable trap, we can drop one of the dummy variables. This will ensure that the dummy variables are not perfectly correlated with each other, and the design matrix will be invertible.
         
         !!! note
             If using regularizing, then don't drop a level as it biases your model in favor of the variable you dropped. Refer [Damien Martin's Blog](https://kiwidamien.github.io/are-you-getting-burned-by-one-hot-encoding.html)
@@ -24,7 +26,7 @@
 
 !!! Question ""
     === "Question"
-        #### How does backpropagation work in a neural network?
+        #### How does back-propagation work in a neural network?
 
     === "Answer" 
         
@@ -38,13 +40,37 @@
 
         First, the gradient of the loss over a mini-batch is an estimate of the gradient over the training set, whose quality improves as the batch size increases. Second, computation over a batch can be much more efficient than `m` computations for individual examples, due to the parallelism afforded by the modern computing platforms. [Ref](https://arxiv.org/abs/1502.03167v3)
 
+
 !!! Question ""
     === "Question"
-        #### What are the benefits of using Batch Normalizattion?
+        #### What is Layer Normalization?
 
     === "Answer"
 
-        Batch Normalization also has a beneficial effect on the gradient flow through the network, by reducing the dependence of gradients on the scale of the parameters or of their initial values. This allows us to use much higher learning rates without the risk of divergence. Furthermore, batch normalization regularizes the model and reduces the need for Dropout (Srivastava et al., 2014). Finally, Batch Normalization makes it possible to use saturating nonlinearities by preventing the network from getting stuck in the saturated modes. [Ref](https://arxiv.org/abs/1502.03167v3)
+        Layer normalization is a technique used in deep learning to normalize the activations (outputs) of a neural network layer for each individual data sample. It works by computing the mean and variance of all features (neurons) in a layer for a single input, and then normalizing these values so that they have a standard distribution (zero mean and unit variance). This helps stabilize and accelerate the training process, making the model less sensitive to changes in the scale of the inputs and more robust to different batch sizes.
+
+        - **How it works**: For each input sample, calculate the mean and variance across all features in a layer, then subtract the mean and divide by the standard deviation for each feature.
+
+        - **Where it's used**: Especially useful in models like RNNs and transformers, and in any scenario where batch sizes are small or variable.
+
+        - **Key benefit**: Works the same way during both training and inference, and does not depend on the batch size.
+        
+
+!!! Question ""
+    === "Question"
+        #### What is Batch Normalization?
+
+    === "Answer"
+
+    
+        Batch normalization is a normalization technique that normalizes each feature across all samples in a mini-batch. This means, for each feature (e.g., each neuron in a layer), the mean and variance are computed across the entire batch, and each feature value is normalized using these batch statistics. [Refer](https://arxiv.org/abs/1502.03167v3)
+
+        - **How it works**: For each feature, calculate the mean and variance across the current mini-batch, then normalize each value by subtracting the batch mean and dividing by the batch standard deviation.
+
+        - **Where it's used**: Commonly used in convolutional neural networks (CNNs) and feedforward networks, especially with large and consistent batch sizes.
+
+        - **Key benefit**: Helps accelerate training, improve generalization, and allows for higher learning rates.
+        
 
 !!! Question ""
     === "Question"
@@ -60,7 +86,7 @@
 
     === "Answer"
 
-        Logistic regression is often referred to as a linear classifier despite using the sigmoid (logistic) activation function because it models the relationship between the input features and the log-odds (logit) of the binary target variable in a linear manner. The linearity in logistic regression refers to the fact that it creates a linear decision boundary in the feature space, which is a hyperplane. [Refer](https://stats.stackexchange.com/questions/93569/why-is-logistic-regression-a-linear-classifier)
+        Logistic regression is called a linear classifier because it computes a linear combination of the input features $(z = w^T x + b)$, then applies the sigmoid function to output a probability. The decision boundary is defined by $w^T x + b = 0$, which is a linear equation—so the separation between classes is linear in the feature space, even though the output is passed through a non-linear sigmoid. [Refer](https://stats.stackexchange.com/questions/93569/why-is-logistic-regression-a-linear-classifier)
 
 !!! Question ""
     === "Question"
@@ -70,7 +96,7 @@
 
         - Let us understand each of the terms one by one. For better understanding, let's take a dog vs cat image classification as an example. 
           - **Logits** are the un-normalized output of the model. In our cat vs dog example, logits will be, say, `10.1` for cat and `5.6` for dog for an image with cat. [Refer this SE question]((https://datascience.stackexchange.com/questions/31041/what-does-logits-in-machine-learning-mean)).
-          - **Soft target**: are normalized logits by applying a [linear function](https://stats.stackexchange.com/questions/163695/non-linearity-before-final-softmax-layer-in-a-convolutional-neural-network). In our example, if we use softmax to the logits we get `0.99` for cat and `0.1` for dog.
+          - **Soft target**: are normalized logits by applying a [function](https://stats.stackexchange.com/questions/163695/non-linearity-before-final-softmax-layer-in-a-convolutional-neural-network). In our example, if we use softmax to the logits we get `0.99` for cat and `0.1` for dog.
           - **Hard targets**: are the encoding of the soft targets. In our example, as the model predicted (here correctly) the image as of cat, the hard targets be `1` for cat and `0` for dog.
 
         ``` mermaid
@@ -90,6 +116,43 @@
           - **Early stopping**, where training is stopped before the model has a chance to fully fit the noise in the training data
           - **Dropout**, which randomly drops out a certain percentage of neurons during training to prevent them from co-adapting and becoming too specialized
           - Adding **more data** to the training set
+
+!!! Question ""
+    === "Question"
+        #### Explain Regularization and different types of regularization techniques.
+
+    === "Answer"
+
+        Regularization is a set of techniques used in machine learning to reduce overfitting and improve a model's ability to generalize to new, unseen data. Overfitting happens when a model learns not only the underlying patterns in the training data but also the noise, making it perform poorly on new data. Regularization addresses this by adding a penalty to the model's loss function, discouraging overly complex models and large parameter values.
+
+        **Why use regularization?**
+
+        - Prevents overfitting by discouraging complex models
+        - Improves generalization to new data
+        - Encourages simpler, more robust models
+
+        **How does it work?**
+        Regularization modifies the loss function by adding a penalty term based on the model's weights:
+        
+        $$
+        \text{Loss} = \text{Original Loss} + \lambda \times \text{Penalty}
+        $$
+
+        where $\lambda$ controls the strength of the penalty.
+
+        **Common regularization techniques:**
+
+        - **L1 Regularization (Lasso):** Adds the sum of the absolute values of the weights. Can shrink some weights to exactly zero, effectively performing feature selection.
+        - **L2 Regularization (Ridge):** Adds the sum of the squared values of the weights. Shrinks weights toward zero but rarely makes them exactly zero.
+        - **Elastic Net:** Combines L1 and L2 penalties, balancing between feature selection and coefficient shrinkage.
+
+        | Technique      | Penalty Type           | Effect on Weights         | Typical Use Case                      |
+        |---------------|-----------------------|---------------------------|---------------------------------------|
+        | L1 (Lasso)    | Sum of absolute values| Many weights set to zero  | Feature selection, sparse models      |
+        | L2 (Ridge)    | Sum of squares        | Weights shrink toward zero| General shrinkage, no feature removal |
+        | Elastic Net   | L1 + L2 combination   | Mix of both above         | Both shrinkage and feature selection  |
+
+        **In summary:** Regularization is essential for building robust machine learning models. L1 and L2 are the most common forms, each adding different types of penalties to control model complexity and improve generalizability.
 
 !!! Question ""
     === "Question"
@@ -515,5 +578,5 @@
     === "Answer"
         Rejection sampling is a method to generate samples from a complex target distribution (like a hard-to-sample probability curve) by using a simpler "proposal" distribution you can easily sample from (e.g., a uniform or normal distribution). 
         
-        Here's how it works: you first pick a proposal distribution that covers the target’s range. Then, you repeatedly draw samples from this simpler distribution and "accept" or "reject" each sample based on a quality check—if a random number (from 0 to 1) is less than the ratio of the target’s density to the proposal’s density (scaled by a constant), you keep the sample; otherwise, you discard it. This process ensures the accepted samples match the target distribution. It’s like filtering out bad candidates until you’re left with samples that fit your desired pattern. While simple to implement, it becomes inefficient for high-dimensional data or if the proposal distribution doesn’t closely match the target shape.
+        Here's how it works: you first pick a proposal distribution that covers the target's range. Then, you repeatedly draw samples from this simpler distribution and "accept" or "reject" each sample based on a quality check—if a random number (from 0 to 1) is less than the ratio of the target's density to the proposal's density (scaled by a constant), you keep the sample; otherwise, you discard it. This process ensures the accepted samples match the target distribution. It's like filtering out bad candidates until you're left with samples that fit your desired pattern. While simple to implement, it becomes inefficient for high-dimensional data or if the proposal distribution doesn't closely match the target shape.
 
