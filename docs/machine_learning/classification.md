@@ -1,5 +1,5 @@
 !!! note
-    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 🍔 :wink:
+    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 🍔
 
 ## Introduction
 
@@ -16,13 +16,26 @@ Classification metrics are used to evaluate the performance of a classification 
 
 1. **Accuracy**: Accuracy is the most basic classification metric, measuring the ratio of correctly predicted instances to the total number of instances. It provides an overall measure of the model's correctness. However, it may not be suitable for imbalanced datasets, where one class significantly outnumbers the others.
 
+  $${\displaystyle \mathrm {Accuracy} ={\frac {TP+TN}{TP+TN+FP+FN}}}$$
+
 2. **Precision**: Precision is the ratio of true positive predictions to the total number of positive predictions made by the model. High precision indicates that when the model predicts a positive class, it is likely to be correct.
+
+  $${\displaystyle \mathrm {Precision} ={\frac {TP}{TP+FP}}}$$
 
 3. **Recall (Sensitivity or True Positive Rate)**: Recall is the ratio of true positive predictions to the total number of actual positive instances in the dataset. It measures the model's ability to capture all positive instances. High recall means that the model can find most of the positive cases.
 
-4. **F1-Score**: The F1-Score is the harmonic mean of precision and recall. It balances both metrics and is particularly useful when you need to consider the trade-off between precision and recall. It's a good overall measure of a model's performance. Please be aware of `average` params in the [Sklearn implementation](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html). Set the param to `macro` in case of imbalanced dataset, as it will compute the score for each class and then perform unweighted average i.e. giving each class equal importance, no matter their frequency. Setting it to `weighted` is similar to `macro`, but now the average will be weighted. Setting to `micro` will lead to computing the numbers for complete data without considering any class.
+  $${\displaystyle \mathrm {Recall} ={\frac {TP}{TP+FN}}}$$
+
+4. **F1-Score**: The F1-Score is the harmonic mean of precision and recall. It balances both metrics and is particularly useful when you need to consider the trade-off between precision and recall. It's a good overall measure of a model's performance. 
+
+  !!! Note
+      Please be aware of `average` params in the [Sklearn implementation](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html). Set the param to `macro` in case of imbalanced dataset, as it will compute the score for each class and then perform unweighted average i.e. giving each class equal importance, no matter their frequency. Setting it to `weighted` is similar to `macro`, but now the average will be weighted. Setting to `micro` will lead to computing the numbers for complete data without considering any class.
+
+  $${\displaystyle \mathrm {F1}_{score} ={\frac {2}{\frac {1}{\mathrm {Precision}}+\frac {1}{\mathrm {Recall}}}}}$$
 
 5. **Specificity (True Negative Rate)**: Specificity measures the model's ability to correctly identify negative instances. It is the ratio of true negative predictions to the total number of actual negative instances. It is particularly relevant when false negatives are costly.
+
+  $${\displaystyle \mathrm {Specificity} ={\frac {TN}{TN+FP}}}$$
 
 6. **ROC Curve and AUC**: The Receiver Operating Characteristic (ROC) curve is a graphical representation of the model's performance across different thresholds. The Area Under the ROC Curve (AUC) quantifies the overall performance of the model, with a higher AUC indicating better discrimination between classes.
 
@@ -49,6 +62,13 @@ While there are many classification algorithms, here are some of the most common
 ### Logistic Regression
 
 - Logistic Regression is a widely used classification model that is particularly effective for binary classification problems. It works by modeling the relationship between the input features and the probability of belonging to a particular class. It does this by fitting a logistic curve to the data, which allows it to output probabilities that an instance belongs to a specific class. [Logistic Regression is a linear model](interview_questions.md#even-though-sigmoid-function-is-non-linear-why-is-logistic-regression-considered-a-linear-classifier), which means it assumes a linear relationship between the input features and the log-odds of the class probabilities. It's simple, interpretable, and computationally efficient, making it a good choice for problems with a large number of features.
+
+- The formula for Logistic Regression is shown below,
+
+  $${\displaystyle \mathrm {LogisticRegression_loss}(i) = -(y_i \log(\hat{y_i})+(1-y_i) \log(1-\hat{y_i}))}$$
+
+  where, $y_i$ is the actual class and $\hat{y_i}$ is the predicted class
+
 
 ### Decision Tree
 

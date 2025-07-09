@@ -1,5 +1,5 @@
 !!! note
-    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 🍔 :wink:
+    This page is still not complete and new sections might get added later. That said, the existing content is ready to be consumed. 🍔
 
 ## Introduction
 
@@ -36,13 +36,13 @@ $${\displaystyle \operatorname {MSE_cost} ={\frac {1}{n}}\sum _{i=1}^{n}\operato
 
 ### Cross entropy loss
 
-- Cross entropy loss is used for classification tasks. It is a simplication of Kullback–Leibler divergence that is used to compute the difference between two probability distributions *(here the model's prediction and true one)*. For binary classification the formula is shown below, ($y$ is the actual class and $\hat{y}$ is the predicted class)
+- Cross entropy loss is used for classification tasks. It is a simplification of Kullback–Leibler divergence that is used to compute the difference between two probability distributions *(here the model's prediction and true one)*. For binary classification the formula is shown below, ($y$ is the actual class and $\hat{y}$ is the predicted class)
 
 $${\displaystyle \operatorname {CrossEntropy_loss}(i) = -(y_i \log(\hat{y_i})+(1-y_i) \log(1-\hat{y_i}))}$$
 
 $${\displaystyle \operatorname {CrossEntropy_cost} ={\frac {1}{n}}\sum _{i=1}^{n}\operatorname {CrossEntropy_loss}(i)}$$
 
-- Let's go through the different possibilities, 
+- For binary classification, $y_i$ can be either 0 or 1. Let's go through the different possibilities, 
   - if $y_i=1$, 
     - the loss function reduces to only the left part i.e. $-y_i \log(\hat{y_i})$
     - now to have a small loss, model would want the $\log(\hat{y_i})$ to be large *(bcoz of negative sign)*. 
