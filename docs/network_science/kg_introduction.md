@@ -3,13 +3,11 @@ Introduction
 
 ## What is a Knowledge graph?
 
-- To better under Knowledge graphs, let's start by understanding its basic unit i.e. "fact".
-
-- A fact is the most basic piece of information that can be stored in a KG. Facts can be represented in form of triplets with either of the following ways,
+- To better understand Knowledge graphs, let's start by understanding its basic unit i.e. "fact". A fact is the most basic piece of information that can be stored in a KG. Facts can be represented in form of triplets with either of the following ways,
   - **HRT**: `<head, relation, tail>`
   - **SPO**: `<subject, predicate, object>`
 
-- Let's follow the HRT representation for this article.
+- We will follow the HRT representation for this article.
 
 - Facts contain 3 elements which can be further represented as a graph,
   - **Head or tail**
@@ -136,6 +134,7 @@ In spite of having several open-source KGs, we may have a requirement to create 
 
 ## Hosting Knowledge graphs
 There are two types of databases that can be used to store graphical information. The first is "property graphs" like Neo4j and OrientDB that does not support RDF file (out of the box) and have their own custom query language. On the other hand, we have "RDF triplet stores", that support RDF files and support query language like SPARQL that is universally used to query KG. Some of the most famous ones are (with open source version), 
+
 - [GraphDB](https://www.ontotext.com/products/graphdb/): a solution by Ontotext, that provides frontend (visualization) and backend (server) services to see and query hosted knowledge graphs. 
 - [Virtuoso](https://virtuoso.openlinksw.com/): a solution by OpenLinkSoftware, that provides backend services to query hosted KG. It also supports querying KG using a combination of SQL and SPARQL. On top of it, a lot of open-source KG like DBpedia are hosted on Virtuoso.
 
