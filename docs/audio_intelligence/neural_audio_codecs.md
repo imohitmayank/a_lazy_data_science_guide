@@ -204,6 +204,62 @@ HILCodec matches or outperforms both traditional and leading neural codecs (like
     <figcaption>HILCodec Performance Results. Source: [3]</figcaption>
 </figure>
 
+## SNAC: Multi-Scale Neural Audio Codec
+
+SNAC (Multi-Scale Neural Audio Codec), introduced in 2024, extends the Residual Vector Quantization (RVQ) framework by introducing quantization at different temporal resolutions, enabling more efficient compression through multi-scale discrete audio representations [4].
+
+<figure markdown> 
+    ![](../imgs/audio_nc_snac_architecture.png)
+    <figcaption>RVQ Multi-Scale Quantization. Source: [4]</figcaption>
+</figure>
+
+### Key Innovations
+
+- **Multi-Scale Residual Vector Quantization**: Unlike traditional RVQ approaches that operate at a fixed temporal resolution, SNAC employs a hierarchy of quantizers operating at multiple temporal resolutions. At each quantization iteration, the residuals are downsampled by a factor \(W_i\), quantized, and then upsampled back to match the original temporal resolution. This multi-scale approach allows the codec to capture both coarse and fine audio details more efficiently:
+
+  - Coarse temporal structure (like prosody and semantic patterns) is captured at lower frame rates
+  - Fine acoustic details are preserved at higher frame rates
+  - This hierarchical organization aligns with how human auditory cortex processes acoustic signals
+
+- **Noise Block**: After each upsampling layer, SNAC introduces a Noise Block that adds input-dependent stochasticity. The block updates activations as: 
+
+  $$
+  \mathbf{x} \leftarrow \mathbf{x} + \text{Linear}(\mathbf{x}) \odot {\epsilon}, \text{where } \epsilon \sim \mathcal{N}(0,1) \text{ is Gaussian noise.}
+  $$
+
+  This mechanism enhances decoder expressiveness, improves reconstruction quality, and leads to better codebook utilization.
+
+- **Depthwise Convolution**: SNAC incorporates depthwise separable convolutions in the generator to reduce parameters and stabilize training. This is particularly beneficial for GAN-based vocoders, which are notoriously unstable during training.
+
+- **Local Windowed Attention**: The model uses local windowed attention mechanisms, enabling efficient processing of longer audio sequences while maintaining computational efficiency.
+
+### Architectural Design
+
+SNAC builds upon the RVQGAN framework, maintaining the encoder-decoder structure with a cascade of vector quantization layers. The key difference lies in the multi-scale quantization strategy: instead of quantizing all residuals at the same temporal resolution, SNAC applies a hierarchy of quantizers with variable frame rates. Average pooling is used for downsampling, while nearest-neighbor interpolation handles upsampling to restore the original temporal resolution.
+
+### Results
+
+SNAC demonstrates superior compression efficiency compared to existing neural audio codecs:
+
+**Speech Performance:**
+
+- At 0.98 kbps, SNAC achieves a MUSHRA score of \(88.4 \pm 2.6\), outperforming EnCodec at 1.5 kbps (\(39.1 \pm 3.0\)) and DAC at 0.8 kbps (\(33.0 \pm 4.4\))
+- Achieves competitive ViSQOL (4.14) and SI-SDR (0.82) scores even at ultra-low bitrates
+- Lower Mel-spectrogram and STFT reconstruction errors compared to EnCodec at similar bitrates
+
+**Music Performance:**
+
+- At 1.9 kbps, achieves MUSHRA score of \(77.9 \pm 4.3\), competitive with DAC at 2.5 kbps (\(54.0 \pm 6.0\))
+- At 2.6 kbps, achieves MUSHRA score of \(76.8 \pm 4.6\) with ViSQOL of 4.04 and SI-SDR of 5.17
+- Demonstrates effective handling of musical structures across multiple timescales
+
+The multi-scale approach enables SNAC to achieve better quality at lower bitrates by adapting to audio structure across multiple temporal resolutions, making it particularly effective for capturing both local acoustic details and long-term patterns in speech and music.
+
+<figure markdown> 
+    ![](../imgs/audio_nc_snac_results.png)
+    <figcaption>SNAC Performance Results. Source: [4]</figcaption>
+</figure>
+
 ## Code
 
 Let's walk through a hands-on example to see how to use one of these neural audio codecs in practice. Here, we will use EnCodec [2], but the fundamental steps are similar for other codecs like SoundStream or HILCodec.
@@ -252,7 +308,7 @@ We use the `facebook/encodec_24khz` model, optimized for 24 kHz audio. The proce
 !!! Hint
     You can also use `facebook/encodec_48khz` for higher sampling rates, but in this example, we will stick to 24 kHz for simplicity.
 
-### Loading and Preprocessing the Audio
+### Loading the Audio
 
 We load an audio file, resample it to 24 kHz, and convert it to mono. The audio data is reshaped into a 1D array for processing. In this example, we use a sample audio file named `neural_codec_input.wav` *(listen to it below)* that is 10 seconds long and after resampling, has the shape of `torch.Size([240000])` and looks like `tensor([0.0088, 0.0117, 0.0194,  ..., 0.0390, 0.0460, 0.0213])`
 
@@ -298,7 +354,13 @@ tensor([[[[ 727,  407,  906,  ...,  561,  424,  925],
 ```
 
 !!! Hint
-    If you're wondering how bandwidth relates to the number of codebooks in EnCodec, here's how it works: The encoder produces 75 steps per second of audio. So, for a 10-second clip, there are 750 steps. At each step, the model outputs one code per codebook (`N_q`). For example, with `bandwidth = 1.5`, there are 2 codebooks, so you get a total of 2 × 750 = 1500 codes, which corresponds to 1.5 kbps. With `bandwidth = 24`, there are 32 codebooks, resulting in 32 × 750 = 24,000 codes, or 24 kbps. In summary: more codebooks mean higher bandwidth and better quality, but also larger compressed files.
+    If you're wondering how bandwidth relates to the number of codebooks in EnCodec, here's how it works: 
+    
+    The encoder produces 75 steps per second of audio (i.e. 750 steps for a 10-second clip) per codebook (`N_q`). For example, with `bandwidth = 1.5`, there are 2 codebooks, so you get a total of 2 × 75 = 150 codes per second. Now, in EnCodec, each codebook has 1024 unique entries which can be represented by 10bit id (as $log_2(1024) = 10$). So, the total number of bits per second is 150 (steps) * 10 (id) = 1500 bits/s which corresponds to 1.5 kbps. 
+    Similarly, with `bandwidth = 24`, there are 32 codebooks, resulting in 32 × 75 = 2400 codes, or 2400*10 = 24000 bits/s which corresponds to 24 kbps.
+
+!!! Note
+    SNAC uses a similar approach, but with a multi-scale quantization strategy, where the quantization is done at different temporal resolutions which results in token rates of 12Hz, ~24Hz and ~48Hz. This means the shape of the quantized audio (24 kHz Speech model) follows the shape of (12 * seconds, 24 * seconds, 48 * seconds). Example: for a 10 second audio, the shape will be ~(120, 240, 480). 
 
 Notice one thing, an audio of 10 seconds that used 240k samples is now compressed into (N_q, 750) where N_q is the number of codebooks used. For `bandwidth = 1.5`, the shape is (2, 750) and the compression ratio is 160x and for `bandwidth = 24`, the shape is (32, 750) and the compression ratio is 10x! Quite impressive, right?
 
@@ -332,13 +394,13 @@ As you can hear, while there are some distortions, the output is audible and is 
 
 The evolution of neural codecs reveals several key trends:  
 
-| Characteristic       | SoundStream[1] | EnCodec[2]     | HILCodec[3] |  
-|-----------------------|----------------|---------------|-------------|  
-| Max Sampling Rate     | 24 kHz         | 48 kHz        | 24 kHz      |  
-| Real-Time Streaming   | Yes            | Yes           | Yes         |  
-| Model Size (Params)   | 18M            | 32M           | 9M          |  
-| Music Handling        | Moderate       | Excellent     | Excellent   |  
-| Quantization Scheme   | RVQ (8-32 dim) | RVQ (32 dim)  | RVQ (64 dim)|  
+| Characteristic       | SoundStream[1] | EnCodec[2]     | HILCodec[3] | SNAC[4]     |  
+|-----------------------|----------------|---------------|-------------|-------------|  
+| Max Sampling Rate     | 24 kHz         | 48 kHz        | 24 kHz      | 44.1 kHz    |  
+| Real-Time Streaming   | Yes            | Yes           | Yes         | Yes         |  
+| Model Size (Params)   | 18M            | 32M           | 9M          | 54.5M         |  
+| Music Handling        | Moderate       | Excellent     | Excellent   | Excellent   |  
+| Quantization Scheme   | RVQ (8-32 dim) | RVQ (32 dim)  | RVQ (64 dim)| Multi-Scale RVQ|  
 
 
 ## Challenges and Future Directions  
@@ -361,7 +423,7 @@ Emerging research directions include:
 
 ## Conclusion  
 
-Neural audio codecs represent a paradigm shift in audio compression, offering unprecedented quality/bitrate ratios through data-driven learning. From SoundStream's foundational architecture to HILCodec's efficient streaming design, each iteration brings us closer to practical applications in telecommunication, media streaming, and immersive audio. As research addresses current limitations in complexity and generalization, these AI-powered codecs are poised to become the new standard for audio compression across industries.
+Neural audio codecs represent a paradigm shift in audio compression, offering unprecedented quality/bitrate ratios through data-driven learning. From SoundStream's foundational architecture to HILCodec's efficient streaming design, and SNAC's multi-scale quantization approach, each iteration brings us closer to practical applications in telecommunication, media streaming, and immersive audio. As research addresses current limitations in complexity and generalization, these AI-powered codecs are poised to become the new standard for audio compression across industries.
 
 ## References
 
@@ -370,3 +432,5 @@ Neural audio codecs represent a paradigm shift in audio compression, offering un
 [2] EnCodec: High Fidelity Neural Audio Compression - [Paper](https://arxiv.org/abs/2210.13438) | [Code](https://github.com/facebookresearch/encodec)
 
 [3] [HILCodec: High Fidelity and Lightweight Neural Audio Codec](https://arxiv.org/pdf/2405.04752v1)
+
+[4] SNAC: Multi-Scale Neural Audio Codec - [Paper](https://arxiv.org/pdf/2410.14411) | [Code](https://github.com/hubertsiuzdak/snac)

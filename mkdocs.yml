@@ -103,10 +103,10 @@ nav:
   - 'Audio Intelligence':
       - 'Interview Questions': 'audio_intelligence/interview_questions.md'
       - 'Code Snippets': 'audio_intelligence/audio_snippets.md'
-      - 'Algorithms':
+      - 'Models':
         - 'Wav2Vec2': 'audio_intelligence/wav2vec2.md'
         - 'audio_intelligence/whisper.md'
-      - 'Tasks':
+      - 'Applications':
         - 'Voice Activity Detection': 'audio_intelligence/voice_activity_detection.md'
         - 'Speaker Diarization': 'audio_intelligence/speaker_diarization.md'
         - 'Speech to Text': 'audio_intelligence/stt.md'
