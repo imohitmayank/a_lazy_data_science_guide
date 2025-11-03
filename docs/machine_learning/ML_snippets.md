@@ -1,4 +1,4 @@
-Machine Learning / Deep Learning Snippets
+AI/ML Snippets
 ========================
 
 Sharing some of the most widely used and arguably not *so famous* Machine Learning snippets 😉
@@ -230,6 +230,70 @@ def configure_optimizers(self):
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.parameters()), lr=1e-3)
     # return optimizer
     return optimizer
+```
+
+## LoRA with Selective Token Training
+
+- It is possible to apply LoRA (Low-Rank Adaptation) on the embedding layer while training only specific tokens (such as newly added tokens) and freezing other tokens (older ones). The Hugging Face PEFT (Parameter-Efficient Fine-Tuning) library supports this kind of selective fine-tuning via the `trainable_token_indices` parameter in the `LoraConfig`.
+- This allows you to:
+  - Freeze the majority of the embedding tokens (old tokens).
+  - Unfreeze and fine-tune only a subset of tokens (e.g., newly added tokens) by specifying their token IDs.
+  - Apply LoRA adapters on other target modules as usual.
+- This approach saves memory and preserves learned token contexts, as only the embeddings corresponding to the new tokens are trainable while the others remain frozen. The token weights are saved as part of the adapter's state dict, enabling selective fine-tuning without large overhead.
+
+``` python linenums="1" hl_lines="15-21"
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import get_peft_model, LoraConfig
+
+# Load model and tokenizer
+base_model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.1")
+tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1")
+
+# Add new special tokens
+special_tokens = ['<|start_think|>', '<|stop_think|>']
+tokenizer.add_special_tokens({'additional_special_tokens': special_tokens})
+
+# Resize model embedding matrix
+base_model.resize_token_embeddings(len(tokenizer))
+
+# Setup LoRA config with trainable tokens and LoRA for other modules
+lora_config = LoraConfig(
+    target_modules='all-linear',
+    trainable_token_indices={
+        'embed_tokens': tokenizer.convert_tokens_to_ids(special_tokens)
+        },
+)
+
+# Apply LoRA
+peft_model = get_peft_model(base_model, lora_config)
+
+# Proceed with training
+```
+
+!!! Note
+    References: [PEFT GitHub Issues](https://github.com/huggingface/peft/issues/349), [PEFT Documentation](https://huggingface.co/docs/peft/main/en/developer_guides/lora)
+
+## Check Trainable Parameters
+
+- You can use the following code to check the trainable and frozen parameters in a model.
+
+``` python linenums="1"
+trainable_params = 0
+frozen_params = 0
+
+for name, param in model.named_parameters():
+    if param.requires_grad:
+        trainable_params += param.numel()
+        print(f"Trainable: {name} | shape: {param.shape}")
+    else:
+        frozen_params += param.numel()
+        print(f"Frozen: {name} | shape: {param.shape}")
+
+total_params = trainable_params + frozen_params
+print("Total trainable parameters:", trainable_params)
+print("Total frozen parameters:", frozen_params)
+print("Total parameters:", total_params)
+print("Ratio of trained params to total params:", trainable_params / total_params)
 ```
 
 ## Check for GPU availability 
