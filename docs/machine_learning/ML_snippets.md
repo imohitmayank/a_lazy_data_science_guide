@@ -273,6 +273,57 @@ peft_model = get_peft_model(base_model, lora_config)
 !!! Note
     References: [PEFT GitHub Issues](https://github.com/huggingface/peft/issues/349), [PEFT Documentation](https://huggingface.co/docs/peft/main/en/developer_guides/lora)
 
+## Get PEFT Model Sizes
+
+- Utility function to calculate the total parameters, adapter parameters, and base parameters of a PEFT model, along with their memory sizes in MB. This is useful for understanding the memory footprint and parameter efficiency of your PEFT/LoRA models.
+
+``` python linenums="1"
+def get_peft_model_sizes(model):
+    total_params = sum(p.numel() for p in model.parameters())
+    total_size_mb = total_params * 4 / (1024 ** 2)  # float32 size
+    
+    adapter_params = 0
+    adapter_param_names = []
+    for name, param in model.named_parameters():
+        if 'adapter' in name.lower() and param.requires_grad:
+            adapter_params += param.numel()
+            adapter_param_names.append(name)
+    
+    adapter_size_mb = adapter_params * 4 / (1024 ** 2)
+    base_params = total_params - adapter_params
+    base_size_mb = base_params * 4 / (1024 ** 2)
+    
+    return {
+        'total_params': total_params,
+        'total_size_mb': total_size_mb,
+        'adapter_params': adapter_params,
+        'adapter_size_mb': adapter_size_mb,
+        'base_params': base_params,
+        'base_size_mb': base_size_mb,
+        'adapter_param_names': adapter_param_names
+    }
+
+# Usage example
+model_sizes = get_peft_model_sizes(model)
+print(model_sizes)
+```
+
+Example output:
+
+```javascript
+{'total_params': 284600576,
+ 'total_size_mb': 1085.6650390625,
+ 'adapter_params': 183537280,
+ 'adapter_size_mb': 700.13916015625,
+ 'base_params': 101063296,
+ 'base_size_mb': 385.52587890625,
+ 'adapter_param_names': [
+    'base_model.model.model.embed_tokens.token_adapter.base_layer.weight',
+    'base_model.model.model.embed_tokens.token_adapter.trainable_tokens_delta.default'
+    ]
+}
+```
+
 ## Check Trainable Parameters
 
 - You can use the following code to check the trainable and frozen parameters in a model.
