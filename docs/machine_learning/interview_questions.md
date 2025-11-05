@@ -231,6 +231,36 @@
 
 !!! Question ""
     === "Question"
+        #### What is Gradient Checkpointing and how does it help in training deep neural networks?
+
+    === "Answer"
+        
+        Gradient checkpointing is a memory optimization technique that helps save GPU memory during the training of deep neural networks by trading computation time for memory usage.
+
+        **How it helps:**
+
+        - Normally, when you train a neural network, the computer saves the outputs (called activations) of many layers during the forward pass, because these are needed later to calculate gradients during the backward pass.
+        - Saving all these activations takes up a lot of GPU memory.
+        - Gradient checkpointing changes this by only saving activations at certain points (called checkpoints) and **not saving all the intermediate activations**.
+        - When the backward pass runs, the missing activations are **recomputed on demand** by rerunning parts of the forward pass.
+        - This way, the training uses much less memory because fewer activations are saved, but it takes a bit more time since some calculations are repeated.
+
+        **When it helps:**
+
+        - When your model is very large or your GPU memory is limited, and you want to train bigger or deeper models than your memory would normally allow.
+        - When you want to increase the batch size (the number of samples processed at once) but memory runs out.
+        - It is especially useful for big transformer models like BERT or GPT, where activations take a lot of memory.
+
+        **Tradeoff:**
+
+        - It saves **significant memory (about 50-60%)**.
+        - But it increases computation time by roughly **15-25%** because of the recomputation.
+        - In many cases, this tradeoff lets you train bigger models or batches on hardware that otherwise wouldn't be able to handle them.
+
+        So in simple terms, gradient checkpointing lets you "pause and forget" some intermediate calculations during training to save memory and "replay" them later when needed, trading off some extra time for a lot less memory usage.
+
+!!! Question ""
+    === "Question"
         #### What is Representation learning?
 
     === "Answer"
