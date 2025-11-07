@@ -28,7 +28,7 @@ The LLM-based TTS training pipeline consists of several key steps:
 4. **Model Training**: Fine-tune the language model to predict audio tokens given text
 5. **Inference**: Generate audio tokens from text, then decode them back to audio using the neural codec
 
-``` mermaid { align="center" }
+``` mermaid
 
 flowchart TD
 
@@ -75,7 +75,7 @@ print(dataset[0])
 #          -0.00558472, -0.00915527]),
 #   'sampling_rate': 22050},
 #  'text': 'Please have mercy on my dainty, frail body. Your coils are so strong and powerful, and I am powerless to resist.'}
-```
+``` 
 
 As you can see, we have [MrDragonFox/Elise](https://huggingface.co/datasets/MrDragonFox/Elise) dataset 1195 samples with (audio, text) pairs along with metadata like `sampling_rate`. Now let's pick one random sample and play the audio.
 
