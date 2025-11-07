@@ -331,6 +331,6 @@ output = squeeze(torch.matmul(attention_mask.type(torch.float32).view(-1, 1, 512
     Consider finetuning the BERT model *(triplet loss)* further to generate meaningful sentence representation, as pretrained BERT model is even worse than Glove embeddings [2]. For more details look at [this analysis](BERT.md#bert-for-sentence-representation) or use [S-BERT package](https://www.sbert.net/examples/training/sts/README.html) to finetune.
 ## References
 
-[1] [Jay Alammar's blog "The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)"](the_illustrated_bert*(https://jalammar.github.io/illustrated-bert/))
+[1] [Jay Alammar's blog "The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning)"](https://jalammar.github.io/illustrated-bert/)
 
 [2] [Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks](https://arxiv.org/abs/1908.10084)

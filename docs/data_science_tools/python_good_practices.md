@@ -29,7 +29,7 @@ my_project             # Root directory of the project
 └── README.md          # Project README
 ```
 
-- As obvious from the names, folder `code` contains the individual modules (`.py` files), `input` and `output` contains the input and output files respectively, and `notebook` contains the `.ipynb` notebooks files we use for experimentation. Finally, `config` folder could contain parameters within `yaml` or `json` or `ini` files and can be accessed by the code module files using [configparser]([configparser — Configuration file parser &#8212; Python 3.7.11 documentation](https://docs.python.org/3.7/library/configparser.html)).
+- As obvious from the names, folder `code` contains the individual modules (`.py` files), `input` and `output` contains the input and output files respectively, and `notebook` contains the `.ipynb` notebooks files we use for experimentation. Finally, `config` folder could contain parameters within `yaml` or `json` or `ini` files and can be accessed by the code module files using [configparser](https://docs.python.org/3.7/library/configparser.html).
 - `requirements.txt` contains a list of all external python packages needed by the project. One advantage of maintaining this file is that all of these packages can be easily installed using `pip install -r requirements.txt` command. *(No need of manually installing each and every external packages!)*. One example `requirements.txt` file is shown below *(with `package_name==package_version` format)*, 
 
 ``` python linenums="1"

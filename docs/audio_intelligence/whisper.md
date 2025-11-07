@@ -208,4 +208,4 @@ transcript = openai.Audio.translate("whisper-1", audio_file,
 ```
 ## References
 
-[1] Whisper by OpenAI - [Blog](https://openai.com/blog/whisper/) | [Paper](https://cdn.openai.com/papers/whisper.pdf) | [Code](https://github.com/openai/whisper) | [API Doc]([lazydsguide](https://platform.openai.com/docs/guides/speech-to-text))
+[1] Whisper by OpenAI - [Blog](https://openai.com/blog/whisper/) | [Paper](https://cdn.openai.com/papers/whisper.pdf) | [Code](https://github.com/openai/whisper) | [API Doc](https://platform.openai.com/docs/guides/speech-to-text)

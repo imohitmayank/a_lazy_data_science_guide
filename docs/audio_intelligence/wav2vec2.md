@@ -1,6 +1,6 @@
 ## Introduction
 
-- [Wav2Vec](https://arxiv.org/abs/2006.11477) is a framework for [self-supervised](../../machine_learning/introduction/#self-supervised-learning) learning of representations from raw audio data. Basically it learns to efficiently represent the raw audio data as a vector space encoding.
+- [Wav2Vec](https://arxiv.org/abs/2006.11477) is a framework for [self-supervised](../machine_learning/introduction.md#self-supervised-learning) learning of representations from raw audio data. Basically it learns to efficiently represent the raw audio data as a vector space encoding.
 
 <figure markdown> 
     ![](../imgs/audio_wav2vec2_arch.png){ width="500" }
@@ -12,7 +12,7 @@
 ## Architecture
 
 - The complete architecture of the framework can be divided into 3 components, they are
-  - **Feature encoder**: This is the encoder part of the model. It takes the raw audio data as input and outputs feature vectors. Input size is limited to 400 samples which is 20ms for 16kHz [sample rate](../audio_intelligence_terms#sample-rate-bit-depth-and-bit-rate). The raw audio is first standardized to have zero mean and unit variance. Then it is passed to 1D [convolutional neural network](https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks) (temporal convolution) followed by layer normalization and GELU activation function. There could be 7 such convolution blocks with constant channel size (512), decreasing kernel width (10, 3x4, 2x2) and stride (5, 2x6). The output is list of feature vectors each with 512 dimensions.
+  - **Feature encoder**: This is the encoder part of the model. It takes the raw audio data as input and outputs feature vectors. Input size is limited to 400 samples which is 20ms for 16kHz sample rate. The raw audio is first standardized to have zero mean and unit variance. Then it is passed to 1D [convolutional neural network](https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks) (temporal convolution) followed by layer normalization and GELU activation function. There could be 7 such convolution blocks with constant channel size (512), decreasing kernel width (10, 3x4, 2x2) and stride (5, 2x6). The output is list of feature vectors each with 512 dimensions.
   - **Transformers**: The output of the feature encoder is passed on to a transformer layer. One differentiator is use of relative positional embedding by using convolution layers, rather than using fixed positional encoding as done in original Transformers paper. The block size differs, as 12 transformers block with model dimension of 768 is used in BASE model but 24 blocks with 1024 dimension in LARGE version. 
   - **Quantization module**: For self-supervised learning, we need to work with discrete outputs. For this, there is a quantization module that converts the continous vector output to discrete representations, and on top of it, it automatically learns the discrete speech units. This is done by maintaining multiple codebooks/groups (320 in size) and the units are sampled from each codebook are later concatenated *(320x320=102400 possiblt speech units)*. The sampling is done using Gumbel-Softmax which is like argmax but differentiable. 
 

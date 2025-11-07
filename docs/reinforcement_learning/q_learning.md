@@ -4,7 +4,7 @@
 - Q-learning is a RL algorithm that computes an expected reward for taking an action from any given state. The expected reward is a composition of the immediate reward and the future rewards possible from the new transitioned state. It is an iteration based algorithm that adjusts the scores over time, and given infinite exploration time it can identify an optimal action-selection policy. 
 
 !!! Note
-    Q-learning does not requires to model the environment, hence it is model-free *(check [here](../#reinforcement_learning/interview_questions.md) for more details)*. 
+    Q-learning does not requires to model the environment, hence it is model-free *(check [here](interview_questions.md) for more details)*. 
 
 - To better grasp the intuition, let's understand it through a Grid world example before further complications creeps in. :wink:
 

@@ -28,7 +28,7 @@
 ## Types of Model compression
 
 - At a high level, there are following types of model compression. We will go through them one by one.
-  - **Knowledge Distillation**: in these methods, we distil the learned information *(or [knowledge](#types-of-knowledge))* from one neural network model *(generally larger)* to another model *(generally smaller)*.
+  - **Knowledge Distillation**: in these methods, we distil the learned information *(or knowledge)* from one neural network model *(generally larger)* to another model *(generally smaller)*.
   - **Quantization**: in these methods, we transform the data type used to represent the weights and activations of Neural networks which leads to reduction in memory consumption. 
   - **Parameter Pruning and Sharing**: in these methods, we remove the non-essential parameters from a neural network with minimal to no effect on the overall performance. (*Lazy Data Scientist at work* - 😴)
 
