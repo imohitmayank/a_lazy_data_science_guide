@@ -705,7 +705,7 @@ The `parse_snac_codes` function performs several key operations:
 
 Training TTS models using LLM-based approaches with neural codecs represents a powerful paradigm that combines the strengths of modern language models with efficient audio representations. By treating audio generation as a sequence-to-sequence problem, we can leverage transfer learning and achieve high-quality speech synthesis. The key is understanding how to convert audio to discrete tokens, extend model vocabularies, and train the model to learn the text-to-audio mapping.
 
-As stated before, this tutorial is meant to give you a starting point and a reference implementation. We are just getting started with the journey of training TTS models. I think there are multiple ways to improve the performance of the model. Some of the ways are:
+As stated before, this tutorial is meant to give you a starting point and a reference implementation. We are just getting started with the journey of training TTS models. I think there are multiple ways to improve the performance of the model. Some ways are:
 
 - Use a larger dataset *(currently it is trained on ~1000 samples, we need to atleast 10x the size to get respectable results)*
 - Data Preprocessing *(we can preprocess the data to handle the special tokens and to make sure the data is in the correct format. We can further break the audio into smaller and cleaner chunks, clean the audio by denoising, etc)*
@@ -713,4 +713,6 @@ As stated before, this tutorial is meant to give you a starting point and a refe
 - Use Reinforcement Learning to fine-tune the model *(we can add explicit rewards like WER, SECS, etc to the training loop to improve the quality of the generated speech)*
 - and more...
 
-Do let me know if you have any questions or suggestions. If you want to contribute to this guide, please feel free to submit a pull request. If you want to discuss something, please feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/imohitmayank/). :wave:
+Maybe more on this in future guides! 
+
+Do let me know if you have any questions or suggestions. If you want to contribute to this guide, please feel free to submit a [pull request](https://github.com/imohitmayank/a_lazy_data_science_guide/pulls). If you want to discuss something, please feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/imohitmayank/). :wave:
