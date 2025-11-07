@@ -48,7 +48,7 @@ flowchart TD
     H -- "Audio" --> I[Audio Output]
 ```
 
-## Main Concept Understanding
+## Main Concepts
 
 Let's understand the key concepts of this approach in detail. We will start with a dataset where we have (audio, text) pairs.
 
@@ -59,7 +59,6 @@ from datasets import load_dataset, Audio
 # load the dataset
 dataset = load_dataset("MrDragonFox/Elise", split="train")
 # print the dataset
-
 print(dataset)
 # Output:
 # Dataset({
@@ -77,9 +76,11 @@ print(dataset[0])
 #  'text': 'Please have mercy on my dainty, frail body. Your coils are so strong and powerful, and I am powerless to resist.'}
 ```
 
-Now let's pick one random sample and play the audio.
+As you can see, we have [MrDragonFox/Elise](https://huggingface.co/datasets/MrDragonFox/Elise) dataset 1195 samples with (audio, text) pairs along with metadata like `sampling_rate`. Now let's pick one random sample and play the audio.
 
 ``` python linenums="1"
+# import
+import random
 # let's pick one random sample and set the index
 index = random.randint(0, len(dataset))
 # extract the audio and sampling rate
@@ -89,7 +90,7 @@ sampling_rate = dataset[index]['audio']['sampling_rate']
 AudioPlayer(audio, rate=sampling_rate)
 ```
 
-Here is the audio (which has size of 182133 elements at 22050 Hz sampling rate):
+Here is the audio *(which has size of 182133 elements at 22050 Hz sampling rate)*:
 
 <audio controls>
   <source src="../../audio/sample_audio_from_elise_dataset.wav" type="audio/wav">
@@ -99,23 +100,29 @@ Your browser does not support the audio element.
 Now let's convert the audio to SNAC codes.
 
 ``` python linenums="1"
-# import torch
+# import torch and SNAC codec
 import torch
-# import the SNAC codec
 from snac import SNAC
-# create the SNAC codec
+
+# load the model
 snac_model = SNAC.from_pretrained("hubertsiuzdak/snac_24khz")
+
 # as we are loading a 24Hz model, let's convert all the audio to 24000 Hz
 dataset = dataset.cast_column("audio", Audio(sampling_rate=24000))
-# now let's pick one random sample and set the index
+
+# now let's pick the sample audio again
 audio = dataset[index]['audio']['array']
 sampling_rate = dataset[index]['audio']['sampling_rate'] # this time it will be 24000 Hz
+
 # convert the audio to tensor
 audio_tensor = torch.tensor(audio, dtype=torch.float32)
+
 # For single audio file: [1, 1, time_samples]
-audio_tensor = audio_tensor.unsqueeze(0).unsqueeze(0)  # Shape: [1, 1, 241664]
+audio_tensor = audio_tensor.unsqueeze(0).unsqueeze(0)  # Shape: ~[1, 1, 241664]
+
 # encode the audio using snac
 encoded = snac_model.encode(audio_tensor)
+
 # print the encoded shape
 print(encoded[0].shape)
 print(encoded[1].shape)
@@ -126,7 +133,7 @@ print(encoded[2].shape)
 # torch.Size([1, 388])
 ```
 
-This returns a list 3 tensors denoting the SNAC codes for the 3 layers. This means we have transformed the audio from 180k samples to just 97 + 194 + 388 = 679 tokens. This is a significant reduction in the size of the data! To double check, we can decode the codec into audio and see if it matches the original audio.
+This returns a list 3 tensors denoting the SNAC codes for the 3 layers. This means we have transformed the audio from 180k samples to just 97 + 194 + 388 = 679 tokens. This is a significant reduction in the size of the data! To double check, we can decode the codec into audio and listen to match with the original audio.
 
 ``` python linenums="1"
 # decode the audio using snac
@@ -143,7 +150,7 @@ Your browser does not support the audio element.
 
 Perfect! 
 
-Now, as we can see, we already have a model that can convert any audio to significantly smaller number of tokens, i.e. `Audio --> Code --> Audio`.  But the requirement of TTS is that we need to convert text to audio, i.e. `Text --> Audio`. This is where we can leverage the power of pretrained language models to convert text to audio tokens, i.e. `Text --> Audio Tokens` and then use the neural codec to go from `Audio Tokens --> Audio`. This is the approach we will be taking in this guide.
+Now, as we can see, we already have a model that can convert any audio to significantly smaller number of tokens, i.e. `Audio --> Code` and then convert the codes back to audio i.e. `Code --> Audio`.  But the requirement of TTS is that we need to convert text to audio, i.e. `Text --> Audio`. This is where we can leverage the power of pretrained language models to convert text to audio tokens, i.e. `Text --> Code` and then use the neural codec to go from `Code --> Audio`. This is the approach we will be taking in this guide.
 
 
 ## Code Walkthrough
@@ -224,7 +231,7 @@ class DataArguments:
     )
 ```
 
-These dataclasses define configuration arguments for the model and data. The `ModelArguments` specifies which pretrained model to use (Gemma-3-270m), while `DataArguments` defines dataset parameters including the maximum sequence length (900 tokens) and validation split percentage.
+These dataclasses define configuration arguments for the model and data. The `ModelArguments` specifies which pretrained model to use (Gemma-3-270m), while `DataArguments` defines dataset parameters including the maximum sequence length (here, 900 tokens) and validation split percentage.
 
 ### SNAC Codec Configuration
 
@@ -287,8 +294,8 @@ def load_snac_dataset(data_args: DataArguments) -> Tuple[Dataset, Dataset]:
 
 This function basically performs two things, 
 
-- loads the dataset from Hugging Face Hub. While you can start from a dataset with (audio, text) pairs like [MrDragonFox/Elise](https://huggingface.co/datasets/MrDragonFox/Elise), I have already transformed the dataset to text-SNAC code pairs that you can use here [mohitmayank/elise_text_snac_codes](https://huggingface.co/datasets/mohitmayank/elise_text_snac_codes). We will download and use this dataset for training. 
-- The function also dynamically discovers any additional special tokens present in the dataset text and adds them to the configuration. This is important because the dataset may contain special tokens that are not part of the SNAC configuration, such as `<giggling>`, `<laughter>`, `<sigh>`, etc.
+- loads the dataset from Hugging Face Hub. While you can start from a dataset with `(audio, text)` pairs like [MrDragonFox/Elise](https://huggingface.co/datasets/MrDragonFox/Elise), I have already transformed the dataset to `(text, SNAC code)` pairs that you can use here [mohitmayank/elise_text_snac_codes](https://huggingface.co/datasets/mohitmayank/elise_text_snac_codes). We will download and use this dataset for training. 
+- dynamically discovers any additional special tokens present in the dataset text and adds them to the configuration. This is important because the dataset may contain special tokens that are not part of the SNAC configuration, such as `<giggling>`, `<laughter>`, `<sigh>`, etc.
 
 ### SNAC Code to Token Conversion
 
@@ -333,7 +340,7 @@ We do it for the complete audio sequence till we exhaust all the time frames or 
 
 !!! Note "Why follow this complex format?"
 
-    This format is chosen because it is easy to parse and decode back to audio. It is also easy to train a language model on this format. On the plus side, this format can help with real-time streaming application in future.
+    This format is chosen because it is easy to parse and decode back to audio. It is also easy to train a language model on this format. On the plus side, this format can help with real-time streaming application in future, as we get generation output in timeframe manner.
 
 ### Data Preprocessing
 
@@ -371,7 +378,7 @@ def preprocess_function(examples: Dict[str, List], tokenizer: AutoTokenizer, max
     return tokenized
 ```
 
-The preprocessing function combines text and SNAC tokens into a single sequence. The format is: `"{text} {snac_tokens}"`, where the model learns to predict the SNAC tokens given the text. For causal language modeling, labels are set equal to `input_ids`, meaning the model learns to predict the next token in the sequence (including both text and audio tokens). One example of the input and output of the preprocessing function will look like this:
+The preprocessing function combines text and SNAC tokens into a single sequence. The format is: `"{text} {snac_tokens}"`, where the model learns to predict the SNAC tokens given the text. For causal language modeling, labels are set equal to `input_ids`, meaning the model learns to predict the next token in the sequence (including both text and audio tokens). One example of the output of the preprocessing function will look like this:
 
 ``` text
 Please have mercy on my dainty, frail body. Your coils are so strong and powerful, and I am powerless to resist <audio_start> <snac_l1_123> ... <snac_l3_54> <audio_end>
@@ -448,7 +455,6 @@ def setup_model_and_tokenizer(model_args: ModelArguments) -> Tuple[AutoModelForC
     # Resize model embeddings to accommodate new tokens
     print(f"Resizing model embeddings to {len(tokenizer)} tokens")
     model.resize_token_embeddings(len(tokenizer))
-    print(f"Resized model embeddings to {len(tokenizer)} tokens")
     
     return model, tokenizer, original_vocab_size
 ```
@@ -514,6 +520,10 @@ The training arguments configure the fine-tuning process:
 - **Scheduler**: Cosine learning rate schedule with 10% warmup
 - **Mixed Precision**: Can use `bf16` or `fp16` for faster training and lower memory usage
 
+!!! hint "Experimentation"
+
+    You are invited to experiment with different learning rates, batch sizes, gradient accumulation steps, number of training epochs, etc. to get the best performance.
+
 ### Training Execution
 
 ```python linenums="1"
@@ -572,9 +582,9 @@ And we are done! Once you perform the training, you should see a training log li
 
 !!! Notes "But Mohit, it's overfitting!"
 
-    Yes, sir! This is expected because we are using a very small dataset, and training for multiple epochs. This tutorial is meant to give you a starting point and a reference implementation. We are just getting started. 
+    Yes, sir! This is expected because we are using a very small dataset, and training for multiple epochs. This tutorial is meant to give you a starting point and a reference implementation. 
     
-    Head over to the [conclusion section](#conclusion) for next steps and my comments. 
+    Head over to the [conclusion section](#conclusion) for next steps and my comments. We are just getting started. :wink:
 
 ## Inference
 
@@ -697,11 +707,10 @@ Training TTS models using LLM-based approaches with neural codecs represents a p
 
 As stated before, this tutorial is meant to give you a starting point and a reference implementation. We are just getting started with the journey of training TTS models. I think there are multiple ways to improve the performance of the model. Some of the ways are:
 
-- Use a larger dataset *(currently it is trained on ~1000 samples, we need to 10x this atleast to get respectable results)*
-- Data Preprocessing *(we need to preprocess the data to remove the special tokens and to make sure the data is in the correct format. We can further break the audio into smaller chunks, clean the audio by denoising, etc)*
-- Data Diversification *(we need to diversify the data to improve the performance of the model. We can use data augmentation techniques or have audio from multiple speakers speaking in different situations, also have different speed change, pitch change, etc)*
+- Use a larger dataset *(currently it is trained on ~1000 samples, we need to atleast 10x the size to get respectable results)*
+- Data Preprocessing *(we can preprocess the data to handle the special tokens and to make sure the data is in the correct format. We can further break the audio into smaller and cleaner chunks, clean the audio by denoising, etc)*
+- Data Diversification *(we need to diversify the data to improve the performance of the model. We can use data augmentation techniques or have audio from multiple speakers speaking in different speed, pitch, language, accent, etc)*
 - Use Reinforcement Learning to fine-tune the model *(we can add explicit rewards like WER, SECS, etc to the training loop to improve the quality of the generated speech)*
 - and more...
 
-As neural codecs continue to improve and language models become more capable, this approach is likely to become even more effective and widely adopted in production TTS systems.
-
+Do let me know if you have any questions or suggestions. If you want to contribute to this guide, please feel free to submit a pull request. If you want to discuss something, please feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/imohitmayank/). :wave:
