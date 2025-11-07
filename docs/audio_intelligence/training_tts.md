@@ -29,6 +29,7 @@ The LLM-based TTS training pipeline consists of several key steps:
 5. **Inference**: Generate audio tokens from text, then decode them back to audio using the neural codec
 
 ``` mermaid { align="center" }
+
 flowchart TD
 
     subgraph Data Preparation
