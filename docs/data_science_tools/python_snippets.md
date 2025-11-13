@@ -329,6 +329,126 @@ conda deactivate
 conda env remove -n py39
 ```
 
+## uv cheat sheet
+
+- [uv](https://github.com/astral-sh/uv) is an extremely fast Python package installer and resolver written in Rust. It serves as a drop-in replacement for pip, pip-tools, poetry, pyenv, twine, virtualenv, and more.
+
+### Creating projects
+
+```shell linenums="1"
+# Initialize a project in the current directory
+uv init
+
+# Initialize a project in a specific directory
+uv init project_name
+
+# Specify Python version for the project
+uv init --python 3.11
+```
+
+### Managing dependencies
+
+```shell linenums="1"
+# Add a package as dependency
+uv add pandas
+
+# Add multiple packages at once
+uv add numpy scipy matplotlib
+
+# Add dependencies from requirements file
+uv add -r requirements.txt
+
+# Add development dependencies
+uv add --dev pytest black
+
+# Run a command from installed packages
+uv run pytest
+
+# Remove multiple dependencies
+uv remove numpy scipy
+
+# View dependency tree
+uv tree
+
+# Upgrade all dependencies
+uv lock --upgrade
+```
+
+### Version management
+
+```shell linenums="1"
+# Check current project version
+uv version
+```
+
+### Building and publishing
+
+```shell linenums="1"
+# Build your package
+uv build
+
+# Publish to PyPI
+uv publish
+```
+
+### Working with scripts
+
+```shell linenums="1"
+# Initialize a standalone script
+uv init --script script.py
+
+# Initialize script with specific Python version
+uv init --script script.py --python 3.11
+
+# Add dependency to a script
+uv add requests --script script.py
+
+# Run a script
+uv run script.py
+
+# Run script with specific Python version
+uv run --python 3.11 script.py
+
+# Run script with specific Python version and dependencies
+uv run --python 3.11 --with torch,peft==0.18.0rc0 test_model_size.py
+
+# Run Python interpreter with specific Python version and dependencies
+uv run --python 3.11 --with torch,peft==0.18.0rc0 python -c "import sys; print(sys.version)"
+```
+
+### Python version management
+
+```shell linenums="1"
+# List available Python versions
+uv python list
+
+# Install a Python version
+uv python install 3.11
+
+# Run Python interpreter
+uv run python
+
+# Run specific Python version
+uv run --python 3.11 python
+```
+
+### Virtual environments
+
+```shell linenums="1"
+# Create virtual environment
+uv venv .venv
+
+# Use uv as faster pip replacement
+uv pip install package_name
+```
+
+### Code formatting
+
+```shell linenums="1"
+# Format code with Ruff
+uv format
+```
+
 ## Requirement files
 
 - Requirement file is a collection of packages you want to install for a Project. A sample file is shown below, 
