@@ -1,0 +1,3370 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://mohitmayank.com/a_lazy_data_science_guide/machine_learning/model_compression_quant/">
+      
+      <link rel="icon" href="../../imgs/logo.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.4">
+    
+    
+      
+        <title>Model Quantization - A Lazy Data Science Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-2DVXT9L5D4"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-2DVXT9L5D4",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DVXT9L5D4"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </span>
+    <strong>Twitter</strong>
+  </a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-header__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Lazy Data Science Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Model Quantization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../natural_language_processing/interview_questions/" class="md-tabs__link">
+        Natural Language Processing
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-tabs__link">
+        Audio Intelligence
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network_science/introduction/" class="md-tabs__link">
+        Network Science
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data_science_tools/introduction/" class="md-tabs__link">
+        Data Science Tools
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../introduction/" class="md-tabs__link md-tabs__link--active">
+        Machine Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-tabs__link">
+        Reinforcement Learning
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-nav__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    A Lazy Data Science Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Hello
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting_started/" class="md-nav__link">
+        Getting started with Data Science
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Natural Language Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Natural Language Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Natural Language Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Architectures/Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectures/Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architectures/Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/word2vec/" class="md-nav__link">
+        Word2Vec
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/lstm_gru_rnn/" class="md-nav__link">
+        LSTM, GRU & RNN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/transformer/" class="md-nav__link">
+        Transformers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/BERT/" class="md-nav__link">
+        BERT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/GPTs/" class="md-nav__link">
+        GPTs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/minilm/" class="md-nav__link">
+        MiniLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/T5/" class="md-nav__link">
+        T5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/FlanModels/" class="md-nav__link">
+        FlanModels
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/llama/" class="md-nav__link">
+        LLaMA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/mamba/" class="md-nav__link">
+        Mamba
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/deepseek/" class="md-nav__link">
+        DeepSeek R1
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Large Language Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Large Language Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Large Language Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/training_llm/" class="md-nav__link">
+        Training LLMs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/prompt_engineering/" class="md-nav__link">
+        Prompt Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/explainable_ai_llm/" class="md-nav__link">
+        Explainable AI: Language Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/streaming_chatgpt_gen/" class="md-nav__link">
+        Streaming ChatGPT Generations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/making_llm_multilingual/" class="md-nav__link">
+        Making LLM Multi-lingual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Tasks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tasks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tasks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/paraphraser/" class="md-nav__link">
+        Paraphraser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/text_similarity/" class="md-nav__link">
+        Text similarity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/text_generation/" class="md-nav__link">
+        Text generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/relation_extraction/" class="md-nav__link">
+        Relation extraction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/qa/" class="md-nav__link">
+        Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/data_to_text_generation/" class="md-nav__link">
+        Data-to-Text Generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/named_entity_recognition/" class="md-nav__link">
+        Named Entity Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/nlq/" class="md-nav__link">
+        Natural Language Querying
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Audio Intelligence
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Audio Intelligence" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Audio Intelligence
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/audio_snippets/" class="md-nav__link">
+        Code Snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Speech-to-Text
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Speech-to-Text" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Speech-to-Text
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/stt/" class="md-nav__link">
+        STT Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/wav2vec2/" class="md-nav__link">
+        Wav2Vec2 Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/whisper/" class="md-nav__link">
+        Whisper Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/connectionist_temporal_classification/" class="md-nav__link">
+        Connectionist Temporal Classification
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Text-to-Speech
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Text-to-Speech" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Text-to-Speech
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/tts/" class="md-nav__link">
+        TTS Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/neural_audio_codecs/" class="md-nav__link">
+        Neural Audio Codecs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/training_tts/" class="md-nav__link">
+        Training LLM-Based + Neural Codec TTS Models
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Applications
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Applications
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/voice_activity_detection/" class="md-nav__link">
+        Voice Activity Detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/speaker_diarization/" class="md-nav__link">
+        Speaker Diarization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Network Science
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Network Science" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Network Science
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Graph Neural Networks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graph Neural Networks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Graph Neural Networks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_2">
+          Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algorithms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_deepwalk/" class="md-nav__link">
+        DeepWalk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Knowledge Graphs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Knowledge Graphs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Knowledge Graphs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_embedding_algorithms/" class="md-nav__link">
+        KG Embedding Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Data Science Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Science Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Data Science Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_snippets/" class="md-nav__link">
+        Python snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/linux_snippets/" class="md-nav__link">
+        Linux snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/version_control/" class="md-nav__link">
+        Version control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/compute_and_ai_services/" class="md-nav__link">
+        Compute and AI Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/scraping_websites/" class="md-nav__link">
+        Scraping Websites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Database" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/databases_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/database_postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Good Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Good Practices" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Good Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/github_good_practices/" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_good_practices/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Machine Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ML_snippets/" class="md-nav__link">
+        ML snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering/" class="md-nav__link">
+        Clustering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classification/" class="md-nav__link">
+        Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loss_functions/" class="md-nav__link">
+        Loss functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genaidetection/" class="md-nav__link">
+        Detecting AI Generated Content
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dpo/" class="md-nav__link">
+        Direct Preference Optimization (DPO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Model Compression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Model Compression" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Compression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_compression_intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_compression_kd/" class="md-nav__link">
+        Knowledge Distillation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Model Quantization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Model Quantization
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types-and-representations" class="md-nav__link">
+    Data Types and Representations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics-of-quantizations" class="md-nav__link">
+    Basics of Quantizations
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics of Quantizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uniform-vs-non-uniform-quantization" class="md-nav__link">
+    Uniform vs Non-Uniform Quantization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-vs-asymmetric-quantization" class="md-nav__link">
+    Symmetric vs. Asymmetric Quantization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-vs-static-quantization" class="md-nav__link">
+    Dynamic vs Static Quantization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantization-granularity" class="md-nav__link">
+    Quantization Granularity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantization-strategies" class="md-nav__link">
+    Quantization Strategies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantization-in-practice" class="md-nav__link">
+    Quantization in Practice
+  </a>
+  
+    <nav class="md-nav" aria-label="Quantization in Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#awq" class="md-nav__link">
+    AWQ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gptq" class="md-nav__link">
+    GPTQ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitsandbytes" class="md-nav__link">
+    BitsAndBytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ggmlgguf" class="md-nav__link">
+    GGML/GGUF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Optimization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimization" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Optimization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ranking_algorithms/" class="md-nav__link">
+        Ranking Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Reinforcement Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reinforcement Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Reinforcement Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/rlhf/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/q_learning/" class="md-nav__link">
+        Q-Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/multi_arm_bandit/" class="md-nav__link">
+        Multi-Arm Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types-and-representations" class="md-nav__link">
+    Data Types and Representations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics-of-quantizations" class="md-nav__link">
+    Basics of Quantizations
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics of Quantizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uniform-vs-non-uniform-quantization" class="md-nav__link">
+    Uniform vs Non-Uniform Quantization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-vs-asymmetric-quantization" class="md-nav__link">
+    Symmetric vs. Asymmetric Quantization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-vs-static-quantization" class="md-nav__link">
+    Dynamic vs Static Quantization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantization-granularity" class="md-nav__link">
+    Quantization Granularity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantization-strategies" class="md-nav__link">
+    Quantization Strategies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantization-in-practice" class="md-nav__link">
+    Quantization in Practice
+  </a>
+  
+    <nav class="md-nav" aria-label="Quantization in Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#awq" class="md-nav__link">
+    AWQ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gptq" class="md-nav__link">
+    GPTQ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitsandbytes" class="md-nav__link">
+    BitsAndBytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ggmlgguf" class="md-nav__link">
+    GGML/GGUF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/imohitmayank/a_lazy_data_science_guide/edit/master/docs/machine_learning/model_compression_quant.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Model Quantization</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p>Quantization is a technique that has been used in digital computing for a long time. It involves compressing data by converting a continuous signal or data set into a discrete set of values or levels. </p>
+<p>Neural Networks (NNs) present unique challenges and opportunities in the context of quantization. Firstly, both inference and training of NNs require significant computational resources, making the efficient representation of numerical values crucial. Secondly, many current NN models are highly over-parameterized, allowing scope for techniques that could reduce bit precision without sacrificing accuracy. </p>
+<p>However, an important distinction is that NNs exhibit remarkable resilience to aggressive quantization and extreme discretization. That said, by moving from floating-point representations to low-precision fixed integer values represented in four bits or less, it is possible to significantly reduce memory footprint and latency. In fact, reductions of 4x to 8x are often observed in practice in these applications. This article serves as a beginner-friendly introduction to quantization in deep learning.</p>
+<h2 id="data-types-and-representations">Data Types and Representations</h2>
+<p>Before diving into the topic, let’s understand the importance and advantages of using smaller data-type representations. </p>
+<ul>
+<li>Neural Nets consists of weights which are matrices of numbers, where each number is mostly represented in <code>float32</code> data type. This means each number’s size is 32 bits (4 bytes) and an average-sized LLM of 7B parameters (like LLaMA) will have a size around 7 * 10^9 * 4  = 28GB! This is vRAM required just for inference, and for training, you might need 2x more memory as the system needs to store gradients as well. <em>(For finetuning, the memory requirements depend on which optimizer we are using. AdamW needs 8 bytes per parameter)</em>. Now if we can use half-precision (<code>float16</code>) our memory requirements are reduced by half and for much advanced 8-bit representation it becomes just 1/4th of the original requirement! </li>
+<li>Below is a table with different data types, their ranges, size and more details. </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Min</th>
+<th>Max</th>
+<th>Range</th>
+<th>Bits</th>
+<th>Accumulation Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint8</td>
+<td>0</td>
+<td>255</td>
+<td>0-255</td>
+<td>8</td>
+<td>uint16</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>-128</td>
+<td>127</td>
+<td>-128 to 127</td>
+<td>8</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>0</td>
+<td>65535</td>
+<td>0-65535</td>
+<td>16</td>
+<td>uint32</td>
+</tr>
+<tr>
+<td>int16</td>
+<td>-32768</td>
+<td>32767</td>
+<td>-32768 to 32767</td>
+<td>16</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>0</td>
+<td>4294967295</td>
+<td>0-4294967295</td>
+<td>32</td>
+<td>uint64</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>-2147483648</td>
+<td>2147483647</td>
+<td>-2147483648 to 2147483647</td>
+<td>32</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>uint64</td>
+<td>0</td>
+<td>18446744073709551615</td>
+<td>0-18446744073709551615</td>
+<td>64</td>
+<td>uint64</td>
+</tr>
+<tr>
+<td>int64</td>
+<td>-9223372036854775808</td>
+<td>9223372036854775807</td>
+<td>-9223372036854775808 to 9223372036854775807</td>
+<td>64</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>float16</td>
+<td>-65504</td>
+<td>65504</td>
+<td>-65504 to 65504</td>
+<td>16</td>
+<td>float32</td>
+</tr>
+<tr>
+<td>float32</td>
+<td>-3.4028235E+38</td>
+<td>3.4028235E+38</td>
+<td>-3.4028235E+38 to 3.4028235E+38</td>
+<td>32</td>
+<td>float64</td>
+</tr>
+<tr>
+<td>float64</td>
+<td>-1.7976931348623157E+308</td>
+<td>1.7976931348623157E+308</td>
+<td>-1.7976931348623157E+308 to 1.7976931348623157E+308</td>
+<td>64</td>
+<td>float128</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>float128</code> isn't a standard data type in many environments, and the accumulation type for some might vary based on the context or platform. For float types, the range values typically represent the maximum magnitude, not the precise range of normal numbers. Please verify against your specific environment or programming language for the most accurate information.</p>
+</div>
+<h2 id="basics-of-quantizations">Basics of Quantizations</h2>
+<p>Now we are ready to tackle the basic concepts of Quantization in Deep Learning.</p>
+<h3 id="uniform-vs-non-uniform-quantization">Uniform vs Non-Uniform Quantization</h3>
+<ul>
+<li>A normal quantization function is shown below where <span class="arithmatex">\( S \)</span> is a scaling factor, <span class="arithmatex">\( Z \)</span> is an integer zero point, and <span class="arithmatex">\( \text{Int} \)</span> represents an integer mapping through rounding. In the scaling factor <span class="arithmatex">\( S \)</span>, <span class="arithmatex">\([\alpha, \beta]\)</span> denotes the clipping range i.e. a bounded range that we are clipping the real values with, and <span class="arithmatex">\(b\)</span> is the quantization bit width. The key characteristic of uniform quantization is that the quantized values are evenly spaced. This spacing can be visualized in a graph where the distance between each quantized level is constant.</li>
+</ul>
+<div class="arithmatex">\[
+Q(r) = \text{Int}\left(\frac{r}{S}\right) - Z;
+\]</div>
+<div class="arithmatex">\[
+S = \frac{\beta - \alpha}{2^b - 1},
+\]</div>
+<ul>
+<li>In contrast to uniform quantization, non-uniform quantization methods produce quantized values that are not evenly spaced. Non-uniform quantization can be more efficient in representing values with a non-linear distribution. However, implementing non-uniform quantization schemes efficiently on general computation hardware (e.g., GPU and CPU) is typically challenging. Therefore, uniform quantization is currently the most commonly used method due to its simplicity and efficient mapping to hardware.</li>
+</ul>
+<figure>
+<p><img alt="" src="../../imgs/ml_modelcompression_quant1.png" width="500" />
+    <figcaption>Source: [1]</figcaption></p>
+</figure>
+<ul>
+<li>Also note that for both uniform and non-uniform quantization, the original real values can be approximated through dequantization, using the inverse operation <span class="arithmatex">\( \tilde{r} = S(Q(r) + Z) \)</span>. However, due to the rounding inherent in the quantization process, the recovered values <span class="arithmatex">\( \tilde{r} \)</span> will not be exactly the same as the original <span class="arithmatex">\( r \)</span>. This approximation error is a trade-off for the benefit of reduced precision and computational complexity.</li>
+</ul>
+<h3 id="symmetric-vs-asymmetric-quantization">Symmetric vs. Asymmetric Quantization</h3>
+<figure>
+<p><img alt="" src="../../imgs/ml_modelcompression_quant2.png" />
+    <figcaption>Source: [1]</figcaption></p>
+</figure>
+<ul>
+<li>In symmetric quantization, the scaling factor <span class="arithmatex">\( S \)</span> is determined using a symmetric clipping range, typically defined as <span class="arithmatex">\( \alpha = -\beta \)</span>. The value for <span class="arithmatex">\( \alpha \)</span> and <span class="arithmatex">\( \beta \)</span> is often selected based on the maximum absolute value in the data, resulting in <span class="arithmatex">\( -\alpha = \beta = \max(|r_{\max}|, |r_{\min}|) \)</span>. Symmetric quantization simplifies the quantization process by setting the zero point <span class="arithmatex">\( Z \)</span> to zero, thus the quantization equation becomes <span class="arithmatex">\( Q(r) = \text{Int}\left(\frac{r}{S}\right) \)</span>. There are two versions of symmetric quantization: full range, which utilizes the entire representable range of the data type (e.g., INT8), and restricted range, which excludes the extremes for better accuracy. Symmetric quantization is preferred for weight quantization in practice due to computational efficiency and straightforward implementation.</li>
+</ul>
+<ul>
+<li>Asymmetric quantization uses the actual minimum and maximum values of the data as the clipping range, i.e., <span class="arithmatex">\( \alpha = r_{\min} \)</span> and <span class="arithmatex">\( \beta = r_{\max} \)</span>, resulting in a non-symmetric range where <span class="arithmatex">\( -\alpha \neq \beta \)</span>. This method may provide a tighter clipping range which is advantageous when the data distribution is imbalanced, such as activations following a ReLU function. Asymmetric quantization allows for a more precise representation of the data's distribution, but at the cost of a more complex quantization process due to the non-zero zero point.</li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Both symmetric and asymmetric quantization require calibration, which involves selecting the appropriate clipping range. A common method is to use the min/max values of the signal; however, this can be susceptible to outliers which may expand the range unnecessarily and reduce quantization resolution. Alternative methods include using percentiles or optimizing for the minimum Kullback-Leibler divergence to minimize information loss.</p>
+</div>
+<h3 id="dynamic-vs-static-quantization">Dynamic vs Static Quantization</h3>
+<p>So far we have discussed about calibrating the clipping range for weights which is relatively simple as it does not change during inference. Calibrating the activations is different as its range could be different for different input. Let's look into different ways to handle it, </p>
+<ul>
+<li>Dynamic quantization involves calculating the clipping range (<span class="arithmatex">\([α, β]\)</span>) in real-time for each activation map based on the current input. Since activation maps change with each new input sample, dynamic range calibration allows the quantization process to adapt to these changes, potentially leading to higher accuracy. The trade-off, however, is the computational overhead required to compute signal statistics on the fly for every input during runtime.</li>
+</ul>
+<ul>
+<li>Static quantization, in contrast, involves determining a fixed clipping range prior to inference. This range is computed using a series of calibration inputs to estimate the typical range of activations. The advantage of this approach is the elimination of computational overhead during inference, as the range is not recalculated for each input. While typically less accurate than dynamic quantization due to its non-adaptive nature, static quantization benefits from methods that optimize the range, such as minimizing the Mean Squared Error between the original and quantized distributions. Other metrics like entropy can also be used, but MSE remains the most popular.</li>
+</ul>
+<h3 id="quantization-granularity">Quantization Granularity</h3>
+<p>Quantization granularity refers to the level of detail at which the clipping range <span class="arithmatex">\([α, β]\)</span> is determined for quantization. There are various levels at which this can be implemented:</p>
+<ul>
+<li><strong>Layerwise quantization</strong> sets a single clipping range based on the collective statistics of all the weights in a layer's convolutional filters. This method is straightforward to implement but may lead to suboptimal accuracy. The reason is that different filters within the layer can have widely varying ranges, and using a single range for all may compromise the resolution of filters with narrower weight ranges.</li>
+</ul>
+<ul>
+<li><strong>Groupwise quantization</strong> segments multiple channels within a layer and calculates a clipping range for each group. This method can be beneficial when parameter distributions vary significantly within the layer, allowing for more tailored quantization. However, managing multiple scaling factors adds complexity.</li>
+</ul>
+<ul>
+<li><strong>Channelwise quantization</strong> assigns a unique clipping range and scaling factor to each channel or convolutional filter. This granularity level is widely adopted because it provides a high quantization resolution and often yields higher accuracy without significant overhead.</li>
+</ul>
+<ul>
+<li><strong>Sub-channelwise quantization</strong> further divides the granularity to smaller groups within a convolution or fully-connected layer. Although it could potentially lead to even higher accuracy due to finer resolution, the computational overhead of managing numerous scaling factors is considerable. Therefore, while channelwise quantization is a standard practice, sub-channelwise is not, due to its complexity and overhead.</li>
+</ul>
+<figure>
+<p><img alt="" src="../../imgs/ml_modelcompression_quant3.png" />
+    <figcaption>Source: [1]</figcaption></p>
+</figure>
+<h2 id="quantization-strategies">Quantization Strategies</h2>
+<p>Below are three primary ways quantization can be performed wrt neural networks:</p>
+<ol>
+<li>
+<p><strong>Quantization-Aware Training (QAT):</strong></p>
+<ul>
+<li>
+<p>Quantization may skew the weights by moving them away from their converged points. To mitigate this, in QAT the model is retrained with quantized parameters to converge to a new optimal point. This involves using a forward and backward pass on a quantized model but updating the model parameters in floating-point precision. After each gradient update, the model parameters are quantized again. QAT utilizes techniques such as the Straight Through Estimator (STE) to approximate the gradient of the non-differentiable quantization operator. Other approaches like regularization operators or different gradient approximations are also explored.</p>
+<ul>
+<li><strong>Advantages:</strong> QAT typically results in models with better performance and minimal accuracy loss due to the careful retraining with quantized parameters.</li>
+</ul>
+<ul>
+<li><strong>Disadvantages:</strong> It is computationally expensive as it involves retraining the model, often for several hundred epochs.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Post-Training Quantization (PTQ):</strong></p>
+<ul>
+<li>
+<p>PTQ is applied after a model has been trained with full precision. It adjusts the weights and activations of a model without any retraining or fine-tuning. Various methods exist to mitigate accuracy loss in PTQ, including bias correction methods, optimal clipping range calculations, outlier channel splitting, and adaptive rounding methods. That said, it might require some example data to calibrate the quantization parameters.</p>
+<ul>
+<li><strong>Advantages:</strong> PTQ is a quick and often negligible overhead method for reducing the size of neural network models. It is particularly useful when training data is limited or unavailable.</li>
+<li><strong>Disadvantages:</strong> Generally, PTQ leads to lower accuracy compared to QAT, particularly for low-precision quantization.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While no model finetuning happens in PTQ, we may use training dataset for activation calibration.</p>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Zero-shot Quantization (ZSQ):</strong></p>
+<ul>
+<li>ZSQ refers to performing quantization without any access to the training or validation data, not even example sample for calibration. This is particularly vital for scenarios where we want quick turnaround time on quantization.<ul>
+<li><strong>Advantages:</strong> ZSQ is simplest form of quantization and it is crucial for scenarios where data privacy or availability is a concern. It allows the quantization of models without needing access to any dataset.</li>
+<li><strong>Disadvantages:</strong> While innovative, ZSQ methods may not capture the nuances of the actual data distribution as effectively as methods with access to real data, potentially leading to less accurate models. It also has quite a bit of overhead in terms of loading model as quantization usually happens during loading.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>In summary, each quantization method has its own set of trade-offs between accuracy, efficiency, and applicability. The choice among QAT, PTQ, and ZSQ depends largely on the specific constraints of the deployment environment, the availability of computational resources, and the necessity for data privacy.</p>
+<h2 id="quantization-in-practice">Quantization in Practice</h2>
+<p>In practice, PTQ <em>(Post-Training Quantization)</em> and ZSQ <em>(Zero-shot Quantization)</em> are most widely used quantization methods due to their simplicity and minimal overhead. It is particularly effective for reducing the size of neural network models without requiring access to the original training data. Here is a 30k feet look of how playing with quantization looks like in practice:</p>
+<ol>
+<li>First we get the model which is trained in full precision <em>(float32)</em>.</li>
+<li>Next, we can either quantize the model and save it <em>(ex: loading an quantized model <code>TheBloke/Llama-2-7B-Chat-AWQ</code>)</em> or we can quantize the model during loading <em>(ex: HuggingFace supports like <code>load_in_4_bit</code> option as <code>bitsandbytes</code> config)</em></li>
+<li>Based on the quantization method, models can be dynamically dequantized <em>(converted back to higher precision)</em> during inference. This is because inference requires a forward pass which consists of complex computations like matrix multiplication and currently float-float matmul is much faster than int-int matmul. <em>(<a href="https://stackoverflow.com/questions/45373679/why-is-it-faster-to-perform-float-by-float-matrix-multiplication-compared-to-int">Refer</a>)</em></li>
+</ol>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>You can find thousands of quantized models <em>(with different algorithms)</em> on the <a href="https://huggingface.co/TheBloke">TheBloke's collection</a> in HuggingFace.</p>
+</div>
+<!-- TODO: !!! Hint
+    **???** There is an interesting debate on memory-bound vs compute-bound quantization methods -->
+<!-- TODO: ### AQLM - Feb 2024, latest -->
+<!-- TODO: EXL2 quantization: https://github.com/turboderp/exllamav2 -->
+
+<p>Now, let's look into some of the popular quantization methods and their practical details.</p>
+<h3 id="awq">AWQ</h3>
+<p>Activation-aware Weight Quantization (AWQ) [3], introduced in Oct 2023, is a PTQ type and Weight only quantization method based on the fact that not all weights are equally important for the model's performance. With this in mind, AWQ tries to identify those salient weights using the activation distribution where weights with larger activation magnitudes are deemed crucial for model performance. On further analysis, it was found that just a minor fraction (~1%) of weights, if left unquantized (FP16) could lead to non-significant change in model performance. While this is a crucial observation, it is also important to note that partial quantization of weights leads to mixed-precision data types, which are not efficiently handled in many hardware architectures. To circumvent these complexities, AWQ introduces a novel per-channel scaling technique that scales the weights <em>(multiple weight by scale <span class="arithmatex">\(s\)</span> and inverse scale the activation i.e multiply activation by <span class="arithmatex">\(1/s\)</span>)</em> before quantization, where <span class="arithmatex">\(s\)</span> is usually greater than 1, and it is determined by a grid search. This minor trick optimizes the quantization process, removes the need for mixed-precision data types, and keep the performance consistent with 1% FP16 weights.</p>
+<figure>
+<p><img alt="" src="../../imgs/ml_modelcompression_quant_awq.png" />
+    <figcaption>Source: [3]</figcaption></p>
+</figure>
+<p>Empirical evidence demonstrates AWQ's superiority over existing quantization techniques, achieving remarkable speedups and facilitating the deployment of large models on constrained hardware environments. Notably, AWQ has enabled the efficient deployment of massive LLMs, such as the Llama-2-13B model, on single GPU platforms with limited memory (~8GB), and has achieved significant performance gains across diverse LLMs with varying parameter sizes. </p>
+<figure>
+<p><img alt="" src="../../imgs/ml_modelcompression_quant_awq2.png" />
+    <figcaption>Better Perplexity score of AWQ on LLaMA-1 and 2 models in comparison with other quantization techniques. Source: [3]</figcaption></p>
+</figure>
+<p>Running inference on AWQ model can be done using the <code>transformers</code> library. Below is an example of how to use AWQ model for inference.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># install</span>
+<span class="c1"># !pip install autoawq</span>
+
+<span class="c1"># import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+
+<span class="c1"># AWQ quantized model</span>
+<span class="n">model_id</span> <span class="o">=</span> <span class="s2">&quot;TheBloke/Llama-2-7B-Chat-AWQ&quot;</span>
+
+<span class="c1"># load model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">)</span>
+<span class="c1"># load tokenizer</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># tokenize the prompt</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span>
+    <span class="s2">&quot;Tell me a joke&quot;</span><span class="p">,</span>
+    <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">input_ids</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+<span class="c1"># generating output</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">generation_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">tokens</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">50</span>
+<span class="p">)</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="c1"># the output</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output: &quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">generation_output</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="c1"># calc and print the speed </span>
+<span class="c1"># Calculate the number of tokens generated</span>
+<span class="n">num_tokens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">generation_output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">tokens</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Calculate the tokens per second</span>
+<span class="n">tokens_per_second</span> <span class="o">=</span> <span class="n">num_tokens</span> <span class="o">/</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tokens per second:&quot;</span><span class="p">,</span> <span class="n">tokens_per_second</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Further, if you want to quantize a model and save it, you can use the below code (<a href="https://github.com/casper-hansen/AutoAWQ/blob/main/examples/quantize.py"><em>Code Source</em></a>). </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">awq</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoAWQForCausalLM</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span>
+
+<span class="c1"># model and quantization path</span>
+<span class="n">model_path</span> <span class="o">=</span> <span class="s1">&#39;mistralai/Mistral-7B-Instruct-v0.2&#39;</span>
+<span class="n">quant_path</span> <span class="o">=</span> <span class="s1">&#39;mistral-instruct-v0.2-awq&#39;</span>
+<span class="c1"># set quantization config</span>
+<span class="n">quant_config</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;zero_point&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;q_group_size&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="s2">&quot;w_bit&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;GEMM&quot;</span> <span class="p">}</span>
+
+<span class="c1"># Load model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoAWQForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">model_path</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">&quot;low_cpu_mem_usage&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;use_cache&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="c1"># Load tokenizer</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">trust_remote_code</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Quantize</span>
+<span class="n">model</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">quant_config</span><span class="o">=</span><span class="n">quant_config</span><span class="p">)</span>
+
+<span class="c1"># Save quantized model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_quantized</span><span class="p">(</span><span class="n">quant_path</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">quant_path</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>We can modify the config based on our requirement, but the important settings are  <code>zero_point</code> <em>(for zero point quantization)</em>, <code>q_group_size</code> <em>(for group size)</em>, <code>w_bit</code> <em>(for weight bit)</em> and <code>version</code> <em>(for the version of AWQ)</em>. The quantized model will be saved at <code>quant_path</code>. As part of AWQ quantization, calibration is needed to identify the salient weights and this is done on a small set of training data so that the model does not loose its generalization ability. The above code does it with the default dataset <em>(512 samples of <a href="https://huggingface.co/datasets/mit-han-lab/pile-val-backup">mit-han-lab/pile-val-backup</a>)</em>, but if you want to use your own dataset, you can refer <a href="https://github.com/casper-hansen/AutoAWQ/pull/27/commits/69d31edcd87318bb4dc1bcfff0c832df135e3208">this code</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>AWQ models come in multiple flavors and you can choose the version best suited for your need.  As per <a href="https://github.com/casper-hansen/AutoAWQ">AutoAWQ Github Repo</a> these are,</p>
+<ul>
+<li><strong>GEMM</strong>: Much faster than FP16 at batch sizes below 8 <em>(good with large contexts)</em>.</li>
+<li><strong>GEMV</strong>: 20% faster than GEMM, only batch size 1 <em>(not good for large context)</em>.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need GPU with <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities">compute capacity</a> &gt;=7 to run AWQ models as they are optimized for GPU inference. You can check your GPU's compute capacity <a href="https://developer.nvidia.com/cuda-gpus#compute">here</a>.</p>
+</div>
+<h3 id="gptq">GPTQ</h3>
+<p>GPTQ [5], introduced in March 2023, is a PTQ type and one-shot weight quantization method designed to efficiently and accurately compress GPT models even of bigger size such as GPT-3 with 175 billion parameters. GPTQ achieves this by utilizing approximate second-order information to reduce the models' weight bitwidth to 3 or 4 bits, with minimal loss in accuracy compared to the uncompressed model. This method significantly improves upon previous one-shot quantization approaches, doubling the compression gains while maintaining accuracy. As a result, it enables the execution of a 175 billion-parameter model on a single GPU for the first time, facilitating generative inference tasks. Additionally, GPTQ demonstrates reasonable accuracy even when weights are quantized to 2 bits or to a ternary level. Experimental results reveal that GPTQ can accelerate end-to-end inference by approximately 3.25 times on high-end GPUs (like NVIDIA A100) and by 4.5 times on more cost-effective GPUs (like NVIDIA A6000).</p>
+<p>Here is how you can run inference on GPTQ model.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Install</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">auto</span><span class="o">-</span><span class="n">gptq</span> <span class="n">optimum</span>
+
+<span class="c1"># Imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">auto_gptq</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoGPTQForCausalLM</span><span class="p">,</span> <span class="n">BaseQuantizeConfig</span>
+
+<span class="c1"># Model and tokenizer</span>
+<span class="n">model_id</span> <span class="o">=</span> <span class="s2">&quot;TheBloke/Llama-2-7b-Chat-GPTQ&quot;</span>
+<span class="c1"># load quantized model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoGPTQForCausalLM</span><span class="o">.</span><span class="n">from_quantized</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">)</span>
+<span class="c1"># load tokenizer</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">use_fast</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Inference</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="s2">&quot;Tell me a joke.</span><span class="se">\n</span><span class="s2">Joke:&quot;</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Calculate the time taken to generate the output</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">generation_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="o">**</span><span class="n">tokens</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">50</span>
+<span class="p">)</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Output: &quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">generation_output</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="c1"># Calculate the number of tokens generated</span>
+<span class="n">num_tokens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">generation_output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Calculate the tokens per second</span>
+<span class="n">tokens_per_second</span> <span class="o">=</span> <span class="n">num_tokens</span> <span class="o">/</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tokens per second:&quot;</span><span class="p">,</span> <span class="n">tokens_per_second</span><span class="p">)</span>
+
+<span class="c1"># or you can also use pipeline</span>
+<span class="c1"># pipeline = TextGenerationPipeline(model=model, tokenizer=tokenizer)</span>
+<span class="c1"># print(pipeline(&quot;auto-gptq is&quot;)[0][&quot;generated_text&quot;])</span>
+</code></pre></div></td></tr></table></div>
+<p>Quantizing a model using GPTQ can be done using the below code. </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># install</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">auto</span><span class="o">-</span><span class="n">gptq</span> <span class="n">optimum</span>
+
+<span class="c1"># imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">auto_gptq</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoGPTQForCausalLM</span><span class="p">,</span> <span class="n">BaseQuantizeConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span>
+
+<span class="c1"># model and quantization path</span>
+<span class="n">pretrained_model_name</span> <span class="o">=</span> <span class="s2">&quot;facebook/opt-125m&quot;</span>
+<span class="n">quantize_config</span> <span class="o">=</span> <span class="n">BaseQuantizeConfig</span><span class="p">(</span><span class="n">bits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">group_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoGPTQForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">pretrained_model_name</span><span class="p">,</span> <span class="n">quantize_config</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">pretrained_model_name</span><span class="p">)</span>
+
+<span class="c1"># example for quantization calibration (here we have only provided one, in reality provide multiple)</span>
+<span class="n">examples</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">tokenizer</span><span class="p">(</span>
+        <span class="s2">&quot;auto-gptq is an easy-to-use model quantization library with user-friendly apis, based on GPTQ algorithm.&quot;</span>
+    <span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># quantize</span>
+<span class="n">model</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">examples</span><span class="p">)</span>
+
+<span class="c1"># save quantized model</span>
+<span class="n">quantized_model_dir</span> <span class="o">=</span> <span class="s2">&quot;opt-125m-4bit-128g&quot;</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save_quantized</span><span class="p">(</span><span class="n">quantized_model_dir</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>By default, the saved file type is <code>.bin</code>, you can also set <code>use_safetensors=True</code> to save a <code>.safetensors</code> model file. The format of model file base name saved using this method is: <code>gptq_model-{bits}bit-{group_size}g</code>. Pretrained model's config and the quantize config will also be saved with file names <code>config.json</code> and <code>quantize_config.json</code>, respectively. <a href="https://github.com/AutoGPTQ/AutoGPTQ/blob/main/docs/tutorial/01-Quick-Start.md">(Refer)</a></p>
+<h3 id="bitsandbytes">BitsAndBytes</h3>
+<p>BitsAndBytes [7] is a Python package to perform ZSQ on models to convert them to 8bit or 4bit representations. To load a model in 4bit quantization with the <code>transformers</code> library, you simply set the <code>load_in_4bit=True</code> flag and specify a <code>device_map="auto"</code> when using the <code>from_pretrained</code> method. This process automatically infers an optimal device map, facilitating efficient model loading. For example, loading a model can be done as follows: </p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># import </span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BitsAndBytesConfig</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span>
+<span class="c1"># load model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;facebook/opt-350m&quot;</span><span class="p">,</span> \
+                        <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It's important not to manually assign the device after loading the model with a device map to avoid potential issues.</p>
+</div>
+<p>Quantized models automatically cast submodules to <code>float16</code>, but this can be modified <em>(e.g., keeping layer norms in float32)</em> by specifying <code>torch_dtype</code> in the <code>from_pretrained</code> method. For those interested in exploring beyond the basics, various 4bit quantization types are available, such as NF4 <em>(normalized float 4)</em> or pure FP4, with NF4 generally recommended for its performance benefits. Additional features like double quantization via <code>bnb_4bit_use_double_quant</code> can save extra bits per parameter <em>(by enabling a second round of quantization to further compress the model)</em>, and the computation precision (<code>bnb_4bit_compute_dtype</code>) can be adjusted to balance between speed and resource usage.</p>
+<p>Advanced configurations, such as NF4 quantization with double quantization and altered compute dtype for faster training, are facilitated through the <code>BitsAndBytesConfig</code> class. For instance, configuring a model with NF4 quantization and bfloat16 compute dtype can be achieved as follows:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># import </span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BitsAndBytesConfig</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span>
+<span class="c1"># define config</span>
+<span class="n">nf4_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span><span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                                <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span> 
+                                <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                                <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">)</span>
+<span class="c1"># load model</span>
+<span class="n">model_nf4</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> 
+                    <span class="n">quantization_config</span><span class="o">=</span><span class="n">nf4_config</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Use double quant only if you have problems with memory, use NF4 for higher precision, and use a 16-bit dtype for faster finetuning. 
+<a href="https://huggingface.co/blog/4bit-transformers-bitsandbytes">Refer</a></p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If your hardware supports it, <code>bf16</code> is the optimal compute dtype. The default is <code>float32</code> for backward compatibility and numerical stability. <code>float16</code> often leads to numerical instabilities, but <code>bfloat16</code> provides the benefits of both worlds: numerical stability equivalent to <code>float32</code>, but combined with the memory footprint and significant computation speedup of a 16-bit data type. Therefore, be sure to check if your hardware supports <code>bf16</code> and configure it using the <code>bnb_4bit_compute_dtype</code> parameter in <code>BitsAndBytesConfig</code>. 
+<a href="https://huggingface.co/docs/bitsandbytes/main/en/integrations">Refer</a></p>
+</div>
+<h3 id="ggmlgguf">GGML/GGUF</h3>
+<p>GGUF [9] <em>(older version was called GGML)</em> is a file format developed by <a href="https://github.com/ggerganov">Georgi Gerganov</a> specifically for the rapid loading and saving of models, along with its user-friendly approach to model reading. The format is designed to be a single-file deployment format <em>(as it contains all the necessary information for model loading)</em>, is compatible with memory-mapped files (mmap) and is extensible <em>(support legacy models)</em>. It was initially developed for <a href="https://github.com/ggerganov/whisper.cpp">whisper.cpp</a> and later extended into <a href="https://github.com/ggerganov/llama.cpp">llama.cpp</a>. This made it the go to format for transformer models <em>(which is the back bone of all LLMs today)</em> and it is especially suited for anyone who wants to run model locally or on edge devices or use it for devices with limited GPU memory.</p>
+<p>That said, with advent of quantization for model compression especially for running LLMs on low memory devices, several quantization techniques were added into the <code>llama.cpp</code> package. Below is a table that summarizes the quantization techniques with more helpful practical details.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Quantization Type</th>
+<th>Size</th>
+<th>Perplexity Increase @ 7B</th>
+<th>Quality Loss Level</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Q4_0</td>
+<td>3.50G</td>
+<td>+0.2499</td>
+<td>Very high</td>
+<td>Legacy, use Q3_K_M</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Q4_1</td>
+<td>3.90G</td>
+<td>+0.1846</td>
+<td>Substantial</td>
+<td>Legacy, use Q3_K_L</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Q5_0</td>
+<td>4.30G</td>
+<td>+0.0796</td>
+<td>Balanced</td>
+<td>Legacy, use Q4_K_M</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Q5_1</td>
+<td>4.70G</td>
+<td>+0.0415</td>
+<td>Low</td>
+<td>Legacy, use Q5_K_M</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Q2_K</td>
+<td>2.67G</td>
+<td>+0.8698</td>
+<td>Extreme</td>
+<td>Not recommended</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Q3_K_S</td>
+<td>2.75G</td>
+<td>+0.5505</td>
+<td>Very high</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>Q3_K_M or Q3_K</td>
+<td>3.06G</td>
+<td>+0.2437</td>
+<td>Very high</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>Q3_K_L</td>
+<td>3.35G</td>
+<td>+0.1803</td>
+<td>Substantial</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>Q4_K_S</td>
+<td>3.56G</td>
+<td>+0.1149</td>
+<td>Significant</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Q4_K_M or Q4_K</td>
+<td>3.80G</td>
+<td>+0.0535</td>
+<td>Balanced</td>
+<td><em>Recommended</em></td>
+</tr>
+<tr>
+<td>16</td>
+<td>Q5_K_S</td>
+<td>4.33G</td>
+<td>+0.0353</td>
+<td>Low</td>
+<td><em>Recommended</em></td>
+</tr>
+<tr>
+<td>17</td>
+<td>Q5_K_M or Q5_K</td>
+<td>4.45G</td>
+<td>+0.0142</td>
+<td>Very low</td>
+<td><em>Recommended</em></td>
+</tr>
+<tr>
+<td>18</td>
+<td>Q6_K</td>
+<td>5.15G</td>
+<td>+0.0044</td>
+<td>Extremely low</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Q8_0</td>
+<td>6.70G</td>
+<td>+0.0004</td>
+<td>Extremely low</td>
+<td>Not recommended</td>
+</tr>
+<tr>
+<td>1</td>
+<td>F16</td>
+<td>13.00G</td>
+<td></td>
+<td>Virtually no</td>
+<td>Not recommended</td>
+</tr>
+<tr>
+<td>0</td>
+<td>F32</td>
+<td>26.00G</td>
+<td></td>
+<td>Lossless</td>
+<td>Not recommended</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>While selecting which quantization version to use, it is important to consider the trade-off between model size and quality. It also depends on the specific use case and the available resources. That said, if you are looking for something small and fast that does not compromise a lot on quality, <code>Q5_K_M</code> is a good choice.</p>
+</div>
+<p>Furthermore, it's good to know the two types of quantization supported in <code>llama.cpp</code> - "type-0" where weights <code>w</code> are obtained from quants <code>q</code> using <span class="arithmatex">\(w = d * q\)</span>, where <code>d</code> is the block scale and "type-1" where weights are given by <span class="arithmatex">\(w = d * q + m\)</span>, where <code>m</code> is the block minimum. The naming convention of quantized model is <code>Q{bits}_K_{type}</code> or <code>Q{bits}_{type}</code> where <code>bits</code> is the number of bits, <code>type</code> is the type of quantization, and presence of <code>K</code> denotes that the new k-quant technique is used. The <code>S</code>, <code>M</code>, and <code>L</code> in the <code>type</code> are the size of the model where the <code>S</code> is the smallest, <code>M</code> is the medium, and <code>L</code> is the largest. This <a href="https://github.com/ggerganov/llama.cpp/pull/1684">PR comment</a> provides further details on underlying techniques as follows,</p>
+<div class="highlight"><pre><span></span><code>The following new quantization types are added to ggml:
+
+GGML_TYPE_Q2_K - &quot;type-1&quot; 2-bit quantization in super-blocks containing 16 blocks, each block having 16 weight. Block scales and mins are quantized with 4 bits. This ends up effectively using 2.5625 bits per weight (bpw)
+GGML_TYPE_Q3_K - &quot;type-0&quot; 3-bit quantization in super-blocks containing 16 blocks, each block having 16 weights. Scales are quantized with 6 bits. This end up using 3.4375 bpw.
+GGML_TYPE_Q4_K - &quot;type-1&quot; 4-bit quantization in super-blocks containing 8 blocks, each block having 32 weights. Scales and mins are quantized with 6 bits. This ends up using 4.5 bpw.
+GGML_TYPE_Q5_K - &quot;type-1&quot; 5-bit quantization. Same super-block structure as GGML_TYPE_Q4_K resulting in 5.5 bpw
+GGML_TYPE_Q6_K - &quot;type-0&quot; 6-bit quantization. Super-blocks with 16 blocks, each block having 16 weights. Scales are quantized with 8 bits. This ends up using 6.5625 bpw
+GGML_TYPE_Q8_K - &quot;type-0&quot; 8-bit quantization. Only used for quantizing intermediate results. The difference to the existing Q8_0 is that the block size is 256. All 2-6 bit dot products are implemented for this quantization type.
+
+
+This is exposed via llama.cpp quantization types that define various &quot;quantization mixes&quot; as follows:
+
+LLAMA_FTYPE_MOSTLY_Q2_K - uses GGML_TYPE_Q4_K for the attention.vw and feed_forward.w2 tensors, GGML_TYPE_Q2_K for the other tensors.
+LLAMA_FTYPE_MOSTLY_Q3_K_S - uses GGML_TYPE_Q3_K for all tensors
+LLAMA_FTYPE_MOSTLY_Q3_K_M - uses GGML_TYPE_Q4_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, else GGML_TYPE_Q3_K
+LLAMA_FTYPE_MOSTLY_Q3_K_L - uses GGML_TYPE_Q5_K for the attention.wv, attention.wo, and feed_forward.w2 tensors, else GGML_TYPE_Q3_K
+LLAMA_FTYPE_MOSTLY_Q4_K_S - uses GGML_TYPE_Q4_K for all tensors
+LLAMA_FTYPE_MOSTLY_Q4_K_M - uses GGML_TYPE_Q6_K for half of the attention.wv and feed_forward.w2 tensors, else GGML_TYPE_Q4_K
+LLAMA_FTYPE_MOSTLY_Q5_K_S - uses GGML_TYPE_Q5_K for all tensors
+LLAMA_FTYPE_MOSTLY_Q5_K_M - uses GGML_TYPE_Q6_K for half of the attention.wv and feed_forward.w2 tensors, else GGML_TYPE_Q5_K
+LLAMA_FTYPE_MOSTLY_Q6_K- uses 6-bit quantization (GGML_TYPE_Q8_K) for all tensors
+</code></pre></div>
+<p>Fortunately, it is common practice to quantize all variants before open sourcing them, as it is evident from any of the GGUF models uploaded by <a href="https://huggingface.co/TheBloke">TheBloke's collection</a> in HuggingFace. </p>
+<figure>
+<p><img alt="" src="../../imgs/ml_quantization_thebloke_llama.png" />
+    <figcaption>LLaMa-2 GGUF version by TheBloke on HuggingFace contains all GGUF quantization versions. <a href="https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/main">Source</a></figcaption></p>
+</figure>
+<p>Model can be loaded using the <code>ctransformers</code> library and additional details like which quantization version to load can be specified. Below is an example of how to load a model with <code>Q4_K_M</code> quantization version.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">## Install</span>
+<span class="c1"># Base ctransformers with no GPU acceleration</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">ctransformers</span><span class="o">&gt;=</span><span class="mf">0.2.24</span>
+<span class="c1"># Or with CUDA GPU acceleration</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">ctransformers</span><span class="p">[</span><span class="n">cuda</span><span class="p">]</span><span class="o">&gt;=</span><span class="mf">0.2.24</span>
+<span class="c1"># Or with ROCm GPU acceleration</span>
+<span class="n">CT_HIPBLAS</span><span class="o">=</span><span class="mi">1</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">ctransformers</span><span class="o">&gt;=</span><span class="mf">0.2.24</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">ctransformers</span>
+<span class="c1"># Or with Metal GPU acceleration for macOS systems</span>
+<span class="n">CT_METAL</span><span class="o">=</span><span class="mi">1</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">ctransformers</span><span class="o">&gt;=</span><span class="mf">0.2.24</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">ctransformers</span>
+
+<span class="c1">## Import</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ctransformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoModelForCausalLM</span>
+
+<span class="c1">## Load the model</span>
+<span class="c1"># Set gpu_layers to the number of layers to offload to GPU. </span>
+<span class="c1"># Set to 0 if no GPU acceleration is available on your system.</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;TheBloke/Llama-2-7b-Chat-GGUF&quot;</span><span class="p">,</span> 
+                    <span class="n">model_file</span><span class="o">=</span><span class="s2">&quot;llama-2-7b-chat.q4_K_M.gguf&quot;</span><span class="p">,</span>
+                    <span class="n">model_type</span><span class="o">=</span><span class="s2">&quot;llama&quot;</span><span class="p">,</span> <span class="n">gpu_layers</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1">## Run inference</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">llm</span><span class="p">(</span><span class="s2">&quot;AI is going to&quot;</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+<p>Fine-tuning the model can be done very easily using the <code>llama.cpp</code> library. Below is an example [9]</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Install llama.cpp</span>
+<span class="err">!</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ggerganov</span><span class="o">/</span><span class="n">llama</span><span class="o">.</span><span class="n">cpp</span>
+<span class="err">!</span><span class="n">cd</span> <span class="n">llama</span><span class="o">.</span><span class="n">cpp</span> <span class="o">&amp;&amp;</span> <span class="n">git</span> <span class="n">pull</span> <span class="o">&amp;&amp;</span> <span class="n">make</span> <span class="n">clean</span> <span class="o">&amp;&amp;</span> <span class="n">LLAMA_CUBLAS</span><span class="o">=</span><span class="mi">1</span> <span class="n">make</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">llama</span><span class="o">.</span><span class="n">cpp</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="c1"># Manual - Download the model to quantize (`.bin` format) </span>
+
+<span class="c1"># Convert to fp16 (as by default it is f32)</span>
+<span class="err">!</span><span class="n">python</span> <span class="n">llama</span><span class="o">.</span><span class="n">cpp</span><span class="o">/</span><span class="n">convert</span><span class="o">.</span><span class="n">py</span> <span class="s2">&quot;pytorch_model-00001-of-00001.bin&quot;</span> <span class="o">--</span><span class="n">outtype</span> <span class="n">f16</span> <span class="o">--</span><span class="n">outfile</span> <span class="s2">&quot;pytorch_model.fp16.bin&quot;</span>
+
+<span class="c1"># quantize</span>
+<span class="err">!</span><span class="o">./</span><span class="n">llama</span><span class="o">.</span><span class="n">cpp</span><span class="o">/</span><span class="n">quantize</span> <span class="s2">&quot;pytorch_model.fp16.bin&quot;</span> <span class="s2">&quot;pytorch_model.q5_k_m.gguf&quot;</span> <span class="s2">&quot;q5_k_m&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="references">References</h2>
+<p>[1] <a href="https://arxiv.org/abs/2103.13630">A Survey of Quantization Methods for Efficient Neural Network Inference</a></p>
+<p>[2] Maarten Grootendorst's Blog - <a href="https://www.maartengrootendorst.com/blog/quantization/">Which Quantization Method is Right for You? (GPTQ vs. GGUF vs. AWQ)</a></p>
+<p>[3] AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration - <a href="https://arxiv.org/abs/2306.00978">Paper</a> | <a href="https://github.com/mit-han-lab/llm-awq">Official Code</a></p>
+<p>[4] AutoAWQ Github Repo - <a href="https://github.com/casper-hansen/AutoAWQ">Link</a></p>
+<p>[5] GPTQ - <a href="https://arxiv.org/abs/2210.17323">Paper</a> | <a href="https://github.com/IST-DASLab/gptq">Official Code</a></p>
+<p>[6] AutoGPTQ Github Repo - <a href="https://github.com/AutoGPTQ/AutoGPTQ">Link</a></p>
+<p>[7] BitsAndBytes - <a href="https://huggingface.co/docs/bitsandbytes/main/en/index">Official Doc</a> | <a href="https://huggingface.co/blog/4bit-transformers-bitsandbytes">Support for 4-bit and QLora Blog</a> | <a href="https://huggingface.co/blog/hf-bitsandbytes-integration">HuggingFace Integration Blog</a></p>
+<p>[8] LLM.int8() - <a href="https://huggingface.co/blog/hf-bitsandbytes-integration">Blog</a></p>
+<p>[9] GGUF/GGML - <a href="https://github.com/ggerganov/ggml/blob/master/docs/gguf.md">Official Docs</a> | <a href="https://mlabonne.github.io/blog/posts/Quantize_Llama_2_models_using_ggml.html">Blog - Quantize Llama_2 models using GGML</a> | <a href="https://github.com/ggerganov/llama.cpp/pull/1684">K Quants</a></p>
+<p>[10] <a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization">A Visual Guide to Quantization</a></p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../model_compression_kd/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Knowledge Distillation" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Knowledge Distillation
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ranking_algorithms/" class="md-footer__link md-footer__link--next" aria-label="Next: Ranking Algorithms" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ranking Algorithms
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/imohitmayank" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/imohitmayank" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/imohitmayank/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@mohitmayank" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M180.5 74.262C80.813 74.262 0 155.633 0 256s80.819 181.738 180.5 181.738S361 356.373 361 256 280.191 74.262 180.5 74.262Zm288.25 10.646c-49.845 0-90.245 76.619-90.245 171.095s40.406 171.1 90.251 171.1 90.251-76.619 90.251-171.1H559c0-94.503-40.4-171.095-90.248-171.095Zm139.506 17.821c-17.526 0-31.735 68.628-31.735 153.274s14.2 153.274 31.735 153.274S640 340.631 640 256c0-84.649-14.215-153.271-31.742-153.271Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f758a944.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3074 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://mohitmayank.com/a_lazy_data_science_guide/natural_language_processing/interview_questions/">
+      
+      <link rel="icon" href="../../imgs/logo.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.4">
+    
+    
+      
+        <title>Interview Questions - A Lazy Data Science Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-2DVXT9L5D4"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-2DVXT9L5D4",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DVXT9L5D4"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-are-the-different-types-of-reasoning-tasks-in-nlp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </span>
+    <strong>Twitter</strong>
+  </a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-header__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Lazy Data Science Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interview Questions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Natural Language Processing
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-tabs__link">
+        Audio Intelligence
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network_science/introduction/" class="md-tabs__link">
+        Network Science
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data_science_tools/introduction/" class="md-tabs__link">
+        Data Science Tools
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../machine_learning/introduction/" class="md-tabs__link">
+        Machine Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-tabs__link">
+        Reinforcement Learning
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-nav__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    A Lazy Data Science Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Hello
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting_started/" class="md-nav__link">
+        Getting started with Data Science
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Natural Language Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Natural Language Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Natural Language Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Interview Questions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Interview Questions
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-the-different-types-of-reasoning-tasks-in-nlp" class="md-nav__link">
+    What are the different types of reasoning tasks in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-much-vram-is-required-to-load-a-7b-llm" class="md-nav__link">
+    How much VRAM is required to load a 7B LLM?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-word-embeddings-in-nlp" class="md-nav__link">
+    What are word embeddings in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sentence-encoding" class="md-nav__link">
+    What is Sentence Encoding?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-the-concept-of-attention-mechanism-in-nlp" class="md-nav__link">
+    Explain the concept of attention mechanism in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-transformer-models-in-nlp" class="md-nav__link">
+    What are transformer models in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-named-entity-recognition-ner-in-nlp" class="md-nav__link">
+    Can you explain the concept of Named Entity Recognition (NER) in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-part-of-speech-pos-tagging-in-nlp" class="md-nav__link">
+    Explain Part-of-Speech (POS) tagging in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-language-modeling-in-nlp" class="md-nav__link">
+    Can you explain the concept of Language Modeling in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-text-summarization" class="md-nav__link">
+    Can you explain the concept of Text Summarization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sentiment-analysis" class="md-nav__link">
+    What is Sentiment Analysis?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-dependency-parsing" class="md-nav__link">
+    Can you explain the concept of Dependency Parsing?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-the-coreference-resolution-task-in-nlp" class="md-nav__link">
+    Explain the Coreference Resolution task in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-stemming-and-lemmatization-in-nlp" class="md-nav__link">
+    Explain Stemming and Lemmatization in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-text-classification" class="md-nav__link">
+    What is Text Classification?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-dialogue-systems-in-nlp" class="md-nav__link">
+    What are Dialogue Systems in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-explain-the-concept-of-text-generation" class="md-nav__link">
+    Please explain the concept of Text Generation?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-text-similarity-in-nlp" class="md-nav__link">
+    Can you explain the concept of Text Similarity in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-explain-text-clustering" class="md-nav__link">
+    Please explain Text Clustering?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-named-entity-disambiguation-ned" class="md-nav__link">
+    What is Named Entity Disambiguation (NED)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-feedforward-neural-network-and-a-recurrent-neural-network" class="md-nav__link">
+    What is the difference between a feedforward neural network and a recurrent neural network?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#is-bert-a-text-generation-model" class="md-nav__link">
+    Is BERT a Text Generation model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-weight-tying-in-language-model" class="md-nav__link">
+    What is weight tying in language model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-so-special-about-the-special-tokens-used-in-different-lm-tokenizers" class="md-nav__link">
+    What is so special about the special tokens used in different LM tokenizers?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-attention-masks" class="md-nav__link">
+    What are Attention Masks?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-attention-and-self-attention" class="md-nav__link">
+    What is the difference between Attention and Self-Attention?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-bi-encoder-and-cross-encoder" class="md-nav__link">
+    What is the difference between Bi-encoder and Cross-encoder?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Architectures/Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectures/Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architectures/Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../word2vec/" class="md-nav__link">
+        Word2Vec
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lstm_gru_rnn/" class="md-nav__link">
+        LSTM, GRU & RNN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer/" class="md-nav__link">
+        Transformers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BERT/" class="md-nav__link">
+        BERT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GPTs/" class="md-nav__link">
+        GPTs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minilm/" class="md-nav__link">
+        MiniLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T5/" class="md-nav__link">
+        T5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FlanModels/" class="md-nav__link">
+        FlanModels
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llama/" class="md-nav__link">
+        LLaMA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mamba/" class="md-nav__link">
+        Mamba
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepseek/" class="md-nav__link">
+        DeepSeek R1
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Large Language Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Large Language Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Large Language Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training_llm/" class="md-nav__link">
+        Training LLMs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prompt_engineering/" class="md-nav__link">
+        Prompt Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explainable_ai_llm/" class="md-nav__link">
+        Explainable AI: Language Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming_chatgpt_gen/" class="md-nav__link">
+        Streaming ChatGPT Generations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../making_llm_multilingual/" class="md-nav__link">
+        Making LLM Multi-lingual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Tasks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tasks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tasks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../paraphraser/" class="md-nav__link">
+        Paraphraser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_similarity/" class="md-nav__link">
+        Text similarity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_generation/" class="md-nav__link">
+        Text generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relation_extraction/" class="md-nav__link">
+        Relation extraction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa/" class="md-nav__link">
+        Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_to_text_generation/" class="md-nav__link">
+        Data-to-Text Generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../named_entity_recognition/" class="md-nav__link">
+        Named Entity Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nlq/" class="md-nav__link">
+        Natural Language Querying
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Audio Intelligence
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Audio Intelligence" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Audio Intelligence
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/audio_snippets/" class="md-nav__link">
+        Code Snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Speech-to-Text
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Speech-to-Text" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Speech-to-Text
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/stt/" class="md-nav__link">
+        STT Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/wav2vec2/" class="md-nav__link">
+        Wav2Vec2 Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/whisper/" class="md-nav__link">
+        Whisper Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/connectionist_temporal_classification/" class="md-nav__link">
+        Connectionist Temporal Classification
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Text-to-Speech
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Text-to-Speech" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Text-to-Speech
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/tts/" class="md-nav__link">
+        TTS Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/neural_audio_codecs/" class="md-nav__link">
+        Neural Audio Codecs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/training_tts/" class="md-nav__link">
+        Training LLM-Based + Neural Codec TTS Models
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Applications
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Applications
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/voice_activity_detection/" class="md-nav__link">
+        Voice Activity Detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/speaker_diarization/" class="md-nav__link">
+        Speaker Diarization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Network Science
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Network Science" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Network Science
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Graph Neural Networks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graph Neural Networks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Graph Neural Networks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_2">
+          Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algorithms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_deepwalk/" class="md-nav__link">
+        DeepWalk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Knowledge Graphs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Knowledge Graphs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Knowledge Graphs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_embedding_algorithms/" class="md-nav__link">
+        KG Embedding Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Data Science Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Science Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Data Science Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_snippets/" class="md-nav__link">
+        Python snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/linux_snippets/" class="md-nav__link">
+        Linux snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/version_control/" class="md-nav__link">
+        Version control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/compute_and_ai_services/" class="md-nav__link">
+        Compute and AI Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/scraping_websites/" class="md-nav__link">
+        Scraping Websites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Database" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/databases_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/database_postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Good Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Good Practices" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Good Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/github_good_practices/" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_good_practices/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Machine Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/ML_snippets/" class="md-nav__link">
+        ML snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/clustering/" class="md-nav__link">
+        Clustering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/classification/" class="md-nav__link">
+        Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/loss_functions/" class="md-nav__link">
+        Loss functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/genaidetection/" class="md-nav__link">
+        Detecting AI Generated Content
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/dpo/" class="md-nav__link">
+        Direct Preference Optimization (DPO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Model Compression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Model Compression" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Compression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_kd/" class="md-nav__link">
+        Knowledge Distillation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_quant/" class="md-nav__link">
+        Model Quantization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Optimization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimization" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Optimization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/ranking_algorithms/" class="md-nav__link">
+        Ranking Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Reinforcement Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reinforcement Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Reinforcement Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/rlhf/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/q_learning/" class="md-nav__link">
+        Q-Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/multi_arm_bandit/" class="md-nav__link">
+        Multi-Arm Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-the-different-types-of-reasoning-tasks-in-nlp" class="md-nav__link">
+    What are the different types of reasoning tasks in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-much-vram-is-required-to-load-a-7b-llm" class="md-nav__link">
+    How much VRAM is required to load a 7B LLM?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-word-embeddings-in-nlp" class="md-nav__link">
+    What are word embeddings in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sentence-encoding" class="md-nav__link">
+    What is Sentence Encoding?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-the-concept-of-attention-mechanism-in-nlp" class="md-nav__link">
+    Explain the concept of attention mechanism in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-transformer-models-in-nlp" class="md-nav__link">
+    What are transformer models in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-named-entity-recognition-ner-in-nlp" class="md-nav__link">
+    Can you explain the concept of Named Entity Recognition (NER) in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-part-of-speech-pos-tagging-in-nlp" class="md-nav__link">
+    Explain Part-of-Speech (POS) tagging in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-language-modeling-in-nlp" class="md-nav__link">
+    Can you explain the concept of Language Modeling in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-text-summarization" class="md-nav__link">
+    Can you explain the concept of Text Summarization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sentiment-analysis" class="md-nav__link">
+    What is Sentiment Analysis?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-dependency-parsing" class="md-nav__link">
+    Can you explain the concept of Dependency Parsing?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-the-coreference-resolution-task-in-nlp" class="md-nav__link">
+    Explain the Coreference Resolution task in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-stemming-and-lemmatization-in-nlp" class="md-nav__link">
+    Explain Stemming and Lemmatization in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-text-classification" class="md-nav__link">
+    What is Text Classification?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-dialogue-systems-in-nlp" class="md-nav__link">
+    What are Dialogue Systems in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-explain-the-concept-of-text-generation" class="md-nav__link">
+    Please explain the concept of Text Generation?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-text-similarity-in-nlp" class="md-nav__link">
+    Can you explain the concept of Text Similarity in NLP?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-explain-text-clustering" class="md-nav__link">
+    Please explain Text Clustering?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-named-entity-disambiguation-ned" class="md-nav__link">
+    What is Named Entity Disambiguation (NED)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-feedforward-neural-network-and-a-recurrent-neural-network" class="md-nav__link">
+    What is the difference between a feedforward neural network and a recurrent neural network?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#is-bert-a-text-generation-model" class="md-nav__link">
+    Is BERT a Text Generation model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-weight-tying-in-language-model" class="md-nav__link">
+    What is weight tying in language model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-so-special-about-the-special-tokens-used-in-different-lm-tokenizers" class="md-nav__link">
+    What is so special about the special tokens used in different LM tokenizers?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-attention-masks" class="md-nav__link">
+    What are Attention Masks?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-attention-and-self-attention" class="md-nav__link">
+    What is the difference between Attention and Self-Attention?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-bi-encoder-and-cross-encoder" class="md-nav__link">
+    What is the difference between Bi-encoder and Cross-encoder?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/imohitmayank/a_lazy_data_science_guide/edit/master/docs/natural_language_processing/interview_questions.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Interview Questions</h1>
+
+<ul>
+<li>Here are some questions and their answers to make you ready for your next interview. Best of luck <img alt="👋" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44b.svg" title=":wave:" /></li>
+</ul>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Question</label><label for="__tabbed_1_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-the-different-types-of-reasoning-tasks-in-nlp">What are the different types of reasoning tasks in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><strong>Arithmetic Reasoning:</strong> Arithmetic reasoning is the ability of an NLP system to perform mathematical operations on numerical data. This can include basic arithmetic operations such as addition, subtraction, multiplication, and division as well as more complex operations such as algebraic equations and calculus.</li>
+<li><strong>Commonsense Reasoning:</strong> Commonsense reasoning refers to the ability of an NLP system to make deductions based on the knowledge and information that is commonly understood by humans. This includes understanding social norms, cultural contexts, and everyday life experiences. <em>(<a href="https://allenai.org/data/strategyqa">StrategyQA</a> is a sample dataset that contains True/False questions like "Did Aristotle use a laptop?")</em></li>
+<li><strong>Symbolic Reasoning:</strong> Symbolic reasoning involves the ability of an NLP system to manipulate and reason about symbolic representations of information, such as words, phrases, and sentences. This includes tasks such as parsing, string operations, semantic role labeling and entity recognition. <em>(Last Letter Concatenation is a sample dataset with questions like "Take the last letters of the words in 'Lady Gaga' and concatenate them")</em></li>
+<li><strong>Logic Reasoning:</strong> Logic reasoning refers to the ability of an NLP system to perform logical deductions based on formal rules of inference. This can include tasks such as identifying logical fallacies, determining the validity of arguments, and drawing conclusions based on deductive reasoning. <em>(Date understanding is a sample dataset with questions like "Today is Christmas Eve 1937, what is the date tomorrow in MM/DD/YYYY?")</em></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Question</label><label for="__tabbed_2_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="how-much-vram-is-required-to-load-a-7b-llm">How much VRAM is required to load a 7B LLM?</h4>
+</div>
+<div class="tabbed-block">
+<p>In full precision (float32), the model stores each parameter in 32 bits or 4 bytes. Therefore, for inference only, loading a 7B model requires 28 billion bytes, which is equivalent to 28 GB of GPU memory. If we use half precision, each parameter is stored in 16 bits, or 2 bytes, resulting in a requirement of 14 GB for inference. Additionally, there are more efficient algorithms like 8 bit and 4 bit, where with 4 bits (half a byte) per parameter, only 3.5 GB of memory is needed for inference.</p>
+<p>For training, the memory requirement depends on the optimizer used. If the regular AdamW optimizer is employed, it necessitates 8 bytes per parameter since it not only stores the parameters but also their gradients and second-order gradients. Therefore, for a 7 billion parameter model, it would require 56 GB of GPU memory. Alternatively, using AdaFactor, which requires 4 bytes per parameter, the memory requirement decreases to 28 GB. There are also optimizers like bitsandbytes, such as the 8-bit AdamW, which only need 2 bytes per parameter, resulting in a 14 GB GPU memory requirement. <a href="https://discuss.huggingface.co/t/llama-7b-gpu-memory-requirement/34323/8">Source</a></p>
+<p><a href="https://huggingface.co/docs/transformers/perf_train_gpu_one#anatomy-of-models-memory">Read for more details</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Question</label><label for="__tabbed_3_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-word-embeddings-in-nlp">What are word embeddings in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Word embeddings are a type of representation for words in NLP. They are a dense vector representation of a word, learned from the data using techniques such as word2vec or GloVe. The embeddings capture the semantics of the words, meaning that words with similar meanings will have similar vectors. Word embeddings are used as input in many NLP tasks such as language translation, text classification, and text generation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Question</label><label for="__tabbed_4_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-sentence-encoding">What is Sentence Encoding?</h4>
+</div>
+<div class="tabbed-block">
+<p>Sentence encoding is the process of converting a sentence into a fixed-length vector representation, also known as sentence embeddings. This is done by using techniques such as bag-of-words, TF-IDF, or BERT-based models. Sentence encodings can be used as input in various NLP tasks such as text classification, text generation, and text similarity. Several algorithms first tokenize the sentence in words or tokens, compute thir embedding and then aggregate them (min, max, mean, etc) to get the sentence embedding.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Question</label><label for="__tabbed_5_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-the-concept-of-attention-mechanism-in-nlp">Explain the concept of attention mechanism in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Attention mechanism is a way to weight different parts of the input in a neural network, giving more importance to certain parts of the input than others. It is commonly used in NLP tasks such as machine translation, where the model needs to focus on different parts of the input sentence at different times. Attention mechanisms can be implemented in various ways, such as additive attention (<span class="arithmatex">\(𝑄+𝐾\)</span>) and dot-product attention (<span class="arithmatex">\(𝑄𝐾^{𝑇}\)</span>)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Question</label><label for="__tabbed_6_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-transformer-models-in-nlp">What are transformer models in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Transformer models are a type of neural network architecture that have been successful in various NLP tasks such as language translation and language understanding. They were introduced in the transformer paper and use self-attention mechanism to weigh the different parts of the input. This allows the model to efficiently process long input sequences and handle the dependencies between the words. <a href="../transformer/">Refer</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Question</label><label for="__tabbed_7_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-named-entity-recognition-ner-in-nlp">Can you explain the concept of Named Entity Recognition (NER) in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Named Entity Recognition (NER) is a subtask of information extraction that seeks to locate and classify named entities in text into predefined categories such as person names, organizations, locations, medical codes, time expressions, quantities, monetary values, percentages, etc. NER systems can be rule-based or based on machine learning, and are used in a wide range of applications such as information retrieval, question answering and text summarization.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Question</label><label for="__tabbed_8_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-part-of-speech-pos-tagging-in-nlp">Explain Part-of-Speech (POS) tagging in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Part-of-Speech (POS) tagging is the process of marking each word in a text with its corresponding POS tag. This is a fundamental step in many NLP tasks such as parsing, text summarization, and information extraction. POS tagging can be rule-based or based on machine learning, and is typically done using algorithms such as Hidden Markov Models (HMMs) or Conditional Random Fields (CRFs).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Question</label><label for="__tabbed_9_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-language-modeling-in-nlp">Can you explain the concept of Language Modeling in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Language modeling is the task of predicting the next word in a sentence, given the previous words. This is done by training a model on a large dataset of text, which learns the probability distribution of the words in the language. Language models are used in a wide range of NLP tasks such as machine translation, text generation, and speech recognition.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Question</label><label for="__tabbed_10_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-text-summarization">Can you explain the concept of Text Summarization?</h4>
+</div>
+<div class="tabbed-block">
+<p>Text summarization is the task of generating a shorter version of a text that retains the most important information. There are two main types of text summarization: extractive and abstractive. Extractive summarization selects important sentences or phrases from the text to form the summary, while abstractive summarization generates new text that captures the meaning of the original text.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Question</label><label for="__tabbed_11_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-sentiment-analysis">What is Sentiment Analysis?</h4>
+</div>
+<div class="tabbed-block">
+<p>Sentiment analysis is the task of determining the sentiment or emotion of a piece of text. This is typically done by classifying the text as positive, negative, or neutral. Sentiment analysis can be done using a variety of techniques such as rule-based systems, machine learning, and deep learning. It is used in a wide range of applications such as customer feedback analysis and social media analysis.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Question</label><label for="__tabbed_12_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-dependency-parsing">Can you explain the concept of Dependency Parsing?</h4>
+</div>
+<div class="tabbed-block">
+<p>Dependency parsing is the task of analyzing the grammatical structure of a sentence, identifying the dependencies between the words. This is done by creating a dependency parse tree, which represents the grammatical relationships between the words in a sentence. Dependency parsing is a fundamental step in many NLP tasks such as machine translation, text summarization, and information extraction.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Question</label><label for="__tabbed_13_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-the-coreference-resolution-task-in-nlp">Explain the Coreference Resolution task in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Coreference resolution is the task of identifying when different expressions in a text refer to the same entity. This is done by analyzing the text and identifying when two or more expressions have the same referent. Coreference resolution is a fundamental step in many NLP tasks such as machine translation, text summarization, and information extraction. In this example text, <em>"Mohit lives in Pune and he works as a Data Scientist"</em>, the co-reference resolution will identify "Mohit" and "he" as belonging to the same entity.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Question</label><label for="__tabbed_14_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-stemming-and-lemmatization-in-nlp">Explain Stemming and Lemmatization in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Stemming is the process of reducing inflected (or sometimes derived) words to their word stem, base or root form. This is done by using a stemmer algorithm which removes the suffixes or prefixes from the word. The goal of stemming is to reduce the dimensionality of the text data, grouping together the inflected forms of a word so they can be analyzed as a single term, which can be useful for tasks such as text classification and information retrieval.</li>
+<li>Lemmatization is the process of reducing a word to its base form, which is called the lemma. This is done by using a lemmatizer algorithm which takes into consideration the context and the part of speech of the word. The goal of lemmatization is to reduce the dimensionality of the text data and group together the different forms of a word so they can be analyzed as a single term, which can be useful for tasks such as text classification and information retrieval.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An obvious difference is that Lemmatization consider the grammar of the sentence while Stemming only consider the word. </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Question</label><label for="__tabbed_15_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-text-classification">What is Text Classification?</h4>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>
+<p>Text classification is the task of assigning predefined categories or labels to a given text. This is done by training a model on a labeled dataset of text, which learns to predict the label of new text. Text classification is used in a wide range of applications such as sentiment analysis, spam detection, and topic classification. There are multiple types of text classification such as, </p>
+<ul>
+<li><strong>Binary classification:</strong> where there only two classes (ex: positive vs negative)</li>
+<li><strong>Multi-class classification</strong>: where there are more than 2 classes (ex: positive, negative and neutral)</li>
+<li><strong>Multi-label classification</strong>: when there are two or more classes and each text can have more than 1 class/label assigned to them (ex: single text can have some positive phrase and negative phrase)</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">Question</label><label for="__tabbed_16_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-dialogue-systems-in-nlp">What are Dialogue Systems in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>A Dialogue system, also known as a conversational agent or chatbot, is a computer program that can interact with human users through natural language. It can understand the user's input, generate appropriate responses, and carry out tasks such as answering questions, booking a flight, or making a reservation. Dialogue systems can be rule-based, or based on machine learning and deep learning, and can be integrated into various platforms such as smartphones, websites, and messaging apps.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Question</label><label for="__tabbed_17_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="please-explain-the-concept-of-text-generation">Please explain the concept of Text Generation?</h4>
+</div>
+<div class="tabbed-block">
+<p>Text generation is the task of generating new text that is similar to the text it was trained on. This is done by training a model on a large dataset of text, which learns the probability distribution of the words in the language. Text generation can be used for various applications such as chatbot, text completion and summarization. <a href="../text_generation/">Refer</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">Question</label><label for="__tabbed_18_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-text-similarity-in-nlp">Can you explain the concept of Text Similarity in NLP?</h4>
+</div>
+<div class="tabbed-block">
+<p>Text Similarity is the task of determining how similar two pieces of text are to each other. This is done by comparing the text using various similarity measures such as cosine similarity, Jaccard similarity, or Levenshtein distance. Text similarity can be used in a wide range of applications such as plagiarism detection and text retrieval. <a href="../text_similarity/">Refer</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">Question</label><label for="__tabbed_19_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="please-explain-text-clustering">Please explain Text Clustering?</h4>
+</div>
+<div class="tabbed-block">
+<p>Text Clustering is the process of grouping similar texts together. This is done by using clustering algorithms such as K-means, Hierarchical Clustering, or DBSCAN. Text clustering can be used in a wide range of applications such as topic modeling, sentiment analysis, and text summarization. This is usually a two step process, first the text is converted to a representation (usually by text embedding algorithms) and then a clustering algorithm is used to create clusters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">Question</label><label for="__tabbed_20_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-named-entity-disambiguation-ned">What is Named Entity Disambiguation (NED)?</h4>
+</div>
+<div class="tabbed-block">
+<p>Named Entity Disambiguation (NED) is the task of determining which entity (from a database) a mention (from text or doc) refers to, from a set of candidate entities. This is done by using techniques such as string matching, co-reference resolution, or graph-based methods. NED is important for tasks such as information extraction and knowledge base population. For example, NED will process a wikipedia page and map "Mohit M.", "M. Mayank", "Mohit" and similar named entities with "Mohit Mayank" present in the database. </p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">Question</label><label for="__tabbed_21_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-a-feedforward-neural-network-and-a-recurrent-neural-network">What is the difference between a feedforward neural network and a recurrent neural network?</h4>
+</div>
+<div class="tabbed-block">
+<p>A feedforward neural network is a type of neural network in which the data flows in one direction, from input to output. There are no loops or connections that allow information to flow in a cyclical manner. On the other hand, a recurrent neural network (RNN) is a type of neural network that allows information to flow in a cyclical manner, with connections between neurons allowing information to be passed from one step of the process to the next. RNNs are useful for tasks such as language modeling and speech recognition, where the current input is dependent on the previous inputs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">Question</label><label for="__tabbed_22_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="is-bert-a-text-generation-model">Is BERT a Text Generation model?</h4>
+</div>
+<div class="tabbed-block">
+<p>Short answer is no. BERT is not a text generation model or a language model because the probability of the predicting a token in masked input is dependent on the context of the token. This context is bidirectional, hence the model is not able to predict the next token in the sequence accurately with only one directional context <em>(as expected for language model)</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">Question</label><label for="__tabbed_23_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-weight-tying-in-language-model">What is weight tying in language model?</h4>
+</div>
+<div class="tabbed-block">
+<p>Weight-tying is where you have a language model and use the same weight matrix for the input-to-embedding layer (the input embedding) and the hidden-to-softmax layer (the output embedding). The idea is that these two matrices contain essentially the same information, each having a row per word in the vocabulary. <a href="https://tomroth.com.au/weight_tying/">Ref</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">Question</label><label for="__tabbed_24_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-so-special-about-the-special-tokens-used-in-different-lm-tokenizers">What is so special about the special tokens used in different LM tokenizers?</h4>
+</div>
+<div class="tabbed-block">
+<p>Special tokens are called special because they are added for a certain purpose and are independent of the input. For example, in BERT we have <code>[CLS]</code> token that is added at the start of every input sentence and <code>[SEP]</code> is a special separator token. Similarly in GPT2, <code>&lt;|endoftext|&gt;</code> is special token to denote end of sentence. Users can create their own special token based on their specific use case and train them during finetuning. <a href="https://stackoverflow.com/questions/71679626/what-is-so-special-about-special-tokens">Refer cronoik's answer in SO</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">Question</label><label for="__tabbed_25_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-attention-masks">What are Attention Masks?</h4>
+</div>
+<div class="tabbed-block">
+<p>Attention masks are the token level boolean identifiers used to differentiate between important and not important tokens in the input. One use case is during batch training, where a batch with text of different lengths can be created by adding paddings to shorter texts. The padding tokens can be identified using 0 in attention mask and the original input tokens can be marked as 1. <a href="https://lukesalamone.github.io/posts/what-are-attention-masks/">Refer blog @ lukesalamone.com</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>We can use a special token for padding. For example in BERT it can be <code>[PAD]</code> token and in GPT-2 we can use <code>&lt;|endoftext|&gt;</code> token.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">Question</label><label for="__tabbed_26_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-attention-and-self-attention">What is the difference between Attention and Self-Attention?</h4>
+</div>
+<div class="tabbed-block">
+<p>Self-attention (SA) is applied within one component, so the input is from one component only. One example is the encoder block in Transformers, where SA is used, and it takes the tokens from only the sentence as the input. Attention on the other hand can be used to connect two components or modality of data. Decoder in Transformer has Attention layer that connects the encoder and decoder data together. <a href="https://datascience.stackexchange.com/questions/49468/whats-the-difference-between-attention-vs-self-attention-what-problems-does-ea">Refer StackExchange QA</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="27:2"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><input id="__tabbed_27_2" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">Question</label><label for="__tabbed_27_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-bi-encoder-and-cross-encoder">What is the difference between Bi-encoder and Cross-encoder?</h4>
+</div>
+<div class="tabbed-block">
+<p>In the context of NLP, the difference between Bi-encoders and Cross-encoders lies in how they handle and process input sentences and the kind of outputs they produce. <a href="https://www.sbert.net/examples/applications/cross-encoder/README.html">Refer SBert</a></p>
+<ol>
+<li>
+<p><strong>Bi-Encoders:</strong></p>
+<ul>
+<li><strong>Process:</strong> Bi-encoders process two sentences (A and B) independently through a transformer network like BERT. Each sentence is input separately, resulting in two separate sentence embeddings (u and v).</li>
+<li><strong>Output:</strong> The output is a pair of sentence embeddings, which can be compared using measures like cosine similarity to determine their relationship or similarity.</li>
+<li><strong>Usage:</strong> These are particularly useful when you want to pre-compute sentence embeddings for a large collection of text, as you can then quickly compare new sentences to the entire collection using the embeddings. They are efficient for tasks that require comparing multiple sentences against one another.</li>
+</ul>
+</li>
+<li>
+<p><strong>Cross-Encoders:</strong></p>
+<ul>
+<li><strong>Process:</strong> Cross-encoders take a pair of sentences as a single input and pass them simultaneously to the transformer network. The model takes into account the interaction between the sentences directly during the encoding process.</li>
+<li><strong>Output:</strong> Instead of separate embeddings, a Cross-encoder outputs a single score or value, typically between 0 and 1, representing the relationship or similarity of the sentence pair. It does not produce separate sentence embeddings.</li>
+<li><strong>Usage:</strong> Cross-encoders are generally more accurate for tasks like semantic similarity or relevance ranking because they consider the interaction between the sentence pair directly. However, they are less efficient compared to Bi-encoders for large-scale tasks because each sentence pair must be processed together and in real-time, making it hard to pre-compute and store representations.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../introduction/getting_started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting started with Data Science" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Getting started with Data Science
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../word2vec/" class="md-footer__link md-footer__link--next" aria-label="Next: Word2Vec" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Word2Vec
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/imohitmayank" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/imohitmayank" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/imohitmayank/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@mohitmayank" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M180.5 74.262C80.813 74.262 0 155.633 0 256s80.819 181.738 180.5 181.738S361 356.373 361 256 280.191 74.262 180.5 74.262Zm288.25 10.646c-49.845 0-90.245 76.619-90.245 171.095s40.406 171.1 90.251 171.1 90.251-76.619 90.251-171.1H559c0-94.503-40.4-171.095-90.248-171.095Zm139.506 17.821c-17.526 0-31.735 68.628-31.735 153.274s14.2 153.274 31.735 153.274S640 340.631 640 256c0-84.649-14.215-153.271-31.742-153.271Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f758a944.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

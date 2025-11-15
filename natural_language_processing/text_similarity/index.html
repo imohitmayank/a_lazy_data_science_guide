@@ -1,0 +1,3187 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://mohitmayank.com/a_lazy_data_science_guide/natural_language_processing/text_similarity/">
+      
+      <link rel="icon" href="../../imgs/logo.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.4">
+    
+    
+      
+        <title>Text similarity - A Lazy Data Science Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-2DVXT9L5D4"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-2DVXT9L5D4",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DVXT9L5D4"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#text-similarity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </span>
+    <strong>Twitter</strong>
+  </a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-header__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Lazy Data Science Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Text similarity
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../interview_questions/" class="md-tabs__link md-tabs__link--active">
+        Natural Language Processing
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-tabs__link">
+        Audio Intelligence
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network_science/introduction/" class="md-tabs__link">
+        Network Science
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data_science_tools/introduction/" class="md-tabs__link">
+        Data Science Tools
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../machine_learning/introduction/" class="md-tabs__link">
+        Machine Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-tabs__link">
+        Reinforcement Learning
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-nav__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    A Lazy Data Science Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Hello
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting_started/" class="md-nav__link">
+        Getting started with Data Science
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Natural Language Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Natural Language Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Natural Language Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Architectures/Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectures/Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architectures/Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../word2vec/" class="md-nav__link">
+        Word2Vec
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lstm_gru_rnn/" class="md-nav__link">
+        LSTM, GRU & RNN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer/" class="md-nav__link">
+        Transformers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BERT/" class="md-nav__link">
+        BERT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GPTs/" class="md-nav__link">
+        GPTs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minilm/" class="md-nav__link">
+        MiniLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T5/" class="md-nav__link">
+        T5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FlanModels/" class="md-nav__link">
+        FlanModels
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llama/" class="md-nav__link">
+        LLaMA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mamba/" class="md-nav__link">
+        Mamba
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepseek/" class="md-nav__link">
+        DeepSeek R1
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Large Language Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Large Language Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Large Language Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training_llm/" class="md-nav__link">
+        Training LLMs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prompt_engineering/" class="md-nav__link">
+        Prompt Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explainable_ai_llm/" class="md-nav__link">
+        Explainable AI: Language Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming_chatgpt_gen/" class="md-nav__link">
+        Streaming ChatGPT Generations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../making_llm_multilingual/" class="md-nav__link">
+        Making LLM Multi-lingual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Tasks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tasks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tasks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../paraphraser/" class="md-nav__link">
+        Paraphraser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Text similarity
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Text similarity
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-algorithms" class="md-nav__link">
+    Types of algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-distance-based-algorithms" class="md-nav__link">
+    Edit distance based algorithms
+  </a>
+  
+    <nav class="md-nav" aria-label="Edit distance based algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hamming-distance" class="md-nav__link">
+    Hamming distance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#levenshtein-distance" class="md-nav__link">
+    Levenshtein distance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jaro-winkler" class="md-nav__link">
+    Jaro-Winkler
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-based-algorithms" class="md-nav__link">
+    Token based algorithms
+  </a>
+  
+    <nav class="md-nav" aria-label="Token based algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jaccard-index" class="md-nav__link">
+    Jaccard index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorensen-dice" class="md-nav__link">
+    Sorensen-Dice
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-based-algorithm" class="md-nav__link">
+    Sequence based algorithm
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence based algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ratcliff-obershelp-similarity" class="md-nav__link">
+    Ratcliff-Obershelp similarity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-based-approaches" class="md-nav__link">
+    Semantic based approaches
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantic based approaches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#txtai" class="md-nav__link">
+    txtai
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sentence-transformer" class="md-nav__link">
+    Sentence Transformer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_generation/" class="md-nav__link">
+        Text generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relation_extraction/" class="md-nav__link">
+        Relation extraction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa/" class="md-nav__link">
+        Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_to_text_generation/" class="md-nav__link">
+        Data-to-Text Generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../named_entity_recognition/" class="md-nav__link">
+        Named Entity Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nlq/" class="md-nav__link">
+        Natural Language Querying
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Audio Intelligence
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Audio Intelligence" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Audio Intelligence
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/audio_snippets/" class="md-nav__link">
+        Code Snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Speech-to-Text
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Speech-to-Text" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Speech-to-Text
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/stt/" class="md-nav__link">
+        STT Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/wav2vec2/" class="md-nav__link">
+        Wav2Vec2 Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/whisper/" class="md-nav__link">
+        Whisper Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/connectionist_temporal_classification/" class="md-nav__link">
+        Connectionist Temporal Classification
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Text-to-Speech
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Text-to-Speech" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Text-to-Speech
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/tts/" class="md-nav__link">
+        TTS Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/neural_audio_codecs/" class="md-nav__link">
+        Neural Audio Codecs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/training_tts/" class="md-nav__link">
+        Training LLM-Based + Neural Codec TTS Models
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Applications
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Applications
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/voice_activity_detection/" class="md-nav__link">
+        Voice Activity Detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/speaker_diarization/" class="md-nav__link">
+        Speaker Diarization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Network Science
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Network Science" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Network Science
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Graph Neural Networks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graph Neural Networks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Graph Neural Networks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_2">
+          Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algorithms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_deepwalk/" class="md-nav__link">
+        DeepWalk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Knowledge Graphs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Knowledge Graphs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Knowledge Graphs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_embedding_algorithms/" class="md-nav__link">
+        KG Embedding Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Data Science Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Science Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Data Science Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_snippets/" class="md-nav__link">
+        Python snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/linux_snippets/" class="md-nav__link">
+        Linux snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/version_control/" class="md-nav__link">
+        Version control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/compute_and_ai_services/" class="md-nav__link">
+        Compute and AI Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/scraping_websites/" class="md-nav__link">
+        Scraping Websites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Database" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/databases_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/database_postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Good Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Good Practices" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Good Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/github_good_practices/" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_good_practices/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Machine Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/ML_snippets/" class="md-nav__link">
+        ML snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/clustering/" class="md-nav__link">
+        Clustering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/classification/" class="md-nav__link">
+        Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/loss_functions/" class="md-nav__link">
+        Loss functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/genaidetection/" class="md-nav__link">
+        Detecting AI Generated Content
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/dpo/" class="md-nav__link">
+        Direct Preference Optimization (DPO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Model Compression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Model Compression" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Compression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_kd/" class="md-nav__link">
+        Knowledge Distillation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_quant/" class="md-nav__link">
+        Model Quantization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Optimization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimization" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Optimization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/ranking_algorithms/" class="md-nav__link">
+        Ranking Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Reinforcement Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reinforcement Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Reinforcement Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/rlhf/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/q_learning/" class="md-nav__link">
+        Q-Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/multi_arm_bandit/" class="md-nav__link">
+        Multi-Arm Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-algorithms" class="md-nav__link">
+    Types of algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-distance-based-algorithms" class="md-nav__link">
+    Edit distance based algorithms
+  </a>
+  
+    <nav class="md-nav" aria-label="Edit distance based algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hamming-distance" class="md-nav__link">
+    Hamming distance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#levenshtein-distance" class="md-nav__link">
+    Levenshtein distance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jaro-winkler" class="md-nav__link">
+    Jaro-Winkler
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-based-algorithms" class="md-nav__link">
+    Token based algorithms
+  </a>
+  
+    <nav class="md-nav" aria-label="Token based algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jaccard-index" class="md-nav__link">
+    Jaccard index
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorensen-dice" class="md-nav__link">
+    Sorensen-Dice
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-based-algorithm" class="md-nav__link">
+    Sequence based algorithm
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence based algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ratcliff-obershelp-similarity" class="md-nav__link">
+    Ratcliff-Obershelp similarity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-based-approaches" class="md-nav__link">
+    Semantic based approaches
+  </a>
+  
+    <nav class="md-nav" aria-label="Semantic based approaches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#txtai" class="md-nav__link">
+    txtai
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sentence-transformer" class="md-nav__link">
+    Sentence Transformer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/imohitmayank/a_lazy_data_science_guide/edit/master/docs/natural_language_processing/text_similarity.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="text-similarity">Text Similarity</h1>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li>Similarity between two words, sentences or documents is a function of commonality shared by them. This commonality can be measured by different metrics.</li>
+<li>Recently there has been a trend of using semantic based approaches, but historically, many similarity based non-neural algorthms were built.</li>
+<li>But which is the best string similarity algorithm? Well, it’s quite hard to answer this question, at least without knowing anything else, like what you require it for i.e. your use case.</li>
+<li>And even after having a basic idea, it’s quite hard to pinpoint a good algorithm without first trying them out on different datasets. It’s a trial and error process. </li>
+<li>To make this journey simpler, I have tried to list down and explain the workings of the most basic string similarity algorithms out there. Give them a try, it may be what you needed all along <img alt="☮" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/262e.svg" title=":peace:" /></li>
+</ul>
+<h2 id="types-of-algorithms">Types of algorithms</h2>
+<ul>
+<li>Based on the properties of operations, string similarity algorithms can be classified into a bunch of domains. Let’s discuss a few of them,<ul>
+<li><strong>Edit distance based:</strong> Algorithms falling under this category try to compute the number of operations needed to transforms one string to another. More the number of operations, less is the similarity between the two strings. One point to note, in this case, every index character of the string is given equal importance.</li>
+<li><strong>Token-based:</strong> In this category, the expected input is a set of tokens, rather than complete strings. The idea is to find the similar tokens in both sets. More the number of common tokens, more is the similarity between the sets. A string can be transformed into sets by splitting using a delimiter. This way, we can transform a sentence into tokens of words or n-grams characters. Note, here tokens of different length have equal importance.</li>
+<li><strong>Sequence-based:</strong> Here, the similarity is a factor of common sub-strings between the two strings. The algorithms, try to find the longest sequence which is present in both strings, the more of these sequences found, higher is the similarity score. Note, here combination of characters of same length have equal importance.</li>
+<li><strong>Semantic-based:</strong> Here, the similarity is not based on pure presence of common sub-strings, but on the semantic meaning of the sub-strings. Semantic based approaches considers the contextual and linguistic meaning of the sub-strings. For example, in semantic based approaches, the similarity between “toad” and “frog” will be high, which is not possible in other approaches.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Semantic based algorithms are quite difficult to use as semnatic is a subjective matter. For example, how will you compare these two sentences -- "How is the weather today?" and "How is the weather tomorrow?"? If we go by non-semantic approach, we will get a very high score. But for semantic models, two things are possible and correct at the same time -- get a high score as we are talking about the weather, or get a low score as we are talking about different days. This is why, it is important to finetune the semantic models for your use case. <em>(for example here, what is more important - the topic or the context. Based on the answer, prepare a dataset and finetune).</em></p>
+</div>
+<h2 id="edit-distance-based-algorithms">Edit distance based algorithms</h2>
+<ul>
+<li>Let’s try to understand most widely used algorithms within this type,</li>
+</ul>
+<h3 id="hamming-distance">Hamming distance</h3>
+<ul>
+<li>This distance is computed by overlaying one string over another and finding the places where the strings vary. Note, classical implementation was meant to handle strings of same length. Some implementations may bypass this by adding a padding at prefix or suffix. Nevertheless, the logic is to find the total number of places one string is different from the other. To showcase an examples,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">textdistance</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">hamming</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">hamming</span><span class="o">.</span><span class="n">normalized_similarity</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="mf">0.75</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">hamming</span><span class="p">(</span><span class="s1">&#39;arrow&#39;</span><span class="p">,</span> <span class="s1">&#39;arow&#39;</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">hamming</span><span class="o">.</span><span class="n">normalized_similarity</span><span class="p">(</span><span class="s1">&#39;arrow&#39;</span><span class="p">,</span> <span class="s1">&#39;arow&#39;</span><span class="p">)</span>
+<span class="mf">0.4</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>As evident, in first example, the two strings vary only at the 3rd position, hence the edit distance is 1. In second example, even though we are only missing one ‘r’, the ‘row’ part is offset by 1, making the edit distance 3 (3rd, 4th and 5th position are dissimilar). One thing to note is the normalized similarity, this is nothing but a function to bound the edit distance between 0 and 1. This signifies, if the score is 0-two strings cannot be more dissimilar, on the other hand, a score of 1 is for a perfect match. So the strings in first example are 75% similar (expected) but in strings in second example are only 40% similar (can we do better?).</li>
+</ul>
+<h3 id="levenshtein-distance">Levenshtein distance</h3>
+<ul>
+<li>This distance is computed by finding the number of edits which will transform one string to another. The transformations allowed are insertion — adding a new character, deletion — deleting a character and substitution — replace one character by another. By performing these three operations, the algorithm tries to modify first string to match the second one. In the end we get a edit distance. Examples,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">levenshtein</span><span class="p">(</span><span class="s1">&#39;arrow&#39;</span><span class="p">,</span> <span class="s1">&#39;arow&#39;</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">levenshtein</span><span class="o">.</span><span class="n">normalized_similarity</span><span class="p">(</span><span class="s1">&#39;arrow&#39;</span><span class="p">,</span> <span class="s1">&#39;arow&#39;</span><span class="p">)</span>
+<span class="mf">0.8</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>As evident, if we insert one ‘r’ in string 2 i.e. ‘arow’, it becomes same as the string 1. Hence, the edit distance is 1. Similar with hamming distance, we can generate a bounded similarity score between 0 and 1. The similarity score is 80%, huge improvement over the last algorithm.</li>
+</ul>
+<h3 id="jaro-winkler">Jaro-Winkler</h3>
+<ul>
+<li>This algorithms gives high scores to two strings if, (1) they contain same characters, but within a certain distance from one another, and (2) the order of the matching characters is same. To be exact, the distance of finding similar character is 1 less than half of length of longest string. So if longest strings has length of 5, a character at the start of the string 1 must be found before or on ((5/2)–1) ~ 2nd position in the string 2 to be considered valid match. Because of this, the algorithm is directional and gives high score if matching is from the beginning of the strings. Some examples,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">jaro_winkler</span><span class="p">(</span><span class="s2">&quot;mes&quot;</span><span class="p">,</span> <span class="s2">&quot;messi&quot;</span><span class="p">)</span>
+<span class="mf">0.86</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">jaro_winkler</span><span class="p">(</span><span class="s2">&quot;crate&quot;</span><span class="p">,</span> <span class="s2">&quot;crat&quot;</span><span class="p">)</span>
+<span class="mf">0.96</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">jaro_winkler</span><span class="p">(</span><span class="s2">&quot;crate&quot;</span><span class="p">,</span> <span class="s2">&quot;atcr&quot;</span><span class="p">)</span>
+<span class="mf">0.0</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>In first case, as the strings were matching from the beginning, high score was provided. Similarly, in the second case, only one character was missing and that too at the end of the string 2, hence a very high score was given. Imagine the previous algorithms, the similarity would have been less, 80% to be exact. In third case, we re-arranged the last two character of string 2, by bringing them at front, which resulted in 0% similarity.</li>
+</ul>
+<h2 id="token-based-algorithms">Token based algorithms</h2>
+<ul>
+<li>Algorithms falling under this category are more or less, set similarity algorithms, modified to work for the case of string tokens. Some of them are,</li>
+</ul>
+<h3 id="jaccard-index">Jaccard index</h3>
+<ul>
+<li>Falling under the set similarity domain, the formulae is to find the number of common tokens and divide it by the total number of unique tokens. Its expressed in the mathematical terms by,</li>
+</ul>
+<div class="arithmatex">\[
+J(A,B) = {{|A \cap B|}\over{|A \cup B|}} = {{|A \cap B|}\over{|A| + |B| - |A \cap B|}}.
+\]</div>
+<ul>
+<li>where, the numerator is the intersection (common tokens) and denominator is union (unique tokens). The second case is for when there is some overlap, for which we must remove the common terms as they would add up twice by combining all tokens of both strings. As the required input is tokens instead of complete strings, it falls to user to efficiently and intelligently tokenize his string, depending on the use case. Examples,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="n">tokens_1</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">tokens_2</span> <span class="o">=</span> <span class="s2">&quot;world hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">jaccard</span><span class="p">(</span><span class="n">tokens_1</span> <span class="p">,</span> <span class="n">tokens_2</span><span class="p">)</span>
+<span class="mf">1.0</span>
+<span class="o">&gt;&gt;</span> <span class="n">tokens_1</span> <span class="o">=</span> <span class="s2">&quot;hello new world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">tokens_2</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">jaccard</span><span class="p">(</span><span class="n">tokens_1</span> <span class="p">,</span> <span class="n">tokens_2</span><span class="p">)</span>
+<span class="mf">0.666</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>We first tokenize the string by default space delimiter, to make words in the strings as tokens. Then we compute the similarity score. In first example, as both words are present in both the strings, the score is 1. Just imagine running an edit based algorithm in this case, the score will be very less if not 0.</li>
+</ul>
+<h3 id="sorensen-dice">Sorensen-Dice</h3>
+<ul>
+<li>Falling under set similarity, the logic is to find the common tokens, and divide it by the total number of tokens present by combining both sets. The formulae is,</li>
+</ul>
+<div class="arithmatex">\[
+{\displaystyle DSC={\frac {2|X\cap Y|}{|X|+|Y|}}}
+\]</div>
+<ul>
+<li>where, the numerator is twice the intersection of two sets/strings. The idea behind this is if a token is present in both strings, its total count is obviously twice the intersection (which removes duplicates). The denominator is simple combination of all tokens in both strings. Note, its quite different from the jaccard’s denominator, which was union of two strings. As the case with intersection, union too removes duplicates and this is avoided in dice algorithm. Because of this, dice will always overestimate the similarity between two strings. Some example,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="n">tokens_1</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">tokens_2</span> <span class="o">=</span> <span class="s2">&quot;world hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">sorensen</span><span class="p">(</span><span class="n">tokens_1</span> <span class="p">,</span> <span class="n">tokens_2</span><span class="p">)</span>
+<span class="mf">1.0</span>
+<span class="o">&gt;&gt;</span> <span class="n">tokens_1</span> <span class="o">=</span> <span class="s2">&quot;hello new world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">tokens_2</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">sorensen</span><span class="p">(</span><span class="n">tokens_1</span> <span class="p">,</span> <span class="n">tokens_2</span><span class="p">)</span>
+<span class="mf">0.8</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="sequence-based-algorithm">Sequence based algorithm</h2>
+<ul>
+<li>Lets understand one of the sequence based algorithms,</li>
+</ul>
+<h3 id="ratcliff-obershelp-similarity">Ratcliff-Obershelp similarity</h3>
+<ul>
+<li>The idea is quite simple yet intuitive. Find the longest common substring from the two strings. Remove that part from both strings, and split at the same location. This breaks the strings into two parts, one left and another to the right of the found common substring. Now take the left part of both strings and call the function again to find the longest common substring. Do this too for the right part. This process is repeated recursively until the size of any broken part is less than a default value. Finally, a formulation similar to the above-mentioned dice is followed to compute the similarity score. The score is twice the number of characters found in common divided by the total number of characters in the two strings. Some examples,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;&gt;</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;i am going home&quot;</span><span class="p">,</span> <span class="s2">&quot;gone home&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">ratcliff_obershelp</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+<span class="mf">0.66</span>
+<span class="o">&gt;&gt;</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;helloworld&quot;</span><span class="p">,</span> <span class="s2">&quot;worldhello&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">ratcliff_obershelp</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+<span class="mf">0.5</span>
+<span class="o">&gt;&gt;</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">ratcliff_obershelp</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+<span class="mf">0.75</span>
+<span class="o">&gt;&gt;</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;mes&quot;</span><span class="p">,</span> <span class="s2">&quot;simes&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">ratcliff_obershelp</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+<span class="mf">0.75</span>
+<span class="o">&gt;&gt;</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;mes&quot;</span><span class="p">,</span> <span class="s2">&quot;simes&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">ratcliff_obershelp</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+<span class="mf">0.75</span>
+<span class="o">&gt;&gt;</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span> <span class="o">=</span> <span class="s2">&quot;arrow&quot;</span><span class="p">,</span> <span class="s2">&quot;arow&quot;</span>
+<span class="o">&gt;&gt;</span> <span class="n">textdistance</span><span class="o">.</span><span class="n">ratcliff_obershelp</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+<span class="mf">0.88</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>In first example, it found ‘ home’ as the longest substring, then considered ‘i am going’ and ‘gone’ for further processing (left of common substring), where again it found ‘go’ as longest substring. Later on right of ‘go’ it also found ’n’ as the only common and longest substring. Overall the score was 2 * (5 + 2 + 1) / 24 ~ 0.66. In second case, it found ‘hello’ as the longest substring and nothing common on the left and right, hence score is 0.5. The rest of the examples showcase the advantage of using sequence algorithms for cases missed by edit distance based algorithms.</li>
+</ul>
+<h2 id="semantic-based-approaches">Semantic based approaches</h2>
+<ul>
+<li>In semantic search, strings are embedded using some neural network (NN) model. Think of it like a function that takes an input string and returns a vector of numbers. The vector is then used to compare the similarity between two strings.</li>
+<li>Usually the NN models work at either token or word level, so to get embedding of a string, we first find embeddings for each token in the string and then aggregate them using mean or similar function.</li>
+<li>The expectation is that the embeddings will be able to represent the string such that it capture different aspects of the language. Because of which, the embeddings provides us with much more features to compare strings.</li>
+</ul>
+<figure>
+<p><img alt="" src="../../imgs/nlp_semanticsearch_intro.png" width="100%" />
+    <figcaption>Semantic search embeds corpus entries and queries into a vector space. Finding the closest vector to the query vector is equivalent to finding the most similar entry in the corpus. Source: <a href="https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html#symmetric-vs-asymmetric-semantic-search">SBert.net</a></figcaption></p>
+</figure>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>As embedding is an integral part of semantic search, it is important to check the quality of a embedding method before using it. <a href="https://github.com/embeddings-benchmark/mteb">MTEB</a> is the "Massive Text Embedding Benchmark" python package that lets you test any embedding function on more than 30 tasks. The process is quite simple - usually the text is embedded using the provided function or neural network, and the performance of embedding is computed and checked on downstream tasks like classification, clustering, and more.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>To select the right model for your task, identify whether your task is symmetric or asymmetric. (<a href="https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html#symmetric-vs-asymmetric-semantic-search">refer</a>)</p>
+<ul>
+<li><strong>Symmetric Search</strong>: If your task involves matching similar-length queries and corpus entries (e.g., "How to learn Python online?" vs. "How to learn Python on the web?"), use models trained on datasets like Quora Duplicate Questions.</li>
+</ul>
+<ul>
+<li><strong>Asymmetric Search</strong>: If your task involves short queries and longer, detailed answers (e.g., "What is Python?" vs. a paragraph explaining Python), use models optimized for query-document mismatches, such as those pre-trained on MS MARCO.</li>
+</ul>
+</div>
+<p>Let's try a couple of ways to compute semantic similarity between strings. Different models can be picked or even fine-tuned based on domain and requirement, but we will use the same model (but different packages) for simplicity's sake.</p>
+<h3 id="txtai">txtai</h3>
+<ul>
+<li><a href="https://github.com/neuml/txtai">txtai</a> is a python package to perform semantic based tasks on textual data including search, question answering, information extraction, etc.</li>
+<li>Today, we will use it for the sole purpose of semantic search. <em>(inspired from <a href="https://github.com/neuml/txtai">txtai readme</a>)</em></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># import the packages</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span> <span class="c1">## for better visualization of result</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">txtai.embeddings</span><span class="w"> </span><span class="kn">import</span> <span class="n">Embeddings</span>
+
+<span class="c1"># Create embeddings model, backed by sentence-transformers &amp; transformers</span>
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">Embeddings</span><span class="p">({</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence-transformers/nli-mpnet-base-v2&quot;</span><span class="p">})</span>
+<span class="c1"># the data to search against</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;US tops 5 million confirmed virus cases&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Canada&#39;s last fully intact ice shelf has suddenly collapsed, forming a Manhattan-sized iceberg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Beijing mobilises invasion craft along coast as Taiwan tensions escalate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;The National Park Service warns against sacrificing slower friends in a bear attack&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Maine man wins $1M from $25 lottery ticket&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Make huge profits without work, earn up to $100,000 a day&quot;</span><span class="p">]</span>
+<span class="c1"># var to hold the result</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># perform search for each of the following query phrase</span>
+<span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;feel good story&quot;</span><span class="p">,</span> <span class="s2">&quot;climate change&quot;</span><span class="p">,</span> <span class="s2">&quot;public health story&quot;</span><span class="p">,</span> <span class="s2">&quot;war&quot;</span><span class="p">,</span> <span class="s2">&quot;wildlife&quot;</span><span class="p">,</span> <span class="s2">&quot;asia&quot;</span><span class="p">,</span> <span class="s2">&quot;lucky&quot;</span><span class="p">,</span> <span class="s2">&quot;dishonest junk&quot;</span><span class="p">):</span>
+    <span class="c1"># Get index of best section that best matches query</span>
+    <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">query</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">score</span><span class="p">))</span>
+
+<span class="c1"># format the result</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">results</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;best_match&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">]</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># print the result</span>
+<span class="n">results</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Here we are trying to pick the most similar phrase for each of the query from the data. The result will look as follows, </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="right">query</th>
+<th align="right">best_match</th>
+<th>score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">wildlife</td>
+<td align="right">The National Park Service warns against sacrif...</td>
+<td>0.28</td>
+</tr>
+<tr>
+<td align="right">war</td>
+<td align="right">Beijing mobilises invasion craft along coast a...</td>
+<td>0.27</td>
+</tr>
+<tr>
+<td align="right">asia</td>
+<td align="right">Beijing mobilises invasion craft along coast a...</td>
+<td>0.24</td>
+</tr>
+<tr>
+<td align="right">climate change</td>
+<td align="right">Canada's last fully intact ice shelf has sudde...</td>
+<td>0.24</td>
+</tr>
+<tr>
+<td align="right">public health story</td>
+<td align="right">US tops 5 million confirmed virus cases</td>
+<td>0.17</td>
+</tr>
+<tr>
+<td align="right">feel good story</td>
+<td align="right">Maine man wins $1M from $25 lottery ticket</td>
+<td>0.08</td>
+</tr>
+<tr>
+<td align="right">lucky</td>
+<td align="right">Maine man wins $1M from $25 lottery ticket</td>
+<td>0.07</td>
+</tr>
+<tr>
+<td align="right">dishonest junk</td>
+<td align="right">Make huge profits without work, earn up to $10...</td>
+<td>0.03</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>As obvious from the result, even though there is hardly any common sub-string between the query and the data, the results make sense in a semantic way. <code>Beijing</code> is connected with <code>asia</code> and <code>war</code>, while <code>ice shelf</code> is connected with <code>climate change</code>, and so on.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>score</code> is the cosine similarity between the embeddings of the two strings (query and data element). It's range is between {-1, 1}, and not {0, 1}. Do not think of it as probability. </p>
+</div>
+<ul>
+<li>The above approach could be slow as for each call to <code>similarity</code>, the sentences are embedded again and again. To speed it up, we could use <code>index</code> to precompute the embeddings for the data. This can be done by, </li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># index the data</span>
+<span class="n">embeddings</span><span class="o">.</span><span class="n">index</span><span class="p">([(</span><span class="n">uid</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">uid</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)])</span> 
+<span class="c1"># now instead of similarity, use search function</span>
+<span class="n">embeddings</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;feel good story&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Output:</span>
+<span class="c1"># [{&#39;id&#39;: &#39;4&#39;,</span>
+<span class="c1">#   &#39;score&#39;: 0.08329004049301147,</span>
+<span class="c1">#   &#39;text&#39;: &#39;Maine man wins $1M from $25 lottery ticket&#39;}]</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>txtai</code> also provides explaination of the result. For this we can use <code>explain</code> function as follows, </li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># first index the data</span>
+<span class="n">embeddings</span><span class="o">.</span><span class="n">index</span><span class="p">([(</span><span class="n">uid</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">uid</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)])</span> 
+<span class="c1"># next call the explain function </span>
+<span class="n">embeddings</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="s2">&quot;feel good story&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Output:</span>
+<span class="c1"># [{&#39;id&#39;: &#39;4&#39;,</span>
+<span class="c1">#   &#39;score&#39;: 0.08329004049301147,</span>
+<span class="c1">#   &#39;text&#39;: &#39;Maine man wins $1M from $25 lottery ticket&#39;,</span>
+<span class="c1">#   &#39;tokens&#39;: [(&#39;Maine&#39;, 0.003297939896583557),</span>
+<span class="c1">#    (&#39;man&#39;, -0.03039500117301941),</span>
+<span class="c1">#    (&#39;wins&#39;, 0.03406312316656113),</span>
+<span class="c1">#    (&#39;$1M&#39;, -0.03121592104434967),</span>
+<span class="c1">#    (&#39;from&#39;, -0.02270638197660446),</span>
+<span class="c1">#    (&#39;$25&#39;, 0.012891143560409546),</span>
+<span class="c1">#    (&#39;lottery&#39;, -0.015372440218925476),</span>
+<span class="c1">#    (&#39;ticket&#39;, 0.007445111870765686)]}]</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>The output contains word level importance score for the top similar sentence in the data (<code>limit=1</code>). </li>
+<li>From the output we can see the word <code>win</code> is the most important word wrt to the query. The score computation is based on the occlusion based explaination approach. Here, several permutations of the same sentence is created, each one with one word/token missing. Then cosine similarity is computed between the fixed query and each permutation. Finally, the similairty score of the permutation is subtracted from the score of the original sentence (with all words present). The intuition is as follows, <ul>
+<li>if an important word like <code>win</code> is missing from the sentence, the score of the sentence will be reduced and the difference will be positive</li>
+<li>if an unimportant word like <code>man</code> is missing from the sentence, the score of the sentence will increase and the difference will be negative</li>
+</ul>
+</li>
+</ul>
+<h3 id="sentence-transformer">Sentence Transformer</h3>
+<ul>
+<li><a href="https://www.sbert.net/">SentenceTransformers</a> is is a Python framework for state-of-the-art sentence, text and image embeddings. The inital work in this framework is detailed in the paper <em><abbr title="Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks (http://arxiv.org/abs/1908.10084)">Sentence-BERT</abbr></em></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># laod packages</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span><span class="p">,</span> <span class="n">util</span>
+
+<span class="c1"># load the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s1">&#39;nli-mpnet-base-v2&#39;</span><span class="p">)</span>
+
+<span class="c1"># the data to search against</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;US tops 5 million confirmed virus cases&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Canada&#39;s last fully intact ice shelf has suddenly collapsed, forming a Manhattan-sized iceberg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Beijing mobilises invasion craft along coast as Taiwan tensions escalate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;The National Park Service warns against sacrificing slower friends in a bear attack&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Maine man wins $1M from $25 lottery ticket&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Make huge profits without work, earn up to $100,000 a day&quot;</span><span class="p">]</span>
+<span class="c1"># var to hold the result</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># embed the data before hand</span>
+<span class="n">embeddings_target</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># perform search for each of the following query phrase</span>
+<span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;feel good story&quot;</span><span class="p">,</span> <span class="s2">&quot;climate change&quot;</span><span class="p">,</span> <span class="s2">&quot;public health story&quot;</span><span class="p">,</span> <span class="s2">&quot;war&quot;</span><span class="p">,</span> <span class="s2">&quot;wildlife&quot;</span><span class="p">,</span> <span class="s2">&quot;asia&quot;</span><span class="p">,</span> <span class="s2">&quot;lucky&quot;</span><span class="p">,</span> <span class="s2">&quot;dishonest junk&quot;</span><span class="p">):</span>
+    <span class="c1"># embed the query</span>
+    <span class="n">embeddings_query</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="n">query</span><span class="p">],</span> <span class="n">convert_to_tensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># compute cosine-similarities for each sentence with each other sentence</span>
+    <span class="n">cosine_scores</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">pytorch_cos_sim</span><span class="p">(</span><span class="n">embeddings_query</span><span class="p">,</span> <span class="n">embeddings_target</span><span class="p">)</span>
+    <span class="c1"># return the index of top 5 values in a list</span>
+    <span class="n">score_list</span> <span class="o">=</span> <span class="n">cosine_scores</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Get index of best section that best matches query</span>
+    <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">score_list</span><span class="p">):</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">query</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">score</span><span class="p">))</span>
+
+<span class="c1"># format the result</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">results</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;best_match&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">]</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># print the result</span>
+<span class="n">results</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>This will return the same table as the previous one. In face if you noticed, we have used the same model. If you look further, in <code>txtai</code> we used <code>sentence-transformers</code> and we have used the same model.</li>
+<li>The package provides an extensive variety of pretraied models. A comparitive table is shown below <em>(taken from <a href="https://www.sbert.net/docs/pretrained_models.html">Sentence-Transformer</a>)</em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Model Name</th>
+<th align="center">Performance Sentence Embeddings (14 Datasets)</th>
+<th align="center">Performance Semantic Search (6 Datasets)</th>
+<th align="center">Avg. Performance</th>
+<th align="center">Sentence Encoding Speed</th>
+<th align="center">Model Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>all-mpnet-base-v2</td>
+<td align="center">69.57</td>
+<td align="center">57.02</td>
+<td align="center">63.30</td>
+<td align="center">2800</td>
+<td align="center">420 MB</td>
+</tr>
+<tr>
+<td>multi-qa-mpnet-base-dot-v1</td>
+<td align="center">66.76</td>
+<td align="center">57.60</td>
+<td align="center">62.18</td>
+<td align="center">2800</td>
+<td align="center">420 MB</td>
+</tr>
+<tr>
+<td>all-distilroberta-v1</td>
+<td align="center">68.73</td>
+<td align="center">50.94</td>
+<td align="center">59.84</td>
+<td align="center">4000</td>
+<td align="center">290 MB</td>
+</tr>
+<tr>
+<td>all-MiniLM-L12-v2</td>
+<td align="center">68.70</td>
+<td align="center">50.82</td>
+<td align="center">59.76</td>
+<td align="center">7500</td>
+<td align="center">120 MB</td>
+</tr>
+<tr>
+<td>multi-qa-distilbert-cos-v1</td>
+<td align="center">65.98</td>
+<td align="center">52.83</td>
+<td align="center">59.41</td>
+<td align="center">4000</td>
+<td align="center">250 MB</td>
+</tr>
+<tr>
+<td>all-MiniLM-L6-v2</td>
+<td align="center">68.06</td>
+<td align="center">49.54</td>
+<td align="center">58.80</td>
+<td align="center">14200</td>
+<td align="center">80 MB</td>
+</tr>
+<tr>
+<td>multi-qa-MiniLM-L6-cos-v1</td>
+<td align="center">64.33</td>
+<td align="center">51.83</td>
+<td align="center">58.08</td>
+<td align="center">14200</td>
+<td align="center">80 MB</td>
+</tr>
+<tr>
+<td>paraphrase-multilingual-mpnet-base-v2</td>
+<td align="center">65.83</td>
+<td align="center">41.68</td>
+<td align="center">53.75</td>
+<td align="center">2500</td>
+<td align="center">970 MB</td>
+</tr>
+<tr>
+<td>paraphrase-albert-small-v2</td>
+<td align="center">64.46</td>
+<td align="center">40.04</td>
+<td align="center">52.25</td>
+<td align="center">5000</td>
+<td align="center">43 MB</td>
+</tr>
+<tr>
+<td>paraphrase-multilingual-MiniLM-L12-v2</td>
+<td align="center">64.25</td>
+<td align="center">39.19</td>
+<td align="center">51.72</td>
+<td align="center">7500</td>
+<td align="center">420 MB</td>
+</tr>
+<tr>
+<td>paraphrase-MiniLM-L3-v2</td>
+<td align="center">62.29</td>
+<td align="center">39.19</td>
+<td align="center">50.74</td>
+<td align="center">19000</td>
+<td align="center">61 MB</td>
+</tr>
+<tr>
+<td>distiluse-base-multilingual-cased-v1</td>
+<td align="center">61.30</td>
+<td align="center">29.87</td>
+<td align="center">45.59</td>
+<td align="center">4000</td>
+<td align="center">480 MB</td>
+</tr>
+<tr>
+<td>distiluse-base-multilingual-cased-v2</td>
+<td align="center">60.18</td>
+<td align="center">27.35</td>
+<td align="center">43.77</td>
+<td align="center">4000</td>
+<td align="center">480 MB</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Training semantic search model is different from normal classification or regression models. Think of it like this -- for classification each sample has one label, but for semantic search a combination of samples has one label. This is because in search you want to match the query and result, and then provide some score for that combination. You can refer <a href="https://www.sbert.net/docs/training/overview.html">Sbert training page</a> for more details.</p>
+</div>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../paraphraser/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Paraphraser" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Paraphraser
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../text_generation/" class="md-footer__link md-footer__link--next" aria-label="Next: Text generation" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Text generation
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/imohitmayank" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/imohitmayank" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/imohitmayank/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@mohitmayank" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M180.5 74.262C80.813 74.262 0 155.633 0 256s80.819 181.738 180.5 181.738S361 356.373 361 256 280.191 74.262 180.5 74.262Zm288.25 10.646c-49.845 0-90.245 76.619-90.245 171.095s40.406 171.1 90.251 171.1 90.251-76.619 90.251-171.1H559c0-94.503-40.4-171.095-90.248-171.095Zm139.506 17.821c-17.526 0-31.735 68.628-31.735 153.274s14.2 153.274 31.735 153.274S640 340.631 640 256c0-84.649-14.215-153.271-31.742-153.271Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f758a944.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

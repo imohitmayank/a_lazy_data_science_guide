@@ -1,0 +1,2860 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://mohitmayank.com/a_lazy_data_science_guide/natural_language_processing/named_entity_recognition/">
+      
+      <link rel="icon" href="../../imgs/logo.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.4">
+    
+    
+      
+        <title>Named Entity Recognition - A Lazy Data Science Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-2DVXT9L5D4"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-2DVXT9L5D4",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DVXT9L5D4"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#named-entity-recognition" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </span>
+    <strong>Twitter</strong>
+  </a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-header__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Lazy Data Science Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Named Entity Recognition
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../interview_questions/" class="md-tabs__link md-tabs__link--active">
+        Natural Language Processing
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-tabs__link">
+        Audio Intelligence
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network_science/introduction/" class="md-tabs__link">
+        Network Science
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data_science_tools/introduction/" class="md-tabs__link">
+        Data Science Tools
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../machine_learning/introduction/" class="md-tabs__link">
+        Machine Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-tabs__link">
+        Reinforcement Learning
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-nav__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    A Lazy Data Science Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Hello
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting_started/" class="md-nav__link">
+        Getting started with Data Science
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Natural Language Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Natural Language Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Natural Language Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Architectures/Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectures/Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architectures/Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../word2vec/" class="md-nav__link">
+        Word2Vec
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lstm_gru_rnn/" class="md-nav__link">
+        LSTM, GRU & RNN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer/" class="md-nav__link">
+        Transformers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BERT/" class="md-nav__link">
+        BERT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GPTs/" class="md-nav__link">
+        GPTs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minilm/" class="md-nav__link">
+        MiniLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T5/" class="md-nav__link">
+        T5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FlanModels/" class="md-nav__link">
+        FlanModels
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llama/" class="md-nav__link">
+        LLaMA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mamba/" class="md-nav__link">
+        Mamba
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepseek/" class="md-nav__link">
+        DeepSeek R1
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Large Language Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Large Language Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Large Language Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training_llm/" class="md-nav__link">
+        Training LLMs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prompt_engineering/" class="md-nav__link">
+        Prompt Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explainable_ai_llm/" class="md-nav__link">
+        Explainable AI: Language Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../streaming_chatgpt_gen/" class="md-nav__link">
+        Streaming ChatGPT Generations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../making_llm_multilingual/" class="md-nav__link">
+        Making LLM Multi-lingual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Tasks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tasks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tasks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../paraphraser/" class="md-nav__link">
+        Paraphraser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_similarity/" class="md-nav__link">
+        Text similarity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_generation/" class="md-nav__link">
+        Text generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relation_extraction/" class="md-nav__link">
+        Relation extraction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa/" class="md-nav__link">
+        Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_to_text_generation/" class="md-nav__link">
+        Data-to-Text Generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Named Entity Recognition
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Named Entity Recognition
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-spacy-ner-model-for-inference" class="md-nav__link">
+    Using Spacy NER model for Inference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-custom-ner-model-using-spacy-v3" class="md-nav__link">
+    Training custom NER model using Spacy v3
+  </a>
+  
+    <nav class="md-nav" aria-label="Training custom NER model using Spacy v3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-creation" class="md-nav__link">
+    Config Creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-preparation" class="md-nav__link">
+    Data Preparation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-validation" class="md-nav__link">
+    Data Validation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-the-model" class="md-nav__link">
+    Training the Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-of-the-model" class="md-nav__link">
+    Evaluation of the Model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-materials" class="md-nav__link">
+    Additional materials
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nlq/" class="md-nav__link">
+        Natural Language Querying
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Audio Intelligence
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Audio Intelligence" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Audio Intelligence
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/audio_snippets/" class="md-nav__link">
+        Code Snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Speech-to-Text
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Speech-to-Text" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Speech-to-Text
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/stt/" class="md-nav__link">
+        STT Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/wav2vec2/" class="md-nav__link">
+        Wav2Vec2 Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/whisper/" class="md-nav__link">
+        Whisper Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/connectionist_temporal_classification/" class="md-nav__link">
+        Connectionist Temporal Classification
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Text-to-Speech
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Text-to-Speech" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Text-to-Speech
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/tts/" class="md-nav__link">
+        TTS Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/neural_audio_codecs/" class="md-nav__link">
+        Neural Audio Codecs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/training_tts/" class="md-nav__link">
+        Training LLM-Based + Neural Codec TTS Models
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Applications
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Applications
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/voice_activity_detection/" class="md-nav__link">
+        Voice Activity Detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/speaker_diarization/" class="md-nav__link">
+        Speaker Diarization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Network Science
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Network Science" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Network Science
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Graph Neural Networks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graph Neural Networks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Graph Neural Networks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_2">
+          Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algorithms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_deepwalk/" class="md-nav__link">
+        DeepWalk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Knowledge Graphs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Knowledge Graphs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Knowledge Graphs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_embedding_algorithms/" class="md-nav__link">
+        KG Embedding Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Data Science Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Science Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Data Science Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_snippets/" class="md-nav__link">
+        Python snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/linux_snippets/" class="md-nav__link">
+        Linux snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/version_control/" class="md-nav__link">
+        Version control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/compute_and_ai_services/" class="md-nav__link">
+        Compute and AI Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/scraping_websites/" class="md-nav__link">
+        Scraping Websites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Database" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/databases_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/database_postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Good Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Good Practices" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Good Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/github_good_practices/" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_good_practices/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Machine Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/ML_snippets/" class="md-nav__link">
+        ML snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/clustering/" class="md-nav__link">
+        Clustering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/classification/" class="md-nav__link">
+        Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/loss_functions/" class="md-nav__link">
+        Loss functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/genaidetection/" class="md-nav__link">
+        Detecting AI Generated Content
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/dpo/" class="md-nav__link">
+        Direct Preference Optimization (DPO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Model Compression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Model Compression" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Compression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_kd/" class="md-nav__link">
+        Knowledge Distillation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/model_compression_quant/" class="md-nav__link">
+        Model Quantization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Optimization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimization" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Optimization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning/ranking_algorithms/" class="md-nav__link">
+        Ranking Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Reinforcement Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reinforcement Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Reinforcement Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/rlhf/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/q_learning/" class="md-nav__link">
+        Q-Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/multi_arm_bandit/" class="md-nav__link">
+        Multi-Arm Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-spacy-ner-model-for-inference" class="md-nav__link">
+    Using Spacy NER model for Inference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-custom-ner-model-using-spacy-v3" class="md-nav__link">
+    Training custom NER model using Spacy v3
+  </a>
+  
+    <nav class="md-nav" aria-label="Training custom NER model using Spacy v3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-creation" class="md-nav__link">
+    Config Creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-preparation" class="md-nav__link">
+    Data Preparation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-validation" class="md-nav__link">
+    Data Validation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-the-model" class="md-nav__link">
+    Training the Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-of-the-model" class="md-nav__link">
+    Evaluation of the Model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-materials" class="md-nav__link">
+    Additional materials
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/imohitmayank/a_lazy_data_science_guide/edit/master/docs/natural_language_processing/named_entity_recognition.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="named-entity-recognition">Named entity recognition</h1>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li>Named entity recognition (NER) is the process of identifying entities in the unstructured text, where entities could be objects, people, locations, organizations, etc. </li>
+<li>NER's most basic building block consists of pair of <code>entity_type</code> and <code>entity_value</code>. Consider the following example,</li>
+</ul>
+<div class="highlight"><pre><span></span><code>## Statement
+My name is Mohit, and I am from India. 
+I am a Data Scientist and I will be leaving for my office around 9 AM.
+
+## Entities
+[{
+    &#39;entity_type&#39;: &#39;PERSON&#39;,
+    &#39;entity_value&#39;: &#39;Mohit&#39;,
+},
+{
+    &#39;entity_type&#39;: &#39;LOCATION&#39;,
+    &#39;entity_value&#39;: &#39;India&#39;,
+}, 
+{
+    &#39;entity_type&#39;: &#39;TIME&#39;,
+    &#39;entity_value&#39;: &#39;9 AM&#39;,
+}]
+</code></pre></div>
+<ul>
+<li>The process of extracting entities could be done in two ways.<ul>
+<li><strong>Heuristic</strong>: by identifying the entities based on the rules.</li>
+<li><strong>Semantic</strong>: by identifying the entities based on the semantics and context.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Heuristic based approach is suited only for simple entities for which approximate rules can be created. Take for example EMAILID, PHONE_NUMBER, WEBSITE, etc. It should be easy enough to create regular expressions for such cases and hence heuristic approach could be applied. We can also apply part of speech based rules to extract certain entities.</li>
+<li>On the other hand, the Semantic approach is required where the cardinality of the entities is high and the context is required to extract the entities. For example, NAME, LOCATION, DESIGNATION, etc. For these cases, we usually train neural network based models that learn to consider the context and extract the entities.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A good approach to creating your NER solution would be to segregate your entities into simple and complex, and then create either a heuristic or a semantic based solution or a combination of both. In short, it is not always suitable to directly go to fancy NN based semantic approaches - it could be unnecessary overkill.</p>
+</div>
+<ul>
+<li>Remember the entity types are not set in stone and we can even train new models or finetune existing models on our own custom entities. </li>
+<li>For this, in the Semantic-based approach, it's a good idea to finetune the existing model rather than to train a new one as it will require far fewer data.</li>
+<li>The amount of data required to finetune model depends on how similar the custom entities are with the existing entities. Consider the following cases, <ul>
+<li>The model is pretrained to detect PERSON and now you want to finetune it to detect MALE_NAME and FEMALE_NAME. As this is just a lower granularity on the existing PERSON entity, a mere ~200 examples <em>(for each new entity type)</em> could give you good results.</li>
+<li>On the other hand, if you now want to finetune a completely new entity like OBJECTIONS_TYPE, you may need ~500 examples. </li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Another thing to consider is the length of <code>entity_value</code>. With an increase in <code>entity_value</code> you may require more examples to get good accuracy results.</p>
+</div>
+<h2 id="code">Code</h2>
+<ul>
+<li>There are lots of Python-based packages that provide open source NER models. Some of these packages are <a href="https://spacy.io/">Spacy</a>, <a href="https://www.nltk.org/">NLTK</a>, <a href="https://github.com/flairNLP/flair">Flair</a>, etc. While packages provide an easy interface to the NER models or rules, we can even load and use external open-source NER models. </li>
+</ul>
+<h3 id="using-spacy-ner-model-for-inference">Using Spacy NER model for Inference</h3>
+<ul>
+<li><a href="https://spacy.io/">Spacy</a> comes with several pre-trained models that can be selected based on the use case. For this example, we will use the Transformer model available with <a href="https://spacy.io/universe/project/spacy-transformers">Spacy Transformers</a>.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># install spacy-transformers and transformers model</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">spacy</span><span class="o">-</span><span class="n">transformers</span>
+<span class="err">!</span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">spacy</span> <span class="n">download</span> <span class="n">en_core_web_trf</span>
+
+<span class="c1"># import the spacy library</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">spacy</span>
+
+<span class="c1"># load the model</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_trf&quot;</span><span class="p">)</span>
+<span class="c1"># set the text</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;My name is Mohit, and I am from India. I am a Data Scientist and I will be leaving for my office around 9 AM.&quot;</span>
+<span class="c1"># create spacy doc by passing the text</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="c1"># print all of the identified entities</span>
+<span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">ents</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type: </span><span class="si">{</span><span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="si">}</span><span class="s2"> -- Value: </span><span class="si">{</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Output:</span>
+<span class="c1"># Type: PERSON -- Value: Mohit</span>
+<span class="c1"># Type: GPE -- Value: India</span>
+<span class="c1"># Type: TIME -- Value: around 9 AM</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>We can even display the results in a much more intuitive and fancy way by,</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># use displacy to render the result</span>
+<span class="n">spacy</span><span class="o">.</span><span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;ent&#39;</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">})</span>
+</code></pre></div></td></tr></table></div>
+<figure>
+<p><img alt="" src="../../imgs/ner_example.png" />
+    <figcaption>NER result for the above example</figcaption></p>
+</figure>
+<h3 id="training-custom-ner-model-using-spacy-v3">Training custom NER model using Spacy v3</h3>
+<ul>
+<li>All NER use-cases are not the same, and you may want to train a custom model with new entity types. <a href="https://spacy.io/">Spacy</a> provides an option to train custom NER models as well. To be frank the complete process is quite complicated, but nothing to worry, strap on and let's cover them steo by step.</li>
+</ul>
+<h4 id="config-creation">Config Creation</h4>
+<ul>
+<li>To begin with, we will define the settings that will be used throughout the training process. Starting with Spacy v3, all parameter settings need to be configured using a <code>.cfg</code> file. We can create a <code>.cfg</code> file following the guide <a href="https://spacy.io/usage/training">here</a>. Basically, it requires to<ul>
+<li>Firstly, create a base config using the quick widget provided at the <a href="https://spacy.io/usage/training">page</a>. Do remember to check the correct options. <em>(Refer below image for one example)</em></li>
+<li>Secondly, run CLI command to update the base config <code>python -m spacy init fill-config base_config.cfg config.cfg</code></li>
+</ul>
+</li>
+</ul>
+<figure>
+<p><img alt="" src="../../imgs/ner_training_config_init.png" width="500" />
+    <figcaption>Example of options to mark to generate <code>base_config.cfg</code> from Spacy website for NER training.</figcaption></p>
+</figure>
+<h4 id="data-preparation">Data Preparation</h4>
+<ul>
+<li>Next we need to prepare the dataset. At high level, you need to prepare pairs of text and entities in the text. Consider the following dummy dataset where we want to extract video game's names, <em>(in CSV format)</em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>text</th>
+<th>label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I was playing Call of Duty</td>
+<td>{'entities': [[14, 26, 'Game']]}</td>
+</tr>
+<tr>
+<td>I did not like COD1 and COD2</td>
+<td>{'entities': [[15, 19, 'Game'], [24, 28, 'Game']]}</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>As obvious, <code>text</code> contains the base text and <code>label</code> contains all the entities that ideally should be extracted from text. This is our golden dataset. Here, inside <code>label</code> we have a dict with <code>entities</code> key and the value is list of different entities. Each entity has <code>[start_index, end_index, entity_type]</code> data. Note, we follow the Python indexing i.e. the indexing starts with 0, <code>start_index</code> is the index of start character and <code>end_index</code> is the index of <code>end character + 1</code>. In the first example, <code>"I was playing Call of Duty"[14:26]</code> will return <code>"Call of Duty"</code> which is a very famous video game 🎮</li>
+<li>Now we will convert the CSV file into Spacy format. It is the recommended format supported by the package. To do this, run the following code, </li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># import </span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">spacy.tokens</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocBin</span>
+
+<span class="c1"># function</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_to_spacy</span><span class="p">(</span><span class="n">data_df</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert the data to spacy format</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ------------</span>
+<span class="sd">    :param data_df: pandas.DataFrame</span>
+<span class="sd">        dataframe containing the data to be converted</span>
+<span class="sd">    :param output_path: string</span>
+<span class="sd">        path to save the converted data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">blank</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">)</span> <span class="c1"># load a new blank spacy model</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DocBin</span><span class="p">()</span> <span class="c1"># create a DocBin object</span>
+    <span class="c1"># iterate over the dataframe</span>
+    <span class="k">for</span> <span class="n">id_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">data_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()):</span> 
+        <span class="n">text</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="c1"># extract the text</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="o">.</span><span class="n">make_doc</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="c1"># create doc object from text</span>
+        <span class="n">ents</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># var to hold entities</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="s1">&#39;entities&#39;</span><span class="p">]:</span> <span class="c1"># add character indexes</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">entity</span> <span class="c1"># extract the entity details</span>
+            <span class="n">span</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">char_span</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">alignment_mode</span><span class="o">=</span><span class="s2">&quot;contract&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">span</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Skipping entity&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">ents</span> <span class="o">=</span> <span class="n">ents</span> <span class="c1"># label the text with the ents</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="c1"># save to disk</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">to_disk</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span> <span class="c1"># save the docbin object</span>
+
+<span class="c1"># run the code</span>
+<span class="n">convert_to_spacy</span><span class="p">(</span><span class="n">data_df</span><span class="p">,</span> <span class="s2">&quot;train_data.spacy&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to split the CSV file into train and test data. Then you can run the above code twice to generate two spacy files, one for train and one for test. </p>
+<p>Also, we can use random split, as stratified split is quite difficult to do. This is because each text may heve multiple instances of same or different entities and we want to split the text based on entities! Because of this, a stratified split is equivalent to solving a optimizing problem - How to split the text samples such that the underlying entities are equally distributed! Hence we will use a random split for rough estimation and the result may surprise you <img alt="😉" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f609.svg" title=":wink:" /></p>
+</div>
+<h4 id="data-validation">Data Validation</h4>
+<ul>
+<li>The next step is to perform a validation to check if the data is correctly converted or not. Spacy provides readymade CLI command for this purpose, </li>
+</ul>
+<div class="highlight"><pre><span></span><code>spacy<span class="w"> </span>debug<span class="w"> </span>data<span class="w"> </span>-V<span class="w"> </span>/content/config.cfg<span class="w"> </span>--paths.train<span class="w"> </span>/content/train_data.spacy<span class="w"> </span>--paths.dev<span class="w"> </span>/content/test_data.spacy
+</code></pre></div>
+<ul>
+<li>This should print output similar to, </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">============================</span><span class="w"> </span>Data<span class="w"> </span>file<span class="w"> </span><span class="nv">validation</span><span class="w"> </span><span class="o">============================</span>
+✔<span class="w"> </span>Pipeline<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>initialized<span class="w"> </span>with<span class="w"> </span>data
+✔<span class="w"> </span>Corpus<span class="w"> </span>is<span class="w"> </span><span class="nv">loadable</span>
+
+<span class="o">===============================</span><span class="w"> </span>Training<span class="w"> </span><span class="nv">stats</span><span class="w"> </span><span class="o">===============================</span>
+Language:<span class="w"> </span>en
+Training<span class="w"> </span>pipeline:<span class="w"> </span>tok2vec,<span class="w"> </span>ner
+<span class="m">7916</span><span class="w"> </span>training<span class="w"> </span>docs
+<span class="m">235</span><span class="w"> </span>evaluation<span class="w"> </span>docs
+✔<span class="w"> </span>No<span class="w"> </span>overlap<span class="w"> </span>between<span class="w"> </span>training<span class="w"> </span>and<span class="w"> </span>evaluation<span class="w"> </span><span class="nv">data</span>
+
+<span class="o">==============================</span><span class="w"> </span>Vocab<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nv">Vectors</span><span class="w"> </span><span class="o">==============================</span>
+ℹ<span class="w"> </span><span class="m">876405</span><span class="w"> </span>total<span class="w"> </span>word<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>data<span class="w"> </span><span class="o">(</span><span class="m">33656</span><span class="w"> </span>unique<span class="o">)</span>
+<span class="m">10</span><span class="w"> </span>most<span class="w"> </span>common<span class="w"> </span>words:<span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="o">(</span><span class="m">35938</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;.&#39;</span><span class="w"> </span><span class="o">(</span><span class="m">24253</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;  &#39;</span><span class="w"> </span><span class="o">(</span><span class="m">19522</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="w"> </span><span class="o">(</span><span class="m">17316</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;to&#39;</span>
+<span class="o">(</span><span class="m">16328</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;you&#39;</span><span class="w"> </span><span class="o">(</span><span class="m">15474</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;the&#39;</span><span class="w"> </span><span class="o">(</span><span class="m">14626</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">(</span><span class="m">14051</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39;  &#39;</span><span class="w"> </span><span class="o">(</span><span class="m">13869</span><span class="o">)</span>,<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">(</span><span class="m">12003</span><span class="o">)</span>
+ℹ<span class="w"> </span>No<span class="w"> </span>word<span class="w"> </span>vectors<span class="w"> </span>present<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="nv">package</span>
+
+<span class="o">==========================</span><span class="w"> </span>Named<span class="w"> </span>Entity<span class="w"> </span><span class="nv">Recognition</span><span class="w"> </span><span class="o">==========================</span>
+ℹ<span class="w"> </span><span class="m">6</span><span class="w"> </span>label<span class="o">(</span>s<span class="o">)</span>
+<span class="m">0</span><span class="w"> </span>missing<span class="w"> </span>value<span class="o">(</span>s<span class="o">)</span><span class="w"> </span><span class="o">(</span>tokens<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span>label<span class="o">)</span>
+Labels<span class="w"> </span><span class="k">in</span><span class="w"> </span>train<span class="w"> </span>data:<span class="w"> </span><span class="s1">&#39;Game&#39;</span>
+✔<span class="w"> </span>Good<span class="w"> </span>amount<span class="w"> </span>of<span class="w"> </span>examples<span class="w"> </span><span class="k">for</span><span class="w"> </span>all<span class="w"> </span>labels
+✔<span class="w"> </span>Examples<span class="w"> </span>without<span class="w"> </span>occurrences<span class="w"> </span>available<span class="w"> </span><span class="k">for</span><span class="w"> </span>all<span class="w"> </span>labels
+✔<span class="w"> </span>No<span class="w"> </span>entities<span class="w"> </span>consisting<span class="w"> </span>of<span class="w"> </span>or<span class="w"> </span>starting/ending<span class="w"> </span>with<span class="w"> </span>whitespace
+✔<span class="w"> </span>No<span class="w"> </span>entities<span class="w"> </span>crossing<span class="w"> </span>sentence<span class="w"> </span><span class="nv">boundaries</span>
+
+<span class="o">==================================</span><span class="w"> </span><span class="nv">Summary</span><span class="w"> </span><span class="o">==================================</span>
+✔<span class="w"> </span><span class="m">7</span><span class="w"> </span>checks<span class="w"> </span>passed
+</code></pre></div>
+<ul>
+<li>Based on the quality of annotations or the tool used, you may encounter error like <code>Whitespaces present</code> in the data validation step. This is because the annotations has whitespaces and it becomes difficult to train the model with such examples. In such case, we can fix the data by removing the whitespaces as shown below, </li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># var to hold the count of faulty annotations</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># remove instances from the dataframe where annotations contains whitespaces</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">row_label</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">][</span><span class="s1">&#39;entities&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">entity_index</span><span class="p">,</span> <span class="n">entity</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row_label</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">][</span><span class="n">entity</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">entity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">new_text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">start_index</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">new_text</span><span class="p">)</span>
+            <span class="n">end_index</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_text</span><span class="p">)</span>
+            <span class="n">row_label</span><span class="p">[</span><span class="n">entity_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">,</span> <span class="n">entity</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+<span class="c1"># print the count of faulty annotations that were fixed</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="training-the-model">Training the Model</h4>
+<ul>
+<li>Now we are ready to train the model. Spacy CLI command can be used, </li>
+</ul>
+<div class="highlight"><pre><span></span><code>spacy train --output models/ config/config.cfg --paths.train data/train_data.spacy --paths.dev data/test_data.spacy --gpu-id 0
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to remove <code>--gpu-id 0</code> if you do not have a GPU.</p>
+</div>
+<ul>
+<li>This should print something like, </li>
+</ul>
+<div class="highlight"><pre><span></span><code>ℹ<span class="w"> </span>Saving<span class="w"> </span>to<span class="w"> </span>output<span class="w"> </span>directory:<span class="w"> </span>models
+ℹ<span class="w"> </span>Using<span class="w"> </span><span class="nv">CPU</span>
+
+<span class="o">===========================</span><span class="w"> </span>Initializing<span class="w"> </span><span class="nv">pipeline</span><span class="w"> </span><span class="o">===========================</span>
+<span class="o">[</span><span class="m">2022</span>-05-31<span class="w"> </span><span class="m">23</span>:29:00,409<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>Set<span class="w"> </span>up<span class="w"> </span>nlp<span class="w"> </span>object<span class="w"> </span>from<span class="w"> </span>config
+<span class="o">[</span><span class="m">2022</span>-05-31<span class="w"> </span><span class="m">23</span>:29:00,413<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>Pipeline:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;tok2vec&#39;</span>,<span class="w"> </span><span class="s1">&#39;ner&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="m">2022</span>-05-31<span class="w"> </span><span class="m">23</span>:29:00,415<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>Created<span class="w"> </span>vocabulary
+<span class="o">[</span><span class="m">2022</span>-05-31<span class="w"> </span><span class="m">23</span>:29:00,415<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>Finished<span class="w"> </span>initializing<span class="w"> </span>nlp<span class="w"> </span>object
+<span class="o">[</span><span class="m">2022</span>-05-31<span class="w"> </span><span class="m">23</span>:29:08,553<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>Initialized<span class="w"> </span>pipeline<span class="w"> </span>components:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;tok2vec&#39;</span>,<span class="w"> </span><span class="s1">&#39;ner&#39;</span><span class="o">]</span>
+✔<span class="w"> </span>Initialized<span class="w"> </span><span class="nv">pipeline</span>
+
+<span class="o">=============================</span><span class="w"> </span>Training<span class="w"> </span><span class="nv">pipeline</span><span class="w"> </span><span class="o">=============================</span>
+ℹ<span class="w"> </span>Pipeline:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;tok2vec&#39;</span>,<span class="w"> </span><span class="s1">&#39;ner&#39;</span><span class="o">]</span>
+ℹ<span class="w"> </span>Initial<span class="w"> </span>learn<span class="w"> </span>rate:<span class="w"> </span><span class="m">0</span>.001
+E<span class="w">    </span><span class="c1">#       LOSS TOK2VEC  LOSS NER  ENTS_F  ENTS_P  ENTS_R  SCORE </span>
+---<span class="w">  </span>------<span class="w">  </span>------------<span class="w">  </span>--------<span class="w">  </span>------<span class="w">  </span>------<span class="w">  </span>------<span class="w">  </span>------
+<span class="w">  </span><span class="m">0</span><span class="w">       </span><span class="m">0</span><span class="w">          </span><span class="m">0</span>.00<span class="w">     </span><span class="m">14</span>.42<span class="w">    </span><span class="m">0</span>.39<span class="w">    </span><span class="m">0</span>.43<span class="w">    </span><span class="m">0</span>.36<span class="w">    </span><span class="m">0</span>.00
+<span class="w">  </span><span class="m">0</span><span class="w">    </span><span class="m">1000</span><span class="w">      </span><span class="m">75263</span>.20<span class="w">   </span><span class="m">7992</span>.36<span class="w">    </span><span class="m">9</span>.34<span class="w">    </span><span class="m">9</span>.29<span class="w">    </span><span class="m">9</span>.39<span class="w">    </span><span class="m">0</span>.09<span class="w">                                        </span>
+<span class="w">  </span><span class="m">0</span><span class="w">    </span><span class="m">2000</span><span class="w">     </span><span class="m">473275</span>.24<span class="w">   </span><span class="m">6660</span>.36<span class="w">   </span><span class="m">20</span>.33<span class="w">   </span><span class="m">29</span>.45<span class="w">   </span><span class="m">15</span>.52<span class="w">    </span><span class="m">0</span>.20<span class="w">                                        </span>
+<span class="w">  </span><span class="m">1</span><span class="w">    </span><span class="m">3000</span><span class="w">     </span><span class="m">203618</span>.32<span class="w">  </span><span class="m">12177</span>.86<span class="w">   </span><span class="m">27</span>.76<span class="w">   </span><span class="m">29</span>.32<span class="w">   </span><span class="m">26</span>.35<span class="w">    </span><span class="m">0</span>.28<span class="w">                                        </span>
+<span class="w">  </span><span class="m">2</span><span class="w">    </span><span class="m">4000</span><span class="w">     </span><span class="m">394085</span>.98<span class="w">  </span><span class="m">14795</span>.70<span class="w">   </span><span class="m">35</span>.14<span class="w">   </span><span class="m">44</span>.02<span class="w">   </span><span class="m">29</span>.24<span class="w">    </span><span class="m">0</span>.35<span class="w">                                        </span>
+<span class="w">  </span><span class="m">3</span><span class="w">    </span><span class="m">5000</span><span class="w">     </span><span class="m">280698</span>.47<span class="w">  </span><span class="m">13595</span>.65<span class="w">   </span><span class="m">34</span>.71<span class="w">   </span><span class="m">40</span>.58<span class="w">   </span><span class="m">30</span>.32<span class="w">    </span><span class="m">0</span>.35<span class="w">                                        </span>
+<span class="w">  </span><span class="m">4</span><span class="w">    </span><span class="m">6000</span><span class="w">     </span><span class="m">332890</span>.64<span class="w">  </span><span class="m">13044</span>.08<span class="w">   </span><span class="m">37</span>.39<span class="w">   </span><span class="m">44</span>.72<span class="w">   </span><span class="m">32</span>.13<span class="w">    </span><span class="m">0</span>.37<span class="w">                                        </span>
+<span class="w">  </span><span class="m">5</span><span class="w">    </span><span class="m">7000</span><span class="w">     </span><span class="m">645988</span>.19<span class="w">  </span><span class="m">12552</span>.55<span class="w">   </span><span class="m">40</span>.72<span class="w">   </span><span class="m">45</span>.54<span class="w">   </span><span class="m">36</span>.82<span class="w">    </span><span class="m">0</span>.41<span class="w">                                        </span>
+<span class="w">  </span><span class="m">6</span><span class="w">    </span><span class="m">8000</span><span class="w">     </span><span class="m">155963</span>.67<span class="w">  </span><span class="m">12083</span>.43<span class="w">   </span><span class="m">34</span>.97<span class="w">   </span><span class="m">33</span>.01<span class="w">   </span><span class="m">37</span>.18<span class="w">    </span><span class="m">0</span>.35<span class="w">                                        </span>
+<span class="w">  </span><span class="m">7</span><span class="w">    </span><span class="m">9000</span><span class="w">     </span><span class="m">802471</span>.84<span class="w">  </span><span class="m">11443</span>.62<span class="w">   </span><span class="m">38</span>.64<span class="w">   </span><span class="m">40</span>.64<span class="w">   </span><span class="m">36</span>.82<span class="w">    </span><span class="m">0</span>.39<span class="w">                                        </span>
+<span class="w">  </span><span class="m">8</span><span class="w">   </span><span class="m">10000</span><span class="w">      </span><span class="m">44495</span>.21<span class="w">  </span><span class="m">10276</span>.14<span class="w">   </span><span class="m">38</span>.79<span class="w">   </span><span class="m">40</span>.55<span class="w">   </span><span class="m">37</span>.18<span class="w">    </span><span class="m">0</span>.39<span class="w">                                        </span>
+<span class="w">  </span><span class="m">9</span><span class="w">   </span><span class="m">11000</span><span class="w">      </span><span class="m">86229</span>.51<span class="w">  </span><span class="m">10011</span>.45<span class="w">   </span><span class="m">40</span>.08<span class="w">   </span><span class="m">46</span>.86<span class="w">   </span><span class="m">35</span>.02<span class="w">    </span><span class="m">0</span>.40<span class="w">                                        </span>
+<span class="w"> </span><span class="m">10</span><span class="w">   </span><span class="m">12000</span><span class="w">     </span><span class="m">198516</span>.08<span class="w">   </span><span class="m">9752</span>.18<span class="w">   </span><span class="m">37</span>.38<span class="w">   </span><span class="m">40</span>.08<span class="w">   </span><span class="m">35</span>.02<span class="w">    </span><span class="m">0</span>.37<span class="w">                                        </span>
+Epoch<span class="w"> </span><span class="m">11</span>:<span class="w">  </span><span class="m">66</span>%<span class="p">|</span>█████████████████████████████████████▍<span class="w">                   </span><span class="p">|</span><span class="w"> </span><span class="m">656</span>/1000<span class="w"> </span><span class="o">[</span><span class="m">02</span>:34&lt;<span class="m">01</span>:28,<span class="w">  </span><span class="m">3</span>.89it/s<span class="o">]</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Modify the <code>config.cfg</code> file to specify the model to use, the epochs to train for, the learning rate to use and other settings.</p>
+</div>
+<h4 id="evaluation-of-the-model">Evaluation of the Model</h4>
+<ul>
+<li>Finally, once the trainig is done, we can evaluate the model using the Spacy CLI command, </li>
+</ul>
+<div class="highlight"><pre><span></span><code>spacy<span class="w"> </span>evaluate<span class="w"> </span>models/model-best<span class="w"> </span>data/test_data.spacy<span class="w"> </span>--gpu-id<span class="w"> </span><span class="m">0</span>
+</code></pre></div>
+<h2 id="additional-materials">Additional materials</h2>
+<ul>
+<li>To train Spacy NER model on a custom dataset: <a href="https://towardsdatascience.com/using-spacy-3-0-to-build-a-custom-ner-model-c9256bea098">Spacy v3 Custom NER</a></li>
+<li><a href="https://www.davidsbatista.net/blog/2018/05/09/Named_Entity_Evaluation/">Named-Entity evaluation metrics based on entity-level</a></li>
+</ul>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../data_to_text_generation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data-to-Text Generation" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Data-to-Text Generation
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../nlq/" class="md-footer__link md-footer__link--next" aria-label="Next: Natural Language Querying" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Natural Language Querying
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/imohitmayank" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/imohitmayank" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/imohitmayank/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@mohitmayank" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M180.5 74.262C80.813 74.262 0 155.633 0 256s80.819 181.738 180.5 181.738S361 356.373 361 256 280.191 74.262 180.5 74.262Zm288.25 10.646c-49.845 0-90.245 76.619-90.245 171.095s40.406 171.1 90.251 171.1 90.251-76.619 90.251-171.1H559c0-94.503-40.4-171.095-90.248-171.095Zm139.506 17.821c-17.526 0-31.735 68.628-31.735 153.274s14.2 153.274 31.735 153.274S640 340.631 640 256c0-84.649-14.215-153.271-31.742-153.271Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f758a944.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

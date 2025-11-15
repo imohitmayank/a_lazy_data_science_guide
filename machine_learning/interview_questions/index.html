@@ -1,0 +1,4033 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://mohitmayank.com/a_lazy_data_science_guide/machine_learning/interview_questions/">
+      
+      <link rel="icon" href="../../imgs/logo.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.4">
+    
+    
+      
+        <title>Interview Questions - A Lazy Data Science Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-2DVXT9L5D4"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-2DVXT9L5D4",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DVXT9L5D4"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-is-deep-learning-and-how-is-it-different-from-traditional-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </span>
+    <strong>Twitter</strong>
+  </a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-header__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A Lazy Data Science Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interview Questions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../natural_language_processing/interview_questions/" class="md-tabs__link">
+        Natural Language Processing
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-tabs__link">
+        Audio Intelligence
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network_science/introduction/" class="md-tabs__link">
+        Network Science
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data_science_tools/introduction/" class="md-tabs__link">
+        Data Science Tools
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../introduction/" class="md-tabs__link md-tabs__link--active">
+        Machine Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-tabs__link">
+        Reinforcement Learning
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A Lazy Data Science Guide" class="md-nav__button md-logo" aria-label="A Lazy Data Science Guide" data-md-component="logo">
+      
+  <img src="../../imgs/logo.png" alt="logo">
+
+    </a>
+    A Lazy Data Science Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/imohitmayank/a_lazy_data_science_guide" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Hello
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/getting_started/" class="md-nav__link">
+        Getting started with Data Science
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Natural Language Processing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Natural Language Processing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Natural Language Processing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Architectures/Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectures/Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architectures/Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/word2vec/" class="md-nav__link">
+        Word2Vec
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/lstm_gru_rnn/" class="md-nav__link">
+        LSTM, GRU & RNN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/transformer/" class="md-nav__link">
+        Transformers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/BERT/" class="md-nav__link">
+        BERT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/GPTs/" class="md-nav__link">
+        GPTs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/minilm/" class="md-nav__link">
+        MiniLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/T5/" class="md-nav__link">
+        T5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/FlanModels/" class="md-nav__link">
+        FlanModels
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/llama/" class="md-nav__link">
+        LLaMA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/mamba/" class="md-nav__link">
+        Mamba
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/deepseek/" class="md-nav__link">
+        DeepSeek R1
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Large Language Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Large Language Models" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Large Language Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/training_llm/" class="md-nav__link">
+        Training LLMs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/prompt_engineering/" class="md-nav__link">
+        Prompt Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/explainable_ai_llm/" class="md-nav__link">
+        Explainable AI: Language Models
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/streaming_chatgpt_gen/" class="md-nav__link">
+        Streaming ChatGPT Generations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/making_llm_multilingual/" class="md-nav__link">
+        Making LLM Multi-lingual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Tasks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tasks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tasks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/paraphraser/" class="md-nav__link">
+        Paraphraser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/text_similarity/" class="md-nav__link">
+        Text similarity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/text_generation/" class="md-nav__link">
+        Text generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/relation_extraction/" class="md-nav__link">
+        Relation extraction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/qa/" class="md-nav__link">
+        Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/data_to_text_generation/" class="md-nav__link">
+        Data-to-Text Generation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/named_entity_recognition/" class="md-nav__link">
+        Named Entity Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../natural_language_processing/nlq/" class="md-nav__link">
+        Natural Language Querying
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Audio Intelligence
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Audio Intelligence" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Audio Intelligence
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/audio_snippets/" class="md-nav__link">
+        Code Snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Speech-to-Text
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Speech-to-Text" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Speech-to-Text
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/stt/" class="md-nav__link">
+        STT Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/wav2vec2/" class="md-nav__link">
+        Wav2Vec2 Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/whisper/" class="md-nav__link">
+        Whisper Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/connectionist_temporal_classification/" class="md-nav__link">
+        Connectionist Temporal Classification
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Text-to-Speech
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Text-to-Speech" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Text-to-Speech
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/tts/" class="md-nav__link">
+        TTS Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/neural_audio_codecs/" class="md-nav__link">
+        Neural Audio Codecs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/training_tts/" class="md-nav__link">
+        Training LLM-Based + Neural Codec TTS Models
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Applications
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Applications" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Applications
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/voice_activity_detection/" class="md-nav__link">
+        Voice Activity Detection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio_intelligence/speaker_diarization/" class="md-nav__link">
+        Speaker Diarization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Network Science
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Network Science" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Network Science
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Graph Neural Networks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graph Neural Networks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Graph Neural Networks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_2">
+          Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algorithms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/gnn_deepwalk/" class="md-nav__link">
+        DeepWalk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Knowledge Graphs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Knowledge Graphs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Knowledge Graphs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network_science/kg_embedding_algorithms/" class="md-nav__link">
+        KG Embedding Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Data Science Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Science Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Data Science Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_snippets/" class="md-nav__link">
+        Python snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/linux_snippets/" class="md-nav__link">
+        Linux snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/version_control/" class="md-nav__link">
+        Version control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/compute_and_ai_services/" class="md-nav__link">
+        Compute and AI Services
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/scraping_websites/" class="md-nav__link">
+        Scraping Websites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Database" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/databases_introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/database_postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" type="checkbox" id="__nav_5_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_8">
+          Good Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Good Practices" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Good Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/github_good_practices/" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_science_tools/python_good_practices/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Machine Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ML_snippets/" class="md-nav__link">
+        ML snippets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Interview Questions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Interview Questions
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-deep-learning-and-how-is-it-different-from-traditional-machine-learning" class="md-nav__link">
+    What is Deep learning and how is it different from traditional Machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-dummy-variable-trap-in-ml" class="md-nav__link">
+    What is Dummy Variable Trap in ML?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-back-propagation-work-in-a-neural-network" class="md-nav__link">
+    How does back-propagation work in a neural network?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#while-training-deep-learning-models-why-do-we-prefer-training-on-mini-batch-rather-than-on-individual-sample" class="md-nav__link">
+    While training deep learning models, why do we prefer training on mini-batch rather than on individual sample?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-layer-normalization" class="md-nav__link">
+    What is Layer Normalization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-batch-normalization" class="md-nav__link">
+    What is Batch Normalization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-entropy-information-theory" class="md-nav__link">
+    What is Entropy (information theory)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#even-though-sigmoid-function-is-non-linear-why-is-logistic-regression-considered-a-linear-classifier" class="md-nav__link">
+    Even though Sigmoid function is non-linear, why is Logistic regression considered a linear classifier?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-logits-soft-and-hard-targets" class="md-nav__link">
+    What is the difference between Logits, Soft and Hard targets?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-you-handle-overfitting-in-deep-learning-models" class="md-nav__link">
+    How do you handle overfitting in deep learning models?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-regularization-and-different-types-of-regularization-techniques" class="md-nav__link">
+    Explain Regularization and different types of regularization techniques.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-the-concept-of-temperature-in-deep-learning" class="md-nav__link">
+    Explain the concept of temperature in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-convolutional-neural-networks-cnn" class="md-nav__link">
+    Can you explain the concept of convolutional neural networks (CNN)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-you-handle-missing-data-in-deep-learning" class="md-nav__link">
+    How do you handle missing data in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-transfer-learning-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of transfer learning in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-gradient-descent-in-deep-learning" class="md-nav__link">
+    What is Gradient Descent in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-gradient-checkpointing-and-how-does-it-help-in-training-deep-neural-networks" class="md-nav__link">
+    What is Gradient Checkpointing and how does it help in training deep neural networks?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-representation-learning" class="md-nav__link">
+    What is Representation learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-label-smoothing" class="md-nav__link">
+    Explain Label smoothing.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-explain-what-is-dropout-in-deep-learning" class="md-nav__link">
+    Please explain what is Dropout in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-autoencoder" class="md-nav__link">
+    What are Autoencoder?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-attention-mechanism-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of attention mechanism in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-generative-adversarial-networks-gans" class="md-nav__link">
+    What are Generative Adversarial Networks (GANs)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-memory-networks-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of Memory Networks in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-capsule-networks-in-deep-learning" class="md-nav__link">
+    Explain Capsule Networks in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-generative-models-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of generative models in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-concept-of-adversarial-training-in-deep-learning" class="md-nav__link">
+    What is the concept of adversarial training in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-weight-initialization-in-deep-learning" class="md-nav__link">
+    What is weight initialization in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-data-augmentation" class="md-nav__link">
+    Explain data augmentation?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-different-between-standardization-and-normalization" class="md-nav__link">
+    What is the different between Standardization and Normalization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#is-it-possible-that-during-ml-training-both-validation-or-test-loss-and-accuracy-are-increasing" class="md-nav__link">
+    Is it possible that during ML training, both validation (or test) loss and accuracy, are increasing?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#is-k-means-clustering-algorithm-guaranteed-to-converge-with-unique-result" class="md-nav__link">
+    Is K-means clustering algorithm guaranteed to converge with unique result?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-k-means-clustering-is-it-possible-that-a-centroid-has-no-data-points-assigned-to-it" class="md-nav__link">
+    In K-means clustering, is it possible that a centroid has no data points assigned to it?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-entropy-in-information-theory" class="md-nav__link">
+    What is entropy in information theory?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-supervised-and-unsupervised-learning" class="md-nav__link">
+    What is the difference between supervised and unsupervised learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-you-evaluate-the-performance-of-a-machine-learning-model" class="md-nav__link">
+    How do you evaluate the performance of a machine learning model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-overfitting-in-machine-learning-and-how-can-it-be-prevented" class="md-nav__link">
+    What is overfitting in machine learning and how can it be prevented?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-decision-tree-and-random-forest" class="md-nav__link">
+    What is the difference between a decision tree and random forest?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-bias-variance-trade-off-in-machine-learning" class="md-nav__link">
+    What is the Bias-Variance trade-off in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-batch-and-online-learning" class="md-nav__link">
+    What is the difference between batch and online learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-decision-boundary-and-a-decision-surface-in-machine-learning" class="md-nav__link">
+    What is the difference between a decision boundary and a decision surface in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-principal-component-analysis-pca-in-machine-learning" class="md-nav__link">
+    What is the use of principal component analysis (PCA) in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-the-random-forest-algorithm-in-machine-learning" class="md-nav__link">
+    What is the use of the Random Forest algorithm in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-generative-model-and-a-discriminative-model" class="md-nav__link">
+    What is the difference between a generative model and a discriminative model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-an-autoencoder-and-a-variational-autoencoder" class="md-nav__link">
+    What is the difference between an autoencoder and a variational autoencoder?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-expectation-maximization-em-algorithm" class="md-nav__link">
+    What is Expectation-Maximization (EM) algorithm?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-l1-and-l2-regularization-in-machine-learning" class="md-nav__link">
+    What is the difference between L1 and L2 regularization in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-support-vector-machine-svm" class="md-nav__link">
+    Explain Support Vector Machine (SVM).
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-the-k-nearest-neighbors-k-nn-algorithm" class="md-nav__link">
+    What is the use of the k-nearest neighbors (k-NN) algorithm?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-the-random-sampling-method-for-feature-selection-in-machine-learning" class="md-nav__link">
+    What is the use of the Random Sampling method for feature selection in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-bagging-method-in-ensemble-learning" class="md-nav__link">
+    Explain Bagging method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-adaboost-method-in-ensemble-learning" class="md-nav__link">
+    Explain AdaBoost method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-gradient-boosting-method-in-ensemble-learning" class="md-nav__link">
+    Explain Gradient Boosting method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-xgboost-method-in-ensemble-learning" class="md-nav__link">
+    Explain XGBoost method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-group_size-in-context-of-quantization" class="md-nav__link">
+    What is group_size in context of Quantization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ema-exponential-moving-average-in-context-of-deep-learning" class="md-nav__link">
+    What is EMA (Exponential Moving Average) in context of deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-bradley-terry-model-and-how-is-it-used-in-machine-learning" class="md-nav__link">
+    What is Bradley-Terry model? And how is it used in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-rejection-sampling-in-machine-learning" class="md-nav__link">
+    What is Rejection Sampling in Machine Learning?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clustering/" class="md-nav__link">
+        Clustering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classification/" class="md-nav__link">
+        Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loss_functions/" class="md-nav__link">
+        Loss functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genaidetection/" class="md-nav__link">
+        Detecting AI Generated Content
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dpo/" class="md-nav__link">
+        Direct Preference Optimization (DPO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Model Compression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Model Compression" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Compression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_compression_intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_compression_kd/" class="md-nav__link">
+        Knowledge Distillation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_compression_quant/" class="md-nav__link">
+        Model Quantization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_6">
+          Optimization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimization" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Optimization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ranking_algorithms/" class="md-nav__link">
+        Ranking Algorithms
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Reinforcement Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reinforcement Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Reinforcement Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/interview_questions/" class="md-nav__link">
+        Interview Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Techniques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Techniques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Techniques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/rlhf/" class="md-nav__link">
+        RLHF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/q_learning/" class="md-nav__link">
+        Q-Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reinforcement_learning/multi_arm_bandit/" class="md-nav__link">
+        Multi-Arm Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-deep-learning-and-how-is-it-different-from-traditional-machine-learning" class="md-nav__link">
+    What is Deep learning and how is it different from traditional Machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-dummy-variable-trap-in-ml" class="md-nav__link">
+    What is Dummy Variable Trap in ML?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-back-propagation-work-in-a-neural-network" class="md-nav__link">
+    How does back-propagation work in a neural network?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#while-training-deep-learning-models-why-do-we-prefer-training-on-mini-batch-rather-than-on-individual-sample" class="md-nav__link">
+    While training deep learning models, why do we prefer training on mini-batch rather than on individual sample?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-layer-normalization" class="md-nav__link">
+    What is Layer Normalization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-batch-normalization" class="md-nav__link">
+    What is Batch Normalization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-entropy-information-theory" class="md-nav__link">
+    What is Entropy (information theory)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#even-though-sigmoid-function-is-non-linear-why-is-logistic-regression-considered-a-linear-classifier" class="md-nav__link">
+    Even though Sigmoid function is non-linear, why is Logistic regression considered a linear classifier?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-logits-soft-and-hard-targets" class="md-nav__link">
+    What is the difference between Logits, Soft and Hard targets?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-you-handle-overfitting-in-deep-learning-models" class="md-nav__link">
+    How do you handle overfitting in deep learning models?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-regularization-and-different-types-of-regularization-techniques" class="md-nav__link">
+    Explain Regularization and different types of regularization techniques.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-the-concept-of-temperature-in-deep-learning" class="md-nav__link">
+    Explain the concept of temperature in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-convolutional-neural-networks-cnn" class="md-nav__link">
+    Can you explain the concept of convolutional neural networks (CNN)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-you-handle-missing-data-in-deep-learning" class="md-nav__link">
+    How do you handle missing data in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-transfer-learning-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of transfer learning in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-gradient-descent-in-deep-learning" class="md-nav__link">
+    What is Gradient Descent in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-gradient-checkpointing-and-how-does-it-help-in-training-deep-neural-networks" class="md-nav__link">
+    What is Gradient Checkpointing and how does it help in training deep neural networks?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-representation-learning" class="md-nav__link">
+    What is Representation learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-label-smoothing" class="md-nav__link">
+    Explain Label smoothing.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-explain-what-is-dropout-in-deep-learning" class="md-nav__link">
+    Please explain what is Dropout in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-autoencoder" class="md-nav__link">
+    What are Autoencoder?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-attention-mechanism-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of attention mechanism in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-generative-adversarial-networks-gans" class="md-nav__link">
+    What are Generative Adversarial Networks (GANs)?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-memory-networks-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of Memory Networks in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-capsule-networks-in-deep-learning" class="md-nav__link">
+    Explain Capsule Networks in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-explain-the-concept-of-generative-models-in-deep-learning" class="md-nav__link">
+    Can you explain the concept of generative models in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-concept-of-adversarial-training-in-deep-learning" class="md-nav__link">
+    What is the concept of adversarial training in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-weight-initialization-in-deep-learning" class="md-nav__link">
+    What is weight initialization in deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-data-augmentation" class="md-nav__link">
+    Explain data augmentation?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-different-between-standardization-and-normalization" class="md-nav__link">
+    What is the different between Standardization and Normalization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#is-it-possible-that-during-ml-training-both-validation-or-test-loss-and-accuracy-are-increasing" class="md-nav__link">
+    Is it possible that during ML training, both validation (or test) loss and accuracy, are increasing?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#is-k-means-clustering-algorithm-guaranteed-to-converge-with-unique-result" class="md-nav__link">
+    Is K-means clustering algorithm guaranteed to converge with unique result?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-k-means-clustering-is-it-possible-that-a-centroid-has-no-data-points-assigned-to-it" class="md-nav__link">
+    In K-means clustering, is it possible that a centroid has no data points assigned to it?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-entropy-in-information-theory" class="md-nav__link">
+    What is entropy in information theory?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-supervised-and-unsupervised-learning" class="md-nav__link">
+    What is the difference between supervised and unsupervised learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-you-evaluate-the-performance-of-a-machine-learning-model" class="md-nav__link">
+    How do you evaluate the performance of a machine learning model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-overfitting-in-machine-learning-and-how-can-it-be-prevented" class="md-nav__link">
+    What is overfitting in machine learning and how can it be prevented?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-decision-tree-and-random-forest" class="md-nav__link">
+    What is the difference between a decision tree and random forest?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-bias-variance-trade-off-in-machine-learning" class="md-nav__link">
+    What is the Bias-Variance trade-off in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-batch-and-online-learning" class="md-nav__link">
+    What is the difference between batch and online learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-decision-boundary-and-a-decision-surface-in-machine-learning" class="md-nav__link">
+    What is the difference between a decision boundary and a decision surface in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-principal-component-analysis-pca-in-machine-learning" class="md-nav__link">
+    What is the use of principal component analysis (PCA) in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-the-random-forest-algorithm-in-machine-learning" class="md-nav__link">
+    What is the use of the Random Forest algorithm in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-a-generative-model-and-a-discriminative-model" class="md-nav__link">
+    What is the difference between a generative model and a discriminative model?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-an-autoencoder-and-a-variational-autoencoder" class="md-nav__link">
+    What is the difference between an autoencoder and a variational autoencoder?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-expectation-maximization-em-algorithm" class="md-nav__link">
+    What is Expectation-Maximization (EM) algorithm?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-l1-and-l2-regularization-in-machine-learning" class="md-nav__link">
+    What is the difference between L1 and L2 regularization in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-support-vector-machine-svm" class="md-nav__link">
+    Explain Support Vector Machine (SVM).
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-the-k-nearest-neighbors-k-nn-algorithm" class="md-nav__link">
+    What is the use of the k-nearest neighbors (k-NN) algorithm?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-use-of-the-random-sampling-method-for-feature-selection-in-machine-learning" class="md-nav__link">
+    What is the use of the Random Sampling method for feature selection in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-bagging-method-in-ensemble-learning" class="md-nav__link">
+    Explain Bagging method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-adaboost-method-in-ensemble-learning" class="md-nav__link">
+    Explain AdaBoost method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-gradient-boosting-method-in-ensemble-learning" class="md-nav__link">
+    Explain Gradient Boosting method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain-xgboost-method-in-ensemble-learning" class="md-nav__link">
+    Explain XGBoost method in ensemble learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-group_size-in-context-of-quantization" class="md-nav__link">
+    What is group_size in context of Quantization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ema-exponential-moving-average-in-context-of-deep-learning" class="md-nav__link">
+    What is EMA (Exponential Moving Average) in context of deep learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-bradley-terry-model-and-how-is-it-used-in-machine-learning" class="md-nav__link">
+    What is Bradley-Terry model? And how is it used in machine learning?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-rejection-sampling-in-machine-learning" class="md-nav__link">
+    What is Rejection Sampling in Machine Learning?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/imohitmayank/a_lazy_data_science_guide/edit/master/docs/machine_learning/interview_questions.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Interview Questions</h1>
+
+<ul>
+<li>Here are some questions and their answers to make you ready for your next interview. Best of luck <img alt="👋" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44b.svg" title=":wave:" /></li>
+</ul>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Question</label><label for="__tabbed_1_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-deep-learning-and-how-is-it-different-from-traditional-machine-learning">What is Deep learning and how is it different from traditional Machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Deep learning is a subfield of machine learning that uses neural networks with many layers, called deep neural networks, to learn and make predictions. It is different from traditional machine learning in that it can automatically learn hierarchical representations of the data and doesn't rely heavily on feature engineering.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Question</label><label for="__tabbed_2_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-dummy-variable-trap-in-ml">What is Dummy Variable Trap in ML?</h4>
+</div>
+<div class="tabbed-block">
+<p>The dummy variable trap is a situation in which a set of variables are perfectly correlated with each other, making it impossible to estimate the parameters of a linear regression model. This occurs when one or more of the dummy variables (one-hot encoded variables) are perfectly correlated with the constant term, which is a column of ones in the design matrix.</p>
+<p>For example, consider a dataset with a categorical variable with three levels: red, blue, and green. If we create three dummy variables for this variable, we might end up with a situation where the sum of the dummy variables is always equal to 1 for each observation. This would make it impossible to estimate the parameters of the linear regression model, as the design matrix would be singular.</p>
+<p>To avoid the dummy variable trap, we can drop one of the dummy variables. This will ensure that the dummy variables are not perfectly correlated with each other, and the design matrix will be invertible.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using regularizing, then don't drop a level as it biases your model in favor of the variable you dropped. Refer <a href="https://kiwidamien.github.io/are-you-getting-burned-by-one-hot-encoding.html">Damien Martin's Blog</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Question</label><label for="__tabbed_3_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="how-does-back-propagation-work-in-a-neural-network">How does back-propagation work in a neural network?</h4>
+</div>
+<div class="tabbed-block">
+<p>Backpropagation is an algorithm used to train neural networks. It starts by propagating the input forward through the network, calculating the output. Then it compares the output to the desired output and calculates the error. The error is then propagated backwards through the network, adjusting the weights in the network so as to minimize the error. This process is repeated multiple times until the error is minimized.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Question</label><label for="__tabbed_4_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="while-training-deep-learning-models-why-do-we-prefer-training-on-mini-batch-rather-than-on-individual-sample">While training deep learning models, why do we prefer training on mini-batch rather than on individual sample?</h4>
+</div>
+<div class="tabbed-block">
+<p>First, the gradient of the loss over a mini-batch is an estimate of the gradient over the training set, whose quality improves as the batch size increases. Second, computation over a batch can be much more efficient than <code>m</code> computations for individual examples, due to the parallelism afforded by the modern computing platforms. <a href="https://arxiv.org/abs/1502.03167v3">Ref</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Question</label><label for="__tabbed_5_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-layer-normalization">What is Layer Normalization?</h4>
+</div>
+<div class="tabbed-block">
+<p>Layer normalization is a technique used in deep learning to normalize the activations (outputs) of a neural network layer for each individual data sample. It works by computing the mean and variance of all features (neurons) in a layer for a single input, and then normalizing these values so that they have a standard distribution (zero mean and unit variance). This helps stabilize and accelerate the training process, making the model less sensitive to changes in the scale of the inputs and more robust to different batch sizes.</p>
+<ul>
+<li><strong>How it works</strong>: For each input sample, calculate the mean and variance across all features in a layer, then subtract the mean and divide by the standard deviation for each feature.</li>
+</ul>
+<ul>
+<li><strong>Where it's used</strong>: Especially useful in models like RNNs and transformers, and in any scenario where batch sizes are small or variable.</li>
+</ul>
+<ul>
+<li><strong>Key benefit</strong>: Works the same way during both training and inference, and does not depend on the batch size.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Question</label><label for="__tabbed_6_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-batch-normalization">What is Batch Normalization?</h4>
+</div>
+<div class="tabbed-block">
+<p>Batch normalization is a normalization technique that normalizes each feature across all samples in a mini-batch. This means, for each feature (e.g., each neuron in a layer), the mean and variance are computed across the entire batch, and each feature value is normalized using these batch statistics. <a href="https://arxiv.org/abs/1502.03167v3">Refer</a></p>
+<ul>
+<li><strong>How it works</strong>: For each feature, calculate the mean and variance across the current mini-batch, then normalize each value by subtracting the batch mean and dividing by the batch standard deviation.</li>
+</ul>
+<ul>
+<li><strong>Where it's used</strong>: Commonly used in convolutional neural networks (CNNs) and feedforward networks, especially with large and consistent batch sizes.</li>
+</ul>
+<ul>
+<li><strong>Key benefit</strong>: Helps accelerate training, improve generalization, and allows for higher learning rates.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Question</label><label for="__tabbed_7_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-entropy-information-theory">What is Entropy <em>(information theory)</em>?</h4>
+</div>
+<div class="tabbed-block">
+<p>Entropy is a measurement of uncertainty of a system. Intuitively, it is the amount of information needed to remove uncertainty from the system. The entropy of a probability distribution <code>p</code> for various states of a system can be computed as: <span class="arithmatex">\(-\sum_{i}^{} (p_i \log p_i)\)</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Question</label><label for="__tabbed_8_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="even-though-sigmoid-function-is-non-linear-why-is-logistic-regression-considered-a-linear-classifier">Even though Sigmoid function is non-linear, why is Logistic regression considered a linear classifier?</h4>
+</div>
+<div class="tabbed-block">
+<p>Logistic regression is called a linear classifier because it computes a linear combination of the input features <span class="arithmatex">\((z = w^T x + b)\)</span>, then applies the sigmoid function to output a probability. The decision boundary is defined by <span class="arithmatex">\(w^T x + b = 0\)</span>, which is a linear equation—so the separation between classes is linear in the feature space, even though the output is passed through a non-linear sigmoid. <a href="https://stats.stackexchange.com/questions/93569/why-is-logistic-regression-a-linear-classifier">Refer</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Question</label><label for="__tabbed_9_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-logits-soft-and-hard-targets">What is the difference between Logits, Soft and Hard targets?</h4>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Let us understand each of the terms one by one. For better understanding, let's take a dog vs cat image classification as an example. <ul>
+<li><strong>Logits</strong> are the un-normalized output of the model. In our cat vs dog example, logits will be, say, <code>10.1</code> for cat and <code>5.6</code> for dog for an image with cat. <a href="https://datascience.stackexchange.com/questions/31041/what-does-logits-in-machine-learning-mean">Refer this SE question</a>.</li>
+<li><strong>Soft target</strong>: are normalized logits by applying a <a href="https://stats.stackexchange.com/questions/163695/non-linearity-before-final-softmax-layer-in-a-convolutional-neural-network">function</a>. In our example, if we use softmax to the logits we get <code>0.99</code> for cat and <code>0.1</code> for dog.</li>
+<li><strong>Hard targets</strong>: are the encoding of the soft targets. In our example, as the model predicted (here correctly) the image as of cat, the hard targets be <code>1</code> for cat and <code>0</code> for dog.</li>
+</ul>
+</li>
+</ul>
+<pre class="mermaid"><code>graph LR
+    A[Logits] -- normalization --&gt; B[Soft Targets]
+    B -- encoding --&gt; C[Hard Targets]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Question</label><label for="__tabbed_10_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="how-do-you-handle-overfitting-in-deep-learning-models">How do you handle overfitting in deep learning models?</h4>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Overfitting occurs when a model becomes too complex and starts to fit the noise in the training data, rather than the underlying pattern. There are several ways to handle overfitting in deep learning models, including:<ul>
+<li><strong>Regularization techniques</strong> such as L1 and L2 regularization, which add a penalty term to the loss function to discourage large weights</li>
+<li><strong>Early stopping</strong>, where training is stopped before the model has a chance to fully fit the noise in the training data</li>
+<li><strong>Dropout</strong>, which randomly drops out a certain percentage of neurons during training to prevent them from co-adapting and becoming too specialized</li>
+<li>Adding <strong>more data</strong> to the training set</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Question</label><label for="__tabbed_11_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-regularization-and-different-types-of-regularization-techniques">Explain Regularization and different types of regularization techniques.</h4>
+</div>
+<div class="tabbed-block">
+<p>Regularization is a set of techniques used in machine learning to reduce overfitting and improve a model's ability to generalize to new, unseen data. Overfitting happens when a model learns not only the underlying patterns in the training data but also the noise, making it perform poorly on new data. Regularization addresses this by adding a penalty to the model's loss function, discouraging overly complex models and large parameter values.</p>
+<p><strong>Why use regularization?</strong></p>
+<ul>
+<li>Prevents overfitting by discouraging complex models</li>
+<li>Improves generalization to new data</li>
+<li>Encourages simpler, more robust models</li>
+</ul>
+<p><strong>How does it work?</strong>
+Regularization modifies the loss function by adding a penalty term based on the model's weights:</p>
+<div class="arithmatex">\[
+\text{Loss} = \text{Original Loss} + \lambda \times \text{Penalty}
+\]</div>
+<p>where <span class="arithmatex">\(\lambda\)</span> controls the strength of the penalty.</p>
+<p><strong>Common regularization techniques:</strong></p>
+<ul>
+<li><strong>L1 Regularization (Lasso):</strong> Adds the sum of the absolute values of the weights. Can shrink some weights to exactly zero, effectively performing feature selection.</li>
+<li><strong>L2 Regularization (Ridge):</strong> Adds the sum of the squared values of the weights. Shrinks weights toward zero but rarely makes them exactly zero.</li>
+<li><strong>Elastic Net:</strong> Combines L1 and L2 penalties, balancing between feature selection and coefficient shrinkage.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Penalty Type</th>
+<th>Effect on Weights</th>
+<th>Typical Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 (Lasso)</td>
+<td>Sum of absolute values</td>
+<td>Many weights set to zero</td>
+<td>Feature selection, sparse models</td>
+</tr>
+<tr>
+<td>L2 (Ridge)</td>
+<td>Sum of squares</td>
+<td>Weights shrink toward zero</td>
+<td>General shrinkage, no feature removal</td>
+</tr>
+<tr>
+<td>Elastic Net</td>
+<td>L1 + L2 combination</td>
+<td>Mix of both above</td>
+<td>Both shrinkage and feature selection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In summary:</strong> Regularization is essential for building robust machine learning models. L1 and L2 are the most common forms, each adding different types of penalties to control model complexity and improve generalizability.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Question</label><label for="__tabbed_12_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-the-concept-of-temperature-in-deep-learning">Explain the concept of temperature in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>In deep learning, the concept of "temperature" is often associated with the Softmax function and is used to control the degree of confidence or uncertainty in the model's predictions. It's primarily applied in the context of classification tasks, such as image recognition or natural language processing, where the model assigns probabilities to different classes.</p>
+<p>The Softmax function is used to convert raw model scores or logits into a probability distribution over the classes. Each class is assigned a probability score, and the class with the highest probability is typically selected as the predicted class.</p>
+<p>The Softmax function is defined as follows for a class "i":</p>
+<div class="arithmatex">\[P(i) = \frac{e^{z_i / \tau}}{\sum_{j} e^{z_j / \tau}}\]</div>
+<p>Where:</p>
+<ul>
+<li><span class="arithmatex">\(P(i)\)</span> is the probability of class "i."</li>
+<li><span class="arithmatex">\(z_i\)</span> is the raw score or logit for class "i."</li>
+<li><span class="arithmatex">\(\tau\)</span>, known as the "temperature," is a positive scalar parameter.</li>
+</ul>
+<p>The temperature parameter, <span class="arithmatex">\(\tau\)</span>, affects the shape of the probability distribution. When <span class="arithmatex">\(\tau\)</span> is high, the distribution becomes "soft," meaning that the probabilities are more evenly spread among the classes. A lower temperature results in a "harder" distribution, with one or a few classes having much higher probabilities.</p>
+<p>Here's how temperature impacts the Softmax function:</p>
+<ul>
+<li>High <span class="arithmatex">\(\tau\)</span>: The model is more uncertain, and the probability distribution is more uniform, which can be useful when exploring diverse options or when dealing with noisy data.</li>
+<li>Low <span class="arithmatex">\(\tau\)</span>: The model becomes more confident, and the predicted class will have a much higher probability. This is useful when you want to make decisive predictions.</li>
+</ul>
+<p>Temperature allows you to control the trade-off between exploration and exploitation in the model's predictions. It's a hyperparameter that can be adjusted during training or inference to achieve the desired level of certainty in the model's output, depending on the specific requirements of your application.</p>
+<p>Here is a good online <a href="https://artefact2.github.io/llm-sampling/index.xhtml">tool</a> to learn about the impact of temperature and other parameters on output generation. </p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Question</label><label for="__tabbed_13_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-convolutional-neural-networks-cnn">Can you explain the concept of convolutional neural networks (CNN)?</h4>
+</div>
+<div class="tabbed-block">
+<p>A convolutional neural network (CNN) is a type of neural network that is primarily used for learning image and video patterns. CNNs are designed to automatically and adaptively learn spatial hierarchies of features from input data. They use a variation of multi-layer perceptrons, designed to require minimal preprocessing. Instead of hand-engineered features, CNNs learn features from data using a process called convolution.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Question</label><label for="__tabbed_14_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="how-do-you-handle-missing-data-in-deep-learning">How do you handle missing data in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Missing data can be handled in several ways, including:<ul>
+<li>Removing the rows or columns with missing data</li>
+<li>Interpolation or imputation of missing values</li>
+<li>Using a technique called masking, which allows the model to ignore missing values when making predictions</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">Question</label><label for="__tabbed_15_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-transfer-learning-in-deep-learning">Can you explain the concept of transfer learning in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Transfer learning is a technique where a model trained on one task is used as a starting point for a model on a second, related task. This allows the model to take advantage of the features learned from the first task and apply them to the second task, which can lead to faster training and better performance. This can be done by using a pre-trained model as a feature extractor or fine-tuning the pre-trained model on new data.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- !!! Question ""
+    === "Question"
+        #### What is the difference between batch normalization and layer normalization?
+
+    === "Answer"
+
+        Batch normalization normalizes the activations of a layer for each mini-batch during training, where as Layer normalization normalizes the activations of a layer for the whole dataset during training. Layer normalization is typically used in recurrent neural networks (RNNs) where the normalization is performed across the feature dimension, while batch normalization is typically used in feedforward neural networks, where the normalization is performed across the mini-batch dimension. -->
+
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">Question</label><label for="__tabbed_16_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-gradient-descent-in-deep-learning">What is Gradient Descent in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Gradient Descent is an optimization algorithm used to minimize the loss function of a neural network. It works by updating the weights of the network in the opposite direction of the gradient of the loss function with respect to the weights. The magnitude of the update is determined by the learning rate. There are several variants of gradient descent, such as batch gradient descent, stochastic gradient descent, and mini-batch gradient descent.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">Question</label><label for="__tabbed_17_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-gradient-checkpointing-and-how-does-it-help-in-training-deep-neural-networks">What is Gradient Checkpointing and how does it help in training deep neural networks?</h4>
+</div>
+<div class="tabbed-block">
+<p>Gradient checkpointing is a memory optimization technique that helps save GPU memory during the training of deep neural networks by trading computation time for memory usage.</p>
+<p><strong>How it helps:</strong></p>
+<ul>
+<li>Normally, when you train a neural network, the computer saves the outputs (called activations) of many layers during the forward pass, because these are needed later to calculate gradients during the backward pass.</li>
+<li>Saving all these activations takes up a lot of GPU memory.</li>
+<li>Gradient checkpointing changes this by only saving activations at certain points (called checkpoints) and <strong>not saving all the intermediate activations</strong>.</li>
+<li>When the backward pass runs, the missing activations are <strong>recomputed on demand</strong> by rerunning parts of the forward pass.</li>
+<li>This way, the training uses much less memory because fewer activations are saved, but it takes a bit more time since some calculations are repeated.</li>
+</ul>
+<p><strong>When it helps:</strong></p>
+<ul>
+<li>When your model is very large or your GPU memory is limited, and you want to train bigger or deeper models than your memory would normally allow.</li>
+<li>When you want to increase the batch size (the number of samples processed at once) but memory runs out.</li>
+<li>It is especially useful for big transformer models like BERT or GPT, where activations take a lot of memory.</li>
+</ul>
+<p><strong>Tradeoff:</strong></p>
+<ul>
+<li>It saves <strong>significant memory (about 50-60%)</strong>.</li>
+<li>But it increases computation time by roughly <strong>15-25%</strong> because of the recomputation.</li>
+<li>In many cases, this tradeoff lets you train bigger models or batches on hardware that otherwise wouldn't be able to handle them.</li>
+</ul>
+<p>So in simple terms, gradient checkpointing lets you "pause and forget" some intermediate calculations during training to save memory and "replay" them later when needed, trading off some extra time for a lot less memory usage.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">Question</label><label for="__tabbed_18_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-representation-learning">What is Representation learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Representation learning is the fundamental concept in AI that denotes the power of the system to learn multiple levels of feature representation with increasing abstraction i.e. learning representations of data. These representations are stored inside the neurons and are used to make predictions and make decisions. </p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">Question</label><label for="__tabbed_19_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-label-smoothing">Explain Label smoothing.</h4>
+</div>
+<div class="tabbed-block">
+<p>Label smoothing is a technique used in machine learning to prevent the model from becoming over-confident (overfitting). The smoothing is done by adding a small amount of noise to the labels of the training data, which makes the model less likely to overfit to the training data. Technically it generates soft labels by applying a weighted average between the uniform distribution and the hard label. Refer <a href="https://arxiv.org/pdf/1906.02629.pdf">Paper 1</a> or
+<a href="https://arxiv.org/pdf/2011.12562.pdf">Paper 2</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">Question</label><label for="__tabbed_20_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="please-explain-what-is-dropout-in-deep-learning">Please explain what is Dropout in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Dropout is a regularization technique used in deep learning to prevent overfitting. It works by randomly dropping out a certain percentage of neurons during training, effectively reducing the capacity of the network. This forces the network to learn multiple independent representations of the data, making it less prone to overfitting.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">Question</label><label for="__tabbed_21_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-autoencoder">What are Autoencoder?</h4>
+</div>
+<div class="tabbed-block">
+<p>An autoencoder is a type of neural network that is trained to reconstruct its input. It has an encoder part that compresses the input into a lower-dimensional representation called the bottleneck or latent code, and a decoder part that reconstructs the input from the latent code. Autoencoders can be used for tasks such as dimensionality reduction, anomaly detection and generative modelling.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">Question</label><label for="__tabbed_22_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-attention-mechanism-in-deep-learning">Can you explain the concept of attention mechanism in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Attention mechanism is a way to weight different parts of the input in a neural network, giving more importance to certain features than others. It is commonly used in tasks such as machine translation, where the model needs to focus on different parts of the input sentence at different times. Attention mechanisms can be implemented in various ways, such as additive attention, dot-product attention, and multi-head attention.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">Question</label><label for="__tabbed_23_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-are-generative-adversarial-networks-gans">What are Generative Adversarial Networks (GANs)?</h4>
+</div>
+<div class="tabbed-block">
+<p>Generative Adversarial Networks (GANs) are a type of generative model that consists of two parts, a generator and a discriminator. The generator is trained to generate new data that is similar to the data it was trained on, while the discriminator is trained to distinguish the generated data from the real data. The two parts are trained together in a game-theoretic manner, where the generator tries to generate data that can fool the discriminator, and the discriminator tries to correctly identify the generated data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">Question</label><label for="__tabbed_24_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-memory-networks-in-deep-learning">Can you explain the concept of Memory Networks in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Memory networks are a type of neural network architecture that allow the model to access and manipulate an external memory matrix, which can be used to store information that is relevant to the task. This allows the model to reason about the past and use this information to make predictions about the future. Memory networks have been used in tasks such as language understanding and question answering. <a href="https://arxiv.org/abs/1410.3916">Refer this</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">Question</label><label for="__tabbed_25_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-capsule-networks-in-deep-learning">Explain Capsule Networks in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Capsule networks are a type of neural network architecture that aims to overcome the limitations of traditional convolutional neural networks (CNNs) by using a new type of layer called a capsule. A capsule contains multiple neurons that work together to represent an object or part of an object, and the activities of the neurons are used to represent the properties of the object such as position, size and orientation. Capsule networks have been used in tasks such as image classification and object detection.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">Question</label><label for="__tabbed_26_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="can-you-explain-the-concept-of-generative-models-in-deep-learning">Can you explain the concept of generative models in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Generative models are a type of deep learning model that can generate new data that is similar to the data it was trained on. These models are trained on a dataset and learn the underlying probability distribution of the data, allowing them to generate new, unseen data that fits that distribution. Examples of generative models include Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="27:2"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><input id="__tabbed_27_2" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">Question</label><label for="__tabbed_27_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-concept-of-adversarial-training-in-deep-learning">What is the concept of adversarial training in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Adversarial training is a technique used to improve the robustness of deep learning models by generating adversarial examples and using them to train the model. Adversarial examples are inputs that are slightly perturbed in such a way as to cause the model to make a mistake. By training the model on these examples, it becomes more robust to similar perturbations in the real world.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="28:2"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><input id="__tabbed_28_2" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">Question</label><label for="__tabbed_28_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-weight-initialization-in-deep-learning">What is weight initialization in deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Weight initialization is the process of setting the initial values for the weights in a neural network. The initial values of the weights can have a big impact on the network's performance and training time. There are several methods to initialize weights, including random initialization, Glorot initialization, and He initialization. Each of these methods have different properties and are more suitable for different types of problems.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="29:2"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><input id="__tabbed_29_2" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">Question</label><label for="__tabbed_29_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-data-augmentation">Explain data augmentation?</h4>
+</div>
+<div class="tabbed-block">
+<p>Data augmentation is a technique used to increase the amount of data available for training a deep learning model. This is done by creating new training examples by applying various random transformations to the original data, such as random cropping, flipping, or rotation. Data augmentation can be a powerful tool to prevent overfitting and improve the generalization performance of a mode.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="30:2"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><input id="__tabbed_30_2" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">Question</label><label for="__tabbed_30_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-different-between-standardization-and-normalization">What is the different between Standardization and Normalization?</h4>
+</div>
+<div class="tabbed-block">
+<p>Normalization is the process of scaling the data to a common scale. It is also known as Min-Max Scaling where the final range could be [0, 1] or [-1,1] or something else. <span class="arithmatex">\(X_{new} = (X - X_{min})/(X_{max} - X_{min})\)</span> Standardization is the process of scaling the data to have zero mean and unit variance. <span class="arithmatex">\(X_{new} = (X - mean)/Std\)</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="31:2"><input checked="checked" id="__tabbed_31_1" name="__tabbed_31" type="radio" /><input id="__tabbed_31_2" name="__tabbed_31" type="radio" /><div class="tabbed-labels"><label for="__tabbed_31_1">Question</label><label for="__tabbed_31_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="is-it-possible-that-during-ml-training-both-validation-or-test-loss-and-accuracy-are-increasing">Is it possible that during ML training, both validation (or test) loss and accuracy, are increasing?</h4>
+</div>
+<div class="tabbed-block">
+<p>Accuracy and loss are not necessarily exactly (inversely) correlated, as loss measures a difference between raw prediction (float) and class (0 or 1), while accuracy measures the difference between thresholded prediction (0 or 1) and class. So if raw predictions change, loss changes but accuracy is more "resilient" as predictions need to go over/under a threshold to actually change accuracy. <a href="https://stats.stackexchange.com/questions/282160/how-is-it-possible-that-validation-loss-is-increasing-while-validation-accuracy">Soltius's answer on SE</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="32:2"><input checked="checked" id="__tabbed_32_1" name="__tabbed_32" type="radio" /><input id="__tabbed_32_2" name="__tabbed_32" type="radio" /><div class="tabbed-labels"><label for="__tabbed_32_1">Question</label><label for="__tabbed_32_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="is-k-means-clustering-algorithm-guaranteed-to-converge-with-unique-result">Is K-means clustering algorithm guaranteed to converge with unique result?</h4>
+</div>
+<div class="tabbed-block">
+<p>K-means clustering algorithm is guaranteed to converge but the final result may vary based on the centroid initialisation. This is why it is suggested to try multiple initialization strategies and pick the one with best clustering. The convergence is guaranteed as the sum of squared distances between each point and its centroid strictly decreases over each iteration. Also the practical run time of k-means is basically linear. Refer <a href="https://www.naftaliharris.com/blog/visualizing-k-means-clustering/">Visualizing K Means Clustering - Naftali Harris</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="33:2"><input checked="checked" id="__tabbed_33_1" name="__tabbed_33" type="radio" /><input id="__tabbed_33_2" name="__tabbed_33" type="radio" /><div class="tabbed-labels"><label for="__tabbed_33_1">Question</label><label for="__tabbed_33_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="in-k-means-clustering-is-it-possible-that-a-centroid-has-no-data-points-assigned-to-it">In K-means clustering, is it possible that a centroid has no data points assigned to it?</h4>
+</div>
+<div class="tabbed-block">
+<p>Yes it is possible, imagine a centroid placed in middle of ring of other centroids. Several implementations either removes that centroid or random;y replace it somewhere else in the data space. Refer <a href="https://www.naftaliharris.com/blog/visualizing-k-means-clustering/">Visualizing K Means Clustering - Naftali Harris</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="34:2"><input checked="checked" id="__tabbed_34_1" name="__tabbed_34" type="radio" /><input id="__tabbed_34_2" name="__tabbed_34" type="radio" /><div class="tabbed-labels"><label for="__tabbed_34_1">Question</label><label for="__tabbed_34_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-entropy-in-information-theory">What is entropy in information theory?</h4>
+</div>
+<div class="tabbed-block">
+<p>Entropy is a measure of the amount of uncertainty or randomness in a system. It is often used in information theory and statistical mechanics to describe the unpredictability of a system or the amount of information required to describe it. It's formula is, <span class="arithmatex">\(\mathrm {H} (X):=-\sum _{x\in {\mathcal {X}}}p(x)\log p(x)=\mathbb {E} [-\log p(X)]\)</span></p>
+<p>Here is an <a href="https://www.youtube.com/watch?v=ErfnhcEV1O8">excellent video</a> from Aurelien Geron, explaining the topic.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="35:2"><input checked="checked" id="__tabbed_35_1" name="__tabbed_35" type="radio" /><input id="__tabbed_35_2" name="__tabbed_35" type="radio" /><div class="tabbed-labels"><label for="__tabbed_35_1">Question</label><label for="__tabbed_35_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-supervised-and-unsupervised-learning">What is the difference between supervised and unsupervised learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Supervised learning uses labeled data to train a model to make predictions, while unsupervised learning uses unlabeled data to find patterns or structure in the data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="36:2"><input checked="checked" id="__tabbed_36_1" name="__tabbed_36" type="radio" /><input id="__tabbed_36_2" name="__tabbed_36" type="radio" /><div class="tabbed-labels"><label for="__tabbed_36_1">Question</label><label for="__tabbed_36_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="how-do-you-evaluate-the-performance-of-a-machine-learning-model">How do you evaluate the performance of a machine learning model?</h4>
+</div>
+<div class="tabbed-block">
+<p>One common method is to split the data into a training set and a test set, and use metrics such as accuracy, precision, recall, and F1 score to evaluate the model's performance on the test set.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="37:2"><input checked="checked" id="__tabbed_37_1" name="__tabbed_37" type="radio" /><input id="__tabbed_37_2" name="__tabbed_37" type="radio" /><div class="tabbed-labels"><label for="__tabbed_37_1">Question</label><label for="__tabbed_37_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-overfitting-in-machine-learning-and-how-can-it-be-prevented">What is overfitting in machine learning and how can it be prevented?</h4>
+</div>
+<div class="tabbed-block">
+<p>Overfitting occurs when a model is too complex and is able to fit the noise in the training data, leading to poor performance on new, unseen data. To prevent overfitting, methods such as cross-validation, regularization, and early stopping can be used.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="38:2"><input checked="checked" id="__tabbed_38_1" name="__tabbed_38" type="radio" /><input id="__tabbed_38_2" name="__tabbed_38" type="radio" /><div class="tabbed-labels"><label for="__tabbed_38_1">Question</label><label for="__tabbed_38_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-a-decision-tree-and-random-forest">What is the difference between a decision tree and random forest?</h4>
+</div>
+<div class="tabbed-block">
+<p>A decision tree is a single tree model that makes a prediction by traversing the tree from the root to a leaf node, while a random forest is an ensemble of decision trees, where the final prediction is made by averaging the predictions of all the trees in the forest.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="39:2"><input checked="checked" id="__tabbed_39_1" name="__tabbed_39" type="radio" /><input id="__tabbed_39_2" name="__tabbed_39" type="radio" /><div class="tabbed-labels"><label for="__tabbed_39_1">Question</label><label for="__tabbed_39_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-bias-variance-trade-off-in-machine-learning">What is the Bias-Variance trade-off in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>The bias-variance trade-off is a key concept in machine learning that describes the balance between two types of errors affecting a model's ability to generalize:</p>
+<ul>
+<li><strong>Bias</strong>: Error from overly simplistic assumptions in the model. High bias can cause underfitting—poor performance on both training and test data.</li>
+<li><strong>Variance</strong>: Error from excessive sensitivity to small fluctuations in the training set. High variance can cause overfitting—good performance on training data but poor generalization to new data.</li>
+</ul>
+<p>As model complexity increases, bias decreases but variance increases. The goal is to find a balance: a model complex enough to capture patterns (low bias) but not so complex that it overfits (low variance).</p>
+<table>
+<thead>
+<tr>
+<th>Model Complexity</th>
+<th>Bias</th>
+<th>Variance</th>
+<th>Generalization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Too Simple</td>
+<td>High (underfit)</td>
+<td>Low</td>
+<td>Poor</td>
+</tr>
+<tr>
+<td>Too Complex</td>
+<td>Low</td>
+<td>High (overfit)</td>
+<td>Poor</td>
+</tr>
+<tr>
+<td>Just Right</td>
+<td>Low/Moderate</td>
+<td>Low/Moderate</td>
+<td>Good</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Managing the trade-off:</strong></p>
+<ul>
+<li>Use regularization to penalize complexity and reduce overfitting.</li>
+<li>Use cross-validation to estimate model performance on unseen data.</li>
+<li>Increasing training data can help reduce variance.</li>
+</ul>
+<p><strong>In summary:</strong> The bias-variance trade-off is about finding the sweet spot where your model is neither too simple nor too complex, so it generalizes well to new data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="40:2"><input checked="checked" id="__tabbed_40_1" name="__tabbed_40" type="radio" /><input id="__tabbed_40_2" name="__tabbed_40" type="radio" /><div class="tabbed-labels"><label for="__tabbed_40_1">Question</label><label for="__tabbed_40_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-batch-and-online-learning">What is the difference between batch and online learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Batch learning is a type of machine learning where the model is trained on a fixed dataset and the parameters are updated after processing the entire dataset. In contrast, online learning is a type of machine learning where the model is trained on a continuous stream of data and the parameters are updated incrementally after processing each example.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="41:2"><input checked="checked" id="__tabbed_41_1" name="__tabbed_41" type="radio" /><input id="__tabbed_41_2" name="__tabbed_41" type="radio" /><div class="tabbed-labels"><label for="__tabbed_41_1">Question</label><label for="__tabbed_41_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-a-decision-boundary-and-a-decision-surface-in-machine-learning">What is the difference between a decision boundary and a decision surface in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>A decision boundary is a boundary that separates different classes in a dataset, it can be represented by a line or a hyperplane in a two-dimensional or multi-dimensional space respectively. A decision surface is a generalization of decision boundary, it's a surface that separates different classes in a dataset, it can be represented by a surface in a multi-dimensional space. In simple words, a decision boundary is a one-dimensional representation of a decision surface.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="42:2"><input checked="checked" id="__tabbed_42_1" name="__tabbed_42" type="radio" /><input id="__tabbed_42_2" name="__tabbed_42" type="radio" /><div class="tabbed-labels"><label for="__tabbed_42_1">Question</label><label for="__tabbed_42_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-use-of-principal-component-analysis-pca-in-machine-learning">What is the use of principal component analysis (PCA) in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Principal component analysis (PCA) is a technique used to reduce the dimensionality of a dataset by identifying the most important features, called principal components. PCA finds a new set of uncorrelated features, called principal components, that can explain most of the variance in the original data. This can be useful for visualizing high-dimensional data, reducing noise, and improving the performance of machine learning models.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="43:2"><input checked="checked" id="__tabbed_43_1" name="__tabbed_43" type="radio" /><input id="__tabbed_43_2" name="__tabbed_43" type="radio" /><div class="tabbed-labels"><label for="__tabbed_43_1">Question</label><label for="__tabbed_43_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-use-of-the-random-forest-algorithm-in-machine-learning">What is the use of the Random Forest algorithm in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Random Forest is an ensemble learning technique that combines multiple decision trees to improve the performance and stability of the model. It works by creating multiple decision trees using a random subset of the features and training data, and then averaging the predictions of all the trees to make a final prediction. Random Forest algorithm is often used for classification and regression problems, it's robust to outliers, missing values, and irrelevant features, and it can also be used for feature selection and feature importance analysis.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="44:2"><input checked="checked" id="__tabbed_44_1" name="__tabbed_44" type="radio" /><input id="__tabbed_44_2" name="__tabbed_44" type="radio" /><div class="tabbed-labels"><label for="__tabbed_44_1">Question</label><label for="__tabbed_44_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-a-generative-model-and-a-discriminative-model">What is the difference between a generative model and a discriminative model?</h4>
+</div>
+<div class="tabbed-block">
+<p>A generative model learns the probability distribution of the data and can generate new samples from it, while a discriminative model learns the boundary between different classes and make predictions based on it. Generative models are used for tasks such as density estimation, anomaly detection, and data generation, while discriminative models are used for tasks such as classification and regression.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="45:2"><input checked="checked" id="__tabbed_45_1" name="__tabbed_45" type="radio" /><input id="__tabbed_45_2" name="__tabbed_45" type="radio" /><div class="tabbed-labels"><label for="__tabbed_45_1">Question</label><label for="__tabbed_45_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-an-autoencoder-and-a-variational-autoencoder">What is the difference between an autoencoder and a variational autoencoder?</h4>
+</div>
+<div class="tabbed-block">
+<p>An autoencoder is a type of neural network that learns to encode and decode input data, it can be used to reduce the dimensionality of the data and learn a compact representation of it. A variational autoencoder (VAE) is a type of autoencoder that learns a probabilistic encoding of the input data, it generates new samples from the learned distribution. VAE can be used for tasks such as image generation and anomaly detection.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="46:2"><input checked="checked" id="__tabbed_46_1" name="__tabbed_46" type="radio" /><input id="__tabbed_46_2" name="__tabbed_46" type="radio" /><div class="tabbed-labels"><label for="__tabbed_46_1">Question</label><label for="__tabbed_46_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-expectation-maximization-em-algorithm">What is Expectation-Maximization (EM) algorithm?</h4>
+</div>
+<div class="tabbed-block">
+<p>The Expectation-Maximization (EM) algorithm is a method for finding maximum likelihood estimates in incomplete data problems, where some of the data is missing or hidden. EM works by iteratively refining estimates of the missing data and the parameters of the model, until it converges to a local maximum of the likelihood function. It can be used for tasks such as clustering, image segmentation, and missing data imputation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="47:2"><input checked="checked" id="__tabbed_47_1" name="__tabbed_47" type="radio" /><input id="__tabbed_47_2" name="__tabbed_47" type="radio" /><div class="tabbed-labels"><label for="__tabbed_47_1">Question</label><label for="__tabbed_47_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-difference-between-l1-and-l2-regularization-in-machine-learning">What is the difference between L1 and L2 regularization in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>L1 and L2 regularization are methods used to prevent overfitting in machine learning models by adding a penalty term to the loss function. L1 regularization adds the absolute value of the weights to the loss function, while L2 regularization adds the square of the weights. L1 regularization leads to sparse models where some weights will be zero, while L2 regularization leads to models where all weights are small.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="48:2"><input checked="checked" id="__tabbed_48_1" name="__tabbed_48" type="radio" /><input id="__tabbed_48_2" name="__tabbed_48" type="radio" /><div class="tabbed-labels"><label for="__tabbed_48_1">Question</label><label for="__tabbed_48_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-support-vector-machine-svm">Explain Support Vector Machine (SVM).</h4>
+</div>
+<div class="tabbed-block">
+<p>Support Vector Machine (SVM) is a supervised learning algorithm that can be used for classification and regression tasks. SVM works by finding the hyperplane that maximally separates the different classes in a dataset and then uses this hyperplane to make predictions. SVM is particularly useful when the data is linearly separable, it's also robust to high-dimensional data and it can be used with kernel functions to solve non-linearly separable problems.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="49:2"><input checked="checked" id="__tabbed_49_1" name="__tabbed_49" type="radio" /><input id="__tabbed_49_2" name="__tabbed_49" type="radio" /><div class="tabbed-labels"><label for="__tabbed_49_1">Question</label><label for="__tabbed_49_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-use-of-the-k-nearest-neighbors-k-nn-algorithm">What is the use of the k-nearest neighbors (k-NN) algorithm?</h4>
+</div>
+<div class="tabbed-block">
+<p>k-nearest neighbors (k-NN) is a type of instance-based learning algorithm that can be used for classification and regression tasks. The algorithm works by finding the k training examples that are closest to a new input and using the majority class or average value of those examples to make a prediction. k-NN is a simple and efficient algorithm that can be used for tasks such as image classification, anomaly detection, and recommendation systems.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="50:2"><input checked="checked" id="__tabbed_50_1" name="__tabbed_50" type="radio" /><input id="__tabbed_50_2" name="__tabbed_50" type="radio" /><div class="tabbed-labels"><label for="__tabbed_50_1">Question</label><label for="__tabbed_50_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-the-use-of-the-random-sampling-method-for-feature-selection-in-machine-learning">What is the use of the Random Sampling method for feature selection in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Random Sampling is a method for feature selection that involves randomly selecting a subset of features from the dataset and evaluating the performance of a model trained on that subset. The subset of features that result in the best performance are then chosen for further analysis or use in a final model. This method can be useful when the number of features is large and there is no prior knowledge of which features are most relevant.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="51:2"><input checked="checked" id="__tabbed_51_1" name="__tabbed_51" type="radio" /><input id="__tabbed_51_2" name="__tabbed_51" type="radio" /><div class="tabbed-labels"><label for="__tabbed_51_1">Question</label><label for="__tabbed_51_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-bagging-method-in-ensemble-learning">Explain Bagging method in ensemble learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Bagging (Bootstrap Aggregating) is a method for ensemble learning that involves training multiple models on different subsets of the data and then combining the predictions of those models. The subsets of data are created by randomly sampling the original data with replacement, this method helps to reduce the variance of the model and increase the robustness of the predictions. Bagging is commonly used with decision trees and can be implemented using Random Forest algorithm.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="52:2"><input checked="checked" id="__tabbed_52_1" name="__tabbed_52" type="radio" /><input id="__tabbed_52_2" name="__tabbed_52" type="radio" /><div class="tabbed-labels"><label for="__tabbed_52_1">Question</label><label for="__tabbed_52_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-adaboost-method-in-ensemble-learning">Explain AdaBoost method in ensemble learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>AdaBoost (Adaptive Boosting) is a method for ensemble learning that involves training multiple models on different subsets of the data and then combining the predictions of those models. The subsets of data are created by giving more weight to the examples that are misclassified by the previous models, this method helps to increase the accuracy of the model. AdaBoost is commonly used with decision trees and can be used with any type of base classifier.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="53:2"><input checked="checked" id="__tabbed_53_1" name="__tabbed_53" type="radio" /><input id="__tabbed_53_2" name="__tabbed_53" type="radio" /><div class="tabbed-labels"><label for="__tabbed_53_1">Question</label><label for="__tabbed_53_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-gradient-boosting-method-in-ensemble-learning">Explain Gradient Boosting method in ensemble learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Gradient Boosting is a method for ensemble learning that involves training multiple models in a sequential manner, where each model tries to correct the mistakes of the previous model. The method uses gradient descent to minimize the loss function, this method is commonly used with decision trees and it can be used with any type of base classifier. Gradient Boosting is a powerful method that can achieve state-of-the-art performance in many machine learning tasks.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="54:2"><input checked="checked" id="__tabbed_54_1" name="__tabbed_54" type="radio" /><input id="__tabbed_54_2" name="__tabbed_54" type="radio" /><div class="tabbed-labels"><label for="__tabbed_54_1">Question</label><label for="__tabbed_54_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="explain-xgboost-method-in-ensemble-learning">Explain XGBoost method in ensemble learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>XGBoost (Extreme Gradient Boosting) is a specific implementation of the Gradient Boosting method that uses a more efficient tree-based model and a number of techniques to speed up the training process and reduce overfitting. XGBoost is commonly used in machine learning competitions and it's one of the most popular libraries used for gradient boosting. It's used for classification and regression problems.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="55:2"><input checked="checked" id="__tabbed_55_1" name="__tabbed_55" type="radio" /><input id="__tabbed_55_2" name="__tabbed_55" type="radio" /><div class="tabbed-labels"><label for="__tabbed_55_1">Question</label><label for="__tabbed_55_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-group_size-in-context-of-quantization">What is <code>group_size</code> in context of Quantization?</h4>
+</div>
+<div class="tabbed-block">
+<p>Group size is a parameter used in the quantization process that determines the number of weights or activations <em>(imagine weights in a row of matrix)</em> that are quantized together. A smaller group size can lead to better quantization accuracy, but it can also increase the memory and computational requirements of the model. Group size is an important hyperparameter that needs to be tuned to achieve the best trade-off between accuracy and efficiency. Note, the default groupsize for a GPTQ is 1024. <a href="https://www.reddit.com/r/LocalLLaMA/comments/12rtg82/what_is_group_size_128_and_why_do_30b_models_give/?rdt=46348">Refer this interesting Reddit discussion</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="56:2"><input checked="checked" id="__tabbed_56_1" name="__tabbed_56" type="radio" /><input id="__tabbed_56_2" name="__tabbed_56" type="radio" /><div class="tabbed-labels"><label for="__tabbed_56_1">Question</label><label for="__tabbed_56_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-ema-exponential-moving-average-in-context-of-deep-learning">What is EMA (Exponential Moving Average) in context of deep learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>EMA is a technique used in deep learning to stabilize the training process and improve the generalization performance of the model. It works by maintaining a moving average of the model's parameters during training, which helps to smooth out the noise in the gradients and prevent the model from overfitting to the training data. Usually during training, the model's parameters are updated using the gradients of the loss function, but the EMA parameters are updated using a weighted average of the current parameters and the previous EMA parameters, as shown below:</p>
+<div class="arithmatex">\[
+\text{ema_param} = \text{ema_param} * \text{decay} + \text{param} * (1 - \text{decay})
+\]</div>
+<p>One more advantage of EMA model is that it can be used to resume the training. Some models provide both the model parameters and EMA parameters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="57:2"><input checked="checked" id="__tabbed_57_1" name="__tabbed_57" type="radio" /><input id="__tabbed_57_2" name="__tabbed_57" type="radio" /><div class="tabbed-labels"><label for="__tabbed_57_1">Question</label><label for="__tabbed_57_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-bradley-terry-model-and-how-is-it-used-in-machine-learning">What is Bradley-Terry model? And how is it used in machine learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Bradley-Terry model is a probability model that can be used to model the outcome of a pairwise comparison between two items. It is commonly used in sports analytics to rank teams or players based on their performance in head-to-head matches. Refer: <a href="https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model">Wikipedia</a></p>
+<p>In case of ML, the model is a popular choice for modeling human preferences in the context of training language models. It stipulates that the probability of a human preferring one completion over another can be expressed as a ratio of exponentials of the latent reward associated with each completion. Specifically, the human preference distribution </p>
+<div class="arithmatex">\[ 
+p^*(y_1 \succ y_2 | x) = \frac{exp(r^*(x, y_1))}{exp(r^*(x, y_1)) + exp(r^*(x, y_2))} 
+\]</div>
+<p>This model is commonly used to capture human preferences to provide a framework for understanding and incorporating human feedback into the training of language models.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<div class="tabbed-set tabbed-alternate" data-tabs="58:2"><input checked="checked" id="__tabbed_58_1" name="__tabbed_58" type="radio" /><input id="__tabbed_58_2" name="__tabbed_58" type="radio" /><div class="tabbed-labels"><label for="__tabbed_58_1">Question</label><label for="__tabbed_58_2">Answer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h4 id="what-is-rejection-sampling-in-machine-learning">What is Rejection Sampling in Machine Learning?</h4>
+</div>
+<div class="tabbed-block">
+<p>Rejection sampling is a method to generate samples from a complex target distribution (like a hard-to-sample probability curve) by using a simpler "proposal" distribution you can easily sample from (e.g., a uniform or normal distribution). </p>
+<p>Here's how it works: you first pick a proposal distribution that covers the target's range. Then, you repeatedly draw samples from this simpler distribution and "accept" or "reject" each sample based on a quality check—if a random number (from 0 to 1) is less than the ratio of the target's density to the proposal's density (scaled by a constant), you keep the sample; otherwise, you discard it. This process ensures the accepted samples match the target distribution. It's like filtering out bad candidates until you're left with samples that fit your desired pattern. While simple to implement, it becomes inefficient for high-dimensional data or if the proposal distribution doesn't closely match the target shape.</p>
+</div>
+</div>
+</div>
+</div>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../ML_snippets/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ML snippets" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ML snippets
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../clustering/" class="md-footer__link md-footer__link--next" aria-label="Next: Clustering" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Clustering
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/imohitmayank" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/imohitmayank" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/imohitmayank/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@mohitmayank" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M180.5 74.262C80.813 74.262 0 155.633 0 256s80.819 181.738 180.5 181.738S361 356.373 361 256 280.191 74.262 180.5 74.262Zm288.25 10.646c-49.845 0-90.245 76.619-90.245 171.095s40.406 171.1 90.251 171.1 90.251-76.619 90.251-171.1H559c0-94.503-40.4-171.095-90.248-171.095Zm139.506 17.821c-17.526 0-31.735 68.628-31.735 153.274s14.2 153.274 31.735 153.274S640 340.631 640 256c0-84.649-14.215-153.271-31.742-153.271Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f758a944.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
