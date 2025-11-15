@@ -345,6 +345,18 @@ uv init project_name
 # Specify Python version for the project
 uv init --python 3.11
 ```
+### Virtual environments
+
+```shell linenums="1"
+# Create virtual environment
+uv venv .venv
+
+# Use uv as faster pip replacement
+uv pip install package_name
+
+# Create virtual environment with specific Python version
+uv venv --python 3.11
+```
 
 ### Managing dependencies
 
@@ -414,6 +426,9 @@ uv run --python 3.11 --with torch,peft==0.18.0rc0 test_model_size.py
 
 # Run Python interpreter with specific Python version and dependencies
 uv run --python 3.11 --with torch,peft==0.18.0rc0 python -c "import sys; print(sys.version)"
+
+# Run script with specific Python version and dependencies from requirements file
+uv run --with-requirements requirements.txt crawl.py
 ```
 
 ### Python version management
@@ -430,16 +445,6 @@ uv run python
 
 # Run specific Python version
 uv run --python 3.11 python
-```
-
-### Virtual environments
-
-```shell linenums="1"
-# Create virtual environment
-uv venv .venv
-
-# Use uv as faster pip replacement
-uv pip install package_name
 ```
 
 ### Code formatting
