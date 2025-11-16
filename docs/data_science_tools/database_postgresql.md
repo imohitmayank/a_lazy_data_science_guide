@@ -47,14 +47,14 @@ Practice makes man perfect, so let's learn PostgreSQL through sample codes. Belo
     ```
     Or you can use any of the user-interface tools like PgAdmin for better user experience. 
 
-**1. Creating a Database**
+### Creating a Database
 
 ```sql
 -- Creating a database. Replace `my_database` with your database name
 CREATE DATABASE my_database;
 ```
 
-**2. Creating a Table**
+### Creating a Table
 
 
 ```sql
@@ -71,7 +71,7 @@ CREATE TABLE employees (
 !!! Hint
     [Here is a detailed list](https://www.postgresql.org/docs/current/datatype.html) of all supported data types in PostgreSQL. Note, you can also [create custom data types](https://www.postgresql.org/docs/current/sql-createtype.html).
 
-**3. Inserting Data**
+### Inserting Data
 
 ```sql
 -- Inserting data into the table
@@ -79,7 +79,7 @@ INSERT INTO employees (name, position, salary)
 VALUES ('John Doe', 'Software Engineer', 70000);
 ```
 
-**4. Basic Data Retrieval**
+### Basic Data Retrieval
 
 ```sql
 -- Retrieving all data from a table
@@ -95,7 +95,7 @@ SELECT name, position FROM employees;
 SELECT * FROM employees ORDER BY salary DESC;
 ```
 
-**5. Data Retrieval with Conditions**
+### Data Retrieval with Conditions
 
 ```sql
 -- Retrieving specific data with a condition
@@ -115,14 +115,14 @@ SELECT * FROM employees WHERE name LIKE '%Doe%' AND salary > 50000
     AND position in ('Software Engineer', 'Data Scientist');
 ```
 
-**6. Updating Data**
+### Updating Data
 
 ```sql
 -- Updating data in the table
 UPDATE employees SET salary = 75000 WHERE name = 'John Doe';
 ```
 
-**7. Deleting Data**
+### Deleting Data
 
 ```sql
 -- Deleting data from the table
@@ -138,7 +138,7 @@ DROP TABLE employees;
 DROP TABLE employees, departments;
 ```
 
-**8. Joining Tables**
+### Joining Tables
 
 ```sql
 -- Creating another table
@@ -156,7 +156,7 @@ FROM employees
 JOIN departments ON employees.departmentid = departments.id;
 ```
 
-**9. Using Aggregate Functions**
+### Using Aggregate Functions
 
 ```sql
 -- Using an aggregate function to get the average salary
@@ -169,7 +169,7 @@ JOIN departments ON employees.id = departments.id
 GROUP BY department_name;
 ```
 
-**10. Complex Query with Subquery and Grouping**
+### Complex Query with Subquery and Grouping
 
 ```sql
 -- Finding the highest salary in each department
@@ -340,24 +340,54 @@ async with conn.transaction():
 
 Real world problems will require much more than what we covered in the above sections. Lets cover some important queries in this section.
 
-**Casting a column to a different data type**
+### Using TYPE as ENUM
 
-```sql
+- You can create a type as ENUM to restrict the values of a column. As shown below, `employee_type` is a type that can only take the values 'full-time', 'part-time', 'contractor', or 'intern'. And the `position` column in the `employees` table can only take these values. Trying to insert a value that is not in the enum will result in an error.
+
+```sql linenums="1"
+-- Using TYPE as ENUM
+CREATE TYPE employee_type AS ENUM ('full-time', 'part-time', 'contractor', 'intern');
+
+-- Create a table with a column of type employee_type
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    position employee_type,
+);
+```
+
+- You can also use the `ALTER TYPE` statement to add values from an existing enum type.
+
+```sql linenums="1"
+-- Adding a value to an existing enum type
+ALTER TYPE employee_type ADD VALUE 'temporary';
+```
+
+- Removing values from an existing enum type is not supported as PostgreSQL stores ENUM values with internal ordering, and removing values can break existing rows, indexes, types, etc. So better leave it as it is. OR if you really want to remove a value, you can delete the TYPE and create a new one without the value.
+
+```sql linenums="1"
+-- Deleting an enum type
+DROP TYPE employee_type;
+```
+
+### Casting a column to a different data type
+
+```sql linenums="1"
 -- Casting a column to a different data type
 SELECT CAST(salary AS VARCHAR) FROM employees;
 ```
 
-**Using JSONB column**
+### Using JSONB column
 
-```sql
+```sql linenums="1"
 -- Extracting data from JSONB column
 -- Suppose data column contains {"name": "John", "address": {"city": "New York", "state": "NY"}}
 SELECT name, jsonb_extract_path(data, 'address', 'city') AS city FROM employees;
 ```
 
-**Extracting components from a DateTime column**
+### Extracting components from a DateTime column
 
-```sql
+```sql linenums="1"
 -- Extracting month from DATE column
 -- Suppose in a tbl, order_date col contains info like 2022-01-01 
 SELECT DATE_TRUNC('month', order_date) AS month, COUNT(*) AS order_count
