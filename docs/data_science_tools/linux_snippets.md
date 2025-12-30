@@ -137,6 +137,72 @@ split -l 1000 bigfile.csv smallfile_
 du -h --max-depth=1 | sort -hr | head -n 10
 ```
 
+## Tmux
+
+Tmux is a terminal multiplexer that allows you to run multiple terminal sessions inside one window. It's especially useful for long-running data science jobs that need to persist after SSH disconnections.
+
+### Install tmux (macOS)
+```sh  linenums="1"
+brew install tmux
+```
+
+### Start a new session
+```sh  linenums="1"
+tmux
+```
+
+### Start a new named session
+```sh  linenums="1"
+tmux new -s my_session
+```
+
+### List all sessions
+```sh  linenums="1"
+tmux ls
+```
+
+### Attach to an existing session
+```sh  linenums="1"
+tmux attach -t my_session
+```
+
+### Detach from current session
+Press `Ctrl+b` then `d`
+
+### Kill a session
+```sh  linenums="1"
+tmux kill-session -t my_session
+```
+
+### Split pane horizontally
+Press `Ctrl+b` then `"`
+
+### Split pane vertically
+Press `Ctrl+b` then `%`
+
+### Navigate between panes
+Press `Ctrl+b` then arrow keys
+
+### Create a new window
+Press `Ctrl+b` then `c`
+
+### Switch between windows
+Press `Ctrl+b` then window number (0-9)
+
+### Rename current window
+Press `Ctrl+b` then `,`
+
+### Scroll mode (view history)
+Press `Ctrl+b` then `[`, use arrow keys to scroll, press `q` to exit
+
+### Run a long training job in tmux
+```sh  linenums="1"
+tmux new -s training
+python train_model.py
+# Press Ctrl+b then d to detach
+# Reconnect later with: tmux attach -t training
+```
+
 ---
 
 Feel free to copy, modify, and combine these snippets for your data science projects!
