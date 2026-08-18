@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+<!-- Announcement bar -->
+{% block announce %}
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      {% include ".icons/fontawesome/brands/github.svg" %}
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      {% include ".icons/fontawesome/brands/linkedin.svg" %}
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      {% include ".icons/fontawesome/brands/twitter.svg" %}
+    </span>
+    <strong>Twitter</strong>
+  </a>
+{% endblock %}
