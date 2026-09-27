@@ -70,6 +70,8 @@ nav:
 
   - 'Natural Language Processing':
       - 'Interview Questions' : 'natural_language_processing/interview_questions.md'
+      - 'Blogs':
+          - 'GLiNER2.5-Decide QQP Fine-tuning': 'natural_language_processing/gliner2_5_decide_qqp_blog.md'
       - 'Architectures/Models':
           -  'Word2Vec': 'natural_language_processing/word2vec.md'
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
@@ -82,6 +84,8 @@ nav:
           -  'LLaMA': 'natural_language_processing/llama.md'
           -  'Mamba': 'natural_language_processing/mamba.md'
           -  'DeepSeek R1': 'natural_language_processing/deepseek.md'
+          -  'Jev': 'natural_language_processing/jev.md'
+          -  'GLiNER2.5-Decide': 'natural_language_processing/gliner2_5_decide.md'
       - 'Large Language Models':
           - 'Training LLMs': 'natural_language_processing/training_llm.md'
           - 'Prompt Engineering': 'natural_language_processing/prompt_engineering.md'
