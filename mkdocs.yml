@@ -72,6 +72,7 @@ nav:
       - 'Interview Questions' : 'natural_language_processing/interview_questions.md'
       - 'Blogs':
           - 'GLiNER2.5-Decide QQP Fine-tuning': 'natural_language_processing/gliner2_5_decide_qqp_blog.md'
+          - 'Transform Any LLM into a Decision Model': 'natural_language_processing/anyjev_llm_decision_model_blog.md'
       - 'Architectures/Models':
           -  'Word2Vec': 'natural_language_processing/word2vec.md'
           -  'LSTM, GRU & RNN': 'natural_language_processing/lstm_gru_rnn.md'
