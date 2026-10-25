@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{#
+  Open Graph + Twitter Card tags for link previews (LinkedIn, X, iMessage, Facebook, Slack).
+  Image tags are always emitted. og:video is emitted as well for players that loop video.
+  LinkedInBot is handled outside this repo: the Cloudflare Worker on mohitmayank.com/*
+  strips og:video* for that user agent only.
+
+  Optional per-page front matter:
+    description: One or two sentences for the preview.
+    summary: Used when description is not set.
+    image: Site-root path (imgs/custom.png) or an absolute https URL.
+    image_alt: Alt text when image is overridden.
+    video: Site-root path (imgs/custom.mp4) or an absolute URL.
+    video_width / video_height: Pixel size when video is overridden.
+#}
+{% block extrahead %}
+  {% if page %}
+    {% set is_home = not page.url %}
+    {% if is_home %}
+      {% set og_title = config.site_name %}
+    {% elif page.meta and page.meta.title %}
+      {% set og_title = page.meta.title ~ " - " ~ config.site_name %}
+    {% elif page.title %}
+      {% set og_title = (page.title | striptags) ~ " - " ~ config.site_name %}
+    {% else %}
+      {% set og_title = config.site_name %}
+    {% endif %}
+
+    {% if page.meta and page.meta.description %}
+      {% set og_description = page.meta.description %}
+    {% elif page.meta and page.meta.summary %}
+      {% set og_description = page.meta.summary %}
+    {% elif is_home or not page.markdown %}
+      {% set og_description = config.site_description or config.site_name %}
+    {% else %}
+      {# Prose only: drop fenced code, then inline code, then keep link text. #}
+      {% set fenced = namespace(text='') %}
+      {% for part in page.markdown.split('```') %}
+        {% if loop.index0 % 2 == 0 %}
+          {% set fenced.text = fenced.text ~ '\n' ~ part %}
+        {% endif %}
+      {% endfor %}
+      {% set tilde = namespace(text='') %}
+      {% for part in fenced.text.split('~~~') %}
+        {% if loop.index0 % 2 == 0 %}
+          {% set tilde.text = tilde.text ~ '\n' ~ part %}
+        {% endif %}
+      {% endfor %}
+      {% set inline = namespace(text='') %}
+      {% for part in tilde.text.split('`') %}
+        {% if loop.index0 % 2 == 0 %}
+          {% set inline.text = inline.text ~ part %}
+        {% endif %}
+      {% endfor %}
+      {% set linked = namespace(text='') %}
+      {% for part in inline.text.split('](') %}
+        {% if loop.first %}
+          {% set linked.text = part %}
+        {% else %}
+          {% set tail = part.split(')', 1) %}
+          {% set linked.text = linked.text ~ (tail[1] if tail | length > 1 else '') %}
+        {% endif %}
+      {% endfor %}
+      {% set lines = namespace(text='') %}
+      {% for line in linked.text.split('\n') %}
+        {% set stripped = line.strip() %}
+        {% if stripped.startswith('- ') or stripped.startswith('* ') or stripped.startswith('+ ') %}
+          {% set stripped = stripped[2:].strip() %}
+        {% elif stripped | length > 2 and stripped[0] | int(-1) >= 0 and stripped[1:3] == '. ' %}
+          {% set stripped = stripped[3:].strip() %}
+        {% endif %}
+        {% if stripped and (stripped.replace('=', '') == '' or (stripped.replace('-', '') == '' and stripped | length > 2)) %}
+        {% elif stripped.startswith('!!!') or stripped.startswith('???') or stripped.startswith('///') %}
+          {% set lines.text = lines.text ~ ' ' ~ stripped.lstrip('!?/').strip() %}
+        {% else %}
+          {% set lines.text = lines.text ~ ' ' ~ stripped %}
+        {% endif %}
+      {% endfor %}
+      {% set excerpt = lines.text
+        | replace('**', '')
+        | replace('__', '')
+        | replace('*', '')
+        | replace('![', '')
+        | replace('[', '')
+        | replace(']', '')
+        | striptags
+        | replace('&amp;', '&')
+        | replace('&lt;', '<')
+        | replace('&gt;', '>')
+        | replace('&quot;', '"')
+        | replace('&#39;', "'")
+        | replace('&nbsp;', ' ')
+        | replace('#', '')
+        | replace('\r', ' ')
+        | replace('\n', ' ')
+        | replace('  ', ' ')
+        | replace('  ', ' ')
+        | replace('  ', ' ')
+        | replace('  ', ' ')
+        | trim %}
+      {% if page.title and excerpt.lower().startswith(page.title | striptags | lower) %}
+        {% set excerpt = excerpt[(page.title | striptags | length):].lstrip(' \t:-—|') %}
+      {% endif %}
+      {# Many pages open with a heading named Introduction; don't repeat it. #}
+      {% if excerpt.lower().startswith('introduction') and (page.title | striptags | lower) != 'introduction' %}
+        {% set rest = excerpt[12:] %}
+        {% if not rest or rest[0] in ' \t:-—|' %}
+          {% set excerpt = rest.lstrip(' \t:-—|') %}
+        {% endif %}
+      {% endif %}
+      {% if excerpt | length > 40 %}
+        {% set og_description = excerpt | truncate(200, False, '…') %}
+      {% else %}
+        {% set og_description = config.site_description or config.site_name %}
+      {% endif %}
+    {% endif %}
+
+    {% set image_meta = page.meta.image if page.meta and page.meta.image else none %}
+    {% if image_meta and (image_meta.startswith('http://') or image_meta.startswith('https://')) %}
+      {% set image_url = image_meta %}
+      {% set image_sized = false %}
+    {% else %}
+      {% set image_rel = image_meta if image_meta else 'imgs/og-card.png' %}
+      {% set image_url = (config.site_url or '').rstrip('/') ~ '/' ~ image_rel.lstrip('/') %}
+      {% set image_sized = not image_meta %}
+    {% endif %}
+    {% set image_lower = image_url | lower %}
+    {% if image_lower.endswith('.png') %}
+      {% set image_type = 'image/png' %}
+    {% elif image_lower.endswith('.webp') %}
+      {% set image_type = 'image/webp' %}
+    {% elif image_lower.endswith('.gif') %}
+      {% set image_type = 'image/gif' %}
+    {% else %}
+      {% set image_type = 'image/jpeg' %}
+    {% endif %}
+    {% if image_meta and page.meta.image_alt %}
+      {% set image_alt = page.meta.image_alt %}
+    {% elif image_meta %}
+      {% set image_alt = og_title %}
+    {% else %}
+      {% set image_alt = 'A Lazy Data Science Guide, a data science handbook by Mohit Mayank' %}
+    {% endif %}
+
+    {% set og_url = page.canonical_url or config.site_url %}
+    {% set og_type = 'website' if is_home else 'article' %}
+
+    <meta property="og:title" content="{{ og_title | e }}">
+    <meta property="og:description" content="{{ og_description | e }}">
+    <meta property="og:url" content="{{ og_url | e }}">
+    <meta property="og:type" content="{{ og_type }}">
+    <meta property="og:site_name" content="{{ config.site_name | e }}">
+    <meta property="og:image" content="{{ image_url | e }}">
+    <meta property="og:image:alt" content="{{ image_alt | e }}">
+    <meta property="og:image:type" content="{{ image_type }}">
+    {% if image_sized %}
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+    {% endif %}
+    {% set video_meta = page.meta.video if page.meta and page.meta.video else none %}
+    {% if video_meta and (video_meta.startswith('http://') or video_meta.startswith('https://')) %}
+      {% set video_url = video_meta %}
+      {% set video_sized = false %}
+    {% else %}
+      {% set video_rel = video_meta if video_meta else 'imgs/og-card.mp4' %}
+      {% set video_url = (config.site_url or '').rstrip('/') ~ '/' ~ video_rel.lstrip('/') %}
+      {% set video_sized = not video_meta %}
+    {% endif %}
+    {% if video_url.startswith('http://') %}
+      {% set video_secure = 'https://' ~ video_url[7:] %}
+    {% else %}
+      {% set video_secure = video_url %}
+    {% endif %}
+    {% set video_lower = video_url | lower %}
+    {% if video_lower.endswith('.webm') %}
+      {% set video_type = 'video/webm' %}
+    {% elif video_lower.endswith('.ogv') or video_lower.endswith('.ogg') %}
+      {% set video_type = 'video/ogg' %}
+    {% else %}
+      {% set video_type = 'video/mp4' %}
+    {% endif %}
+    {% if page.meta and page.meta.video_width and page.meta.video_height %}
+      {% set video_w = page.meta.video_width %}
+      {% set video_h = page.meta.video_height %}
+      {% set video_sized = true %}
+    {% elif video_sized %}
+      {% set video_w = 1200 %}
+      {% set video_h = 630 %}
+    {% endif %}
+    <meta property="og:video" content="{{ video_url | e }}">
+    <meta property="og:video:url" content="{{ video_url | e }}">
+    <meta property="og:video:secure_url" content="{{ video_secure | e }}">
+    <meta property="og:video:type" content="{{ video_type }}">
+    {% if video_sized %}
+      <meta property="og:video:width" content="{{ video_w }}">
+      <meta property="og:video:height" content="{{ video_h }}">
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ og_title | e }}">
+    <meta name="twitter:description" content="{{ og_description | e }}">
+    <meta name="twitter:image" content="{{ image_url | e }}">
+    <meta name="twitter:image:alt" content="{{ image_alt | e }}">
+  {% endif %}
+{% endblock %}
+
+<!-- Announcement bar -->
+{% block announce %}
+  Don't forget to give us a star on
+  <a rel="me" href="https://github.com/imohitmayank/a_lazy_data_science_guide">
+    <span class="twemoji github">
+      {% include ".icons/fontawesome/brands/github.svg" %}
+    </span>
+    <strong>Github</strong>
+  </a>
+  . For updates follow <strong>Mohit Mayank</strong> on 
+  <a href="https://www.linkedin.com/in/imohitmayank/">
+    <span class="twemoji linkedin">
+      {% include ".icons/fontawesome/brands/linkedin.svg" %}
+    </span>
+    <strong>LinkedIn</strong>
+  </a>
+  and
+  <a href="https://twitter.com/imohitmayank">
+    <span class="twemoji twitter">
+      {% include ".icons/fontawesome/brands/twitter.svg" %}
+    </span>
+    <strong>Twitter</strong>
+  </a>
+{% endblock %}
