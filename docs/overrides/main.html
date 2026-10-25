@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
 {#
-  Open Graph + Twitter Card tags for link previews (LinkedIn, X, Slack, …).
-  Image-only cards — do not add og:video; LinkedIn is handled without a bot special case.
+  Open Graph + Twitter Card tags for link previews (LinkedIn, X, iMessage, Facebook, Slack).
+  Image tags are always emitted. og:video is emitted as well for players that loop video.
+  LinkedInBot is handled outside this repo: the Cloudflare Worker on mohitmayank.com/*
+  strips og:video* for that user agent only.
 
   Optional per-page front matter:
     description: One or two sentences for the preview.
     summary: Used when description is not set.
     image: Site-root path (imgs/custom.png) or an absolute https URL.
     image_alt: Alt text when image is overridden.
+    video: Site-root path (imgs/custom.mp4) or an absolute URL.
+    video_width / video_height: Pixel size when video is overridden.
 #}
 {% block extrahead %}
   {% if page %}
@@ -153,6 +157,44 @@
     {% if image_sized %}
       <meta property="og:image:width" content="1200">
       <meta property="og:image:height" content="630">
+    {% endif %}
+    {% set video_meta = page.meta.video if page.meta and page.meta.video else none %}
+    {% if video_meta and (video_meta.startswith('http://') or video_meta.startswith('https://')) %}
+      {% set video_url = video_meta %}
+      {% set video_sized = false %}
+    {% else %}
+      {% set video_rel = video_meta if video_meta else 'imgs/og-card.mp4' %}
+      {% set video_url = (config.site_url or '').rstrip('/') ~ '/' ~ video_rel.lstrip('/') %}
+      {% set video_sized = not video_meta %}
+    {% endif %}
+    {% if video_url.startswith('http://') %}
+      {% set video_secure = 'https://' ~ video_url[7:] %}
+    {% else %}
+      {% set video_secure = video_url %}
+    {% endif %}
+    {% set video_lower = video_url | lower %}
+    {% if video_lower.endswith('.webm') %}
+      {% set video_type = 'video/webm' %}
+    {% elif video_lower.endswith('.ogv') or video_lower.endswith('.ogg') %}
+      {% set video_type = 'video/ogg' %}
+    {% else %}
+      {% set video_type = 'video/mp4' %}
+    {% endif %}
+    {% if page.meta and page.meta.video_width and page.meta.video_height %}
+      {% set video_w = page.meta.video_width %}
+      {% set video_h = page.meta.video_height %}
+      {% set video_sized = true %}
+    {% elif video_sized %}
+      {% set video_w = 1200 %}
+      {% set video_h = 630 %}
+    {% endif %}
+    <meta property="og:video" content="{{ video_url | e }}">
+    <meta property="og:video:url" content="{{ video_url | e }}">
+    <meta property="og:video:secure_url" content="{{ video_secure | e }}">
+    <meta property="og:video:type" content="{{ video_type }}">
+    {% if video_sized %}
+      <meta property="og:video:width" content="{{ video_w }}">
+      <meta property="og:video:height" content="{{ video_h }}">
     {% endif %}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ og_title | e }}">
